@@ -1,4 +1,6 @@
 package com.gym.gym_booking.enums;
 
 public enum PaymentMethod {
+    CASH,
+    MOCK
 }

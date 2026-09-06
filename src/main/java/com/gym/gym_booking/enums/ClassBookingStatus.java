@@ -1,6 +1,6 @@
 package com.gym.gym_booking.enums;
 
-public enum BookingStatus {
+public enum ClassBookingStatus {
     CONFIRMED,
     CANCELLED,
     COMPLETED,

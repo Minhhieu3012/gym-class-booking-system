@@ -1,6 +1,6 @@
 package com.gym.gym_booking.enums;
 
-public enum Role {
+public enum UserRole {
     MEMBER,
     TRAINER,
     ADMIN
