@@ -42,12 +42,12 @@ Public
 
 ### Description
 
-Authenticate a user using `phone` or `address` as the username.
+Authenticate a user using `phone` or `email` as the username.
 
 The `username` field can contain either:
 
 - User phone number
-- User address
+- User email
 
 ### Request Body
 
@@ -83,7 +83,7 @@ or:
     "id": 1,
     "fullName": "Nguyen Van A",
     "phone": "0901234567",
-    "address": "user@example.com",
+    "email": "user@example.com",
     "role": "MEMBER",
     "status": "ACTIVE"
   }
@@ -139,7 +139,7 @@ Public
 ```json
 {
   "phone": "0901234567",
-  "address": "user@example.com",
+  "email": "user@example.com",
   "password": "123456",
   "fullName": "Nguyen Van A"
 }
@@ -148,7 +148,7 @@ Public
 ### Validation
 
 - `phone`: required and unique
-- `address`: required and unique
+- `email`: required and unique
 - `password`: required
 - `fullName`: required
 - New users are assigned the `MEMBER` role
@@ -164,7 +164,7 @@ Public
 {
   "id": 1,
   "phone": "0901234567",
-  "address": "user@example.com",
+  "email": "user@example.com",
   "fullName": "Nguyen Van A",
   "role": "MEMBER",
   "status": "ACTIVE"
@@ -190,8 +190,8 @@ Public
 
 ```json
 {
-  "code": "ADDRESS_ALREADY_EXISTS",
-  "message": "Address is already registered"
+  "code": "EMAIL_ALREADY_EXISTS",
+  "message": "Email is already registered"
 }
 ```
 
@@ -221,8 +221,9 @@ MEMBER / TRAINER / ADMIN
 {
   "id": 1,
   "phone": "0901234567",
-  "address": "user@example.com",
+  "email": "user@example.com",
   "fullName": "Nguyen Van A",
+  "address": "123 Nguyen Trai, HCMC",
   "avatarUrl": "/uploads/avatar.jpg",
   "role": "MEMBER",
   "status": "ACTIVE"
@@ -272,6 +273,18 @@ MEMBER / TRAINER / ADMIN
 ```text
 200 OK
 ```
+```json
+{
+  "id": 1,
+  "phone": "0901234567",
+  "email": "user@example.com",
+  "fullName": "Nguyen Van A",
+  "address": "123 Nguyen Trai, HCMC",
+  "avatarUrl": "/uploads/avatar.jpg",
+  "role": "MEMBER",
+  "status": "ACTIVE"
+}
+```
 
 Returns the current user's profile.
 
@@ -303,9 +316,11 @@ MEMBER / TRAINER / ADMIN
 ### Business Rules
 
 - User can update only their own profile.
-- `phone` must remain unique.
-- `address` must remain unique.
-- User cannot change their own role through this API.
+- phone must remain unique.
+- email is not changed through this API.
+- address does not need to be unique.
+- User cannot change their own role.
+- User cannot change their own status.
 
 ### Success
 
@@ -341,7 +356,16 @@ MEMBER / TRAINER / ADMIN
 ```text
 200 OK
 ```
-
+### Errors
+```text
+400 Bad Request
+```
+```json
+{
+"code": "INVALID_CURRENT_PASSWORD",
+"message": "Current password is incorrect"
+}
+```
 ---
 
 ## 3.4. Get Users
@@ -511,6 +535,15 @@ PATCH /trainers/profile
 ```text
 TRAINER
 ```
+### Request Body
+```json
+{
+"specialization": "Fitness",
+"experienceYears": 6,
+"hourlyFee": 250000,
+"bio": "Professional fitness trainer"
+}
+```
 
 ### Success
 
@@ -546,10 +579,16 @@ Approve a Trainer profile after reviewing their information.
 {
   "id": 5,
   "status": "ACTIVE",
-  "approvedBy": 1
+  "approvedBy": 1,
+  "approvedAt": "2026-09-08T10:00:00"
 }
 ```
-
+### Business Rules
+- Trainer profile must exist.
+- Trainer must not already be active.
+- approvedBy is set to the current admin.
+- approvedAt is set to the current time.
+- User status becomes ACTIVE.
 ---
 
 ## 4.6. Reject Trainer
@@ -577,7 +616,11 @@ ADMIN
 ```text
 200 OK
 ```
-
+### Business Rules
+- Trainer profile must exist.
+- User status becomes REJECTED.
+- The rejection reason may be included in a notification to the trainer.
+- approvedBy and approvedAt remain unchanged unless business requirements specify otherwise.
 ---
 
 # 5. Room APIs
@@ -652,7 +695,13 @@ ADMIN
   "status": "ACTIVE"
 }
 ```
-
+### Validation
+```text
+- name: required
+- location: required
+- capacity > 0
+- status: valid room status
+```
 ### Success
 
 ```text
@@ -672,7 +721,20 @@ PATCH /rooms/{id}
 ```text
 ADMIN
 ```
-
+### Request Body
+```json
+{
+"name": "Room A",
+"location": "Second Floor",
+"capacity": 25
+}
+```
+### Business Rules
+```text
+- Room must exist.
+- Capacity cannot be smaller than the maxCapacity of an existing scheduled class in a way that violates current data.
+- Updating a room does not automatically cancel existing classes.
+```
 ### Success
 
 ```text
@@ -681,7 +743,7 @@ ADMIN
 
 ---
 
-## 5.5. Delete/Deactivate Room
+## 5.5. Update Room Status
 
 ```http
 PATCH /rooms/{id}/status
@@ -700,7 +762,11 @@ ADMIN
   "status": "INACTIVE"
 }
 ```
-
+### Valid Values
+```text
+ACTIVE
+INACTIVE
+```
 ---
 
 # 6. Class Type APIs
@@ -786,7 +852,15 @@ PATCH /class-types/{id}
 ```text
 ADMIN
 ```
+### Request Body
 
+```json
+{
+  "name": "Yoga",
+  "description": "Basic yoga class",
+  "isActive": true
+}
+```
 ### Success
 
 ```text
@@ -878,14 +952,18 @@ ADMIN
 ```
 
 ### Business Rules
-
+```text
+- Class type must exist and be active.
 - Trainer must exist and be active.
 - Room must exist and be active.
-- `startTime` must be before `endTime`.
-- The room cannot have another class at the same time.
-- The trainer cannot have another class at the same time.
-- `maxCapacity` must not exceed room capacity.
-
+- startTime must be before endTime.
+- Room cannot have another class with overlapping time.
+- Trainer cannot have another class with overlapping time.
+- maxCapacity > 0.
+- maxCapacity cannot exceed room capacity.
+- currentCount is initialized to 0.
+- Class status is initialized according to the system's default class status.
+```
 ### Success
 
 ```text
@@ -905,7 +983,24 @@ PATCH /classes/{id}
 ```text
 ADMIN
 ```
-
+### Request Body
+```json
+{
+"title": "Morning Yoga Advanced",
+"roomId": 2,
+"trainerId": 5,
+"maxCapacity": 20,
+"startTime": "2026-09-10T08:00:00",
+"endTime": "2026-09-10T09:00:00"
+}
+```
+### Business Rules
+```text
+- Same conflict rules as class creation.
+- Cannot update a cancelled class.
+- Cannot reduce maxCapacity below the current booking count.
+- Existing bookings remain associated with the same class.
+```
 ### Success
 
 ```text
@@ -933,7 +1028,15 @@ ADMIN
   "reason": "Trainer unavailable"
 }
 ```
-
+### Business Rules
+```text
+- Class must exist.
+- Class cannot already be cancelled.
+- Class status becomes CANCELLED.
+- Existing confirmed bookings should be handled according to the cancellation policy.
+- Members should receive notifications.
+- If package sessions were consumed, they should be restored according to the cancellation policy.
+```
 ### Success
 
 ```text
@@ -1031,6 +1134,14 @@ TRAINER
 }
 ```
 
+### Business Rules
+```text
+- Trainer is determined from authenticated user.
+- startTime < endTime.
+- Time slot cannot overlap another time slot belonging to the same trainer.
+- Time slot cannot be created in the past.
+- Initial status is AVAILABLE.
+```
 ### Success
 
 ```text
@@ -1051,12 +1162,21 @@ PATCH /trainers/time-slots/{id}
 TRAINER
 ```
 
+### Request Body
+```json
+{
+"startTime": "2026-09-10T15:00:00",
+"endTime": "2026-09-10T16:00:00"
+}
+```
 ### Business Rules
-
+```text
 - Trainer can update only their own time slots.
-- A booked time slot cannot be changed to another time.
-- A time slot cannot overlap another time slot of the same Trainer.
-
+- A booked time slot cannot be changed.
+- Time slot cannot overlap another time slot of the same trainer.
+- startTime < endTime.
+- Past time slots cannot be modified.
+```
 ### Success
 
 ```text
@@ -1076,7 +1196,11 @@ PATCH /trainers/time-slots/{id}/deactivate
 ```text
 TRAINER
 ```
-
+### Business Rules
+```text
+- Trainer can deactivate only their own time slots.
+- A booked time slot cannot be deactivated unless cancellation policy allows it.
+```
 ### Success
 
 ```text
@@ -1109,16 +1233,19 @@ MEMBER
 ```
 
 ### Business Rules
-
 - Member package must belong to current member.
-- Package must be active and not expired.
-- `sessionsRemaining` must be greater than `0`.
-- Class must exist and allow booking.
+- Member package must be ACTIVE.
+- Current date must be within package validity period.
+- sessionsRemaining > 0.
+- Gym class must exist.
+- Gym class must allow booking.
 - Class must not have started.
 - Class must have available capacity.
 - Member cannot have another active booking for the same class.
 - One package session is consumed.
-- `currentCount` increases by `1`.
+- currentCount increases by 1.
+- Booking status becomes CONFIRMED.
+- Attendance status becomes NOT_MARKED.
 - All operations must be transactional.
 
 ### Success
@@ -1215,14 +1342,14 @@ MEMBER
 ```
 
 ### Business Rules
-
 - Member can cancel only their own booking.
-- Booking must not already be cancelled.
+- Booking must be CONFIRMED.
 - Class must not have started.
-- Booking status becomes `CANCELLED`.
-- `cancelledAt` is set.
+- Booking status becomes CANCELLED.
+- cancelledAt is set.
+- cancelReason is saved.
 - One package session is restored.
-- `currentCount` decreases by `1`.
+- currentCount decreases by 1.
 - All operations must be transactional.
 
 ### Success
