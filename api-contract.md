@@ -1,6 +1,6 @@
 # API Contract
 
-This document defines the API contract for the Gym Class Booking & Trainer Chat System.
+Defines the API contract for the Gym Class Booking & Trainer Chat System.
 
 ---
 
@@ -8,19 +8,22 @@ This document defines the API contract for the Gym Class Booking & Trainer Chat 
 
 The system provides APIs for:
 
-- Authentication and account management
-- Member management
-- Trainer management
-- Gym class management
-- Trainer 1-1 PT time slot management
-- Class booking
-- PT booking
-- Package and member package management
-- Payment transactions
-- Reviews
-- Chat between Member and Trainer
-- Training progress notes
-- Notifications
+- Authentication & Account Management (Member registration, Trainer application, Password recovery)
+- User & Profile Management
+- Trainer Management & Approval
+- Room & Class Type Core Management
+- Gym Class & Schedule Conflict Management
+- Trainer 1-1 PT Time Slot Management
+- Group Class Booking
+- PT Booking & Rescheduling
+- Packages & Member Packages Management (including Admin Manual Adjustments)
+- Payment & Mock Transactions
+- Reviews & Moderation
+- Real-time Chat (HTTP & WebSocket/STOMP)
+- Training Progress Notes
+- In-App Notifications
+- System Feedbacks
+- Analytics & Reporting Dashboard
 
 ---
 
@@ -42,7 +45,7 @@ Public
 
 ### Description
 
-Authenticate a user using `phone` or `email` as the username.
+Authenticate a user using `phone number` or `email` as the username.
 
 The `username` field can contain either:
 
@@ -54,7 +57,7 @@ The `username` field can contain either:
 ```json
 {
   "username": "0901234567",
-  "password": "123456"
+  "password": "password123"
 }
 ```
 
@@ -63,7 +66,7 @@ or:
 ```json
 {
   "username": "user@example.com",
-  "password": "123456"
+  "password": "password123"
 }
 ```
 
@@ -197,7 +200,129 @@ Public
 
 ---
 
-## 2.3. Get Current User
+## 2.3. Register Trainer (Application Form)
+
+### Endpoint
+
+```http
+POST /auth/register-trainer
+```
+
+### Authentication
+
+```text
+Public
+```
+
+### Request Body
+
+```json
+{
+  "fullName": "Tran Van Trainer",
+  "phone": "0988888888",
+  "email": "trainer@example.com",
+  "password": "securepassword",
+  "specialization": "Weight Loss & Strength Training",
+  "experienceYears": 5,
+  "hourlyFee": 250000,
+  "bio": "Certified fitness instructor with 5 years experience.",
+  "avatarUrl": "https://res.cloudinary.com/.../trainer-avatar.jpg"
+}
+```
+
+### Success
+
+```text
+201 Created
+```
+
+```json
+{
+  "id": 2,
+  "fullName": "Tran Van Trainer",
+  "email": "trainer@example.com",
+  "role": "TRAINER",
+  "status": "PENDING",
+  "message": "Trainer application submitted successfully. Awaiting Admin approval."
+}
+```
+
+---
+
+## 2.4. Forgot Password
+
+### Endpoint
+
+```http
+POST /auth/forgot-password
+```
+
+### Authentication
+
+```text
+Public
+```
+
+### Request Body
+
+```json
+{
+  "email": "user@example.com"
+}
+```
+
+### Success
+
+```text
+200 OK
+```
+
+```json
+{
+  "message": "If the email is registered, a password reset instruction has been sent."
+}
+```
+
+---
+
+## 2.5. Reset Password
+
+### Endpoint
+
+```http
+POST /auth/reset-password
+```
+
+### Authentication
+
+```text
+Public
+```
+
+### Request Body
+
+```json
+{
+  "token": "reset-token-uuid",
+  "newPassword": "newPassword123"
+}
+```
+
+### Success
+
+```text
+200 OK
+```
+
+```json
+{
+  "message": "Password has been reset successfully. You can now login with your new password."
+}
+```
+
+---
+
+## 2.6. Get Current User
 
 ### Endpoint
 
@@ -224,7 +349,7 @@ MEMBER / TRAINER / ADMIN
   "email": "user@example.com",
   "fullName": "Nguyen Van A",
   "address": "123 Nguyen Trai, HCMC",
-  "avatarUrl": "/uploads/avatar.jpg",
+  "avatarUrl": "[https://res.cloudinary.com/.../avatar.jpg](https://res.cloudinary.com/.../avatar.jpg)",
   "role": "MEMBER",
   "status": "ACTIVE"
 }
@@ -232,7 +357,7 @@ MEMBER / TRAINER / ADMIN
 
 ---
 
-## 2.4. Logout
+## 2.7. Logout
 
 ### Endpoint
 
@@ -273,6 +398,7 @@ MEMBER / TRAINER / ADMIN
 ```text
 200 OK
 ```
+
 ```json
 {
   "id": 1,
@@ -280,7 +406,7 @@ MEMBER / TRAINER / ADMIN
   "email": "user@example.com",
   "fullName": "Nguyen Van A",
   "address": "123 Nguyen Trai, HCMC",
-  "avatarUrl": "/uploads/avatar.jpg",
+  "avatarUrl": "[https://res.cloudinary.com/.../avatar.jpg](https://res.cloudinary.com/.../avatar.jpg)",
   "role": "MEMBER",
   "status": "ACTIVE"
 }
@@ -308,7 +434,7 @@ MEMBER / TRAINER / ADMIN
 {
   "fullName": "Nguyen Van A",
   "phone": "0901234567",
-  "address": "user@example.com",
+  "address": "123 Dien Bien Phu, Q1",
   "avatarUrl": "/uploads/avatar.jpg"
 }
 ```
@@ -356,16 +482,20 @@ MEMBER / TRAINER / ADMIN
 ```text
 200 OK
 ```
+
 ### Errors
+
 ```text
 400 Bad Request
 ```
+
 ```json
 {
-"code": "INVALID_CURRENT_PASSWORD",
-"message": "Current password is incorrect"
+  "code": "INVALID_CURRENT_PASSWORD",
+  "message": "Current password is incorrect"
 }
 ```
+
 ---
 
 ## 3.4. Get Users
@@ -382,13 +512,13 @@ ADMIN
 
 ### Query Parameters
 
-| Parameter | Type | Required | Description |
-|---|---|---|---|
-| `page` | Integer | No | Page number |
-| `size` | Integer | No | Number of records |
-| `role` | String | No | MEMBER, TRAINER or ADMIN |
-| `status` | String | No | PENDING, ACTIVE, LOCKED, REJECTED |
-| `keyword` | String | No | Search by name, phone or address |
+| Parameter | Type    | Required | Description                       |
+| --------- | ------- | -------- | --------------------------------- |
+| `page`    | Integer | No       | Page number                       |
+| `size`    | Integer | No       | Number of records                 |
+| `role`    | String  | No       | MEMBER, TRAINER or ADMIN          |
+| `status`  | String  | No       | PENDING, ACTIVE, LOCKED, REJECTED |
+| `keyword` | String  | No       | Search by name, phone or address  |
 
 ### Success
 
@@ -444,13 +574,13 @@ Public
 
 ### Query Parameters
 
-| Parameter | Type | Required | Description |
-|---|---|---|---|
-| `page` | Integer | No | Page number |
-| `size` | Integer | No | Number of records |
-| `specialization` | String | No | Filter by specialization |
-| `status` | String | No | Trainer account status |
-| `keyword` | String | No | Search by trainer name |
+| Parameter        | Type    | Required | Description              |
+| ---------------- | ------- | -------- | ------------------------ |
+| `page`           | Integer | No       | Page number              |
+| `size`           | Integer | No       | Number of records        |
+| `specialization` | String  | No       | Filter by specialization |
+| `status`         | String  | No       | Trainer account status   |
+| `keyword`        | String  | No       | Search by trainer name   |
 
 ### Success
 
@@ -535,13 +665,15 @@ PATCH /trainers/profile
 ```text
 TRAINER
 ```
+
 ### Request Body
+
 ```json
 {
-"specialization": "Fitness",
-"experienceYears": 6,
-"hourlyFee": 250000,
-"bio": "Professional fitness trainer"
+  "specialization": "Fitness",
+  "experienceYears": 6,
+  "hourlyFee": 250000,
+  "bio": "Professional fitness trainer"
 }
 ```
 
@@ -583,12 +715,15 @@ Approve a Trainer profile after reviewing their information.
   "approvedAt": "2026-09-08T10:00:00"
 }
 ```
+
 ### Business Rules
+
 - Trainer profile must exist.
 - Trainer must not already be active.
 - approvedBy is set to the current admin.
 - approvedAt is set to the current time.
 - User status becomes ACTIVE.
+
 ---
 
 ## 4.6. Reject Trainer
@@ -616,11 +751,14 @@ ADMIN
 ```text
 200 OK
 ```
+
 ### Business Rules
+
 - Trainer profile must exist.
 - User status becomes REJECTED.
 - The rejection reason may be included in a notification to the trainer.
 - approvedBy and approvedAt remain unchanged unless business requirements specify otherwise.
+
 ---
 
 # 5. Room APIs
@@ -695,13 +833,16 @@ ADMIN
   "status": "ACTIVE"
 }
 ```
+
 ### Validation
+
 ```text
 - name: required
 - location: required
 - capacity > 0
 - status: valid room status
 ```
+
 ### Success
 
 ```text
@@ -721,20 +862,25 @@ PATCH /rooms/{id}
 ```text
 ADMIN
 ```
+
 ### Request Body
+
 ```json
 {
-"name": "Room A",
-"location": "Second Floor",
-"capacity": 25
+  "name": "Room A",
+  "location": "Second Floor",
+  "capacity": 25
 }
 ```
+
 ### Business Rules
+
 ```text
 - Room must exist.
 - Capacity cannot be smaller than the maxCapacity of an existing scheduled class in a way that violates current data.
 - Updating a room does not automatically cancel existing classes.
 ```
+
 ### Success
 
 ```text
@@ -762,11 +908,14 @@ ADMIN
   "status": "INACTIVE"
 }
 ```
+
 ### Valid Values
+
 ```text
 ACTIVE
 INACTIVE
 ```
+
 ---
 
 # 6. Class Type APIs
@@ -852,6 +1001,7 @@ PATCH /class-types/{id}
 ```text
 ADMIN
 ```
+
 ### Request Body
 
 ```json
@@ -861,6 +1011,7 @@ ADMIN
   "isActive": true
 }
 ```
+
 ### Success
 
 ```text
@@ -885,17 +1036,17 @@ Public
 
 ### Query Parameters
 
-| Parameter | Type | Required | Description |
-|---|---|---|---|
-| `page` | Integer | No | Page number |
-| `size` | Integer | No | Number of records |
-| `classTypeId` | Long | No | Filter by class type |
-| `trainerId` | Long | No | Filter by trainer |
-| `roomId` | Long | No | Filter by room |
-| `status` | String | No | Filter by class status |
-| `from` | DateTime | No | Start of time range |
-| `to` | DateTime | No | End of time range |
-| `keyword` | String | No | Search by class title |
+| Parameter     | Type     | Required | Description            |
+| ------------- | -------- | -------- | ---------------------- |
+| `page`        | Integer  | No       | Page number            |
+| `size`        | Integer  | No       | Number of records      |
+| `classTypeId` | Long     | No       | Filter by class type   |
+| `trainerId`   | Long     | No       | Filter by trainer      |
+| `roomId`      | Long     | No       | Filter by room         |
+| `status`      | String   | No       | Filter by class status |
+| `from`        | DateTime | No       | Start of time range    |
+| `to`          | DateTime | No       | End of time range      |
+| `keyword`     | String   | No       | Search by class title  |
 
 ### Success
 
@@ -952,6 +1103,7 @@ ADMIN
 ```
 
 ### Business Rules
+
 ```text
 - Class type must exist and be active.
 - Trainer must exist and be active.
@@ -964,6 +1116,7 @@ ADMIN
 - currentCount is initialized to 0.
 - Class status is initialized according to the system's default class status.
 ```
+
 ### Success
 
 ```text
@@ -983,24 +1136,29 @@ PATCH /classes/{id}
 ```text
 ADMIN
 ```
+
 ### Request Body
+
 ```json
 {
-"title": "Morning Yoga Advanced",
-"roomId": 2,
-"trainerId": 5,
-"maxCapacity": 20,
-"startTime": "2026-09-10T08:00:00",
-"endTime": "2026-09-10T09:00:00"
+  "title": "Morning Yoga Advanced",
+  "roomId": 2,
+  "trainerId": 5,
+  "maxCapacity": 20,
+  "startTime": "2026-09-10T08:00:00",
+  "endTime": "2026-09-10T09:00:00"
 }
 ```
+
 ### Business Rules
+
 ```text
 - Same conflict rules as class creation.
 - Cannot update a cancelled class.
 - Cannot reduce maxCapacity below the current booking count.
 - Existing bookings remain associated with the same class.
 ```
+
 ### Success
 
 ```text
@@ -1028,7 +1186,9 @@ ADMIN
   "reason": "Trainer unavailable"
 }
 ```
+
 ### Business Rules
+
 ```text
 - Class must exist.
 - Class cannot already be cancelled.
@@ -1037,6 +1197,7 @@ ADMIN
 - Members should receive notifications.
 - If package sessions were consumed, they should be restored according to the cancellation policy.
 ```
+
 ### Success
 
 ```text
@@ -1066,6 +1227,47 @@ TRAINER / ADMIN
 
 ```text
 200 OK
+```
+
+---
+
+## 7.7. Get Class Schedule Conflicts
+
+### Endpoint
+
+```http
+GET /admin/classes/conflicts
+```
+
+### Authentication
+
+```text
+ADMIN
+```
+
+### Description
+
+Detect any overlapping room bookings or trainer double-bookings across all scheduled classes.
+
+### Success
+
+```text
+200 OK
+```
+
+```json
+{
+  "conflicts": [
+    {
+      "type": "ROOM_OVERLAP",
+      "roomId": 2,
+      "roomName": "Studio A",
+      "firstClassId": 10,
+      "secondClassId": 14,
+      "conflictTime": "2026-09-12T08:00:00 - 09:00:00"
+    }
+  ]
+}
 ```
 
 ---
@@ -1135,6 +1337,7 @@ TRAINER
 ```
 
 ### Business Rules
+
 ```text
 - Trainer is determined from authenticated user.
 - startTime < endTime.
@@ -1142,6 +1345,7 @@ TRAINER
 - Time slot cannot be created in the past.
 - Initial status is AVAILABLE.
 ```
+
 ### Success
 
 ```text
@@ -1163,13 +1367,16 @@ TRAINER
 ```
 
 ### Request Body
+
 ```json
 {
-"startTime": "2026-09-10T15:00:00",
-"endTime": "2026-09-10T16:00:00"
+  "startTime": "2026-09-10T15:00:00",
+  "endTime": "2026-09-10T16:00:00"
 }
 ```
+
 ### Business Rules
+
 ```text
 - Trainer can update only their own time slots.
 - A booked time slot cannot be changed.
@@ -1177,6 +1384,7 @@ TRAINER
 - startTime < endTime.
 - Past time slots cannot be modified.
 ```
+
 ### Success
 
 ```text
@@ -1196,11 +1404,14 @@ PATCH /trainers/time-slots/{id}/deactivate
 ```text
 TRAINER
 ```
+
 ### Business Rules
+
 ```text
 - Trainer can deactivate only their own time slots.
 - A booked time slot cannot be deactivated unless cancellation policy allows it.
 ```
+
 ### Success
 
 ```text
@@ -1233,6 +1444,8 @@ MEMBER
 ```
 
 ### Business Rules
+
+- `memberPackageId` is optional: If provided, consumes that specific package. If omitted or null, system automatically selects the member's active package with the highest `priority_order` and nearest expiration date.
 - Member package must belong to current member.
 - Member package must be ACTIVE.
 - Current date must be within package validity period.
@@ -1342,9 +1555,10 @@ MEMBER
 ```
 
 ### Business Rules
+
 - Member can cancel only their own booking.
 - Booking must be CONFIRMED.
-- Class must not have started.
+- Must be cancelled at least 24 hours prior to class startTime (startTime - now >= 24h).
 - Booking status becomes CANCELLED.
 - cancelledAt is set.
 - cancelReason is saved.
@@ -1475,7 +1689,7 @@ MEMBER
 - Package must be active and not expired.
 - Package must have remaining sessions.
 - Time slot cannot be booked by another Member.
-- One package session is consumed only when the booking is confirmed according to the business flow.
+- One package session is immediately consumed upon creating the booking (status PENDING) to secure the reservation. If the trainer rejects or member cancels (>=24h), this session is automatically refunded.
 - Booking creation and package update must be transactional.
 
 ### Success
@@ -1605,7 +1819,70 @@ TRAINER
 
 ---
 
-## 10.6. Cancel PT Booking
+## 10.6. Reschedule PT Booking
+
+### Endpoint
+
+```http
+PATCH /pt-bookings/{id}/reschedule
+```
+
+### Authentication
+
+```text
+MEMBER
+```
+
+### Description
+
+Reschedule a confirmed PT session to a new available time slot with the same trainer.
+
+### Request Body
+
+```json
+{
+  "newTimeSlotId": 25
+}
+```
+
+### Business Rules
+
+- Must be rescheduled at least 24 hours prior to the original start time.
+- newTimeSlotId must be AVAILABLE and belong to the same trainer.
+- Releases old slot back to AVAILABLE; marks new slot as BOOKED.
+- Retains original memberPackageId with no additional session deducted.
+
+### Success
+
+```text
+200 OK
+```
+
+```json
+{
+  "id": 200,
+  "timeSlotId": 25,
+  "status": "CONFIRMED",
+  "message": "PT booking rescheduled successfully"
+}
+```
+
+### Errors
+
+```text
+400 Bad Request
+```
+
+```json
+{
+  "code": "DEADLINE_EXCEEDED",
+  "message": "Cannot reschedule booking less than 24 hours before start time"
+}
+```
+
+---
+
+## 10.7. Cancel PT Booking
 
 ```http
 PATCH /pt-bookings/{id}/cancel
@@ -1627,6 +1904,7 @@ MEMBER / TRAINER / ADMIN
 
 ### Business Rules
 
+- If cancelled by Member, must be cancelled at least 24 hours prior to slot startTime (startTime - now >= 24h). Otherwise, request is rejected with 400 Bad Request (DEADLINE_EXCEEDED).
 - User must have permission to cancel the booking.
 - Booking must be cancellable.
 - Cancelled booking cannot be cancelled again.
@@ -1641,7 +1919,7 @@ MEMBER / TRAINER / ADMIN
 
 ---
 
-## 10.7. Update PT Attendance
+## 10.8. Update PT Attendance
 
 ```http
 PATCH /pt-bookings/{id}/attendance
@@ -1677,7 +1955,7 @@ ABSENT
 
 ---
 
-## 10.8. Get PT Bookings for Trainer
+## 10.9. Get PT Bookings for Trainer
 
 ```http
 GET /pt-bookings/trainer/me
@@ -1962,6 +2240,37 @@ size
 ```text
 200 OK
 ```
+
+---
+
+## 12.5. Adjust Member Package (Manual Override)
+
+```http
+PATCH /member-packages/{id}/adjust
+```
+
+**Authentication:** ADMIN
+
+**Description:** Manually add or subtract remaining sessions and/or update the expiry date of a Member Package. This action triggers an audit log.
+
+**Request Body**
+
+```json
+{
+  "sessionsAdjustment": 2,
+  "newEndDate": "2026-10-20",
+  "reason": "Medical freeze compensation: member presented physician certificate for 14-day recovery window."
+}
+```
+
+**Business Rules**
+
+- `sessionsAdjustment`: Can be positive (add) or negative (subtract). If 0, no change is made to sessions.
+- `newEndDate`: Optional. If provided, overrides the current package expiration date.
+- `reason`: Required for auditing purposes.
+- System must send an automated confirmation alert to the member's registered email/app.
+
+**Success:** `200 OK`
 
 ---
 
@@ -2331,6 +2640,7 @@ MEMBER / TRAINER
 
 ### Validation
 
+- Active Booking Requirement: Member and Trainer can only exchange messages if there is an active class booking or a CONFIRMED PT booking between them (validated via hasActiveBooking). If not eligible, reject with 403 Forbidden (or send error to /user/queue/errors).
 - Sender must be authenticated.
 - Receiver must exist.
 - Member can chat with Trainer.
@@ -2577,26 +2887,29 @@ MEMBER / TRAINER / ADMIN
 
 # 18. API Authorization Summary
 
-| Module | Public | MEMBER | TRAINER | ADMIN |
-|---|---|---|---|---|
-| Authentication | ✓ | ✓ | ✓ | ✓ |
-| User Profile | | ✓ | ✓ | ✓ |
-| User Management | | | | ✓ |
-| Trainer List | ✓ | ✓ | ✓ | ✓ |
-| Trainer Approval | | | | ✓ |
-| Rooms | ✓ | | | ✓ |
-| Class Types | ✓ | | | ✓ |
-| Gym Classes | ✓ | ✓ | ✓ | ✓ |
-| Trainer Time Slots | | ✓ | ✓ | ✓ |
-| Class Booking | | ✓ | | ✓ |
-| PT Booking | | ✓ | ✓ | ✓ |
-| Packages | ✓ | ✓ | ✓ | ✓ |
-| Member Packages | | ✓ | | ✓ |
-| Transactions | | ✓ | | ✓ |
-| Reviews | ✓ | ✓ | | ✓ |
-| Chat | | ✓ | ✓ | |
-| Progress Notes | | ✓ | ✓ | ✓ |
-| Notifications | | ✓ | ✓ | ✓ |
+| Module                | Public | MEMBER | TRAINER | ADMIN |
+| --------------------- | ------ | ------ | ------- | ----- |
+| Authentication        | ✓      | ✓      | ✓       | ✓     |
+| User Profile          |        | ✓      | ✓       | ✓     |
+| User Management       |        |        |         | ✓     |
+| Trainer List          | ✓      | ✓      | ✓       | ✓     |
+| Trainer Approval      |        |        |         | ✓     |
+| Rooms                 | ✓      |        |         | ✓     |
+| Class Types           | ✓      |        |         | ✓     |
+| Gym Classes           | ✓      | ✓      | ✓       | ✓     |
+| Trainer Time Slots    |        | ✓      | ✓       | ✓     |
+| Class Booking         |        | ✓      |         | ✓     |
+| PT Booking            |        | ✓      | ✓       | ✓     |
+| Packages              | ✓      | ✓      | ✓       | ✓     |
+| Member Packages       |        | ✓      |         | ✓     |
+| Transactions          |        | ✓      |         | ✓     |
+| Reviews               | ✓      | ✓      |         | ✓     |
+| Chat                  |        | ✓      | ✓       |       |
+| Progress Notes        |        | ✓      | ✓       | ✓     |
+| Notifications         |        | ✓      | ✓       | ✓     |
+| Media Upload          |        | ✓      | ✓       | ✓     |
+| Feedbacks             |        | ✓      |         | ✓     |
+| Analytics & Reporting |        |        |         | ✓     |
 
 ---
 
@@ -2697,121 +3010,424 @@ For business conflicts:
 
 ---
 
-# 21. Important ERD Consistency Rules
+# 21. Media & File Upload APIs
 
-Because `phone` or `address` is used as the login username, both fields should be unique in the database.
+## 21.1. Upload File
 
-Recommended constraints:
+### Endpoint
 
-```text
-User.phone    -> UQ
-User.address  -> UQ
-User.email    -> UQ
+```http
+POST /upload
 ```
 
-The login API searches the submitted `username` against:
+### Authentication
 
 ```text
-User.phone
-OR
-User.address
+MEMBER / TRAINER / ADMIN
 ```
 
-Example:
+### Description
+
+Upload an image (Avatar, Chat Image, Feedback Attachment) to Cloudinary and return the secure URL.
+
+### Request Body
+
+Content-Type: `multipart/form-data`
+
+| Field | Type          | Required | Description                           |
+| ----- | ------------- | -------- | ------------------------------------- |
+| file  | File (Binary) | Yes      | The image file to upload (JPEG, PNG). |
+
+### Success
 
 ```text
-username = "0901234567"
-        |
-        +--> User.phone
-
-username = "user@example.com"
-        |
-        +--> User.address
+201 Created
 ```
 
-The system should not require a separate `username` column because the existing `phone` and `address` fields already provide the two supported login identifiers.
+```json
+{
+  "imageUrl": "https://res.cloudinary.com/demo/image/upload/v1234567890/sample.jpg",
+  "format": "jpg",
+  "createdAt": "2026-09-08T12:00:00"
+}
+```
 
 ---
 
-# 22. API Summary
+# 22. Feedback APIs
 
-| Method | Endpoint | Auth | Description |
-|---|---|---|---|
-| POST | `/auth/login` | Public | Login using phone or address |
-| POST | `/auth/register` | Public | Register Member |
-| GET | `/auth/me` | All authenticated | Get current user |
-| POST | `/auth/logout` | All authenticated | Logout |
-| GET | `/users/me` | All authenticated | Get own profile |
-| PATCH | `/users/me` | All authenticated | Update own profile |
-| PATCH | `/users/me/password` | All authenticated | Change password |
-| GET | `/users` | ADMIN | Get users |
-| PATCH | `/users/{id}/status` | ADMIN | Update user status |
-| GET | `/trainers` | Public | Get trainer list |
-| GET | `/trainers/{id}` | Public | Get trainer details |
-| POST | `/trainers/profile` | TRAINER | Create trainer profile |
-| PATCH | `/trainers/profile` | TRAINER | Update trainer profile |
-| PATCH | `/admin/trainers/{id}/approve` | ADMIN | Approve trainer |
-| PATCH | `/admin/trainers/{id}/reject` | ADMIN | Reject trainer |
-| GET | `/rooms` | Public | Get rooms |
-| GET | `/rooms/{id}` | Public | Get room details |
-| POST | `/rooms` | ADMIN | Create room |
-| PATCH | `/rooms/{id}` | ADMIN | Update room |
-| PATCH | `/rooms/{id}/status` | ADMIN | Update room status |
-| GET | `/class-types` | Public | Get class types |
-| GET | `/class-types/{id}` | Public | Get class type details |
-| POST | `/class-types` | ADMIN | Create class type |
-| PATCH | `/class-types/{id}` | ADMIN | Update class type |
-| GET | `/classes` | Public | Get class list |
-| GET | `/classes/{id}` | Public | Get class details |
-| POST | `/classes` | ADMIN | Create class |
-| PATCH | `/classes/{id}` | ADMIN | Update class |
-| PATCH | `/classes/{id}/cancel` | ADMIN | Cancel class |
-| GET | `/classes/{classId}/bookings` | TRAINER / ADMIN | Get class bookings |
-| GET | `/trainers/{trainerId}/time-slots` | MEMBER / TRAINER / ADMIN | Get trainer time slots |
-| POST | `/trainers/time-slots` | TRAINER | Create time slot |
-| PATCH | `/trainers/time-slots/{id}` | TRAINER | Update time slot |
-| PATCH | `/trainers/time-slots/{id}/deactivate` | TRAINER | Deactivate time slot |
-| POST | `/class-bookings` | MEMBER | Book group class |
-| GET | `/class-bookings/me` | MEMBER | Get own class bookings |
-| GET | `/class-bookings/{id}` | MEMBER / TRAINER / ADMIN | Get booking details |
-| PATCH | `/class-bookings/{id}/cancel` | MEMBER | Cancel class booking |
-| GET | `/class-bookings` | TRAINER / ADMIN | Get class bookings |
-| PATCH | `/class-bookings/{id}/attendance` | TRAINER / ADMIN | Update attendance |
-| POST | `/pt-bookings` | MEMBER | Create PT booking |
-| GET | `/pt-bookings/me` | MEMBER | Get own PT bookings |
-| GET | `/pt-bookings/{id}` | MEMBER / TRAINER / ADMIN | Get PT booking details |
-| PATCH | `/pt-bookings/{id}/confirm` | TRAINER | Confirm PT booking |
-| PATCH | `/pt-bookings/{id}/reject` | TRAINER | Reject PT booking |
-| PATCH | `/pt-bookings/{id}/cancel` | MEMBER / TRAINER / ADMIN | Cancel PT booking |
-| PATCH | `/pt-bookings/{id}/attendance` | TRAINER / ADMIN | Update PT attendance |
-| GET | `/pt-bookings/trainer/me` | TRAINER | Get trainer's PT bookings |
-| GET | `/packages` | Public | Get available packages |
-| GET | `/packages/{id}` | Public | Get package details |
-| POST | `/packages` | ADMIN | Create package |
-| PATCH | `/packages/{id}` | ADMIN | Update package |
-| PATCH | `/packages/{id}/deactivate` | ADMIN | Deactivate package |
-| POST | `/member-packages` | MEMBER | Purchase package |
-| GET | `/member-packages/me` | MEMBER | Get own packages |
-| GET | `/member-packages/{id}` | MEMBER / ADMIN | Get package details |
-| GET | `/member-packages` | ADMIN | Get all member packages |
-| GET | `/transactions/me` | MEMBER | Get own transactions |
-| GET | `/transactions/{id}` | MEMBER / ADMIN | Get transaction details |
-| GET | `/transactions` | ADMIN | Get all transactions |
-| PATCH | `/transactions/{id}/status` | ADMIN | Update transaction status |
-| POST | `/reviews` | MEMBER | Create review |
-| GET | `/reviews` | Public | Get reviews |
-| GET | `/reviews/{id}` | Public | Get review details |
-| PATCH | `/reviews/{id}/hide` | ADMIN | Hide review |
-| PATCH | `/reviews/{id}/show` | ADMIN | Show review |
-| GET | `/chat/conversations` | MEMBER / TRAINER | Get conversations |
-| GET | `/chat/conversations/{userId}/messages` | MEMBER / TRAINER | Get messages |
-| POST | `/chat/messages` | MEMBER / TRAINER | Send message |
-| PATCH | `/chat/messages/{id}/read` | MEMBER / TRAINER | Mark message as read |
-| GET | `/members/{memberId}/progress-notes` | MEMBER / TRAINER / ADMIN | Get progress notes |
-| POST | `/progress-notes` | TRAINER | Create progress note |
-| PATCH | `/progress-notes/{id}` | TRAINER | Update progress note |
-| DELETE | `/progress-notes/{id}` | TRAINER / ADMIN | Delete progress note |
-| GET | `/notifications/me` | All authenticated | Get notifications |
-| GET | `/notifications/me/unread-count` | All authenticated | Get unread count |
-| PATCH | `/notifications/{id}/read` | All authenticated | Mark notification as read |
-| PATCH | `/notifications/me/read-all` | All authenticated | Mark all as read |
+## 22.1. Submit Feedback
+
+### Endpoint
+
+```http
+POST /feedbacks
+```
+
+### Authentication
+
+```text
+MEMBER
+```
+
+### Request Body
+
+```json
+{
+  "category": "App Issue",
+  "subject": "Cannot see my booking history",
+  "description": "When I navigate to the booking history, the screen goes blank.",
+  "attachmentUrl": "https://res.cloudinary.com/.../screenshot.jpg"
+}
+```
+
+### Success
+
+```text
+201 Created
+```
+
+---
+
+## 22.2. Get All Feedbacks
+
+### Endpoint
+
+```http
+GET /feedbacks
+```
+
+### Authentication
+
+```text
+ADMIN
+```
+
+### Query Parameters
+
+| Parameter | Type    | Required | Description                                    |
+| --------- | ------- | -------- | ---------------------------------------------- |
+| page      | Integer | No       | Page number                                    |
+| size      | Integer | No       | Number of records                              |
+| category  | String  | No       | Filter by category                             |
+| status    | String  | No       | Filter by status (OPEN, IN_PROGRESS, RESOLVED) |
+
+### Success
+
+```text
+200 OK
+```
+
+---
+
+## 22.3. Update Feedback Status
+
+### Endpoint
+
+```http
+PATCH /feedbacks/{id}/status
+```
+
+### Authentication
+
+```text
+ADMIN
+```
+
+### Request Body
+
+```json
+{
+  "status": "RESOLVED",
+  "adminNote": "Issue verified and resolved in UI patch 1.0.1"
+}
+```
+
+### Valid Values
+
+- `status`: `OPEN`, `IN_PROGRESS`, `RESOLVED`
+
+### Success
+
+```text
+200 OK
+```
+
+---
+
+# 23. Analytics & Reporting APIs
+
+## 23.1. Get Analytics Overview
+
+### Endpoint
+
+```http
+GET /admin/analytics/overview
+```
+
+### Authentication
+
+```text
+ADMIN
+```
+
+### Query Parameters
+
+```text
+from
+to
+```
+
+### Success
+
+```text
+200 OK
+```
+
+```json
+{
+  "totalMembers": 1250,
+  "totalTrainers": 18,
+  "totalClassesConducted": 84,
+  "totalMockRevenue": 158000000,
+  "attendanceRate": 91.5,
+  "activeBookingsCount": 320
+}
+```
+
+---
+
+## 23.2. Get Top Classes & Trainers
+
+### Endpoint
+
+```http
+GET /admin/analytics/top-performers
+```
+
+### Authentication
+
+```text
+ADMIN
+```
+
+### Query Parameters
+
+| Parameter | Type    | Required | Description |
+| --------- | ------- | -------- | ----------- |
+| `limit`   | Integer | No       | Default: 5  |
+| `from`    | String  | No       | Start date  |
+| `to`      | String  | No       | End date    |
+
+### Success
+
+```text
+200 OK
+```
+
+```json
+{
+  "topClasses": [
+    { "classTitle": "Morning Yoga Flow", "bookingCount": 180, "fillRate": 98.0 }
+  ],
+  "topTrainers": [
+    {
+      "trainerId": 5,
+      "trainerName": "Nguyen Van B",
+      "totalPTSessions": 64,
+      "avgRating": 4.9
+    }
+  ]
+}
+```
+
+---
+
+## 23.3. Get Revenue & Attendance Trends
+
+### Endpoint
+
+```http
+GET /admin/analytics/trends
+```
+
+### Authentication
+
+```text
+ADMIN
+```
+
+### Query Parameters
+
+| Parameter | Type   | Required | Description                     |
+| --------- | ------ | -------- | ------------------------------- |
+| `period`  | String | No       | `DAILY`, `WEEKLY`, or `MONTHLY` |
+
+### Success
+
+```text
+200 OK
+```
+
+```json
+{
+  "dataPoints": [
+    { "label": "Aug 2026", "revenue": 45000000, "attendanceCount": 540 },
+    { "label": "Sep 2026", "revenue": 52000000, "attendanceCount": 610 }
+  ]
+}
+```
+
+---
+
+# 24. WebSocket / STOMP Destinations
+
+## 24.1. Connection Setup
+
+- **Endpoint:** `/ws`
+- **Protocol:** WebSocket (with SockJS fallback)
+- **Authentication:** JWT token must be passed during the handshake (via query parameter or STOMP CONNECT header).
+
+---
+
+## 24.2. Real-time Chat
+
+### Send a Message (Client → Server)
+
+```text
+SEND /app/chat.sendMessage
+```
+
+Payload:
+
+```json
+{ "receiverId": 5, "content": "Hello", "imageUrl": null }
+```
+
+### Listen for New Messages (Server → Client)
+
+```text
+SUBSCRIBE /user/queue/messages
+```
+
+### Listen for Chat Errors (e.g., Permission Denied)
+
+```text
+SUBSCRIBE /user/queue/errors
+```
+
+### Listen for Message Acknowledgement
+
+```text
+SUBSCRIBE /user/queue/ack
+```
+
+---
+
+## 24.3. In-App Notifications
+
+### Listen for System Notifications (Server → Client)
+
+```text
+SUBSCRIBE /user/queue/notifications
+```
+
+**Description:** Receives real-time push notifications for booking confirmations, schedule changes, and reminders.
+
+---
+
+# 25. API Summary
+
+| Method | Endpoint                                | Auth                     | Description                       |
+| ------ | --------------------------------------- | ------------------------ | --------------------------------- |
+| POST   | `/auth/login`                           | Public                   | Login using phone or address      |
+| POST   | `/auth/register`                        | Public                   | Register Member                   |
+| POST   | `/auth/register-trainer`                | Public                   | Submit Trainer application        |
+| POST   | `/auth/forgot-password`                 | Public                   | Request reset password token      |
+| POST   | `/auth/reset-password`                  | Public                   | Reset password with token         |
+| GET    | `/auth/me`                              | All authenticated        | Get current user                  |
+| POST   | `/auth/logout`                          | All authenticated        | Logout                            |
+| GET    | `/users/me`                             | All authenticated        | Get own profile                   |
+| PATCH  | `/users/me`                             | All authenticated        | Update own profile                |
+| PATCH  | `/users/me/password`                    | All authenticated        | Change password                   |
+| GET    | `/users`                                | ADMIN                    | Get users                         |
+| PATCH  | `/users/{id}/status`                    | ADMIN                    | Update user status                |
+| GET    | `/trainers`                             | Public                   | Get trainer list                  |
+| GET    | `/trainers/{id}`                        | Public                   | Get trainer details               |
+| POST   | `/trainers/profile`                     | TRAINER                  | Create trainer profile            |
+| PATCH  | `/trainers/profile`                     | TRAINER                  | Update trainer profile            |
+| PATCH  | `/admin/trainers/{id}/approve`          | ADMIN                    | Approve trainer                   |
+| PATCH  | `/admin/trainers/{id}/reject`           | ADMIN                    | Reject trainer                    |
+| GET    | `/rooms`                                | Public                   | Get rooms                         |
+| GET    | `/rooms/{id}`                           | Public                   | Get room details                  |
+| POST   | `/rooms`                                | ADMIN                    | Create room                       |
+| PATCH  | `/rooms/{id}`                           | ADMIN                    | Update room                       |
+| PATCH  | `/rooms/{id}/status`                    | ADMIN                    | Update room status                |
+| GET    | `/class-types`                          | Public                   | Get class types                   |
+| GET    | `/class-types/{id}`                     | Public                   | Get class type details            |
+| POST   | `/class-types`                          | ADMIN                    | Create class type                 |
+| PATCH  | `/class-types/{id}`                     | ADMIN                    | Update class type                 |
+| GET    | `/classes`                              | Public                   | Get class list                    |
+| GET    | `/classes/{id}`                         | Public                   | Get class details                 |
+| POST   | `/classes`                              | ADMIN                    | Create class                      |
+| PATCH  | `/classes/{id}`                         | ADMIN                    | Update class                      |
+| PATCH  | `/classes/{id}/cancel`                  | ADMIN                    | Cancel class                      |
+| GET    | `/classes/{classId}/bookings`           | TRAINER / ADMIN          | Get class bookings                |
+| GET    | `/trainers/{trainerId}/time-slots`      | MEMBER / TRAINER / ADMIN | Get trainer time slots            |
+| POST   | `/trainers/time-slots`                  | TRAINER                  | Create time slot                  |
+| PATCH  | `/trainers/time-slots/{id}`             | TRAINER                  | Update time slot                  |
+| PATCH  | `/trainers/time-slots/{id}/deactivate`  | TRAINER                  | Deactivate time slot              |
+| POST   | `/class-bookings`                       | MEMBER                   | Book group class                  |
+| GET    | `/class-bookings/me`                    | MEMBER                   | Get own class bookings            |
+| GET    | `/class-bookings/{id}`                  | MEMBER / TRAINER / ADMIN | Get booking details               |
+| PATCH  | `/class-bookings/{id}/cancel`           | MEMBER                   | Cancel class booking              |
+| GET    | `/class-bookings`                       | TRAINER / ADMIN          | Get class bookings                |
+| PATCH  | `/class-bookings/{id}/attendance`       | TRAINER / ADMIN          | Update attendance                 |
+| POST   | `/pt-bookings`                          | MEMBER                   | Create PT booking                 |
+| GET    | `/pt-bookings/me`                       | MEMBER                   | Get own PT bookings               |
+| GET    | `/pt-bookings/{id}`                     | MEMBER / TRAINER / ADMIN | Get PT booking details            |
+| PATCH  | `/pt-bookings/{id}/confirm`             | TRAINER                  | Confirm PT booking                |
+| PATCH  | `/pt-bookings/{id}/reject`              | TRAINER                  | Reject PT booking                 |
+| PATCH  | `/pt-bookings/{id}/cancel`              | MEMBER / TRAINER / ADMIN | Cancel PT booking                 |
+| PATCH  | `/pt-bookings/{id}/attendance`          | TRAINER / ADMIN          | Update PT attendance              |
+| GET    | `/pt-bookings/trainer/me`               | TRAINER                  | Get trainer's PT bookings         |
+| GET    | `/packages`                             | Public                   | Get available packages            |
+| GET    | `/packages/{id}`                        | Public                   | Get package details               |
+| POST   | `/packages`                             | ADMIN                    | Create package                    |
+| PATCH  | `/packages/{id}`                        | ADMIN                    | Update package                    |
+| PATCH  | `/packages/{id}/deactivate`             | ADMIN                    | Deactivate package                |
+| POST   | `/member-packages`                      | MEMBER                   | Purchase package                  |
+| GET    | `/member-packages/me`                   | MEMBER                   | Get own packages                  |
+| GET    | `/member-packages/{id}`                 | MEMBER / ADMIN           | Get package details               |
+| GET    | `/member-packages`                      | ADMIN                    | Get all member packages           |
+| GET    | `/transactions/me`                      | MEMBER                   | Get own transactions              |
+| GET    | `/transactions/{id}`                    | MEMBER / ADMIN           | Get transaction details           |
+| GET    | `/transactions`                         | ADMIN                    | Get all transactions              |
+| PATCH  | `/transactions/{id}/status`             | ADMIN                    | Update transaction status         |
+| POST   | `/reviews`                              | MEMBER                   | Create review                     |
+| GET    | `/reviews`                              | Public                   | Get reviews                       |
+| GET    | `/reviews/{id}`                         | Public                   | Get review details                |
+| PATCH  | `/reviews/{id}/hide`                    | ADMIN                    | Hide review                       |
+| PATCH  | `/reviews/{id}/show`                    | ADMIN                    | Show review                       |
+| GET    | `/chat/conversations`                   | MEMBER / TRAINER         | Get conversations                 |
+| GET    | `/chat/conversations/{userId}/messages` | MEMBER / TRAINER         | Get messages                      |
+| POST   | `/chat/messages`                        | MEMBER / TRAINER         | Send message                      |
+| PATCH  | `/chat/messages/{id}/read`              | MEMBER / TRAINER         | Mark message as read              |
+| GET    | `/members/{memberId}/progress-notes`    | MEMBER / TRAINER / ADMIN | Get progress notes                |
+| POST   | `/progress-notes`                       | TRAINER                  | Create progress note              |
+| PATCH  | `/progress-notes/{id}`                  | TRAINER                  | Update progress note              |
+| DELETE | `/progress-notes/{id}`                  | TRAINER / ADMIN          | Delete progress note              |
+| GET    | `/notifications/me`                     | All authenticated        | Get notifications                 |
+| GET    | `/notifications/me/unread-count`        | All authenticated        | Get unread count                  |
+| PATCH  | `/notifications/{id}/read`              | All authenticated        | Mark notification as read         |
+| PATCH  | `/notifications/me/read-all`            | All authenticated        | Mark all as read                  |
+| POST   | `/upload`                               | All authenticated        | Upload image/file                 |
+| POST   | `/feedbacks`                            | MEMBER                   | Submit system feedback            |
+| GET    | `/feedbacks`                            | ADMIN                    | Get all feedbacks                 |
+| PATCH  | `/member-packages/{id}/adjust`          | ADMIN                    | Manual adjust package             |
+| GET    | `/admin/classes/conflicts`              | ADMIN                    | Detect schedule conflicts         |
+| PATCH  | `/pt-bookings/{id}/reschedule`          | MEMBER                   | Reschedule PT booking             |
+| PATCH  | `/feedbacks/{id}/status`                | ADMIN                    | Update feedback resolution status |
+| GET    | `/admin/analytics/overview`             | ADMIN                    | Dashboard metrics overview        |
+| GET    | `/admin/analytics/top-performers`       | ADMIN                    | Top classes & trainers            |
+| GET    | `/admin/analytics/trends`               | ADMIN                    | Revenue & attendance chart data   |
