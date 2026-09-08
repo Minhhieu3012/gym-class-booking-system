@@ -6,7 +6,7 @@ spring:
     url: jdbc:postgresql://localhost:5432/gym_booking_db
     username: postgres
     password: postgres
-
+    driver-class-name: org.postgresql.Driver
   jpa:
     hibernate:
       ddl-auto: update
@@ -14,3 +14,11 @@ spring:
     properties:
       hibernate:
         format_sql: true
+  jackson:
+    time-zone: Asia/Ho_Chi_Minh
+    datatype:
+      datetime:
+        write-dates-as-timestamps: false
+jwt:
+  secret: your-super-secret-key-that-is-at-least-32-characters-long
+  access-expiration: 3600000
