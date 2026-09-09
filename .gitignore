@@ -38,7 +38,7 @@ build/
 
 # Logs & temp files
 *.log
-structure-folder.txt
+structure-dev.txt
 
 
 # OS generated files
