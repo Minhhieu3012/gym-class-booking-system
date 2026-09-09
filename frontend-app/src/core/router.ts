@@ -1,6 +1,9 @@
-﻿// SPA Router — History API, Auth Guard, Theme Switcher
+// SPA Router — History API, Auth Guard, Theme Switcher
 import { isAuthenticated, hasRole } from "./api";
 import type { UserRole } from "../models/auth";
+
+import * as LoginPage from "../pages/auth/login";
+import * as RegisterPage from "../pages/auth/register";
 
 // Types
 export interface Route {
@@ -26,20 +29,14 @@ const routes: Route[] = [
   {
     path: "/login",
     requiresAuth: false,
-    view: () => `
-      <section class="container py-5 text-center">
-        <h1>Đăng nhập</h1>
-        <p class="text-neutral">TODO: import render() từ pages/auth/login.ts</p>
-      </section>`,
+    view: LoginPage.render,
+    init: LoginPage.init,
   },
   {
     path: "/register",
     requiresAuth: false,
-    view: () => `
-      <section class="container py-5 text-center">
-        <h1>Đăng ký tài khoản</h1>
-        <p class="text-neutral">TODO: import render() từ pages/auth/register.ts</p>
-      </section>`,
+    view: RegisterPage.render,
+    init: RegisterPage.init,
   },
   {
     path: "/register-trainer",

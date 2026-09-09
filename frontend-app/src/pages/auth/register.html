@@ -1,0 +1,400 @@
+<main class="min-vh-100 d-flex flex-column align-items-center bg-surface-alt pb-5">
+
+  <!-- Mini header -->
+  <div
+    class="w-100 px-3 pt-2 d-flex align-items-center gap-2"
+    style="max-width: 480px"
+  >
+    <span style="font-size: 0.9rem">⚡</span>
+    <span
+      class="fw-bold text-secondary-theme"
+      style="font-size: 0.7rem; letter-spacing: 1px"
+      >PULSE GYM</span
+    >
+  </div>
+
+  <!-- Top Navigation -->
+  <div
+    class="w-100 p-3 d-flex justify-content-between align-items-center"
+    style="max-width: 480px"
+  >
+    <a
+      href="/login"
+      data-link
+      class="btn btn-link text-neutral p-0 text-decoration-none"
+    >
+      <svg
+        width="24"
+        height="24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        viewBox="0 0 24 24"
+      >
+        <path d="M19 12H5M12 19l-7-7 7-7" />
+      </svg>
+    </a>
+    <div class="badge-theme badge-active px-3 py-2">
+      <span style="color: #facc15">⚡</span> NEW ATHLETE ONBOARDING
+    </div>
+    <button class="btn btn-link text-neutral p-0 text-decoration-none">
+      <svg
+        width="24"
+        height="24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        viewBox="0 0 24 24"
+      >
+        <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" />
+      </svg>
+    </button>
+  </div>
+
+  <div class="container mt-2" style="max-width: 420px">
+
+    <!-- Phase label & Heading -->
+    <div class="mb-4">
+      <p class="text-tertiary fw-bold mb-1" style="font-size: 0.7rem; letter-spacing: 0.1em;">
+        PHASE 01 // CREDENTIALS
+      </p>
+      <h1 class="fw-bold mb-2 text-secondary-theme" style="font-size: 2rem; line-height: 1.1;">
+        Join <span class="text-primary-theme">PULSE</span> Gym
+      </h1>
+      <p class="text-neutral mb-3" style="font-size: 0.875rem; line-height: 1.5;">
+        Lock in instant arena access, biometric telemetry, and elite performance coaching.
+      </p>
+
+      <!-- VIP Pass badge -->
+      <div class="d-flex align-items-center gap-2 p-2 rounded-theme-md bg-surface border-theme shadow-theme-sm">
+        <svg
+          width="16"
+          height="16"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2.5"
+          class="text-primary-theme flex-shrink-0"
+          viewBox="0 0 24 24"
+        >
+          <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" />
+        </svg>
+        <span class="text-secondary-theme fw-semibold" style="font-size: 0.8rem;">
+          3-Day VIP Arena Pass Included
+        </span>
+        <span class="text-tertiary fw-bold ms-auto" style="font-size: 0.7rem; letter-spacing: 0.05em;">
+          COMPLIMENTARY
+        </span>
+      </div>
+    </div>
+
+    <!-- Registration card -->
+    <div class="card-theme p-4">
+      <form id="register-form" novalidate autocomplete="on">
+
+        <!-- Full Name -->
+        <div class="mb-4">
+          <label
+            for="register-fullname"
+            class="form-label fw-bold text-secondary-theme mb-2"
+            style="font-size: 0.75rem; letter-spacing: 0.05em"
+          >
+            FULL NAME
+          </label>
+          <div class="input-group shadow-theme-sm rounded-theme-md">
+            <span
+              class="input-group-text bg-surface border-theme"
+              style="border-right: none"
+            >
+              <svg
+                width="18"
+                height="18"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                class="text-neutral"
+                viewBox="0 0 24 24"
+              >
+                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+                <circle cx="12" cy="7" r="4" />
+              </svg>
+            </span>
+            <input
+              type="text"
+              id="register-fullname"
+              name="fullName"
+              class="form-control border-theme bg-surface py-2"
+              style="border-left: none; box-shadow: none"
+              placeholder="Alex Morgan"
+              autocomplete="name"
+              required
+            />
+          </div>
+        </div>
+
+        <!-- Email -->
+        <div class="mb-4">
+          <div class="d-flex justify-content-between align-items-center mb-2">
+            <label
+              for="register-email"
+              class="form-label fw-bold text-secondary-theme mb-0"
+              style="font-size: 0.75rem; letter-spacing: 0.05em"
+            >
+              EMAIL ADDRESS
+            </label>
+            <span
+              class="text-tertiary fw-bold d-flex align-items-center gap-1"
+              style="font-size: 0.7rem; letter-spacing: 0.05em"
+            >
+              <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                <polyline points="20 6 9 17 4 12" />
+              </svg>
+              Available
+            </span>
+          </div>
+          <div class="input-group shadow-theme-sm rounded-theme-md">
+            <span
+              class="input-group-text bg-surface border-theme"
+              style="border-right: none"
+            >
+              <svg
+                width="18"
+                height="18"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                class="text-neutral"
+                viewBox="0 0 24 24"
+              >
+                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
+                <polyline points="22,6 12,12 2,6" />
+              </svg>
+            </span>
+            <input
+              type="email"
+              id="register-email"
+              name="email"
+              class="form-control border-theme bg-surface py-2"
+              style="border-left: none; border-right: none; box-shadow: none"
+              placeholder="alex.runner@pulsefitness.com"
+              autocomplete="email"
+              required
+            />
+            <span
+              class="input-group-text bg-surface border-theme text-tertiary"
+              style="border-left: none"
+            >
+              <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                <polyline points="20 6 9 17 4 12" />
+              </svg>
+            </span>
+          </div>
+        </div>
+
+        <!-- Phone -->
+        <div class="mb-4">
+          <label
+            for="register-phone"
+            class="form-label fw-bold text-secondary-theme mb-2"
+            style="font-size: 0.75rem; letter-spacing: 0.05em"
+          >
+            PHONE NUMBER
+          </label>
+          <div class="input-group shadow-theme-sm rounded-theme-md">
+            <span
+              class="input-group-text bg-surface border-theme"
+              style="border-right: none"
+            >
+              <svg
+                width="18"
+                height="18"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                class="text-neutral"
+                viewBox="0 0 24 24"
+              >
+                <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.65 3.35 2 2 0 0 1 3.62 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.59a16 16 0 0 0 6 6l.96-.96a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21.73 16z" />
+              </svg>
+            </span>
+            <input
+              type="tel"
+              id="register-phone"
+              name="phone"
+              class="form-control border-theme bg-surface py-2"
+              style="border-left: none; box-shadow: none"
+              placeholder="(555) 234-8901"
+              autocomplete="tel"
+              required
+            />
+          </div>
+        </div>
+
+        <!-- Password -->
+        <div class="mb-3">
+          <div class="d-flex justify-content-between align-items-center mb-2">
+            <label
+              for="register-password"
+              class="form-label fw-bold text-secondary-theme mb-0"
+              style="font-size: 0.75rem; letter-spacing: 0.05em"
+            >
+              PASSWORD
+            </label>
+            <span
+              id="register-pw-strength"
+              class="text-tertiary fw-bold"
+              style="font-size: 0.7rem; letter-spacing: 0.05em"
+            ></span>
+          </div>
+          <div class="input-group shadow-theme-sm rounded-theme-md">
+            <span
+              class="input-group-text bg-surface border-theme"
+              style="border-right: none"
+            >
+              <svg
+                width="18"
+                height="18"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                class="text-neutral"
+                viewBox="0 0 24 24"
+              >
+                <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
+                <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+              </svg>
+            </span>
+            <input
+              type="password"
+              id="register-password"
+              name="password"
+              class="form-control border-theme bg-surface py-2"
+              style="border-left: none; border-right: none; box-shadow: none"
+              placeholder="IronWill2025#"
+              autocomplete="new-password"
+              required
+            />
+            <button
+              type="button"
+              id="register-toggle-pw"
+              class="input-group-text bg-surface border-theme text-neutral"
+              style="border-left: none"
+              aria-label="Hiện/ẩn mật khẩu"
+            >
+              <svg
+                id="register-pw-eye-icon"
+                width="18"
+                height="18"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                viewBox="0 0 24 24"
+              >
+                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
+                <circle cx="12" cy="12" r="3" />
+              </svg>
+            </button>
+          </div>
+          <!-- Password strength bar -->
+          <div class="mt-2 rounded-theme-md overflow-hidden" style="height: 3px; background-color: var(--color-border);">
+            <div
+              id="register-pw-bar"
+              class="h-100 rounded-theme-md"
+              style="width: 0%; background-color: var(--color-tertiary); transition: width 0.3s ease;"
+            ></div>
+          </div>
+        </div>
+
+        <!-- Terms checkbox -->
+        <div class="form-check d-flex align-items-start gap-2 mb-4 p-0">
+          <input
+            class="form-check-input flex-shrink-0 mt-1"
+            type="checkbox"
+            id="register-terms"
+            required
+            style="border-color: var(--color-border)"
+          />
+          <div>
+            <label
+              class="form-check-label text-neutral"
+              for="register-terms"
+              style="font-size: 0.8rem; line-height: 1.4"
+            >
+              I agree to the
+              <a href="#" class="text-tertiary fw-semibold text-decoration-underline">Arena Rules</a>,
+              Telemetry Consent, and Membership Terms.
+            </label>
+            <p class="mb-0 text-neutral mt-1 d-flex align-items-center gap-1" style="font-size: 0.72rem;">
+              <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" class="flex-shrink-0">
+                <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+                <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+              </svg>
+              256-bit biometric encrypted telemetry
+            </p>
+          </div>
+        </div>
+
+        <!-- Error message -->
+        <div
+          id="register-error"
+          class="text-danger mt-2 text-center"
+          style="font-size: 0.85rem; min-height: 1.25rem"
+        ></div>
+
+        <!-- Submit -->
+        <button
+          type="submit"
+          id="register-submit"
+          class="btn-brand w-100 justify-content-center py-3 mt-2 shadow-theme-md"
+          style="font-size: 0.95rem; letter-spacing: 0.06em"
+        >
+          CREATE MEMBER ACCOUNT ⚡
+        </button>
+
+      </form>
+    </div>
+
+    <!-- Footer links -->
+    <div class="text-center mt-4">
+      <p class="mb-3 text-neutral" style="font-size: 0.875rem">
+        Already have an account?
+        <a
+          href="/login"
+          data-link
+          class="fw-bold ms-1 text-tertiary"
+        >Log In</a>
+      </p>
+
+      <div class="d-flex align-items-center gap-2 mb-3">
+        <hr class="flex-grow-1 m-0 border-theme" />
+        <span class="text-neutral fw-bold" style="font-size: 0.7rem">OR</span>
+        <hr class="flex-grow-1 m-0 border-theme" />
+      </div>
+
+      <p class="mb-0 text-neutral" style="font-size: 0.85rem">
+        <svg
+          width="14"
+          height="14"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          viewBox="0 0 24 24"
+          class="me-1 text-tertiary"
+          style="color: var(--color-tertiary)"
+        >
+          <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+          <circle cx="9" cy="7" r="4" />
+          <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
+          <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+        </svg>
+        Looking to train athletes?
+        <a
+          href="/register-trainer"
+          data-link
+          class="text-secondary-theme fw-bold text-decoration-underline ms-1"
+          >Apply as Coach</a
+        >
+      </p>
+    </div>
+
+  </div>
+</main>
