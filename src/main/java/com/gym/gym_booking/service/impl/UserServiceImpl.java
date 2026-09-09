@@ -4,6 +4,7 @@ import com.gym.gym_booking.dto.user.ChangePasswordRequestDTO;
 import com.gym.gym_booking.dto.user.UpdateProfileRequestDTO;
 import com.gym.gym_booking.dto.user.UserResponseDTO;
 import com.gym.gym_booking.entity.User;
+import com.gym.gym_booking.enums.UserStatus;
 import com.gym.gym_booking.mapper.UserMapper;
 import com.gym.gym_booking.repository.UserRepository;
 import com.gym.gym_booking.service.UserService;
@@ -79,6 +80,7 @@ public class UserServiceImpl implements UserService {
 
         User user = getCurrentUser();
 
+        // Check current password
         if (!passwordEncoder.matches(
                 request.getCurrentPassword(),
                 user.getPassword()
@@ -88,6 +90,25 @@ public class UserServiceImpl implements UserService {
             );
         }
 
+        // New password must be different
+        // from current password
+        if (passwordEncoder.matches(
+                request.getNewPassword(),
+                user.getPassword()
+        )) {
+            throw new RuntimeException(
+                    "New password must be different from current password"
+            );
+        }
+
+        // Check account status
+        if (user.getStatus() == UserStatus.LOCKED) {
+            throw new RuntimeException(
+                    "Locked account cannot change password"
+            );
+        }
+
+        // Encode and save new password
         user.setPassword(
                 passwordEncoder.encode(
                         request.getNewPassword()
