@@ -4,6 +4,8 @@ import type { UserRole } from "../models/auth";
 
 import * as LoginPage from "../pages/auth/login";
 import * as RegisterPage from "../pages/auth/register";
+import * as RegisterTrainerPage from "../pages/auth/register-trainer";
+import * as LandingPage from "../pages/public/landing";
 
 // Types
 export interface Route {
@@ -19,12 +21,8 @@ const routes: Route[] = [
   {
     path: "/",
     requiresAuth: false,
-    view: () => `
-      <section class="container py-5 text-center">
-        <h1 class="fw-bold" style="color:var(--color-primary)">GymBook</h1>
-        <p class="text-neutral">Đặt lịch lớp gym, kết nối PT cá nhân.</p>
-        <a href="/login" data-link class="btn-brand mt-3 d-inline-flex">Đăng nhập</a>
-      </section>`,
+    view: LandingPage.render,
+    init: LandingPage.init,
   },
   {
     path: "/login",
@@ -41,11 +39,8 @@ const routes: Route[] = [
   {
     path: "/register-trainer",
     requiresAuth: false,
-    view: () => `
-      <section class="container py-5 text-center">
-        <h1>Đăng ký Trainer</h1>
-        <p class="text-neutral">TODO: import render() từ pages/auth/register-trainer.ts</p>
-      </section>`,
+    view: RegisterTrainerPage.render,
+    init: RegisterTrainerPage.init,
   },
   {
     path: "/forgot-password",
