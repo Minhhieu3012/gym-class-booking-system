@@ -1,5 +1,4 @@
 ﻿// Generic — PageResponse<T>
-
 export interface PageResponse<T> {
   content: T[];
   totalElements: number;
@@ -9,7 +8,6 @@ export interface PageResponse<T> {
 }
 
 // Room APIs
-
 export type RoomStatus = "ACTIVE" | "INACTIVE";
 
 // GET /rooms
@@ -115,10 +113,7 @@ export interface UpdatePackageRequest {
   price?: number;
   durationDays?: number;
   sessionCount?: number;
+  isActive?: boolean;
 }
 
 // PATCH /packages/{id}/deactivate
-// Không có request body, chỉ cần packageId trên URL.
-
-// PATCH /packages/{id}/activate
-// Đối xứng với deactivate — không có request body, chỉ cần packageId trên URL.

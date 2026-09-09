@@ -1,5 +1,6 @@
 ﻿import axios from "axios";
 import type { AxiosError, InternalAxiosRequestConfig } from "axios";
+import type { AuthUser, LoginResponse, UserRole } from "../models/auth";
 
 // Error response shape
 export interface ApiErrorResponse {
@@ -9,7 +10,7 @@ export interface ApiErrorResponse {
 }
 
 // Key lưu dữ liệu đăng nhập trong localStorage
-const STORAGE_KEYS = {
+export const STORAGE_KEYS = {
   ACCESS_TOKEN: "accessToken",
   REFRESH_TOKEN: "refreshToken",
   USER: "user",
@@ -33,7 +34,6 @@ export const apiClient = axios.create({
 });
 
 // Request interceptor — tự động gắn Authorization header
-// Bỏ qua nếu request gọi tới một trong các PUBLIC_ENDPOINTS
 apiClient.interceptors.request.use(
   (config: InternalAxiosRequestConfig) => {
     const url = config.url ?? "";
@@ -72,16 +72,46 @@ apiClient.interceptors.response.use(
       url.includes(endpoint),
     );
 
-    // Chỉ coi 401 là "token hết hạn" khi lỗi đến từ endpoint CẦN đăng nhập.
+    // 401 là "token hết hạn" khi lỗi đến từ endpoint CẦN đăng nhập.
     // Phải để nguyên cho page tự hiển thị lỗi, không được redirect.
     if (status === 401 && !isPublicEndpoint) {
       clearAuthAndRedirect();
       return Promise.reject(error);
     }
 
-    // Các lỗi còn lại (400 / 403 / 404 / 409 / 500...):
     // Không tự hiện alert/toast tại đây.
     // Reject với ApiErrorResponse đã parse để page/service tự xử lý UI.
     return Promise.reject(error);
   },
 );
+
+// ---- Session helpers ----
+
+// Lưu toàn bộ session sau khi login/register thành công.
+export function setSession(data: LoginResponse): void {
+  localStorage.setItem(STORAGE_KEYS.ACCESS_TOKEN, data.accessToken);
+  localStorage.setItem(STORAGE_KEYS.REFRESH_TOKEN, data.refreshToken);
+  localStorage.setItem(STORAGE_KEYS.USER, JSON.stringify(data.user));
+}
+
+// Đọc lại user hiện tại từ localStorage (đồng bộ, không cần gọi API).
+// Dùng cho router guard
+export function getStoredUser(): AuthUser | null {
+  const raw = localStorage.getItem(STORAGE_KEYS.USER);
+  if (!raw) return null;
+  try {
+    return JSON.parse(raw) as AuthUser;
+  } catch {
+    return null;
+  }
+}
+
+export function isAuthenticated(): boolean {
+  return !!localStorage.getItem(STORAGE_KEYS.ACCESS_TOKEN);
+}
+
+// Kiểm tra role — dùng trong router guard cho route /admin/*, v.v.
+export function hasRole(...roles: UserRole[]): boolean {
+  const user = getStoredUser();
+  return !!user && roles.includes(user.role);
+}

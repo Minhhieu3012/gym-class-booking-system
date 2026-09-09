@@ -47,7 +47,7 @@ export interface RegisterTrainerRequest extends BaseRegisterRequest {
   experienceYears: number;
   hourlyFee: number;
   bio: string;
-  avatarUrl: string;
+  avatarUrl?: string;
 }
 
 export interface RegisterTrainerResponse {
