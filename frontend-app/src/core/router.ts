@@ -8,6 +8,9 @@ import * as RegisterTrainerPage from "../pages/auth/register-trainer";
 import * as LandingPage from "../pages/public/landing";
 import * as ProfilePage from "../pages/public/profile";
 import * as ChangePasswordPage from "../pages/public/change-password";
+import * as RoomsPage from "../pages/admin/rooms";
+import * as ClassTypesPage from "../pages/admin/class-types";
+import * as PackagesPage from "../pages/admin/packages";
 
 // Types
 export interface Route {
@@ -76,6 +79,7 @@ const routes: Route[] = [
   },
   {
     path: "/admin/dashboard",
+    // requiresAuth: false,
     requiresAuth: true,
     roles: ["ADMIN"],
     view: () => `
@@ -86,33 +90,27 @@ const routes: Route[] = [
   },
   {
     path: "/admin/rooms",
+    // requiresAuth: false,
     requiresAuth: true,
     roles: ["ADMIN"],
-    view: () => `
-      <section class="container-fluid py-4">
-        <h1>Quản lý Phòng tập</h1>
-        <p class="text-neutral">TODO: import render() từ pages/admin/rooms.ts</p>
-      </section>`,
+    view: RoomsPage.render,
+    init: RoomsPage.init,
   },
   {
     path: "/admin/class-types",
+    // requiresAuth: false,
     requiresAuth: true,
     roles: ["ADMIN"],
-    view: () => `
-      <section class="container-fluid py-4">
-        <h1>Quản lý Loại lớp</h1>
-        <p class="text-neutral">TODO: import render() từ pages/admin/class-types.ts</p>
-      </section>`,
+    view: ClassTypesPage.render,
+    init: ClassTypesPage.init,
   },
   {
     path: "/admin/packages",
+    // requiresAuth: false,
     requiresAuth: true,
     roles: ["ADMIN"],
-    view: () => `
-      <section class="container-fluid py-4">
-        <h1>Quản lý Gói tập</h1>
-        <p class="text-neutral">TODO: import render() từ pages/admin/packages.ts</p>
-      </section>`,
+    view: PackagesPage.render,
+    init: PackagesPage.init,
   },
 ];
 
