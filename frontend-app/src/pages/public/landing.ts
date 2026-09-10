@@ -5,10 +5,8 @@ export function render(): string {
   return template;
 }
 
-// Controller
 export function init(): void {
-  const ctaContainer =
-    document.querySelector<HTMLDivElement>("#cta-container");
+  const ctaContainer = document.querySelector<HTMLDivElement>("#cta-container");
   if (!ctaContainer) return;
 
   if (!isAuthenticated()) {

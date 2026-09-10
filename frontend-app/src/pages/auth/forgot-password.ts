@@ -1,18 +1,17 @@
 import template from "./forgot-password.html?raw";
 import { authService } from "../../services/auth.service";
 
-// ── render ────────────────────────────────────────────────────────────────────
 export function render(): string {
   return template;
 }
 
-// ── init ──────────────────────────────────────────────────────────────────────
 export function init(): void {
   const form = document.querySelector<HTMLFormElement>("#forgot-form");
   const emailInput = document.querySelector<HTMLInputElement>("#forgot-email");
   const errorEl = document.querySelector<HTMLDivElement>("#forgot-error");
   const successEl = document.querySelector<HTMLDivElement>("#forgot-success");
-  const submitBtn = document.querySelector<HTMLButtonElement>("#btn-forgot-submit");
+  const submitBtn =
+    document.querySelector<HTMLButtonElement>("#btn-forgot-submit");
 
   if (!form || !emailInput || !errorEl || !successEl || !submitBtn) {
     console.error("Forgot password form elements not found");
@@ -44,14 +43,15 @@ export function init(): void {
 
     try {
       const response = await authService.forgotPassword({ email });
-      
+
       // Show success
-      successEl.textContent = response.message || "Đã gửi hướng dẫn khôi phục mật khẩu. Vui lòng kiểm tra email của bạn.";
+      successEl.textContent =
+        response.message ||
+        "Đã gửi hướng dẫn khôi phục mật khẩu. Vui lòng kiểm tra email của bạn.";
       successEl.style.display = "block";
-      
+
       // Optionally clear input
       emailInput.value = "";
-      
     } catch (error: unknown) {
       // Show error
       errorEl.textContent = authService.extractErrorMessage(error);

@@ -7,7 +7,8 @@ export function render(): string {
 export function init(): void {
   // Highlight active sidebar link
   const currentPath = window.location.pathname;
-  const navLinks = document.querySelectorAll<HTMLAnchorElement>(".admin-nav-link");
+  const navLinks =
+    document.querySelectorAll<HTMLAnchorElement>(".admin-nav-link");
 
   navLinks.forEach((link) => {
     // Exact match or active sub-route match
@@ -18,7 +19,11 @@ export function init(): void {
       link.style.borderLeft = "3px solid var(--color-secondary)";
     } else {
       link.classList.add("text-neutral");
-      link.classList.remove("text-secondary-theme", "bg-surface", "border-theme");
+      link.classList.remove(
+        "text-secondary-theme",
+        "bg-surface",
+        "border-theme",
+      );
       link.style.borderLeft = "3px solid transparent";
     }
   });

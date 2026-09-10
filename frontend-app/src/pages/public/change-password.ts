@@ -26,19 +26,21 @@ function wireTogglePw(btnId: string, inputId: string, iconId: string): void {
   });
 }
 
-// Controller
 export function init(): void {
-  // ── Wire toggle buttons ────────────────────────────────────────
-  wireTogglePw("toggle-current-pw", "current-password", "eye-current");
+    wireTogglePw("toggle-current-pw", "current-password", "eye-current");
   wireTogglePw("toggle-new-pw", "new-password", "eye-new");
   wireTogglePw("toggle-confirm-pw", "confirm-password", "eye-confirm");
 
-  // ── Password strength indicator ────────────────────────────────
-  const newPwInput = document.querySelector<HTMLInputElement>("#new-password");
-  const confirmPwInput = document.querySelector<HTMLInputElement>("#confirm-password");
-  const strengthLabel = document.querySelector<HTMLSpanElement>("#new-pw-strength-label");
-  const pwMatchLabel = document.querySelector<HTMLSpanElement>("#pw-match-label");
-  const lengthCount = document.querySelector<HTMLSpanElement>("#pw-length-count");
+    const newPwInput = document.querySelector<HTMLInputElement>("#new-password");
+  const confirmPwInput =
+    document.querySelector<HTMLInputElement>("#confirm-password");
+  const strengthLabel = document.querySelector<HTMLSpanElement>(
+    "#new-pw-strength-label",
+  );
+  const pwMatchLabel =
+    document.querySelector<HTMLSpanElement>("#pw-match-label");
+  const lengthCount =
+    document.querySelector<HTMLSpanElement>("#pw-length-count");
 
   newPwInput?.addEventListener("input", () => {
     const val = newPwInput.value;
@@ -59,7 +61,9 @@ export function init(): void {
 
     for (let i = 1; i <= 4; i++) {
       const bar = document.querySelector<HTMLDivElement>(`#npw-bar-${i}`);
-      if (bar) bar.style.backgroundColor = i <= score ? colors[score] : "var(--color-border)";
+      if (bar)
+        bar.style.backgroundColor =
+          i <= score ? colors[score] : "var(--color-border)";
     }
     if (strengthLabel) strengthLabel.textContent = val ? labels[score] : "";
     if (lengthCount) lengthCount.textContent = String(val.length);
@@ -68,7 +72,9 @@ export function init(): void {
     if (confirmPwInput?.value && pwMatchLabel) {
       const match = confirmPwInput.value === val;
       pwMatchLabel.textContent = match ? "✓ Keys Match" : "✗ Mismatch";
-      pwMatchLabel.style.color = match ? "var(--color-tertiary)" : "var(--color-primary)";
+      pwMatchLabel.style.color = match
+        ? "var(--color-tertiary)"
+        : "var(--color-primary)";
     }
   });
 
@@ -80,35 +86,42 @@ export function init(): void {
     }
     const match = confirmPwInput.value === newPwInput.value;
     pwMatchLabel.textContent = match ? "✓ Keys Match" : "✗ Mismatch";
-    pwMatchLabel.style.color = match ? "var(--color-tertiary)" : "var(--color-primary)";
+    pwMatchLabel.style.color = match
+      ? "var(--color-tertiary)"
+      : "var(--color-primary)";
   });
 
-  // ── Form submit ────────────────────────────────────────────────
-  const form = document.querySelector<HTMLFormElement>("#password-form");
-  const passwordError = document.querySelector<HTMLDivElement>("#password-error");
-  const saveBtn = document.querySelector<HTMLButtonElement>("#btn-save-password");
+    const form = document.querySelector<HTMLFormElement>("#password-form");
+  const passwordError =
+    document.querySelector<HTMLDivElement>("#password-error");
+  const saveBtn =
+    document.querySelector<HTMLButtonElement>("#btn-save-password");
 
   form?.addEventListener("submit", async (e: Event) => {
     e.preventDefault();
     if (!saveBtn || !passwordError) return;
 
     const currentPassword =
-      document.querySelector<HTMLInputElement>("#current-password")?.value ?? "";
+      document.querySelector<HTMLInputElement>("#current-password")?.value ??
+      "";
     const newPassword =
       document.querySelector<HTMLInputElement>("#new-password")?.value ?? "";
     const confirmPassword =
-      document.querySelector<HTMLInputElement>("#confirm-password")?.value ?? "";
+      document.querySelector<HTMLInputElement>("#confirm-password")?.value ??
+      "";
 
     passwordError.textContent = "";
 
     // Validation
     if (!currentPassword || !newPassword || !confirmPassword) {
-      passwordError.textContent = "Vui lòng điền đầy đủ tất cả các trường mật khẩu.";
+      passwordError.textContent =
+        "Vui lòng điền đầy đủ tất cả các trường mật khẩu.";
       return;
     }
 
     if (newPassword !== confirmPassword) {
-      passwordError.textContent = "Mật khẩu mới và xác nhận mật khẩu không khớp.";
+      passwordError.textContent =
+        "Mật khẩu mới và xác nhận mật khẩu không khớp.";
       return;
     }
 
@@ -122,7 +135,9 @@ export function init(): void {
 
     try {
       await userService.changePassword({ currentPassword, newPassword });
-      alert("Đổi mật khẩu thành công! Phiên đăng nhập trên các thiết bị khác đã bị vô hiệu hóa.");
+      alert(
+        "Đổi mật khẩu thành công! Phiên đăng nhập trên các thiết bị khác đã bị vô hiệu hóa.",
+      );
       navigate("/profile");
     } catch (error: unknown) {
       const msg = authService.extractErrorMessage(error);

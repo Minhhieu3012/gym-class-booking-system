@@ -3,71 +3,89 @@ import { packageService } from "../../services/admin-core.service";
 import { authService } from "../../services/auth.service";
 import type { PackageResponse } from "../../models/admin";
 
-// ── Bootstrap Modal type shim (loaded via CDN) ────────────────────────────────
 declare const bootstrap: {
-  Modal: new (el: Element) => { show(): void; hide(): void; };
+  Modal: new (el: Element) => { show(): void; hide(): void };
 };
 
-// ── Module-level state ────────────────────────────────────────────────────────
 let allPackages: PackageResponse[] = [];
 
 // Lazy Bootstrap Modal factory — always grabs the live DOM element
 function getModal(): InstanceType<typeof bootstrap.Modal> | null {
   const el = document.querySelector<HTMLElement>("#modal-package");
   if (!el || typeof bootstrap === "undefined") return null;
-  return (bootstrap.Modal as unknown as {
-    getInstance(el: Element): InstanceType<typeof bootstrap.Modal> | null;
-  }).getInstance(el) ?? new bootstrap.Modal(el);
+  return (
+    (
+      bootstrap.Modal as unknown as {
+        getInstance(el: Element): InstanceType<typeof bootstrap.Modal> | null;
+      }
+    ).getInstance(el) ?? new bootstrap.Modal(el)
+  );
 }
 
-// ── render ────────────────────────────────────────────────────────────────────
 export function render(): string {
   return template;
 }
 
-// ── init ──────────────────────────────────────────────────────────────────────
 export async function init(): Promise<void> {
-  // ── DOM refs ──────────────────────────────────────────────────────────────
-  const tbody        = document.querySelector<HTMLTableSectionElement>("#pkg-tbody");
-  const loadingEl    = document.querySelector<HTMLDivElement>("#pkg-loading");
-  const tableWrapper = document.querySelector<HTMLDivElement>("#pkg-table-wrapper");
-  const emptyEl      = document.querySelector<HTMLDivElement>("#pkg-empty");
-  const alertEl      = document.querySelector<HTMLDivElement>("#pkg-alert");
+    const tbody = document.querySelector<HTMLTableSectionElement>("#pkg-tbody");
+  const loadingEl = document.querySelector<HTMLDivElement>("#pkg-loading");
+  const tableWrapper =
+    document.querySelector<HTMLDivElement>("#pkg-table-wrapper");
+  const emptyEl = document.querySelector<HTMLDivElement>("#pkg-empty");
+  const alertEl = document.querySelector<HTMLDivElement>("#pkg-alert");
 
-  const statTotal    = document.querySelector<HTMLParagraphElement>("#stat-total");
-  const statActive   = document.querySelector<HTMLParagraphElement>("#stat-active");
-  const statInactive = document.querySelector<HTMLParagraphElement>("#stat-inactive");
+  const statTotal = document.querySelector<HTMLParagraphElement>("#stat-total");
+  const statActive =
+    document.querySelector<HTMLParagraphElement>("#stat-active");
+  const statInactive =
+    document.querySelector<HTMLParagraphElement>("#stat-inactive");
 
-  const filterSelect = document.querySelector<HTMLSelectElement>("#pkg-filter-status");
-  const btnOpenAdd   = document.querySelector<HTMLButtonElement>("#btn-open-add-package");
+  const filterSelect =
+    document.querySelector<HTMLSelectElement>("#pkg-filter-status");
+  const btnOpenAdd = document.querySelector<HTMLButtonElement>(
+    "#btn-open-add-package",
+  );
 
   // Modal form refs
-  const pkgForm       = document.querySelector<HTMLFormElement>("#pkg-form");
-  const modalLabel    = document.querySelector<HTMLHeadingElement>("#modal-pkg-label");
-  const modalSubtitle = document.querySelector<HTMLParagraphElement>("#modal-pkg-subtitle");
-  const hiddenId      = document.querySelector<HTMLInputElement>("#pkg-id-hidden");
-  const nameInput     = document.querySelector<HTMLInputElement>("#pkg-name");
-  const nameCounter   = document.querySelector<HTMLSpanElement>("#pkg-name-counter");
-  const descTextarea  = document.querySelector<HTMLTextAreaElement>("#pkg-description");
-  const priceInput    = document.querySelector<HTMLInputElement>("#pkg-price");
-  const durInput      = document.querySelector<HTMLInputElement>("#pkg-duration");
-  const sessInput     = document.querySelector<HTMLInputElement>("#pkg-sessions");
-  const isActiveCheck = document.querySelector<HTMLInputElement>("#pkg-is-active");
-  const statusLabel   = document.querySelector<HTMLParagraphElement>("#pkg-status-label");
-  const statusHint    = document.querySelector<HTMLParagraphElement>("#pkg-status-hint");
-  const submitBtn     = document.querySelector<HTMLButtonElement>("#btn-pkg-submit");
-  const formError     = document.querySelector<HTMLDivElement>("#pkg-form-error");
-  const nameError     = document.querySelector<HTMLDivElement>("#pkg-name-error");
-  const descError     = document.querySelector<HTMLDivElement>("#pkg-description-error");
-  const priceError    = document.querySelector<HTMLDivElement>("#pkg-price-error");
+  const pkgForm = document.querySelector<HTMLFormElement>("#pkg-form");
+  const modalLabel =
+    document.querySelector<HTMLHeadingElement>("#modal-pkg-label");
+  const modalSubtitle = document.querySelector<HTMLParagraphElement>(
+    "#modal-pkg-subtitle",
+  );
+  const hiddenId = document.querySelector<HTMLInputElement>("#pkg-id-hidden");
+  const nameInput = document.querySelector<HTMLInputElement>("#pkg-name");
+  const nameCounter =
+    document.querySelector<HTMLSpanElement>("#pkg-name-counter");
+  const descTextarea =
+    document.querySelector<HTMLTextAreaElement>("#pkg-description");
+  const priceInput = document.querySelector<HTMLInputElement>("#pkg-price");
+  const durInput = document.querySelector<HTMLInputElement>("#pkg-duration");
+  const sessInput = document.querySelector<HTMLInputElement>("#pkg-sessions");
+  const isActiveCheck =
+    document.querySelector<HTMLInputElement>("#pkg-is-active");
+  const statusLabel =
+    document.querySelector<HTMLParagraphElement>("#pkg-status-label");
+  const statusHint =
+    document.querySelector<HTMLParagraphElement>("#pkg-status-hint");
+  const submitBtn =
+    document.querySelector<HTMLButtonElement>("#btn-pkg-submit");
+  const formError = document.querySelector<HTMLDivElement>("#pkg-form-error");
+  const nameError = document.querySelector<HTMLDivElement>("#pkg-name-error");
+  const descError = document.querySelector<HTMLDivElement>(
+    "#pkg-description-error",
+  );
+  const priceError = document.querySelector<HTMLDivElement>("#pkg-price-error");
 
-  const btnDurMinus   = document.querySelector<HTMLButtonElement>("#btn-dur-minus");
-  const btnDurPlus    = document.querySelector<HTMLButtonElement>("#btn-dur-plus");
-  const btnSessMinus  = document.querySelector<HTMLButtonElement>("#btn-sess-minus");
-  const btnSessPlus   = document.querySelector<HTMLButtonElement>("#btn-sess-plus");
+  const btnDurMinus =
+    document.querySelector<HTMLButtonElement>("#btn-dur-minus");
+  const btnDurPlus = document.querySelector<HTMLButtonElement>("#btn-dur-plus");
+  const btnSessMinus =
+    document.querySelector<HTMLButtonElement>("#btn-sess-minus");
+  const btnSessPlus =
+    document.querySelector<HTMLButtonElement>("#btn-sess-plus");
 
-  // ── Helpers ────────────────────────────────────────────────────────────────
-
+  
   function escapeHtml(str: string): string {
     return String(str)
       .replace(/&/g, "&amp;")
@@ -77,7 +95,10 @@ export async function init(): Promise<void> {
       .replace(/'/g, "&#039;");
   }
 
-  function showAlert(msg: string, type: "success" | "danger" = "success"): void {
+  function showAlert(
+    msg: string,
+    type: "success" | "danger" = "success",
+  ): void {
     if (!alertEl) return;
     const ok = type === "success";
     alertEl.style.display = "block";
@@ -85,25 +106,32 @@ export async function init(): Promise<void> {
       <div class="d-flex align-items-center gap-2 px-4 py-3 rounded-theme-md"
            style="background-color: ${ok ? "var(--color-tertiary-light)" : "var(--color-primary-light)"}; border: 1px solid ${ok ? "var(--color-tertiary)" : "var(--color-primary)"};">
         <svg width="16" height="16" fill="none" stroke="${ok ? "var(--color-tertiary)" : "var(--color-primary)"}" stroke-width="2.5" viewBox="0 0 24 24">
-          ${ok
-            ? '<polyline points="20 6 9 17 4 12"/>'
-            : '<circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>'}
+          ${
+            ok
+              ? '<polyline points="20 6 9 17 4 12"/>'
+              : '<circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>'
+          }
         </svg>
         <span style="font-size: 0.85rem; font-weight: 600; color: ${ok ? "var(--color-tertiary)" : "var(--color-primary)"};">${msg}</span>
       </div>`;
-    setTimeout(() => { if (alertEl) alertEl.style.display = "none"; }, 4000);
+    setTimeout(() => {
+      if (alertEl) alertEl.style.display = "none";
+    }, 4000);
   }
 
   function setStats(items: PackageResponse[]): void {
-    const active   = items.filter((p) => p.isActive).length;
+    const active = items.filter((p) => p.isActive).length;
     const inactive = items.length - active;
-    if (statTotal)    statTotal.textContent    = String(items.length);
-    if (statActive)   statActive.textContent   = String(active);
+    if (statTotal) statTotal.textContent = String(items.length);
+    if (statActive) statActive.textContent = String(active);
     if (statInactive) statInactive.textContent = String(inactive);
   }
 
   function fmtPrice(price: number): string {
-    return price.toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    return price.toLocaleString("en-US", {
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2,
+    });
   }
 
   function buildStatusBadge(isActive: boolean): string {
@@ -113,10 +141,11 @@ export async function init(): Promise<void> {
   }
 
   function buildRow(pkg: PackageResponse): string {
-    const idStr     = `PKG-${String(pkg.id).padStart(3, "0")}`;
-    const shortDesc = pkg.description.length > 60
-      ? escapeHtml(pkg.description.slice(0, 60)) + "…"
-      : escapeHtml(pkg.description);
+    const idStr = `PKG-${String(pkg.id).padStart(3, "0")}`;
+    const shortDesc =
+      pkg.description.length > 60
+        ? escapeHtml(pkg.description.slice(0, 60)) + "…"
+        : escapeHtml(pkg.description);
 
     return `
       <tr data-pkg-id="${pkg.id}">
@@ -165,8 +194,7 @@ export async function init(): Promise<void> {
       </tr>`;
   }
 
-  // ── Render table ───────────────────────────────────────────────────────────
-  function renderTable(items: PackageResponse[]): void {
+    function renderTable(items: PackageResponse[]): void {
     if (!tbody || !tableWrapper || !emptyEl) return;
     tableWrapper.style.display = "block";
     if (items.length === 0) {
@@ -180,14 +208,13 @@ export async function init(): Promise<void> {
     }
   }
 
-  // ── Load packages from API ─────────────────────────────────────────────────
-  async function loadPackages(): Promise<void> {
-    if (loadingEl)    loadingEl.style.display    = "block";
+    async function loadPackages(): Promise<void> {
+    if (loadingEl) loadingEl.style.display = "block";
     if (tableWrapper) tableWrapper.style.display = "none";
 
     try {
-      const page    = await packageService.getAll();
-      allPackages   = page.content;
+      const page = await packageService.getAll();
+      allPackages = page.content;
       setStats(allPackages);
       renderTable(allPackages);
     } catch (error: unknown) {
@@ -197,91 +224,112 @@ export async function init(): Promise<void> {
     }
   }
 
-  // ── Toggle: activate() / deactivate() ─────────────────────────────────────
-  function attachToggleListeners(): void {
-    document.querySelectorAll<HTMLInputElement>(".pkg-status-toggle").forEach((toggle) => {
-      toggle.addEventListener("change", async () => {
-        const id        = Number(toggle.dataset.id);
-        const wasActive = toggle.dataset.current === "true";
-        const newActive = !wasActive;
+    function attachToggleListeners(): void {
+    document
+      .querySelectorAll<HTMLInputElement>(".pkg-status-toggle")
+      .forEach((toggle) => {
+        toggle.addEventListener("change", async () => {
+          const id = Number(toggle.dataset.id);
+          const wasActive = toggle.dataset.current === "true";
+          const newActive = !wasActive;
 
-        toggle.disabled = true;
-        try {
-          if (newActive) {
-            await packageService.activate(id);
-          } else {
-            await packageService.deactivate(id);
+          toggle.disabled = true;
+          try {
+            if (newActive) {
+              await packageService.activate(id);
+            } else {
+              await packageService.deactivate(id);
+            }
+
+            // Update in-memory state
+            const pkg = allPackages.find((p) => p.id === id);
+            if (pkg) pkg.isActive = newActive;
+            toggle.dataset.current = String(newActive);
+
+            // Update badge
+            const row = toggle.closest("tr");
+            const badgeEl = row?.querySelector<HTMLSpanElement>(".badge-theme");
+            if (badgeEl) {
+              badgeEl.className = `badge-theme ${newActive ? "badge-active" : "badge-inactive"}`;
+              badgeEl.textContent = newActive ? "● ACTIVE" : "○ INACTIVE";
+            }
+
+            setStats(allPackages);
+            showAlert(
+              `Package ${newActive ? "activated" : "deactivated"} successfully.`,
+              "success",
+            );
+          } catch (error: unknown) {
+            toggle.checked = !toggle.checked;
+            showAlert(authService.extractErrorMessage(error), "danger");
+          } finally {
+            toggle.disabled = false;
           }
+        });
+      });
+  }
 
-          // Update in-memory state
+    function attachEditListeners(): void {
+    document
+      .querySelectorAll<HTMLButtonElement>(".btn-edit-pkg")
+      .forEach((btn) => {
+        btn.addEventListener("click", () => {
+          const id = Number(btn.dataset.id);
           const pkg = allPackages.find((p) => p.id === id);
-          if (pkg) pkg.isActive = newActive;
-          toggle.dataset.current = String(newActive);
-
-          // Update badge
-          const row     = toggle.closest("tr");
-          const badgeEl = row?.querySelector<HTMLSpanElement>(".badge-theme");
-          if (badgeEl) {
-            badgeEl.className   = `badge-theme ${newActive ? "badge-active" : "badge-inactive"}`;
-            badgeEl.textContent = newActive ? "● ACTIVE" : "○ INACTIVE";
-          }
-
-          setStats(allPackages);
-          showAlert(`Package ${newActive ? "activated" : "deactivated"} successfully.`, "success");
-        } catch (error: unknown) {
-          toggle.checked = !toggle.checked;
-          showAlert(authService.extractErrorMessage(error), "danger");
-        } finally {
-          toggle.disabled = false;
-        }
+          if (!pkg) return;
+          openEditModal(pkg);
+        });
       });
-    });
   }
 
-  // ── Edit button listeners ──────────────────────────────────────────────────
-  function attachEditListeners(): void {
-    document.querySelectorAll<HTMLButtonElement>(".btn-edit-pkg").forEach((btn) => {
-      btn.addEventListener("click", () => {
-        const id  = Number(btn.dataset.id);
-        const pkg = allPackages.find((p) => p.id === id);
-        if (!pkg) return;
-        openEditModal(pkg);
-      });
-    });
-  }
-
-  // ── Modal helpers ──────────────────────────────────────────────────────────
-  function clearFormErrors(): void {
-    if (nameError)  nameError.style.display  = "none";
-    if (descError)  descError.style.display  = "none";
+    function clearFormErrors(): void {
+    if (nameError) nameError.style.display = "none";
+    if (descError) descError.style.display = "none";
     if (priceError) priceError.style.display = "none";
-    if (formError)  { formError.style.display = "none"; formError.textContent = ""; }
+    if (formError) {
+      formError.style.display = "none";
+      formError.textContent = "";
+    }
   }
 
   function syncStatusLabel(active: boolean): void {
-    if (statusLabel) statusLabel.textContent = active
-      ? "Active (Available in Member App)"
-      : "Inactive (Hidden from Members)";
-    if (statusHint) statusHint.textContent = active
-      ? "Members can see and purchase this package."
-      : "This package is archived and not visible to members.";
+    if (statusLabel)
+      statusLabel.textContent = active
+        ? "Active (Available in Member App)"
+        : "Inactive (Hidden from Members)";
+    if (statusHint)
+      statusHint.textContent = active
+        ? "Members can see and purchase this package."
+        : "This package is archived and not visible to members.";
   }
 
   function openAddModal(): void {
-    if (!hiddenId || !nameInput || !descTextarea || !priceInput || !durInput || !sessInput || !isActiveCheck) return;
-    if (modalLabel)    modalLabel.textContent    = "Add New Package";
-    if (modalSubtitle) modalSubtitle.textContent = "Set pricing, validity window, and quota restrictions.";
-    if (submitBtn) submitBtn.innerHTML = `
+    if (
+      !hiddenId ||
+      !nameInput ||
+      !descTextarea ||
+      !priceInput ||
+      !durInput ||
+      !sessInput ||
+      !isActiveCheck
+    )
+      return;
+    if (modalLabel) modalLabel.textContent = "Add New Package";
+    if (modalSubtitle)
+      modalSubtitle.textContent =
+        "Set pricing, validity window, and quota restrictions.";
+    if (submitBtn)
+      submitBtn.innerHTML = `
       <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
         <polyline points="20 6 9 17 4 12"/>
       </svg> Save Package`;
 
-    hiddenId.value        = "";
-    nameInput.value       = "";
-    descTextarea.value    = "";
-    priceInput.value      = "";
-    durInput.value        = "30";
-    sessInput.value       = "10";
+    hiddenId.value = "";
+    nameInput.value = "";
+    descTextarea.value = "";
+    priceInput.value = "";
+    durInput.value = "30";
+    sessInput.value = "10";
     isActiveCheck.checked = true;
     clearFormErrors();
     if (nameCounter) nameCounter.textContent = "0 / 60 chars";
@@ -291,20 +339,31 @@ export async function init(): Promise<void> {
   }
 
   function openEditModal(pkg: PackageResponse): void {
-    if (!hiddenId || !nameInput || !descTextarea || !priceInput || !durInput || !sessInput || !isActiveCheck) return;
-    if (modalLabel)    modalLabel.textContent    = "Edit Package";
-    if (modalSubtitle) modalSubtitle.textContent = `Updating details for PKG-${String(pkg.id).padStart(3, "0")}.`;
-    if (submitBtn) submitBtn.innerHTML = `
+    if (
+      !hiddenId ||
+      !nameInput ||
+      !descTextarea ||
+      !priceInput ||
+      !durInput ||
+      !sessInput ||
+      !isActiveCheck
+    )
+      return;
+    if (modalLabel) modalLabel.textContent = "Edit Package";
+    if (modalSubtitle)
+      modalSubtitle.textContent = `Updating details for PKG-${String(pkg.id).padStart(3, "0")}.`;
+    if (submitBtn)
+      submitBtn.innerHTML = `
       <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
         <polyline points="20 6 9 17 4 12"/>
       </svg> Update Package`;
 
-    hiddenId.value        = String(pkg.id);
-    nameInput.value       = pkg.name;
-    descTextarea.value    = pkg.description;
-    priceInput.value      = String(pkg.price);
-    durInput.value        = String(pkg.durationDays);
-    sessInput.value       = String(pkg.sessionCount);
+    hiddenId.value = String(pkg.id);
+    nameInput.value = pkg.name;
+    descTextarea.value = pkg.description;
+    priceInput.value = String(pkg.price);
+    durInput.value = String(pkg.durationDays);
+    sessInput.value = String(pkg.sessionCount);
     isActiveCheck.checked = pkg.isActive;
     clearFormErrors();
     if (nameCounter) nameCounter.textContent = `${pkg.name.length} / 60 chars`;
@@ -313,8 +372,7 @@ export async function init(): Promise<void> {
     getModal()?.show();
   }
 
-  // ── Steppers ───────────────────────────────────────────────────────────────
-  btnDurMinus?.addEventListener("click", () => {
+    btnDurMinus?.addEventListener("click", () => {
     if (!durInput) return;
     const v = parseInt(durInput.value, 10) || 1;
     if (v > 1) durInput.value = String(v - 1);
@@ -335,34 +393,39 @@ export async function init(): Promise<void> {
     if (v < 999) sessInput.value = String(v + 1);
   });
 
-  // ── Char counter ───────────────────────────────────────────────────────────
-  nameInput?.addEventListener("input", () => {
-    if (nameCounter) nameCounter.textContent = `${nameInput.value.length} / 60 chars`;
+    nameInput?.addEventListener("input", () => {
+    if (nameCounter)
+      nameCounter.textContent = `${nameInput.value.length} / 60 chars`;
   });
 
-  // ── isActive toggle → label ────────────────────────────────────────────────
-  isActiveCheck?.addEventListener("change", () => {
+    isActiveCheck?.addEventListener("change", () => {
     syncStatusLabel(isActiveCheck.checked);
   });
 
-  // ── Open Add modal ─────────────────────────────────────────────────────────
-  btnOpenAdd?.addEventListener("click", openAddModal);
+    btnOpenAdd?.addEventListener("click", openAddModal);
 
-  // ── Form submission ────────────────────────────────────────────────────────
-  pkgForm?.addEventListener("submit", async (e: Event) => {
+    pkgForm?.addEventListener("submit", async (e: Event) => {
     e.preventDefault();
     clearFormErrors();
 
-    if (!nameInput || !descTextarea || !priceInput || !durInput || !sessInput || !isActiveCheck || !hiddenId) return;
+    if (
+      !nameInput ||
+      !descTextarea ||
+      !priceInput ||
+      !durInput ||
+      !sessInput ||
+      !isActiveCheck ||
+      !hiddenId
+    )
+      return;
 
-    const name        = nameInput.value.trim();
+    const name = nameInput.value.trim();
     const description = descTextarea.value.trim();
-    // ── Coerce to Number ──
-    const price        = Number(priceInput.value);
+        const price = Number(priceInput.value);
     const durationDays = Number(durInput.value);
     const sessionCount = Number(sessInput.value);
-    const isActive     = isActiveCheck.checked;
-    const editingId    = hiddenId.value ? Number(hiddenId.value) : null;
+    const isActive = isActiveCheck.checked;
+    const editingId = hiddenId.value ? Number(hiddenId.value) : null;
 
     // Client-side validation
     let hasError = false;
@@ -381,23 +444,31 @@ export async function init(): Promise<void> {
     if (hasError) return;
 
     if (submitBtn) {
-      submitBtn.disabled    = true;
+      submitBtn.disabled = true;
       submitBtn.textContent = editingId ? "Updating..." : "Saving...";
     }
 
     try {
       if (editingId) {
-        // ── UPDATE ──
-        const updated = await packageService.update(editingId, {
-          name, description, price, durationDays, sessionCount, isActive,
+                const updated = await packageService.update(editingId, {
+          name,
+          description,
+          price,
+          durationDays,
+          sessionCount,
+          isActive,
         });
         const idx = allPackages.findIndex((p) => p.id === editingId);
         if (idx !== -1) allPackages[idx] = { ...allPackages[idx], ...updated };
         showAlert(`Package "${updated.name}" updated successfully.`, "success");
       } else {
-        // ── CREATE ──
-        const created = await packageService.create({
-          name, description, price, durationDays, sessionCount, isActive,
+                const created = await packageService.create({
+          name,
+          description,
+          price,
+          durationDays,
+          sessionCount,
+          isActive,
         });
         allPackages.push(created);
         showAlert(`Package "${created.name}" created successfully.`, "success");
@@ -406,17 +477,21 @@ export async function init(): Promise<void> {
       // Re-render table & stats
       setStats(allPackages);
       const filterVal = filterSelect?.value;
-      const filtered  =
-        filterVal === "true"  ? allPackages.filter((p) => p.isActive) :
-        filterVal === "false" ? allPackages.filter((p) => !p.isActive) :
-        allPackages;
+      const filtered =
+        filterVal === "true"
+          ? allPackages.filter((p) => p.isActive)
+          : filterVal === "false"
+            ? allPackages.filter((p) => !p.isActive)
+            : allPackages;
       renderTable(filtered);
 
       getModal()?.hide();
-
     } catch (error: unknown) {
       const msg = authService.extractErrorMessage(error);
-      if (formError) { formError.textContent = msg; formError.style.display = "block"; }
+      if (formError) {
+        formError.textContent = msg;
+        formError.style.display = "block";
+      }
     } finally {
       if (submitBtn) {
         submitBtn.disabled = false;
@@ -428,16 +503,16 @@ export async function init(): Promise<void> {
     }
   });
 
-  // ── Status filter ──────────────────────────────────────────────────────────
-  filterSelect?.addEventListener("change", () => {
-    const val      = filterSelect.value;
+    filterSelect?.addEventListener("change", () => {
+    const val = filterSelect.value;
     const filtered =
-      val === "true"  ? allPackages.filter((p) => p.isActive) :
-      val === "false" ? allPackages.filter((p) => !p.isActive) :
-      allPackages;
+      val === "true"
+        ? allPackages.filter((p) => p.isActive)
+        : val === "false"
+          ? allPackages.filter((p) => !p.isActive)
+          : allPackages;
     renderTable(filtered);
   });
 
-  // ── Initial data load ──────────────────────────────────────────────────────
-  await loadPackages();
+    await loadPackages();
 }

@@ -9,11 +9,8 @@ export function render(): string {
   return template;
 }
 
-// Controller
 export function init(): void {
-  // ── Grab DOM refs ──────────────────────────────────────────────
-  const avatarImg =
-    document.querySelector<HTMLImageElement>("#profile-avatar");
+    const avatarImg = document.querySelector<HTMLImageElement>("#profile-avatar");
   const avatarInput = document.querySelector<HTMLInputElement>(
     "#profile-avatar-input",
   );
@@ -31,25 +28,18 @@ export function init(): void {
   );
   const navGreeting =
     document.querySelector<HTMLParagraphElement>("#nav-greeting");
-  const navAvatar =
-    document.querySelector<HTMLDivElement>("#nav-avatar");
-  const profileIdBadge = document.querySelector<HTMLSpanElement>(
-    "#profile-id-badge",
-  );
+  const navAvatar = document.querySelector<HTMLDivElement>("#nav-avatar");
+  const profileIdBadge =
+    document.querySelector<HTMLSpanElement>("#profile-id-badge");
 
-  const fnInput =
-    document.querySelector<HTMLInputElement>("#profile-fullname");
-  const emailInput =
-    document.querySelector<HTMLInputElement>("#profile-email");
-  const phoneInput =
-    document.querySelector<HTMLInputElement>("#profile-phone");
+  const fnInput = document.querySelector<HTMLInputElement>("#profile-fullname");
+  const emailInput = document.querySelector<HTMLInputElement>("#profile-email");
+  const phoneInput = document.querySelector<HTMLInputElement>("#profile-phone");
   const addressInput =
     document.querySelector<HTMLInputElement>("#profile-address");
 
-  const profileForm =
-    document.querySelector<HTMLFormElement>("#profile-form");
-  const profileError =
-    document.querySelector<HTMLDivElement>("#profile-error");
+  const profileForm = document.querySelector<HTMLFormElement>("#profile-form");
+  const profileError = document.querySelector<HTMLDivElement>("#profile-error");
   const updateBtn = document.querySelector<HTMLButtonElement>(
     "#btn-update-profile",
   );
@@ -57,8 +47,7 @@ export function init(): void {
     "#btn-discard-profile",
   );
 
-  // ── Load profile data ─────────────────────────────────────────
-  let originalData: {
+    let originalData: {
     fullName: string;
     phone: string;
     address: string;
@@ -69,9 +58,12 @@ export function init(): void {
       const profile = await userService.getMyProfile();
 
       // Nav bar
-      if (navGreeting) navGreeting.textContent = `Hey ${profile.fullName.split(" ")[0]}`;
-      if (navAvatar) navAvatar.textContent = profile.fullName.charAt(0).toUpperCase();
-      if (profileIdBadge) profileIdBadge.textContent = `● ID #PL-${String(profile.id).padStart(4, "0")} · ACTIVE`;
+      if (navGreeting)
+        navGreeting.textContent = `Hey ${profile.fullName.split(" ")[0]}`;
+      if (navAvatar)
+        navAvatar.textContent = profile.fullName.charAt(0).toUpperCase();
+      if (profileIdBadge)
+        profileIdBadge.textContent = `● ID #PL-${String(profile.id).padStart(4, "0")} · ACTIVE`;
 
       // Avatar card
       if (avatarImg) {
@@ -99,8 +91,7 @@ export function init(): void {
     }
   })();
 
-  // ── Avatar upload ─────────────────────────────────────────────
-  const triggerAvatar = () => avatarInput?.click();
+    const triggerAvatar = () => avatarInput?.click();
   avatarTriggerBtn?.addEventListener("click", triggerAvatar);
   avatarLabelBtn?.addEventListener("click", triggerAvatar);
 
@@ -128,16 +119,14 @@ export function init(): void {
     }
   });
 
-  // ── Discard profile changes ───────────────────────────────────
-  discardBtn?.addEventListener("click", () => {
+    discardBtn?.addEventListener("click", () => {
     if (fnInput) fnInput.value = originalData.fullName;
     if (phoneInput) phoneInput.value = originalData.phone;
     if (addressInput) addressInput.value = originalData.address;
     if (profileError) profileError.textContent = "";
   });
 
-  // ── Update profile form ───────────────────────────────────────
-  profileForm?.addEventListener("submit", async (e: Event) => {
+    profileForm?.addEventListener("submit", async (e: Event) => {
     e.preventDefault();
     if (!updateBtn || !profileError) return;
 
@@ -148,7 +137,8 @@ export function init(): void {
     profileError.textContent = "";
 
     if (!fullName || !phone) {
-      profileError.textContent = "Vui lòng điền đầy đủ Họ tên và Số điện thoại.";
+      profileError.textContent =
+        "Vui lòng điền đầy đủ Họ tên và Số điện thoại.";
       return;
     }
 
@@ -156,10 +146,15 @@ export function init(): void {
     updateBtn.textContent = "Đang lưu...";
 
     try {
-      const updated = await userService.updateProfile({ fullName, phone, address });
+      const updated = await userService.updateProfile({
+        fullName,
+        phone,
+        address,
+      });
       // Refresh display
       if (nameDisplay) nameDisplay.textContent = updated.fullName;
-      if (navGreeting) navGreeting.textContent = `Hey ${updated.fullName.split(" ")[0]}`;
+      if (navGreeting)
+        navGreeting.textContent = `Hey ${updated.fullName.split(" ")[0]}`;
       originalData = { fullName, phone, address };
       alert("Thông tin đã được cập nhật thành công!");
     } catch (error: unknown) {

@@ -1,5 +1,7 @@
-<div class="admin-theme d-flex" style="min-height: 100vh; background-color: var(--color-surface-alt);">
-
+<div
+  class="admin-theme d-flex"
+  style="min-height: 100vh; background-color: var(--color-surface-alt)"
+>
   <!-- ══════════════════════════════════════════
        SIDEBAR
   ═══════════════════════════════════════════ -->
@@ -7,81 +9,184 @@
     id="admin-sidebar"
     class="bg-surface d-flex flex-column"
     style="
-      width: 240px; min-width: 240px; min-height: 100vh;
-      position: fixed; top: 0; left: 0; z-index: 200;
+      width: 240px;
+      min-width: 240px;
+      min-height: 100vh;
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 200;
       border-right: 1px solid var(--color-border);
       transition: transform var(--transition-normal);
     "
   >
     <!-- Logo -->
-    <div class="d-flex align-items-center gap-2 px-4"
-      style="height: 64px; border-bottom: 1px solid var(--color-border); flex-shrink: 0;">
-      <div class="rounded-theme-md d-flex align-items-center justify-content-center"
-        style="width: 34px; height: 34px; background-color: var(--color-secondary);">
-        <svg width="18" height="18" fill="none" stroke="var(--color-primary)" stroke-width="2.5" viewBox="0 0 24 24">
-          <path d="M18 20V10M12 20V4M6 20v-6"/>
+    <div
+      class="d-flex align-items-center gap-2 px-4"
+      style="
+        height: 64px;
+        border-bottom: 1px solid var(--color-border);
+        flex-shrink: 0;
+      "
+    >
+      <div
+        class="rounded-theme-md d-flex align-items-center justify-content-center"
+        style="
+          width: 34px;
+          height: 34px;
+          background-color: var(--color-secondary);
+        "
+      >
+        <svg
+          width="18"
+          height="18"
+          fill="none"
+          stroke="var(--color-primary)"
+          stroke-width="2.5"
+          viewBox="0 0 24 24"
+        >
+          <path d="M18 20V10M12 20V4M6 20v-6" />
         </svg>
       </div>
       <div>
-        <p class="mb-0 fw-bold text-secondary-theme" style="font-size: 0.88rem; letter-spacing: 0.04em; line-height: 1.1;">PULSE</p>
-        <p class="mb-0 text-neutral" style="font-size: 0.6rem; letter-spacing: 0.12em; line-height: 1.1;">PERFORMANCE</p>
+        <p
+          class="mb-0 fw-bold text-secondary-theme"
+          style="font-size: 0.88rem; letter-spacing: 0.04em; line-height: 1.1"
+        >
+          PULSE
+        </p>
+        <p
+          class="mb-0 text-neutral"
+          style="font-size: 0.6rem; letter-spacing: 0.12em; line-height: 1.1"
+        >
+          PERFORMANCE
+        </p>
       </div>
     </div>
 
     <!-- Nav label -->
-    <p class="mb-0 text-neutral px-4 mt-4 mb-2" style="font-size: 0.62rem; letter-spacing: 0.12em; font-weight: 600;">COMMAND CENTER</p>
+    <p
+      class="mb-0 text-neutral px-4 mt-4 mb-2"
+      style="font-size: 0.62rem; letter-spacing: 0.12em; font-weight: 600"
+    >
+      COMMAND CENTER
+    </p>
 
     <!-- Nav links -->
     <nav class="d-flex flex-column px-3 gap-1 flex-grow-1">
-
-      <a href="/admin/dashboard" data-link
-        class="sidebar-link d-flex align-items-center gap-3 px-3 py-2 rounded-theme-md text-neutral" id="nav-dashboard">
-        <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-          <rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/>
-          <rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/>
+      <a
+        href="/admin/dashboard"
+        data-link
+        class="sidebar-link d-flex align-items-center gap-3 px-3 py-2 rounded-theme-md text-neutral"
+        id="nav-dashboard"
+      >
+        <svg
+          width="16"
+          height="16"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          viewBox="0 0 24 24"
+        >
+          <rect x="3" y="3" width="7" height="7" />
+          <rect x="14" y="3" width="7" height="7" />
+          <rect x="14" y="14" width="7" height="7" />
+          <rect x="3" y="14" width="7" height="7" />
         </svg>
-        <span style="font-size: 0.875rem; font-weight: 500;">Dashboard</span>
+        <span style="font-size: 0.875rem; font-weight: 500">Dashboard</span>
       </a>
 
-      <a href="/admin/rooms" data-link
-        class="sidebar-link d-flex align-items-center gap-3 px-3 py-2 rounded-theme-md text-neutral" id="nav-rooms">
-        <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-          <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
-          <polyline points="9 22 9 12 15 12 15 22"/>
+      <a
+        href="/admin/rooms"
+        data-link
+        class="sidebar-link d-flex align-items-center gap-3 px-3 py-2 rounded-theme-md text-neutral"
+        id="nav-rooms"
+      >
+        <svg
+          width="16"
+          height="16"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          viewBox="0 0 24 24"
+        >
+          <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+          <polyline points="9 22 9 12 15 12 15 22" />
         </svg>
-        <span style="font-size: 0.875rem; font-weight: 500;">Rooms</span>
+        <span style="font-size: 0.875rem; font-weight: 500">Rooms</span>
       </a>
 
-      <a href="/admin/class-types" data-link
-        class="sidebar-link d-flex align-items-center gap-3 px-3 py-2 rounded-theme-md text-neutral" id="nav-class-types">
-        <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-          <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/>
-          <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
+      <a
+        href="/admin/class-types"
+        data-link
+        class="sidebar-link d-flex align-items-center gap-3 px-3 py-2 rounded-theme-md text-neutral"
+        id="nav-class-types"
+      >
+        <svg
+          width="16"
+          height="16"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          viewBox="0 0 24 24"
+        >
+          <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20" />
+          <path
+            d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"
+          />
         </svg>
-        <span style="font-size: 0.875rem; font-weight: 500;">Class Types</span>
+        <span style="font-size: 0.875rem; font-weight: 500">Class Types</span>
       </a>
 
-      <a href="/admin/packages" data-link
-        class="sidebar-link sidebar-link--active d-flex align-items-center gap-3 px-3 py-2 rounded-theme-md" id="nav-packages">
-        <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-          <line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/>
-          <line x1="8" y1="18" x2="21" y2="18"/>
-          <line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/>
-          <line x1="3" y1="18" x2="3.01" y2="18"/>
+      <a
+        href="/admin/packages"
+        data-link
+        class="sidebar-link sidebar-link--active d-flex align-items-center gap-3 px-3 py-2 rounded-theme-md"
+        id="nav-packages"
+      >
+        <svg
+          width="16"
+          height="16"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          viewBox="0 0 24 24"
+        >
+          <line x1="8" y1="6" x2="21" y2="6" />
+          <line x1="8" y1="12" x2="21" y2="12" />
+          <line x1="8" y1="18" x2="21" y2="18" />
+          <line x1="3" y1="6" x2="3.01" y2="6" />
+          <line x1="3" y1="12" x2="3.01" y2="12" />
+          <line x1="3" y1="18" x2="3.01" y2="18" />
         </svg>
-        <span style="font-size: 0.875rem; font-weight: 600;">Packages</span>
+        <span style="font-size: 0.875rem; font-weight: 600">Packages</span>
       </a>
-
     </nav>
 
-    <!-- Sidebar Footer -->
-    <div class="px-4 py-3" style="border-top: 1px solid var(--color-border); flex-shrink: 0;">
+    
+    <div
+      class="px-4 py-3"
+      style="border-top: 1px solid var(--color-border); flex-shrink: 0"
+    >
       <div class="d-flex align-items-center gap-2">
-        <div class="rounded-circle d-flex align-items-center justify-content-center fw-bold bg-surface-alt text-secondary-theme"
-          style="width: 32px; height: 32px; font-size: 0.8rem; flex-shrink: 0;" id="sidebar-avatar">A</div>
-        <div style="overflow: hidden;">
-          <p class="mb-0 fw-semibold text-secondary-theme text-truncate" style="font-size: 0.8rem;" id="sidebar-username">Admin</p>
-          <p class="mb-0 text-neutral text-truncate" style="font-size: 0.68rem;">System Administrator</p>
+        <div
+          class="rounded-circle d-flex align-items-center justify-content-center fw-bold bg-surface-alt text-secondary-theme"
+          style="width: 32px; height: 32px; font-size: 0.8rem; flex-shrink: 0"
+          id="sidebar-avatar"
+        >
+          A
+        </div>
+        <div style="overflow: hidden">
+          <p
+            class="mb-0 fw-semibold text-secondary-theme text-truncate"
+            style="font-size: 0.8rem"
+            id="sidebar-username"
+          >
+            Admin
+          </p>
+          <p class="mb-0 text-neutral text-truncate" style="font-size: 0.68rem">
+            System Administrator
+          </p>
         </div>
       </div>
     </div>
@@ -90,56 +195,173 @@
   <!-- ══════════════════════════════════════════
        MAIN CONTENT WRAPPER
   ═══════════════════════════════════════════ -->
-  <div class="d-flex flex-column flex-grow-1" style="margin-left: 240px; min-height: 100vh;">
-
-    <!-- HEADER -->
-    <header class="bg-surface d-flex align-items-center justify-content-between px-4"
-      style="height: 64px; position: sticky; top: 0; z-index: 100; border-bottom: 1px solid var(--color-border); flex-shrink: 0;">
+  <div
+    class="d-flex flex-column flex-grow-1"
+    style="margin-left: 240px; min-height: 100vh"
+  >
+    
+    <header
+      class="bg-surface d-flex align-items-center justify-content-between px-4"
+      style="
+        height: 64px;
+        position: sticky;
+        top: 0;
+        z-index: 100;
+        border-bottom: 1px solid var(--color-border);
+        flex-shrink: 0;
+      "
+    >
       <div class="d-flex align-items-center gap-2">
-        <span class="text-neutral" style="font-size: 0.8rem;">Command Center</span>
-        <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" class="text-neutral" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
-        <span class="text-neutral" style="font-size: 0.8rem;">Inventory & Pricing</span>
-        <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" class="text-neutral" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
-        <span class="fw-semibold text-secondary-theme" style="font-size: 0.8rem;">Packages & Passes</span>
+        <span class="text-neutral" style="font-size: 0.8rem"
+          >Command Center</span
+        >
+        <svg
+          width="12"
+          height="12"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          class="text-neutral"
+          viewBox="0 0 24 24"
+        >
+          <polyline points="9 18 15 12 9 6" />
+        </svg>
+        <span class="text-neutral" style="font-size: 0.8rem"
+          >Inventory & Pricing</span
+        >
+        <svg
+          width="12"
+          height="12"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          class="text-neutral"
+          viewBox="0 0 24 24"
+        >
+          <polyline points="9 18 15 12 9 6" />
+        </svg>
+        <span class="fw-semibold text-secondary-theme" style="font-size: 0.8rem"
+          >Packages & Passes</span
+        >
       </div>
       <div class="d-flex align-items-center gap-3">
-        <div class="d-flex align-items-center gap-2 px-3 py-1 rounded-theme-md bg-surface-alt border-theme" style="font-size: 0.72rem;">
-          <span class="rounded-circle" style="width: 7px; height: 7px; background-color: var(--color-secondary); display: inline-block; animation: pulse-dot 1.5s ease-in-out infinite;"></span>
-          <span class="text-secondary-theme fw-semibold" id="pkg-catalog-tag">Catalog v2.4</span>
+        <div
+          class="d-flex align-items-center gap-2 px-3 py-1 rounded-theme-md bg-surface-alt border-theme"
+          style="font-size: 0.72rem"
+        >
+          <span
+            class="rounded-circle"
+            style="
+              width: 7px;
+              height: 7px;
+              background-color: var(--color-secondary);
+              display: inline-block;
+              animation: pulse-dot 1.5s ease-in-out infinite;
+            "
+          ></span>
+          <span class="text-secondary-theme fw-semibold" id="pkg-catalog-tag"
+            >Catalog v2.4</span
+          >
         </div>
-        <button class="btn p-0 border-0 bg-transparent text-neutral position-relative" aria-label="Notifications"
-          style="width:34px;height:34px;display:flex;align-items:center;justify-content:center;">
-          <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-            <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/>
-            <path d="M13.73 21a2 2 0 0 1-3.46 0"/>
+        <button
+          class="btn p-0 border-0 bg-transparent text-neutral position-relative"
+          aria-label="Notifications"
+          style="
+            width: 34px;
+            height: 34px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+          "
+        >
+          <svg
+            width="18"
+            height="18"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            viewBox="0 0 24 24"
+          >
+            <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9" />
+            <path d="M13.73 21a2 2 0 0 1-3.46 0" />
           </svg>
-          <span class="position-absolute top-0 end-0 rounded-circle" style="width:8px;height:8px;background-color:var(--color-primary);border:2px solid var(--color-surface);"></span>
+          <span
+            class="position-absolute top-0 end-0 rounded-circle"
+            style="
+              width: 8px;
+              height: 8px;
+              background-color: var(--color-primary);
+              border: 2px solid var(--color-surface);
+            "
+          ></span>
         </button>
-        <div id="header-avatar"
+        <div
+          id="header-avatar"
           class="rounded-circle d-flex align-items-center justify-content-center fw-bold bg-surface-alt text-secondary-theme border-theme"
-          style="width: 34px; height: 34px; font-size: 0.85rem; cursor: pointer; flex-shrink: 0;">A</div>
+          style="
+            width: 34px;
+            height: 34px;
+            font-size: 0.85rem;
+            cursor: pointer;
+            flex-shrink: 0;
+          "
+        >
+          A
+        </div>
       </div>
     </header>
 
     <!-- PAGE CONTENT -->
     <main class="flex-grow-1 p-4 p-lg-5">
-
-      <!-- Page Title Row -->
-      <div class="d-flex align-items-start justify-content-between mb-4 flex-wrap gap-3">
+      
+      <div
+        class="d-flex align-items-start justify-content-between mb-4 flex-wrap gap-3"
+      >
         <div>
-          <h1 class="fw-bold text-secondary-theme mb-1" style="font-size: 1.65rem; letter-spacing: -0.01em;">
+          <h1
+            class="fw-bold text-secondary-theme mb-1"
+            style="font-size: 1.65rem; letter-spacing: -0.01em"
+          >
             Package Management
-            <span class="ms-2 badge-theme badge-active"
-              style="font-size: 0.62rem; vertical-align: middle; letter-spacing: 0.07em;">CATALOG v2.4</span>
+            <span
+              class="ms-2 badge-theme badge-active"
+              style="
+                font-size: 0.62rem;
+                vertical-align: middle;
+                letter-spacing: 0.07em;
+              "
+              >CATALOG v2.4</span
+            >
           </h1>
-          <p class="text-neutral mb-0" style="font-size: 0.875rem; max-width: 500px;">
-            Configure recurring memberships, personal training bundles, and drop-in session passes across all facility zones.
+          <p
+            class="text-neutral mb-0"
+            style="font-size: 0.875rem; max-width: 500px"
+          >
+            Configure recurring memberships, personal training bundles, and
+            drop-in session passes across all facility zones.
           </p>
         </div>
-        <button id="btn-open-add-package" class="btn-brand d-flex align-items-center gap-2"
-          style="white-space: nowrap; font-size: 0.875rem; padding: 0.65rem 1.25rem;" type="button">
-          <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
-            <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/>
+        <button
+          id="btn-open-add-package"
+          class="btn-brand d-flex align-items-center gap-2"
+          style="
+            white-space: nowrap;
+            font-size: 0.875rem;
+            padding: 0.65rem 1.25rem;
+          "
+          type="button"
+        >
+          <svg
+            width="16"
+            height="16"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2.5"
+            viewBox="0 0 24 24"
+          >
+            <circle cx="12" cy="12" r="10" />
+            <line x1="12" y1="8" x2="12" y2="16" />
+            <line x1="8" y1="12" x2="16" y2="12" />
           </svg>
           + Add New Package
         </button>
@@ -148,49 +370,124 @@
       <!-- Stats Row -->
       <div class="row g-3 mb-4">
         <div class="col-6 col-xl-4">
-          <div class="card-theme p-3" style="cursor:default;">
-            <p class="text-neutral mb-1" style="font-size: 0.68rem; letter-spacing: 0.08em; font-weight: 600;">TOTAL PACKAGES</p>
-            <p class="fw-bold text-secondary-theme mb-0" style="font-size: 1.8rem; line-height:1;" id="stat-total">—</p>
-            <p class="text-neutral mt-1 mb-0" style="font-size: 0.72rem;">Tiers active</p>
+          <div class="card-theme p-3" style="cursor: default">
+            <p
+              class="text-neutral mb-1"
+              style="
+                font-size: 0.68rem;
+                letter-spacing: 0.08em;
+                font-weight: 600;
+              "
+            >
+              TOTAL PACKAGES
+            </p>
+            <p
+              class="fw-bold text-secondary-theme mb-0"
+              style="font-size: 1.8rem; line-height: 1"
+              id="stat-total"
+            >
+              —
+            </p>
+            <p class="text-neutral mt-1 mb-0" style="font-size: 0.72rem">
+              Tiers active
+            </p>
           </div>
         </div>
         <div class="col-6 col-xl-4">
-          <div class="card-theme p-3" style="cursor:default;">
-            <p class="text-neutral mb-1" style="font-size: 0.68rem; letter-spacing: 0.08em; font-weight: 600;">ACTIVE</p>
-            <p class="fw-bold text-tertiary mb-0" style="font-size: 1.8rem; line-height:1;" id="stat-active">—</p>
-            <p class="text-neutral mt-1 mb-0" style="font-size: 0.72rem;">Available to members</p>
+          <div class="card-theme p-3" style="cursor: default">
+            <p
+              class="text-neutral mb-1"
+              style="
+                font-size: 0.68rem;
+                letter-spacing: 0.08em;
+                font-weight: 600;
+              "
+            >
+              ACTIVE
+            </p>
+            <p
+              class="fw-bold text-tertiary mb-0"
+              style="font-size: 1.8rem; line-height: 1"
+              id="stat-active"
+            >
+              —
+            </p>
+            <p class="text-neutral mt-1 mb-0" style="font-size: 0.72rem">
+              Available to members
+            </p>
           </div>
         </div>
         <div class="col-6 col-xl-4">
-          <div class="card-theme p-3" style="cursor:default;">
-            <p class="text-neutral mb-1" style="font-size: 0.68rem; letter-spacing: 0.08em; font-weight: 600;">INACTIVE</p>
-            <p class="fw-bold text-primary-theme mb-0" style="font-size: 1.8rem; line-height:1;" id="stat-inactive">—</p>
-            <p class="text-neutral mt-1 mb-0" style="font-size: 0.72rem;">Archived / Discontinued</p>
+          <div class="card-theme p-3" style="cursor: default">
+            <p
+              class="text-neutral mb-1"
+              style="
+                font-size: 0.68rem;
+                letter-spacing: 0.08em;
+                font-weight: 600;
+              "
+            >
+              INACTIVE
+            </p>
+            <p
+              class="fw-bold text-primary-theme mb-0"
+              style="font-size: 1.8rem; line-height: 1"
+              id="stat-inactive"
+            >
+              —
+            </p>
+            <p class="text-neutral mt-1 mb-0" style="font-size: 0.72rem">
+              Archived / Discontinued
+            </p>
           </div>
         </div>
       </div>
 
       <!-- Alert area -->
-      <div id="pkg-alert" class="mb-3" style="display:none;"></div>
+      <div id="pkg-alert" class="mb-3" style="display: none"></div>
 
       <!-- Table Card -->
-      <div class="card-theme overflow-hidden" style="cursor:default;">
-
+      <div class="card-theme overflow-hidden" style="cursor: default">
         <!-- Table toolbar -->
-        <div class="d-flex align-items-center justify-content-between px-4 py-3"
-          style="border-bottom: 1px solid var(--color-border);">
-          <p class="mb-0 fw-semibold text-secondary-theme" style="font-size: 0.875rem;">
-            <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" class="me-1 text-secondary-theme" viewBox="0 0 24 24" style="vertical-align:-2px;">
-              <line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/>
-              <line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/>
+        <div
+          class="d-flex align-items-center justify-content-between px-4 py-3"
+          style="border-bottom: 1px solid var(--color-border)"
+        >
+          <p
+            class="mb-0 fw-semibold text-secondary-theme"
+            style="font-size: 0.875rem"
+          >
+            <svg
+              width="15"
+              height="15"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              class="me-1 text-secondary-theme"
+              viewBox="0 0 24 24"
+              style="vertical-align: -2px"
+            >
+              <line x1="8" y1="6" x2="21" y2="6" />
+              <line x1="8" y1="12" x2="21" y2="12" />
+              <line x1="8" y1="18" x2="21" y2="18" />
+              <line x1="3" y1="6" x2="3.01" y2="6" />
+              <line x1="3" y1="12" x2="3.01" y2="12" />
+              <line x1="3" y1="18" x2="3.01" y2="18" />
             </svg>
             Package Records
           </p>
           <div class="d-flex align-items-center gap-2">
-            <label for="pkg-filter-status" class="text-neutral mb-0" style="font-size: 0.78rem;">Filter:</label>
-            <select id="pkg-filter-status"
+            <label
+              for="pkg-filter-status"
+              class="text-neutral mb-0"
+              style="font-size: 0.78rem"
+              >Filter:</label
+            >
+            <select
+              id="pkg-filter-status"
               class="form-select form-select-sm border-theme bg-surface text-secondary-theme"
-              style="font-size: 0.8rem; width: auto; box-shadow: none;">
+              style="font-size: 0.8rem; width: auto; box-shadow: none"
+            >
               <option value="">All Statuses</option>
               <option value="true">Active</option>
               <option value="false">Inactive</option>
@@ -200,25 +497,124 @@
 
         <!-- Loading -->
         <div id="pkg-loading" class="py-5 text-center">
-          <div class="spinner-border" role="status" style="width: 2rem; height: 2rem;">
+          <div
+            class="spinner-border"
+            role="status"
+            style="width: 2rem; height: 2rem"
+          >
             <span class="visually-hidden">Loading...</span>
           </div>
-          <p class="text-neutral mt-3 mb-0" style="font-size: 0.85rem;">Fetching package data...</p>
+          <p class="text-neutral mt-3 mb-0" style="font-size: 0.85rem">
+            Fetching package data...
+          </p>
         </div>
 
         <!-- Table -->
-        <div class="table-responsive" id="pkg-table-wrapper" style="display:none;">
-          <table class="table mb-0" id="pkg-table" style="border-color: var(--color-border);">
+        <div
+          class="table-responsive"
+          id="pkg-table-wrapper"
+          style="display: none"
+        >
+          <table
+            class="table mb-0"
+            id="pkg-table"
+            style="border-color: var(--color-border)"
+          >
             <thead>
-              <tr style="background-color: var(--color-surface-alt); border-bottom: 2px solid var(--color-border);">
-                <th class="text-neutral px-4 py-3" style="font-size: 0.68rem; letter-spacing: 0.1em; font-weight: 700; white-space: nowrap;">ID</th>
-                <th class="text-neutral px-3 py-3" style="font-size: 0.68rem; letter-spacing: 0.1em; font-weight: 700; white-space: nowrap;">PACKAGE NAME</th>
-                <th class="text-neutral px-3 py-3" style="font-size: 0.68rem; letter-spacing: 0.1em; font-weight: 700; white-space: nowrap;">DESCRIPTION</th>
-                <th class="text-neutral px-3 py-3 text-end" style="font-size: 0.68rem; letter-spacing: 0.1em; font-weight: 700; white-space: nowrap;">PRICE ($)</th>
-                <th class="text-neutral px-3 py-3 text-center" style="font-size: 0.68rem; letter-spacing: 0.1em; font-weight: 700; white-space: nowrap;">DURATION</th>
-                <th class="text-neutral px-3 py-3 text-center" style="font-size: 0.68rem; letter-spacing: 0.1em; font-weight: 700; white-space: nowrap;">QUOTA</th>
-                <th class="text-neutral px-3 py-3 text-center" style="font-size: 0.68rem; letter-spacing: 0.1em; font-weight: 700; white-space: nowrap;">STATUS</th>
-                <th class="text-neutral px-4 py-3 text-end" style="font-size: 0.68rem; letter-spacing: 0.1em; font-weight: 700; white-space: nowrap;">ACTIONS</th>
+              <tr
+                style="
+                  background-color: var(--color-surface-alt);
+                  border-bottom: 2px solid var(--color-border);
+                "
+              >
+                <th
+                  class="text-neutral px-4 py-3"
+                  style="
+                    font-size: 0.68rem;
+                    letter-spacing: 0.1em;
+                    font-weight: 700;
+                    white-space: nowrap;
+                  "
+                >
+                  ID
+                </th>
+                <th
+                  class="text-neutral px-3 py-3"
+                  style="
+                    font-size: 0.68rem;
+                    letter-spacing: 0.1em;
+                    font-weight: 700;
+                    white-space: nowrap;
+                  "
+                >
+                  PACKAGE NAME
+                </th>
+                <th
+                  class="text-neutral px-3 py-3"
+                  style="
+                    font-size: 0.68rem;
+                    letter-spacing: 0.1em;
+                    font-weight: 700;
+                    white-space: nowrap;
+                  "
+                >
+                  DESCRIPTION
+                </th>
+                <th
+                  class="text-neutral px-3 py-3 text-end"
+                  style="
+                    font-size: 0.68rem;
+                    letter-spacing: 0.1em;
+                    font-weight: 700;
+                    white-space: nowrap;
+                  "
+                >
+                  PRICE ($)
+                </th>
+                <th
+                  class="text-neutral px-3 py-3 text-center"
+                  style="
+                    font-size: 0.68rem;
+                    letter-spacing: 0.1em;
+                    font-weight: 700;
+                    white-space: nowrap;
+                  "
+                >
+                  DURATION
+                </th>
+                <th
+                  class="text-neutral px-3 py-3 text-center"
+                  style="
+                    font-size: 0.68rem;
+                    letter-spacing: 0.1em;
+                    font-weight: 700;
+                    white-space: nowrap;
+                  "
+                >
+                  QUOTA
+                </th>
+                <th
+                  class="text-neutral px-3 py-3 text-center"
+                  style="
+                    font-size: 0.68rem;
+                    letter-spacing: 0.1em;
+                    font-weight: 700;
+                    white-space: nowrap;
+                  "
+                >
+                  STATUS
+                </th>
+                <th
+                  class="text-neutral px-4 py-3 text-end"
+                  style="
+                    font-size: 0.68rem;
+                    letter-spacing: 0.1em;
+                    font-weight: 700;
+                    white-space: nowrap;
+                  "
+                >
+                  ACTIONS
+                </th>
               </tr>
             </thead>
             <tbody id="pkg-tbody">
@@ -227,50 +623,134 @@
           </table>
 
           <!-- Empty state -->
-          <div id="pkg-empty" class="py-5 text-center" style="display:none;">
-            <svg width="48" height="48" fill="none" stroke="currentColor" stroke-width="1.2" class="text-neutral mb-3" viewBox="0 0 24 24">
-              <line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/>
-              <line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/>
+          <div id="pkg-empty" class="py-5 text-center" style="display: none">
+            <svg
+              width="48"
+              height="48"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.2"
+              class="text-neutral mb-3"
+              viewBox="0 0 24 24"
+            >
+              <line x1="8" y1="6" x2="21" y2="6" />
+              <line x1="8" y1="12" x2="21" y2="12" />
+              <line x1="8" y1="18" x2="21" y2="18" />
+              <line x1="3" y1="6" x2="3.01" y2="6" />
+              <line x1="3" y1="12" x2="3.01" y2="12" />
+              <line x1="3" y1="18" x2="3.01" y2="18" />
             </svg>
-            <p class="fw-semibold text-secondary-theme mb-1" style="font-size: 0.95rem;">No packages found</p>
-            <p class="text-neutral mb-0" style="font-size: 0.82rem;">Add the first package tier using the button above.</p>
+            <p
+              class="fw-semibold text-secondary-theme mb-1"
+              style="font-size: 0.95rem"
+            >
+              No packages found
+            </p>
+            <p class="text-neutral mb-0" style="font-size: 0.82rem">
+              Add the first package tier using the button above.
+            </p>
           </div>
         </div>
 
         <!-- Pagination (reserved) -->
-        <div id="pkg-pagination" class="d-flex align-items-center justify-content-between px-4 py-3"
-          style="border-top: 1px solid var(--color-border); display:none!important;">
-          <span id="pkg-page-info" class="text-neutral" style="font-size: 0.78rem;"></span>
+        <div
+          id="pkg-pagination"
+          class="d-flex align-items-center justify-content-between px-4 py-3"
+          style="
+            border-top: 1px solid var(--color-border);
+            display: none !important;
+          "
+        >
+          <span
+            id="pkg-page-info"
+            class="text-neutral"
+            style="font-size: 0.78rem"
+          ></span>
           <div class="d-flex gap-2">
-            <button id="btn-pkg-prev-page" class="btn-brand-outline px-3 py-1" style="font-size: 0.78rem;" disabled>Prev</button>
-            <button id="btn-pkg-next-page" class="btn-brand-outline px-3 py-1" style="font-size: 0.78rem;" disabled>Next</button>
+            <button
+              id="btn-pkg-prev-page"
+              class="btn-brand-outline px-3 py-1"
+              style="font-size: 0.78rem"
+              disabled
+            >
+              Prev
+            </button>
+            <button
+              id="btn-pkg-next-page"
+              class="btn-brand-outline px-3 py-1"
+              style="font-size: 0.78rem"
+              disabled
+            >
+              Next
+            </button>
           </div>
         </div>
-
-      </div><!-- /card-theme -->
+      </div>
+      <!-- /card-theme -->
     </main>
-  </div><!-- /main-content-wrapper -->
-
-</div><!-- /admin-theme wrapper -->
+  </div>
+  <!-- /main-content-wrapper -->
+</div>
+<!-- /admin-theme wrapper -->
 
 <!-- ══════════════════════════════════════════════════════
      MODAL — Add / Edit Package
 ═══════════════════════════════════════════════════════ -->
-<div class="modal fade" id="modal-package" tabindex="-1"
-  aria-labelledby="modal-pkg-label" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" style="max-width: 560px;">
-    <div class="modal-content bg-surface border-theme shadow-theme-lg" style="border-radius: var(--radius-lg);">
-
-      <div class="modal-header" style="border-bottom: 1px solid var(--color-border); padding: 1.25rem 1.5rem;">
+<div
+  class="modal fade"
+  id="modal-package"
+  tabindex="-1"
+  aria-labelledby="modal-pkg-label"
+  aria-hidden="true"
+>
+  <div
+    class="modal-dialog modal-dialog-centered modal-dialog-scrollable"
+    style="max-width: 560px"
+  >
+    <div
+      class="modal-content bg-surface border-theme shadow-theme-lg"
+      style="border-radius: var(--radius-lg)"
+    >
+      <div
+        class="modal-header"
+        style="
+          border-bottom: 1px solid var(--color-border);
+          padding: 1.25rem 1.5rem;
+        "
+      >
         <div class="d-flex align-items-center gap-2">
-          <span class="rounded-circle" style="width: 10px; height: 10px; background-color: var(--color-secondary); display: inline-block;"></span>
-          <h5 class="modal-title fw-bold text-secondary-theme mb-0" id="modal-pkg-label" style="font-size: 1.05rem;">Add New Package</h5>
+          <span
+            class="rounded-circle"
+            style="
+              width: 10px;
+              height: 10px;
+              background-color: var(--color-secondary);
+              display: inline-block;
+            "
+          ></span>
+          <h5
+            class="modal-title fw-bold text-secondary-theme mb-0"
+            id="modal-pkg-label"
+            style="font-size: 1.05rem"
+          >
+            Add New Package
+          </h5>
         </div>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" style="filter: opacity(0.5);"></button>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+          style="filter: opacity(0.5)"
+        ></button>
       </div>
 
-      <div class="modal-body" style="padding: 1.5rem;">
-        <p class="text-neutral mb-4" style="font-size: 0.82rem;" id="modal-pkg-subtitle">
+      <div class="modal-body" style="padding: 1.5rem">
+        <p
+          class="text-neutral mb-4"
+          style="font-size: 0.82rem"
+          id="modal-pkg-subtitle"
+        >
           Set pricing, validity window, and quota restrictions.
         </p>
 
@@ -280,141 +760,341 @@
           <!-- Package Name -->
           <div class="mb-4">
             <div class="d-flex align-items-center justify-content-between mb-2">
-              <label for="pkg-name" class="form-label fw-bold text-secondary-theme mb-0"
-                style="font-size: 0.72rem; letter-spacing: 0.07em;">
+              <label
+                for="pkg-name"
+                class="form-label fw-bold text-secondary-theme mb-0"
+                style="font-size: 0.72rem; letter-spacing: 0.07em"
+              >
                 PACKAGE NAME <span class="text-primary-theme">*</span>
               </label>
-              <span class="text-neutral" style="font-size: 0.68rem;" id="pkg-name-counter">0 / 60 chars</span>
+              <span
+                class="text-neutral"
+                style="font-size: 0.68rem"
+                id="pkg-name-counter"
+                >0 / 60 chars</span
+              >
             </div>
-            <input type="text" id="pkg-name" name="name"
+            <input
+              type="text"
+              id="pkg-name"
+              name="name"
               class="form-control border-theme bg-surface py-2"
-              style="box-shadow: none;"
+              style="box-shadow: none"
               placeholder="e.g. VIP PT 10-Pack"
-              maxlength="60" required autocomplete="off" />
-            <div id="pkg-name-error" class="mt-1" style="font-size: 0.82rem; color: var(--color-primary); display:none;">
+              maxlength="60"
+              required
+              autocomplete="off"
+            />
+            <div
+              id="pkg-name-error"
+              class="mt-1"
+              style="
+                font-size: 0.82rem;
+                color: var(--color-primary);
+                display: none;
+              "
+            >
               Tên gói không được để trống.
             </div>
           </div>
 
           <!-- Description -->
           <div class="mb-4">
-            <label for="pkg-description" class="form-label fw-bold text-secondary-theme mb-2"
-              style="font-size: 0.72rem; letter-spacing: 0.07em;">
+            <label
+              for="pkg-description"
+              class="form-label fw-bold text-secondary-theme mb-2"
+              style="font-size: 0.72rem; letter-spacing: 0.07em"
+            >
               DESCRIPTION <span class="text-primary-theme">*</span>
             </label>
-            <textarea id="pkg-description" name="description"
+            <textarea
+              id="pkg-description"
+              name="description"
               class="form-control border-theme bg-surface py-2"
-              style="box-shadow: none; resize: vertical; min-height: 90px; font-size: 0.875rem;"
+              style="
+                box-shadow: none;
+                resize: vertical;
+                min-height: 90px;
+                font-size: 0.875rem;
+              "
               placeholder="Personal training bundle — 10 one-on-one sessions with certified PT..."
-              maxlength="400" required></textarea>
-            <div id="pkg-description-error" class="mt-1" style="font-size: 0.82rem; color: var(--color-primary); display:none;">
+              maxlength="400"
+              required
+            ></textarea>
+            <div
+              id="pkg-description-error"
+              class="mt-1"
+              style="
+                font-size: 0.82rem;
+                color: var(--color-primary);
+                display: none;
+              "
+            >
               Mô tả không được để trống.
             </div>
           </div>
 
           <!-- Price / Duration / Sessions — 3 col grid -->
           <div class="row g-3 mb-4">
-
             <!-- Price -->
             <div class="col-12 col-sm-4">
-              <label for="pkg-price" class="form-label fw-bold text-secondary-theme mb-2"
-                style="font-size: 0.72rem; letter-spacing: 0.07em;">
+              <label
+                for="pkg-price"
+                class="form-label fw-bold text-secondary-theme mb-2"
+                style="font-size: 0.72rem; letter-spacing: 0.07em"
+              >
                 PRICE ($) <span class="text-primary-theme">*</span>
               </label>
               <div class="input-group">
-                <span class="input-group-text bg-surface-alt border-theme text-neutral fw-semibold"
-                  style="font-size: 0.85rem; border-right: none;">$</span>
-                <input type="number" id="pkg-price" name="price"
+                <span
+                  class="input-group-text bg-surface-alt border-theme text-neutral fw-semibold"
+                  style="font-size: 0.85rem; border-right: none"
+                  >$</span
+                >
+                <input
+                  type="number"
+                  id="pkg-price"
+                  name="price"
                   class="form-control border-theme bg-surface py-2"
-                  style="box-shadow: none; border-left: none; font-size: 0.95rem; font-weight: 700;"
-                  placeholder="500.00" min="0" step="0.01" required />
+                  style="
+                    box-shadow: none;
+                    border-left: none;
+                    font-size: 0.95rem;
+                    font-weight: 700;
+                  "
+                  placeholder="500.00"
+                  min="0"
+                  step="0.01"
+                  required
+                />
               </div>
-              <div id="pkg-price-error" class="mt-1" style="font-size: 0.82rem; color: var(--color-primary); display:none;">
+              <div
+                id="pkg-price-error"
+                class="mt-1"
+                style="
+                  font-size: 0.82rem;
+                  color: var(--color-primary);
+                  display: none;
+                "
+              >
                 Giá phải lớn hơn 0.
               </div>
             </div>
 
             <!-- Duration (Days) — stepper -->
             <div class="col-12 col-sm-4">
-              <label for="pkg-duration" class="form-label fw-bold text-secondary-theme mb-2"
-                style="font-size: 0.72rem; letter-spacing: 0.07em;">
+              <label
+                for="pkg-duration"
+                class="form-label fw-bold text-secondary-theme mb-2"
+                style="font-size: 0.72rem; letter-spacing: 0.07em"
+              >
                 DURATION <span class="text-primary-theme">*</span>
               </label>
               <div class="d-flex align-items-center gap-2">
-                <button type="button" id="btn-dur-minus"
+                <button
+                  type="button"
+                  id="btn-dur-minus"
                   class="btn border-theme bg-surface-alt text-secondary-theme d-flex align-items-center justify-content-center"
-                  style="width: 34px; height: 38px; border-radius: var(--radius-md); flex-shrink: 0; font-size: 1.1rem; font-weight: 700; box-shadow: var(--shadow-sm);"
-                  aria-label="Decrease days">−</button>
-                <input type="number" id="pkg-duration" name="durationDays"
+                  style="
+                    width: 34px;
+                    height: 38px;
+                    border-radius: var(--radius-md);
+                    flex-shrink: 0;
+                    font-size: 1.1rem;
+                    font-weight: 700;
+                    box-shadow: var(--shadow-sm);
+                  "
+                  aria-label="Decrease days"
+                >
+                  −
+                </button>
+                <input
+                  type="number"
+                  id="pkg-duration"
+                  name="durationDays"
                   class="form-control border-theme bg-surface text-center py-2"
-                  style="box-shadow: none; font-weight: 700;"
-                  value="30" min="1" max="3650" required />
-                <button type="button" id="btn-dur-plus"
+                  style="box-shadow: none; font-weight: 700"
+                  value="30"
+                  min="1"
+                  max="3650"
+                  required
+                />
+                <button
+                  type="button"
+                  id="btn-dur-plus"
                   class="btn border-theme bg-surface-alt text-secondary-theme d-flex align-items-center justify-content-center"
-                  style="width: 34px; height: 38px; border-radius: var(--radius-md); flex-shrink: 0; font-size: 1.1rem; font-weight: 700; box-shadow: var(--shadow-sm);"
-                  aria-label="Increase days">+</button>
+                  style="
+                    width: 34px;
+                    height: 38px;
+                    border-radius: var(--radius-md);
+                    flex-shrink: 0;
+                    font-size: 1.1rem;
+                    font-weight: 700;
+                    box-shadow: var(--shadow-sm);
+                  "
+                  aria-label="Increase days"
+                >
+                  +
+                </button>
               </div>
-              <p class="text-neutral mt-1 mb-0" style="font-size: 0.68rem;">days validity</p>
+              <p class="text-neutral mt-1 mb-0" style="font-size: 0.68rem">
+                days validity
+              </p>
             </div>
 
             <!-- Session Count — stepper -->
             <div class="col-12 col-sm-4">
-              <label for="pkg-sessions" class="form-label fw-bold text-secondary-theme mb-2"
-                style="font-size: 0.72rem; letter-spacing: 0.07em;">
+              <label
+                for="pkg-sessions"
+                class="form-label fw-bold text-secondary-theme mb-2"
+                style="font-size: 0.72rem; letter-spacing: 0.07em"
+              >
                 QUOTA <span class="text-primary-theme">*</span>
               </label>
               <div class="d-flex align-items-center gap-2">
-                <button type="button" id="btn-sess-minus"
+                <button
+                  type="button"
+                  id="btn-sess-minus"
                   class="btn border-theme bg-surface-alt text-secondary-theme d-flex align-items-center justify-content-center"
-                  style="width: 34px; height: 38px; border-radius: var(--radius-md); flex-shrink: 0; font-size: 1.1rem; font-weight: 700; box-shadow: var(--shadow-sm);"
-                  aria-label="Decrease sessions">−</button>
-                <input type="number" id="pkg-sessions" name="sessionCount"
+                  style="
+                    width: 34px;
+                    height: 38px;
+                    border-radius: var(--radius-md);
+                    flex-shrink: 0;
+                    font-size: 1.1rem;
+                    font-weight: 700;
+                    box-shadow: var(--shadow-sm);
+                  "
+                  aria-label="Decrease sessions"
+                >
+                  −
+                </button>
+                <input
+                  type="number"
+                  id="pkg-sessions"
+                  name="sessionCount"
                   class="form-control border-theme bg-surface text-center py-2"
-                  style="box-shadow: none; font-weight: 700;"
-                  value="10" min="1" max="999" required />
-                <button type="button" id="btn-sess-plus"
+                  style="box-shadow: none; font-weight: 700"
+                  value="10"
+                  min="1"
+                  max="999"
+                  required
+                />
+                <button
+                  type="button"
+                  id="btn-sess-plus"
                   class="btn border-theme bg-surface-alt text-secondary-theme d-flex align-items-center justify-content-center"
-                  style="width: 34px; height: 38px; border-radius: var(--radius-md); flex-shrink: 0; font-size: 1.1rem; font-weight: 700; box-shadow: var(--shadow-sm);"
-                  aria-label="Increase sessions">+</button>
+                  style="
+                    width: 34px;
+                    height: 38px;
+                    border-radius: var(--radius-md);
+                    flex-shrink: 0;
+                    font-size: 1.1rem;
+                    font-weight: 700;
+                    box-shadow: var(--shadow-sm);
+                  "
+                  aria-label="Increase sessions"
+                >
+                  +
+                </button>
               </div>
-              <p class="text-neutral mt-1 mb-0" style="font-size: 0.68rem;">sessions quota</p>
+              <p class="text-neutral mt-1 mb-0" style="font-size: 0.68rem">
+                sessions quota
+              </p>
             </div>
           </div>
 
           <!-- Status toggle -->
           <div class="mb-4">
-            <label class="form-label fw-bold text-secondary-theme mb-3" style="font-size: 0.72rem; letter-spacing: 0.07em;">
+            <label
+              class="form-label fw-bold text-secondary-theme mb-3"
+              style="font-size: 0.72rem; letter-spacing: 0.07em"
+            >
               CATALOG PUBLISHING STATUS
             </label>
             <div class="d-flex align-items-center gap-3">
-              <label class="pkg-modal-toggle" style="cursor:pointer;" aria-label="Toggle package active status">
-                <input type="checkbox" id="pkg-is-active" name="isActive" checked />
+              <label
+                class="pkg-modal-toggle"
+                style="cursor: pointer"
+                aria-label="Toggle package active status"
+              >
+                <input
+                  type="checkbox"
+                  id="pkg-is-active"
+                  name="isActive"
+                  checked
+                />
                 <span class="pkg-modal-toggle-slider"></span>
               </label>
               <div>
-                <p class="mb-0 fw-semibold text-secondary-theme" style="font-size: 0.875rem;" id="pkg-status-label">Active (Available in Member App)</p>
-                <p class="mb-0 text-neutral" style="font-size: 0.75rem;" id="pkg-status-hint">Members can see and purchase this package.</p>
+                <p
+                  class="mb-0 fw-semibold text-secondary-theme"
+                  style="font-size: 0.875rem"
+                  id="pkg-status-label"
+                >
+                  Active (Available in Member App)
+                </p>
+                <p
+                  class="mb-0 text-neutral"
+                  style="font-size: 0.75rem"
+                  id="pkg-status-hint"
+                >
+                  Members can see and purchase this package.
+                </p>
               </div>
             </div>
           </div>
 
-          <!-- Form error -->
-          <div id="pkg-form-error" class="text-center py-2 px-3 rounded-theme-md"
-            style="display:none; background-color: var(--color-primary-light); font-size: 0.82rem; color: var(--color-primary);"></div>
-
+          
+          <div
+            id="pkg-form-error"
+            class="text-center py-2 px-3 rounded-theme-md"
+            style="
+              display: none;
+              background-color: var(--color-primary-light);
+              font-size: 0.82rem;
+              color: var(--color-primary);
+            "
+          ></div>
         </form>
       </div>
 
-      <div class="modal-footer" style="border-top: 1px solid var(--color-border); padding: 1rem 1.5rem; gap: 0.75rem;">
-        <button type="button" class="btn-brand-outline px-4 py-2" style="font-size: 0.875rem;" data-bs-dismiss="modal">Cancel</button>
-        <button type="submit" form="pkg-form" id="btn-pkg-submit" class="btn-brand px-4 py-2" style="font-size: 0.875rem;">
-          <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
-            <polyline points="20 6 9 17 4 12"/>
+      <div
+        class="modal-footer"
+        style="
+          border-top: 1px solid var(--color-border);
+          padding: 1rem 1.5rem;
+          gap: 0.75rem;
+        "
+      >
+        <button
+          type="button"
+          class="btn-brand-outline px-4 py-2"
+          style="font-size: 0.875rem"
+          data-bs-dismiss="modal"
+        >
+          Cancel
+        </button>
+        <button
+          type="submit"
+          form="pkg-form"
+          id="btn-pkg-submit"
+          class="btn-brand px-4 py-2"
+          style="font-size: 0.875rem"
+        >
+          <svg
+            width="14"
+            height="14"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2.5"
+            viewBox="0 0 24 24"
+          >
+            <polyline points="20 6 9 17 4 12" />
           </svg>
           Save Package
         </button>
       </div>
-
     </div>
   </div>
 </div>
@@ -423,7 +1103,9 @@
 <style>
   .sidebar-link {
     text-decoration: none;
-    transition: background-color var(--transition-fast), color var(--transition-fast);
+    transition:
+      background-color var(--transition-fast),
+      color var(--transition-fast);
   }
   .sidebar-link:hover {
     background-color: var(--color-surface-alt);
@@ -439,68 +1121,127 @@
     border-bottom: 1px solid var(--color-border);
     transition: background-color var(--transition-fast);
   }
-  #pkg-tbody tr:hover { background-color: var(--color-surface-alt); }
-  #pkg-tbody tr:last-child { border-bottom: none; }
+  #pkg-tbody tr:hover {
+    background-color: var(--color-surface-alt);
+  }
+  #pkg-tbody tr:last-child {
+    border-bottom: none;
+  }
 
   /* Toggle — table rows */
   .pkg-toggle {
-    position: relative; display: inline-block;
-    width: 44px; height: 24px;
-    cursor: pointer; flex-shrink: 0; vertical-align: middle;
+    position: relative;
+    display: inline-block;
+    width: 44px;
+    height: 24px;
+    cursor: pointer;
+    flex-shrink: 0;
+    vertical-align: middle;
   }
-  .pkg-toggle input { opacity: 0; width: 0; height: 0; position: absolute; }
+  .pkg-toggle input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+    position: absolute;
+  }
   .pkg-toggle-slider {
-    position: absolute; inset: 0;
+    position: absolute;
+    inset: 0;
     background-color: var(--color-border);
     border-radius: 999px;
     transition: background-color var(--transition-normal);
   }
   .pkg-toggle-slider::before {
-    content: ''; position: absolute;
-    height: 18px; width: 18px; left: 3px; top: 3px;
-    background-color: var(--color-surface); border-radius: 50%;
+    content: "";
+    position: absolute;
+    height: 18px;
+    width: 18px;
+    left: 3px;
+    top: 3px;
+    background-color: var(--color-surface);
+    border-radius: 50%;
     transition: transform var(--transition-normal);
-    box-shadow: 0 1px 4px rgba(0,0,0,0.2);
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
   }
-  .pkg-toggle input:checked + .pkg-toggle-slider { background-color: var(--color-secondary); }
-  .pkg-toggle input:checked + .pkg-toggle-slider::before { transform: translateX(20px); }
-  .pkg-toggle input:disabled + .pkg-toggle-slider { opacity: 0.5; cursor: not-allowed; }
+  .pkg-toggle input:checked + .pkg-toggle-slider {
+    background-color: var(--color-secondary);
+  }
+  .pkg-toggle input:checked + .pkg-toggle-slider::before {
+    transform: translateX(20px);
+  }
+  .pkg-toggle input:disabled + .pkg-toggle-slider {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
 
   /* Toggle — modal */
   .pkg-modal-toggle {
-    position: relative; display: inline-block;
-    width: 52px; height: 28px; flex-shrink: 0;
+    position: relative;
+    display: inline-block;
+    width: 52px;
+    height: 28px;
+    flex-shrink: 0;
   }
-  .pkg-modal-toggle input { opacity: 0; width: 0; height: 0; position: absolute; }
+  .pkg-modal-toggle input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+    position: absolute;
+  }
   .pkg-modal-toggle-slider {
-    position: absolute; inset: 0;
+    position: absolute;
+    inset: 0;
     background-color: var(--color-border);
     border-radius: 999px;
     transition: background-color var(--transition-normal);
   }
   .pkg-modal-toggle-slider::before {
-    content: ''; position: absolute;
-    height: 22px; width: 22px; left: 3px; top: 3px;
-    background-color: var(--color-surface); border-radius: 50%;
+    content: "";
+    position: absolute;
+    height: 22px;
+    width: 22px;
+    left: 3px;
+    top: 3px;
+    background-color: var(--color-surface);
+    border-radius: 50%;
     transition: transform var(--transition-normal);
-    box-shadow: 0 1px 6px rgba(0,0,0,0.25);
+    box-shadow: 0 1px 6px rgba(0, 0, 0, 0.25);
   }
-  .pkg-modal-toggle input:checked + .pkg-modal-toggle-slider { background-color: var(--color-secondary); }
-  .pkg-modal-toggle input:checked + .pkg-modal-toggle-slider::before { transform: translateX(24px); }
+  .pkg-modal-toggle input:checked + .pkg-modal-toggle-slider {
+    background-color: var(--color-secondary);
+  }
+  .pkg-modal-toggle input:checked + .pkg-modal-toggle-slider::before {
+    transform: translateX(24px);
+  }
 
-  @keyframes pulse-dot { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
+  @keyframes pulse-dot {
+    0%,
+    100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0.4;
+    }
+  }
 
   .btn-edit-pkg {
-    display: inline-flex; align-items: center; gap: 0.35rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
     padding: 0.35rem 0.85rem;
-    font-size: 0.78rem; font-weight: 600;
+    font-size: 0.78rem;
+    font-weight: 600;
     border: 1.5px solid var(--color-border);
     border-radius: var(--radius-sm);
     background-color: transparent;
     color: var(--color-secondary);
     cursor: pointer;
-    transition: border-color var(--transition-fast), background-color var(--transition-fast), color var(--transition-fast);
-    white-space: nowrap; font-family: var(--font-primary);
+    transition:
+      border-color var(--transition-fast),
+      background-color var(--transition-fast),
+      color var(--transition-fast);
+    white-space: nowrap;
+    font-family: var(--font-primary);
   }
   .btn-edit-pkg:hover {
     border-color: var(--color-secondary);
@@ -514,8 +1255,14 @@
   }
 
   @media (max-width: 767.98px) {
-    #admin-sidebar { transform: translateX(-100%); }
-    #admin-sidebar.is-open { transform: translateX(0); }
-    .d-flex.flex-column.flex-grow-1 { margin-left: 0 !important; }
+    #admin-sidebar {
+      transform: translateX(-100%);
+    }
+    #admin-sidebar.is-open {
+      transform: translateX(0);
+    }
+    .d-flex.flex-column.flex-grow-1 {
+      margin-left: 0 !important;
+    }
   }
 </style>

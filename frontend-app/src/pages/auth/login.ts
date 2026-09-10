@@ -6,7 +6,6 @@ export function render(): string {
   return loginTemplate;
 }
 
-// Controller — toàn bộ logic xử lý sự kiện
 export function init(): void {
   const form = document.querySelector<HTMLFormElement>("#login-form");
   const submitBtn = document.querySelector<HTMLButtonElement>("#login-submit");
@@ -16,8 +15,7 @@ export function init(): void {
   const passwordInput =
     document.querySelector<HTMLInputElement>("#login-password");
 
-  // Toggle show/hide password
-  togglePwBtn?.addEventListener("click", () => {
+    togglePwBtn?.addEventListener("click", () => {
     if (!passwordInput) return;
     const isHidden = passwordInput.type === "password";
     passwordInput.type = isHidden ? "text" : "password";

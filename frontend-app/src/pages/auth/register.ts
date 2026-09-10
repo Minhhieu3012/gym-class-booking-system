@@ -6,7 +6,6 @@ export function render(): string {
   return template;
 }
 
-// Controller — toàn bộ logic xử lý sự kiện
 export function init(): void {
   const form = document.querySelector<HTMLFormElement>("#register-form");
   const submitBtn =
@@ -22,8 +21,7 @@ export function init(): void {
     "#register-pw-strength",
   );
 
-  // Toggle show/hide password
-  togglePwBtn?.addEventListener("click", () => {
+    togglePwBtn?.addEventListener("click", () => {
     if (!passwordInput) return;
     const isHidden = passwordInput.type === "password";
     passwordInput.type = isHidden ? "text" : "password";

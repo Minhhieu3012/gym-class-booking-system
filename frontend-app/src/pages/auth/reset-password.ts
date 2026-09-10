@@ -2,21 +2,30 @@ import template from "./reset-password.html?raw";
 import { authService } from "../../services/auth.service";
 import { navigate } from "../../core/router";
 
-// ── render ────────────────────────────────────────────────────────────────────
 export function render(): string {
   return template;
 }
 
-// ── init ──────────────────────────────────────────────────────────────────────
 export function init(): void {
   const form = document.querySelector<HTMLFormElement>("#reset-form");
   const tokenInput = document.querySelector<HTMLInputElement>("#reset-token");
-  const newPasswordInput = document.querySelector<HTMLInputElement>("#reset-new-password");
-  const confirmPasswordInput = document.querySelector<HTMLInputElement>("#reset-confirm-password");
+  const newPasswordInput = document.querySelector<HTMLInputElement>(
+    "#reset-new-password",
+  );
+  const confirmPasswordInput = document.querySelector<HTMLInputElement>(
+    "#reset-confirm-password",
+  );
   const errorEl = document.querySelector<HTMLDivElement>("#reset-error");
   const submitBtn = document.querySelector<HTMLButtonElement>("#reset-submit");
 
-  if (!form || !tokenInput || !newPasswordInput || !confirmPasswordInput || !errorEl || !submitBtn) {
+  if (
+    !form ||
+    !tokenInput ||
+    !newPasswordInput ||
+    !confirmPasswordInput ||
+    !errorEl ||
+    !submitBtn
+  ) {
     console.error("Reset password form elements not found");
     return;
   }
@@ -28,8 +37,7 @@ export function init(): void {
     const newPassword = newPasswordInput.value.trim();
     const confirmPassword = confirmPasswordInput.value.trim();
 
-    // ── Validation ──
-    if (!token || !newPassword || !confirmPassword) {
+        if (!token || !newPassword || !confirmPassword) {
       errorEl.textContent = "Vui lòng điền đầy đủ các trường.";
       return;
     }
@@ -49,11 +57,12 @@ export function init(): void {
 
     try {
       await authService.resetPassword({ token, newPassword });
-      
+
       // Success
-      alert("Đặt lại mật khẩu thành công. Vui lòng đăng nhập bằng mật khẩu mới.");
+      alert(
+        "Đặt lại mật khẩu thành công. Vui lòng đăng nhập bằng mật khẩu mới.",
+      );
       navigate("/login");
-      
     } catch (error: unknown) {
       // Error
       errorEl.textContent = authService.extractErrorMessage(error);

@@ -1,5 +1,7 @@
-<div class="admin-theme d-flex" style="min-height: 100vh; background-color: var(--color-surface-alt);">
-
+<div
+  class="admin-theme d-flex"
+  style="min-height: 100vh; background-color: var(--color-surface-alt)"
+>
   <!-- ══════════════════════════════════════════
        SIDEBAR
   ═══════════════════════════════════════════ -->
@@ -11,7 +13,8 @@
       min-width: 240px;
       min-height: 100vh;
       position: fixed;
-      top: 0; left: 0;
+      top: 0;
+      left: 0;
       z-index: 200;
       border-right: 1px solid var(--color-border);
       transition: transform var(--transition-normal);
@@ -20,83 +23,170 @@
     <!-- Logo -->
     <div
       class="d-flex align-items-center gap-2 px-4"
-      style="height: 64px; border-bottom: 1px solid var(--color-border); flex-shrink: 0;"
+      style="
+        height: 64px;
+        border-bottom: 1px solid var(--color-border);
+        flex-shrink: 0;
+      "
     >
       <div
         class="rounded-theme-md d-flex align-items-center justify-content-center"
-        style="width: 34px; height: 34px; background-color: var(--color-secondary);"
+        style="
+          width: 34px;
+          height: 34px;
+          background-color: var(--color-secondary);
+        "
       >
-        <svg width="18" height="18" fill="none" stroke="var(--color-primary)" stroke-width="2.5" viewBox="0 0 24 24">
-          <path d="M18 20V10M12 20V4M6 20v-6"/>
+        <svg
+          width="18"
+          height="18"
+          fill="none"
+          stroke="var(--color-primary)"
+          stroke-width="2.5"
+          viewBox="0 0 24 24"
+        >
+          <path d="M18 20V10M12 20V4M6 20v-6" />
         </svg>
       </div>
       <div>
-        <p class="mb-0 fw-bold text-secondary-theme" style="font-size: 0.88rem; letter-spacing: 0.04em; line-height: 1.1;">PULSE</p>
-        <p class="mb-0 text-neutral" style="font-size: 0.6rem; letter-spacing: 0.12em; line-height: 1.1;">PERFORMANCE</p>
+        <p
+          class="mb-0 fw-bold text-secondary-theme"
+          style="font-size: 0.88rem; letter-spacing: 0.04em; line-height: 1.1"
+        >
+          PULSE
+        </p>
+        <p
+          class="mb-0 text-neutral"
+          style="font-size: 0.6rem; letter-spacing: 0.12em; line-height: 1.1"
+        >
+          PERFORMANCE
+        </p>
       </div>
     </div>
 
     <!-- Nav label -->
-    <p class="mb-0 text-neutral px-4 mt-4 mb-2" style="font-size: 0.62rem; letter-spacing: 0.12em; font-weight: 600;">COMMAND CENTER</p>
+    <p
+      class="mb-0 text-neutral px-4 mt-4 mb-2"
+      style="font-size: 0.62rem; letter-spacing: 0.12em; font-weight: 600"
+    >
+      COMMAND CENTER
+    </p>
 
     <!-- Nav links -->
     <nav class="d-flex flex-column px-3 gap-1 flex-grow-1">
-
-      <a href="/admin/dashboard" data-link
+      <a
+        href="/admin/dashboard"
+        data-link
         class="sidebar-link d-flex align-items-center gap-3 px-3 py-2 rounded-theme-md text-neutral"
-        id="nav-dashboard">
-        <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-          <rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/>
-          <rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/>
+        id="nav-dashboard"
+      >
+        <svg
+          width="16"
+          height="16"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          viewBox="0 0 24 24"
+        >
+          <rect x="3" y="3" width="7" height="7" />
+          <rect x="14" y="3" width="7" height="7" />
+          <rect x="14" y="14" width="7" height="7" />
+          <rect x="3" y="14" width="7" height="7" />
         </svg>
-        <span style="font-size: 0.875rem; font-weight: 500;">Dashboard</span>
+        <span style="font-size: 0.875rem; font-weight: 500">Dashboard</span>
       </a>
 
-      <a href="/admin/rooms" data-link
+      <a
+        href="/admin/rooms"
+        data-link
         class="sidebar-link d-flex align-items-center gap-3 px-3 py-2 rounded-theme-md text-neutral"
-        id="nav-rooms">
-        <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-          <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
-          <polyline points="9 22 9 12 15 12 15 22"/>
+        id="nav-rooms"
+      >
+        <svg
+          width="16"
+          height="16"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          viewBox="0 0 24 24"
+        >
+          <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+          <polyline points="9 22 9 12 15 12 15 22" />
         </svg>
-        <span style="font-size: 0.875rem; font-weight: 500;">Rooms</span>
+        <span style="font-size: 0.875rem; font-weight: 500">Rooms</span>
       </a>
 
-      <a href="/admin/class-types" data-link
+      <a
+        href="/admin/class-types"
+        data-link
         class="sidebar-link sidebar-link--active d-flex align-items-center gap-3 px-3 py-2 rounded-theme-md"
-        id="nav-class-types">
-        <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-          <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/>
-          <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
+        id="nav-class-types"
+      >
+        <svg
+          width="16"
+          height="16"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          viewBox="0 0 24 24"
+        >
+          <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20" />
+          <path
+            d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"
+          />
         </svg>
-        <span style="font-size: 0.875rem; font-weight: 600;">Class Types</span>
+        <span style="font-size: 0.875rem; font-weight: 600">Class Types</span>
       </a>
 
-      <a href="/admin/packages" data-link
+      <a
+        href="/admin/packages"
+        data-link
         class="sidebar-link d-flex align-items-center gap-3 px-3 py-2 rounded-theme-md text-neutral"
-        id="nav-packages">
-        <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-          <line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/>
-          <line x1="8" y1="18" x2="21" y2="18"/>
-          <line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/>
-          <line x1="3" y1="18" x2="3.01" y2="18"/>
+        id="nav-packages"
+      >
+        <svg
+          width="16"
+          height="16"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          viewBox="0 0 24 24"
+        >
+          <line x1="8" y1="6" x2="21" y2="6" />
+          <line x1="8" y1="12" x2="21" y2="12" />
+          <line x1="8" y1="18" x2="21" y2="18" />
+          <line x1="3" y1="6" x2="3.01" y2="6" />
+          <line x1="3" y1="12" x2="3.01" y2="12" />
+          <line x1="3" y1="18" x2="3.01" y2="18" />
         </svg>
-        <span style="font-size: 0.875rem; font-weight: 500;">Packages</span>
+        <span style="font-size: 0.875rem; font-weight: 500">Packages</span>
       </a>
-
     </nav>
 
-    <!-- Sidebar Footer -->
-    <div class="px-4 py-3" style="border-top: 1px solid var(--color-border); flex-shrink: 0;">
+    
+    <div
+      class="px-4 py-3"
+      style="border-top: 1px solid var(--color-border); flex-shrink: 0"
+    >
       <div class="d-flex align-items-center gap-2">
         <div
           class="rounded-circle d-flex align-items-center justify-content-center fw-bold bg-surface-alt text-secondary-theme"
-          style="width: 32px; height: 32px; font-size: 0.8rem; flex-shrink: 0;"
+          style="width: 32px; height: 32px; font-size: 0.8rem; flex-shrink: 0"
           id="sidebar-avatar"
-        >A</div>
-        <div style="overflow: hidden;">
-          <p class="mb-0 fw-semibold text-secondary-theme text-truncate" style="font-size: 0.8rem;" id="sidebar-username">Admin</p>
-          <p class="mb-0 text-neutral text-truncate" style="font-size: 0.68rem;">System Administrator</p>
+        >
+          A
+        </div>
+        <div style="overflow: hidden">
+          <p
+            class="mb-0 fw-semibold text-secondary-theme text-truncate"
+            style="font-size: 0.8rem"
+            id="sidebar-username"
+          >
+            Admin
+          </p>
+          <p class="mb-0 text-neutral text-truncate" style="font-size: 0.68rem">
+            System Administrator
+          </p>
         </div>
       </div>
     </div>
@@ -105,72 +195,174 @@
   <!-- ══════════════════════════════════════════
        MAIN CONTENT WRAPPER
   ═══════════════════════════════════════════ -->
-  <div class="d-flex flex-column flex-grow-1" style="margin-left: 240px; min-height: 100vh;">
-
-    <!-- HEADER -->
+  <div
+    class="d-flex flex-column flex-grow-1"
+    style="margin-left: 240px; min-height: 100vh"
+  >
+    
     <header
       class="bg-surface d-flex align-items-center justify-content-between px-4"
-      style="height: 64px; position: sticky; top: 0; z-index: 100; border-bottom: 1px solid var(--color-border); flex-shrink: 0;"
+      style="
+        height: 64px;
+        position: sticky;
+        top: 0;
+        z-index: 100;
+        border-bottom: 1px solid var(--color-border);
+        flex-shrink: 0;
+      "
     >
       <div class="d-flex align-items-center gap-2">
-        <span class="text-neutral" style="font-size: 0.8rem;">Command Center</span>
-        <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" class="text-neutral" viewBox="0 0 24 24">
-          <polyline points="9 18 15 12 9 6"/>
+        <span class="text-neutral" style="font-size: 0.8rem"
+          >Command Center</span
+        >
+        <svg
+          width="12"
+          height="12"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          class="text-neutral"
+          viewBox="0 0 24 24"
+        >
+          <polyline points="9 18 15 12 9 6" />
         </svg>
-        <span class="text-neutral" style="font-size: 0.8rem;">Class Management</span>
-        <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" class="text-neutral" viewBox="0 0 24 24">
-          <polyline points="9 18 15 12 9 6"/>
+        <span class="text-neutral" style="font-size: 0.8rem"
+          >Class Management</span
+        >
+        <svg
+          width="12"
+          height="12"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          class="text-neutral"
+          viewBox="0 0 24 24"
+        >
+          <polyline points="9 18 15 12 9 6" />
         </svg>
-        <span class="fw-semibold text-secondary-theme" style="font-size: 0.8rem;">Class Types Catalog</span>
+        <span class="fw-semibold text-secondary-theme" style="font-size: 0.8rem"
+          >Class Types Catalog</span
+        >
       </div>
 
       <div class="d-flex align-items-center gap-3">
-        <div class="d-flex align-items-center gap-2 px-3 py-1 rounded-theme-md bg-surface-alt border-theme" style="font-size: 0.72rem;">
-          <span class="rounded-circle" style="width: 7px; height: 7px; background-color: var(--color-secondary); display: inline-block; animation: pulse-dot 1.5s ease-in-out infinite;"></span>
+        <div
+          class="d-flex align-items-center gap-2 px-3 py-1 rounded-theme-md bg-surface-alt border-theme"
+          style="font-size: 0.72rem"
+        >
+          <span
+            class="rounded-circle"
+            style="
+              width: 7px;
+              height: 7px;
+              background-color: var(--color-secondary);
+              display: inline-block;
+              animation: pulse-dot 1.5s ease-in-out infinite;
+            "
+          ></span>
           <span class="text-secondary-theme fw-semibold">Catalog Synced</span>
         </div>
-        <button class="btn p-0 border-0 bg-transparent text-neutral position-relative" aria-label="Notifications" style="width:34px;height:34px;display:flex;align-items:center;justify-content:center;">
-          <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-            <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/>
-            <path d="M13.73 21a2 2 0 0 1-3.46 0"/>
+        <button
+          class="btn p-0 border-0 bg-transparent text-neutral position-relative"
+          aria-label="Notifications"
+          style="
+            width: 34px;
+            height: 34px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+          "
+        >
+          <svg
+            width="18"
+            height="18"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            viewBox="0 0 24 24"
+          >
+            <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9" />
+            <path d="M13.73 21a2 2 0 0 1-3.46 0" />
           </svg>
-          <span class="position-absolute top-0 end-0 rounded-circle" style="width:8px;height:8px;background-color:var(--color-primary);border:2px solid var(--color-surface);"></span>
+          <span
+            class="position-absolute top-0 end-0 rounded-circle"
+            style="
+              width: 8px;
+              height: 8px;
+              background-color: var(--color-primary);
+              border: 2px solid var(--color-surface);
+            "
+          ></span>
         </button>
         <div
           id="header-avatar"
           class="rounded-circle d-flex align-items-center justify-content-center fw-bold bg-surface-alt text-secondary-theme border-theme"
-          style="width: 34px; height: 34px; font-size: 0.85rem; cursor: pointer; flex-shrink: 0;"
-        >A</div>
+          style="
+            width: 34px;
+            height: 34px;
+            font-size: 0.85rem;
+            cursor: pointer;
+            flex-shrink: 0;
+          "
+        >
+          A
+        </div>
       </div>
     </header>
 
     <!-- PAGE CONTENT -->
     <main class="flex-grow-1 p-4 p-lg-5">
-
-      <!-- Page Title Row -->
-      <div class="d-flex align-items-start justify-content-between mb-4 flex-wrap gap-3">
+      
+      <div
+        class="d-flex align-items-start justify-content-between mb-4 flex-wrap gap-3"
+      >
         <div>
-          <h1 class="fw-bold text-secondary-theme mb-1" style="font-size: 1.65rem; letter-spacing: -0.01em;">
+          <h1
+            class="fw-bold text-secondary-theme mb-1"
+            style="font-size: 1.65rem; letter-spacing: -0.01em"
+          >
             Class Type Management
             <span
               class="ms-2 badge-theme badge-active"
-              style="font-size: 0.62rem; vertical-align: middle; letter-spacing: 0.07em;"
+              style="
+                font-size: 0.62rem;
+                vertical-align: middle;
+                letter-spacing: 0.07em;
+              "
               id="ct-catalog-badge"
-            >ACTIVE CATALOG</span>
+              >ACTIVE CATALOG</span
+            >
           </h1>
-          <p class="text-neutral mb-0" style="font-size: 0.875rem; max-width: 500px;">
-            Define workout modalities, intensity curves, equipment requirements, and booking rules across facility studios.
+          <p
+            class="text-neutral mb-0"
+            style="font-size: 0.875rem; max-width: 500px"
+          >
+            Define workout modalities, intensity curves, equipment requirements,
+            and booking rules across facility studios.
           </p>
         </div>
 
         <button
           id="btn-open-add-class-type"
           class="btn-brand d-flex align-items-center gap-2"
-          style="white-space: nowrap; font-size: 0.875rem; padding: 0.65rem 1.25rem;"
+          style="
+            white-space: nowrap;
+            font-size: 0.875rem;
+            padding: 0.65rem 1.25rem;
+          "
           type="button"
         >
-          <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
-            <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/>
+          <svg
+            width="16"
+            height="16"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2.5"
+            viewBox="0 0 24 24"
+          >
+            <circle cx="12" cy="12" r="10" />
+            <line x1="12" y1="8" x2="12" y2="16" />
+            <line x1="8" y1="12" x2="16" y2="12" />
           </svg>
           + Add New Class Type
         </button>
@@ -179,52 +371,121 @@
       <!-- Stats Row -->
       <div class="row g-3 mb-4">
         <div class="col-6 col-xl-4">
-          <div class="card-theme p-3" style="cursor:default;">
-            <p class="text-neutral mb-1" style="font-size: 0.68rem; letter-spacing: 0.08em; font-weight: 600;">TOTAL MODALITIES</p>
-            <p class="fw-bold text-secondary-theme mb-0" style="font-size: 1.8rem; line-height:1;" id="stat-total">—</p>
-            <p class="text-neutral mt-1 mb-0" style="font-size: 0.72rem;">Active types cataloged</p>
+          <div class="card-theme p-3" style="cursor: default">
+            <p
+              class="text-neutral mb-1"
+              style="
+                font-size: 0.68rem;
+                letter-spacing: 0.08em;
+                font-weight: 600;
+              "
+            >
+              TOTAL MODALITIES
+            </p>
+            <p
+              class="fw-bold text-secondary-theme mb-0"
+              style="font-size: 1.8rem; line-height: 1"
+              id="stat-total"
+            >
+              —
+            </p>
+            <p class="text-neutral mt-1 mb-0" style="font-size: 0.72rem">
+              Active types cataloged
+            </p>
           </div>
         </div>
         <div class="col-6 col-xl-4">
-          <div class="card-theme p-3" style="cursor:default;">
-            <p class="text-neutral mb-1" style="font-size: 0.68rem; letter-spacing: 0.08em; font-weight: 600;">ACTIVE</p>
-            <p class="fw-bold text-tertiary mb-0" style="font-size: 1.8rem; line-height:1;" id="stat-active">—</p>
-            <p class="text-neutral mt-1 mb-0" style="font-size: 0.72rem;">Visible to members</p>
+          <div class="card-theme p-3" style="cursor: default">
+            <p
+              class="text-neutral mb-1"
+              style="
+                font-size: 0.68rem;
+                letter-spacing: 0.08em;
+                font-weight: 600;
+              "
+            >
+              ACTIVE
+            </p>
+            <p
+              class="fw-bold text-tertiary mb-0"
+              style="font-size: 1.8rem; line-height: 1"
+              id="stat-active"
+            >
+              —
+            </p>
+            <p class="text-neutral mt-1 mb-0" style="font-size: 0.72rem">
+              Visible to members
+            </p>
           </div>
         </div>
         <div class="col-6 col-xl-4">
-          <div class="card-theme p-3" style="cursor:default;">
-            <p class="text-neutral mb-1" style="font-size: 0.68rem; letter-spacing: 0.08em; font-weight: 600;">INACTIVE</p>
-            <p class="fw-bold text-primary-theme mb-0" style="font-size: 1.8rem; line-height:1;" id="stat-inactive">—</p>
-            <p class="text-neutral mt-1 mb-0" style="font-size: 0.72rem;">Hidden / Discontinued</p>
+          <div class="card-theme p-3" style="cursor: default">
+            <p
+              class="text-neutral mb-1"
+              style="
+                font-size: 0.68rem;
+                letter-spacing: 0.08em;
+                font-weight: 600;
+              "
+            >
+              INACTIVE
+            </p>
+            <p
+              class="fw-bold text-primary-theme mb-0"
+              style="font-size: 1.8rem; line-height: 1"
+              id="stat-inactive"
+            >
+              —
+            </p>
+            <p class="text-neutral mt-1 mb-0" style="font-size: 0.72rem">
+              Hidden / Discontinued
+            </p>
           </div>
         </div>
       </div>
 
       <!-- Alert area -->
-      <div id="ct-alert" class="mb-3" style="display:none;"></div>
+      <div id="ct-alert" class="mb-3" style="display: none"></div>
 
       <!-- Table Card -->
-      <div class="card-theme overflow-hidden" style="cursor:default;">
-
+      <div class="card-theme overflow-hidden" style="cursor: default">
         <!-- Table toolbar -->
         <div
           class="d-flex align-items-center justify-content-between px-4 py-3"
-          style="border-bottom: 1px solid var(--color-border);"
+          style="border-bottom: 1px solid var(--color-border)"
         >
-          <p class="mb-0 fw-semibold text-secondary-theme" style="font-size: 0.875rem;">
-            <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" class="me-1 text-secondary-theme" viewBox="0 0 24 24" style="vertical-align:-2px;">
-              <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/>
-              <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
+          <p
+            class="mb-0 fw-semibold text-secondary-theme"
+            style="font-size: 0.875rem"
+          >
+            <svg
+              width="15"
+              height="15"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              class="me-1 text-secondary-theme"
+              viewBox="0 0 24 24"
+              style="vertical-align: -2px"
+            >
+              <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20" />
+              <path
+                d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"
+              />
             </svg>
             Class Type Records
           </p>
           <div class="d-flex align-items-center gap-2">
-            <label for="ct-filter-status" class="text-neutral mb-0" style="font-size: 0.78rem;">Filter:</label>
+            <label
+              for="ct-filter-status"
+              class="text-neutral mb-0"
+              style="font-size: 0.78rem"
+              >Filter:</label
+            >
             <select
               id="ct-filter-status"
               class="form-select form-select-sm border-theme bg-surface text-secondary-theme"
-              style="font-size: 0.8rem; width: auto; box-shadow: none;"
+              style="font-size: 0.8rem; width: auto; box-shadow: none"
             >
               <option value="">All Statuses</option>
               <option value="true">Active</option>
@@ -235,22 +496,91 @@
 
         <!-- Loading -->
         <div id="ct-loading" class="py-5 text-center">
-          <div class="spinner-border" role="status" style="width: 2rem; height: 2rem;">
+          <div
+            class="spinner-border"
+            role="status"
+            style="width: 2rem; height: 2rem"
+          >
             <span class="visually-hidden">Loading...</span>
           </div>
-          <p class="text-neutral mt-3 mb-0" style="font-size: 0.85rem;">Fetching class type data...</p>
+          <p class="text-neutral mt-3 mb-0" style="font-size: 0.85rem">
+            Fetching class type data...
+          </p>
         </div>
 
         <!-- Table (hidden until data loads) -->
-        <div class="table-responsive" id="ct-table-wrapper" style="display:none;">
-          <table class="table mb-0" id="ct-table" style="border-color: var(--color-border);">
+        <div
+          class="table-responsive"
+          id="ct-table-wrapper"
+          style="display: none"
+        >
+          <table
+            class="table mb-0"
+            id="ct-table"
+            style="border-color: var(--color-border)"
+          >
             <thead>
-              <tr style="background-color: var(--color-surface-alt); border-bottom: 2px solid var(--color-border);">
-                <th class="text-neutral px-4 py-3" style="font-size: 0.68rem; letter-spacing: 0.1em; font-weight: 700; white-space: nowrap;">ID</th>
-                <th class="text-neutral px-3 py-3" style="font-size: 0.68rem; letter-spacing: 0.1em; font-weight: 700; white-space: nowrap;">CLASS NAME</th>
-                <th class="text-neutral px-3 py-3" style="font-size: 0.68rem; letter-spacing: 0.1em; font-weight: 700; white-space: nowrap;">DESCRIPTION</th>
-                <th class="text-neutral px-3 py-3 text-center" style="font-size: 0.68rem; letter-spacing: 0.1em; font-weight: 700; white-space: nowrap;">STATUS</th>
-                <th class="text-neutral px-4 py-3 text-end" style="font-size: 0.68rem; letter-spacing: 0.1em; font-weight: 700; white-space: nowrap;">ACTIONS</th>
+              <tr
+                style="
+                  background-color: var(--color-surface-alt);
+                  border-bottom: 2px solid var(--color-border);
+                "
+              >
+                <th
+                  class="text-neutral px-4 py-3"
+                  style="
+                    font-size: 0.68rem;
+                    letter-spacing: 0.1em;
+                    font-weight: 700;
+                    white-space: nowrap;
+                  "
+                >
+                  ID
+                </th>
+                <th
+                  class="text-neutral px-3 py-3"
+                  style="
+                    font-size: 0.68rem;
+                    letter-spacing: 0.1em;
+                    font-weight: 700;
+                    white-space: nowrap;
+                  "
+                >
+                  CLASS NAME
+                </th>
+                <th
+                  class="text-neutral px-3 py-3"
+                  style="
+                    font-size: 0.68rem;
+                    letter-spacing: 0.1em;
+                    font-weight: 700;
+                    white-space: nowrap;
+                  "
+                >
+                  DESCRIPTION
+                </th>
+                <th
+                  class="text-neutral px-3 py-3 text-center"
+                  style="
+                    font-size: 0.68rem;
+                    letter-spacing: 0.1em;
+                    font-weight: 700;
+                    white-space: nowrap;
+                  "
+                >
+                  STATUS
+                </th>
+                <th
+                  class="text-neutral px-4 py-3 text-end"
+                  style="
+                    font-size: 0.68rem;
+                    letter-spacing: 0.1em;
+                    font-weight: 700;
+                    white-space: nowrap;
+                  "
+                >
+                  ACTIONS
+                </th>
               </tr>
             </thead>
             <tbody id="ct-tbody">
@@ -259,13 +589,30 @@
           </table>
 
           <!-- Empty state -->
-          <div id="ct-empty" class="py-5 text-center" style="display:none;">
-            <svg width="48" height="48" fill="none" stroke="currentColor" stroke-width="1.2" class="text-neutral mb-3" viewBox="0 0 24 24">
-              <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/>
-              <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
+          <div id="ct-empty" class="py-5 text-center" style="display: none">
+            <svg
+              width="48"
+              height="48"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.2"
+              class="text-neutral mb-3"
+              viewBox="0 0 24 24"
+            >
+              <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20" />
+              <path
+                d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"
+              />
             </svg>
-            <p class="fw-semibold text-secondary-theme mb-1" style="font-size: 0.95rem;">No class types found</p>
-            <p class="text-neutral mb-0" style="font-size: 0.82rem;">Add the first modality using the button above.</p>
+            <p
+              class="fw-semibold text-secondary-theme mb-1"
+              style="font-size: 0.95rem"
+            >
+              No class types found
+            </p>
+            <p class="text-neutral mb-0" style="font-size: 0.82rem">
+              Add the first modality using the button above.
+            </p>
           </div>
         </div>
 
@@ -273,20 +620,42 @@
         <div
           id="ct-pagination"
           class="d-flex align-items-center justify-content-between px-4 py-3"
-          style="border-top: 1px solid var(--color-border); display:none!important;"
+          style="
+            border-top: 1px solid var(--color-border);
+            display: none !important;
+          "
         >
-          <span id="ct-page-info" class="text-neutral" style="font-size: 0.78rem;"></span>
+          <span
+            id="ct-page-info"
+            class="text-neutral"
+            style="font-size: 0.78rem"
+          ></span>
           <div class="d-flex gap-2">
-            <button id="btn-ct-prev-page" class="btn-brand-outline px-3 py-1" style="font-size: 0.78rem;" disabled>Prev</button>
-            <button id="btn-ct-next-page" class="btn-brand-outline px-3 py-1" style="font-size: 0.78rem;" disabled>Next</button>
+            <button
+              id="btn-ct-prev-page"
+              class="btn-brand-outline px-3 py-1"
+              style="font-size: 0.78rem"
+              disabled
+            >
+              Prev
+            </button>
+            <button
+              id="btn-ct-next-page"
+              class="btn-brand-outline px-3 py-1"
+              style="font-size: 0.78rem"
+              disabled
+            >
+              Next
+            </button>
           </div>
         </div>
-
-      </div><!-- /card-theme -->
+      </div>
+      <!-- /card-theme -->
     </main>
-  </div><!-- /main-content-wrapper -->
-
-</div><!-- /admin-theme wrapper -->
+  </div>
+  <!-- /main-content-wrapper -->
+</div>
+<!-- /admin-theme wrapper -->
 
 <!-- ══════════════════════════════════════════════════════
      MODAL — Add / Edit Class Type
@@ -298,20 +667,53 @@
   aria-labelledby="modal-ct-label"
   aria-hidden="true"
 >
-  <div class="modal-dialog modal-dialog-centered" style="max-width: 540px;">
-    <div class="modal-content bg-surface border-theme shadow-theme-lg" style="border-radius: var(--radius-lg);">
-
-      <div class="modal-header" style="border-bottom: 1px solid var(--color-border); padding: 1.25rem 1.5rem;">
+  <div class="modal-dialog modal-dialog-centered" style="max-width: 540px">
+    <div
+      class="modal-content bg-surface border-theme shadow-theme-lg"
+      style="border-radius: var(--radius-lg)"
+    >
+      <div
+        class="modal-header"
+        style="
+          border-bottom: 1px solid var(--color-border);
+          padding: 1.25rem 1.5rem;
+        "
+      >
         <div class="d-flex align-items-center gap-2">
-          <span class="rounded-circle" style="width: 10px; height: 10px; background-color: var(--color-secondary); display: inline-block;"></span>
-          <h5 class="modal-title fw-bold text-secondary-theme mb-0" id="modal-ct-label" style="font-size: 1.05rem;">Add New Class Type</h5>
+          <span
+            class="rounded-circle"
+            style="
+              width: 10px;
+              height: 10px;
+              background-color: var(--color-secondary);
+              display: inline-block;
+            "
+          ></span>
+          <h5
+            class="modal-title fw-bold text-secondary-theme mb-0"
+            id="modal-ct-label"
+            style="font-size: 1.05rem"
+          >
+            Add New Class Type
+          </h5>
         </div>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" style="filter: opacity(0.5);"></button>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+          style="filter: opacity(0.5)"
+        ></button>
       </div>
 
-      <div class="modal-body" style="padding: 1.5rem;">
-        <p class="text-neutral mb-4" style="font-size: 0.82rem;" id="modal-ct-subtitle">
-          Configure modality parameters, target exertion levels, and equipment requirements.
+      <div class="modal-body" style="padding: 1.5rem">
+        <p
+          class="text-neutral mb-4"
+          style="font-size: 0.82rem"
+          id="modal-ct-subtitle"
+        >
+          Configure modality parameters, target exertion levels, and equipment
+          requirements.
         </p>
 
         <form id="ct-form" novalidate>
@@ -321,16 +723,38 @@
           <!-- Class Name -->
           <div class="mb-4">
             <div class="d-flex align-items-center justify-content-between mb-2">
-              <label for="ct-name" class="form-label fw-bold text-secondary-theme mb-0" style="font-size: 0.72rem; letter-spacing: 0.07em;">
+              <label
+                for="ct-name"
+                class="form-label fw-bold text-secondary-theme mb-0"
+                style="font-size: 0.72rem; letter-spacing: 0.07em"
+              >
                 CLASS NAME <span class="text-primary-theme">*</span>
               </label>
-              <span class="text-neutral" style="font-size: 0.68rem;" id="ct-name-counter">0 / 50 chars</span>
+              <span
+                class="text-neutral"
+                style="font-size: 0.68rem"
+                id="ct-name-counter"
+                >0 / 50 chars</span
+              >
             </div>
             <div class="input-group shadow-theme-sm rounded-theme-md">
-              <span class="input-group-text bg-surface-alt border-theme" style="border-right: none;">
-                <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" class="text-neutral" viewBox="0 0 24 24">
-                  <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/>
-                  <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
+              <span
+                class="input-group-text bg-surface-alt border-theme"
+                style="border-right: none"
+              >
+                <svg
+                  width="15"
+                  height="15"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  class="text-neutral"
+                  viewBox="0 0 24 24"
+                >
+                  <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20" />
+                  <path
+                    d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"
+                  />
                 </svg>
               </span>
               <input
@@ -338,45 +762,82 @@
                 id="ct-name"
                 name="name"
                 class="form-control border-theme bg-surface py-2"
-                style="border-left: none; box-shadow: none;"
+                style="border-left: none; box-shadow: none"
                 placeholder="e.g. HIIT Circuit Surge"
                 maxlength="50"
                 required
                 autocomplete="off"
               />
             </div>
-            <div id="ct-name-error" class="mt-1" style="font-size: 0.82rem; color: var(--color-primary); display:none;">
+            <div
+              id="ct-name-error"
+              class="mt-1"
+              style="
+                font-size: 0.82rem;
+                color: var(--color-primary);
+                display: none;
+              "
+            >
               Tên loại lớp không được để trống.
             </div>
           </div>
 
           <!-- Description -->
           <div class="mb-4">
-            <label for="ct-description" class="form-label fw-bold text-secondary-theme mb-2" style="font-size: 0.72rem; letter-spacing: 0.07em;">
+            <label
+              for="ct-description"
+              class="form-label fw-bold text-secondary-theme mb-2"
+              style="font-size: 0.72rem; letter-spacing: 0.07em"
+            >
               DESCRIPTION <span class="text-primary-theme">*</span>
             </label>
             <textarea
               id="ct-description"
               name="description"
               class="form-control border-theme bg-surface py-2"
-              style="box-shadow: none; resize: vertical; min-height: 110px; font-size: 0.875rem;"
+              style="
+                box-shadow: none;
+                resize: vertical;
+                min-height: 110px;
+                font-size: 0.875rem;
+              "
               placeholder="High-intensity interval training blending plyometrics, assault bikes, and barbell..."
               maxlength="500"
               required
             ></textarea>
             <div class="d-flex justify-content-between mt-1">
-              <div id="ct-description-error" style="font-size: 0.82rem; color: var(--color-primary); display:none;">
+              <div
+                id="ct-description-error"
+                style="
+                  font-size: 0.82rem;
+                  color: var(--color-primary);
+                  display: none;
+                "
+              >
                 Mô tả không được để trống.
               </div>
-              <span class="text-neutral ms-auto" style="font-size: 0.68rem;" id="ct-desc-counter">0 / 500 chars</span>
+              <span
+                class="text-neutral ms-auto"
+                style="font-size: 0.68rem"
+                id="ct-desc-counter"
+                >0 / 500 chars</span
+              >
             </div>
           </div>
 
           <!-- Status toggle -->
           <div class="mb-4">
-            <label class="form-label fw-bold text-secondary-theme mb-3" style="font-size: 0.72rem; letter-spacing: 0.07em;">STATUS</label>
+            <label
+              class="form-label fw-bold text-secondary-theme mb-3"
+              style="font-size: 0.72rem; letter-spacing: 0.07em"
+              >STATUS</label
+            >
             <div class="d-flex align-items-center gap-3">
-              <label class="ct-modal-toggle" style="cursor:pointer;" aria-label="Toggle class type active status">
+              <label
+                class="ct-modal-toggle"
+                style="cursor: pointer"
+                aria-label="Toggle class type active status"
+              >
                 <input
                   type="checkbox"
                   id="ct-is-active"
@@ -386,32 +847,74 @@
                 <span class="ct-modal-toggle-slider"></span>
               </label>
               <div>
-                <p class="mb-0 fw-semibold text-secondary-theme" style="font-size: 0.875rem;" id="ct-status-label">Active (Visible)</p>
-                <p class="mb-0 text-neutral" style="font-size: 0.75rem;" id="ct-status-hint">This class type will be visible to members for booking.</p>
+                <p
+                  class="mb-0 fw-semibold text-secondary-theme"
+                  style="font-size: 0.875rem"
+                  id="ct-status-label"
+                >
+                  Active (Visible)
+                </p>
+                <p
+                  class="mb-0 text-neutral"
+                  style="font-size: 0.75rem"
+                  id="ct-status-hint"
+                >
+                  This class type will be visible to members for booking.
+                </p>
               </div>
             </div>
           </div>
 
-          <!-- Form-level error -->
+          
           <div
             id="ct-form-error"
             class="text-center py-2 px-3 rounded-theme-md"
-            style="display:none; background-color: var(--color-primary-light); font-size: 0.82rem; color: var(--color-primary);"
+            style="
+              display: none;
+              background-color: var(--color-primary-light);
+              font-size: 0.82rem;
+              color: var(--color-primary);
+            "
           ></div>
-
         </form>
       </div>
 
-      <div class="modal-footer" style="border-top: 1px solid var(--color-border); padding: 1rem 1.5rem; gap: 0.75rem;">
-        <button type="button" class="btn-brand-outline px-4 py-2" style="font-size: 0.875rem;" data-bs-dismiss="modal">Cancel</button>
-        <button type="submit" form="ct-form" id="btn-ct-submit" class="btn-brand px-4 py-2" style="font-size: 0.875rem;">
-          <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
-            <polyline points="20 6 9 17 4 12"/>
+      <div
+        class="modal-footer"
+        style="
+          border-top: 1px solid var(--color-border);
+          padding: 1rem 1.5rem;
+          gap: 0.75rem;
+        "
+      >
+        <button
+          type="button"
+          class="btn-brand-outline px-4 py-2"
+          style="font-size: 0.875rem"
+          data-bs-dismiss="modal"
+        >
+          Cancel
+        </button>
+        <button
+          type="submit"
+          form="ct-form"
+          id="btn-ct-submit"
+          class="btn-brand px-4 py-2"
+          style="font-size: 0.875rem"
+        >
+          <svg
+            width="14"
+            height="14"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2.5"
+            viewBox="0 0 24 24"
+          >
+            <polyline points="20 6 9 17 4 12" />
           </svg>
           Save Class Type
         </button>
       </div>
-
     </div>
   </div>
 </div>
@@ -420,7 +923,9 @@
 <style>
   .sidebar-link {
     text-decoration: none;
-    transition: background-color var(--transition-fast), color var(--transition-fast);
+    transition:
+      background-color var(--transition-fast),
+      color var(--transition-fast);
   }
   .sidebar-link:hover {
     background-color: var(--color-surface-alt);
@@ -467,7 +972,7 @@
     transition: background-color var(--transition-normal);
   }
   .ct-toggle-slider::before {
-    content: '';
+    content: "";
     position: absolute;
     height: 18px;
     width: 18px;
@@ -476,7 +981,7 @@
     background-color: var(--color-surface);
     border-radius: 50%;
     transition: transform var(--transition-normal);
-    box-shadow: 0 1px 4px rgba(0,0,0,0.2);
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
   }
   .ct-toggle input:checked + .ct-toggle-slider {
     background-color: var(--color-secondary);
@@ -511,7 +1016,7 @@
     transition: background-color var(--transition-normal);
   }
   .ct-modal-toggle-slider::before {
-    content: '';
+    content: "";
     position: absolute;
     height: 22px;
     width: 22px;
@@ -520,7 +1025,7 @@
     background-color: var(--color-surface);
     border-radius: 50%;
     transition: transform var(--transition-normal);
-    box-shadow: 0 1px 6px rgba(0,0,0,0.25);
+    box-shadow: 0 1px 6px rgba(0, 0, 0, 0.25);
   }
   .ct-modal-toggle input:checked + .ct-modal-toggle-slider {
     background-color: var(--color-secondary);
@@ -530,8 +1035,13 @@
   }
 
   @keyframes pulse-dot {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0.4; }
+    0%,
+    100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0.4;
+    }
   }
 
   .btn-edit-ct {
@@ -546,7 +1056,10 @@
     background-color: transparent;
     color: var(--color-secondary);
     cursor: pointer;
-    transition: border-color var(--transition-fast), background-color var(--transition-fast), color var(--transition-fast);
+    transition:
+      border-color var(--transition-fast),
+      background-color var(--transition-fast),
+      color var(--transition-fast);
     white-space: nowrap;
     font-family: var(--font-primary);
   }

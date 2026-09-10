@@ -6,7 +6,6 @@ export function render(): string {
   return template;
 }
 
-// Controller
 export function init(): void {
   const form = document.querySelector<HTMLFormElement>("#trainer-form");
   const submitBtn =
@@ -23,8 +22,7 @@ export function init(): void {
   const bioCount =
     document.querySelector<HTMLSpanElement>("#trainer-bio-count");
 
-  // Toggle show/hide password
-  togglePwBtn?.addEventListener("click", () => {
+    togglePwBtn?.addEventListener("click", () => {
     if (!passwordInput) return;
     const isHidden = passwordInput.type === "password";
     passwordInput.type = isHidden ? "text" : "password";
