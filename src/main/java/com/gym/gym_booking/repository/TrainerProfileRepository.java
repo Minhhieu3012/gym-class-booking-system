@@ -18,23 +18,23 @@ public interface TrainerProfileRepository
     boolean existsByUserId(Long userId);
 
     @Query("""
-        SELECT t
-        FROM TrainerProfile t
-        JOIN t.user u
-        WHERE (:status IS NULL OR u.status = :status)
-          AND (
-                :specialization IS NULL
-                OR :specialization = ''
-                OR LOWER(t.specialization)
-                    LIKE LOWER(CONCAT('%', :specialization, '%'))
-              )
-          AND (
-                :keyword IS NULL
-                OR :keyword = ''
-                OR LOWER(u.fullName)
-                    LIKE LOWER(CONCAT('%', :keyword, '%'))
-              )
-        """)
+    SELECT t
+    FROM TrainerProfile t
+    JOIN t.user u
+    WHERE u.status = :status
+      AND (
+            :specialization IS NULL
+            OR :specialization = ''
+            OR LOWER(t.specialization)
+                LIKE LOWER(CONCAT('%', :specialization, '%'))
+          )
+      AND (
+            :keyword IS NULL
+            OR :keyword = ''
+            OR LOWER(u.fullName)
+                LIKE LOWER(CONCAT('%', :keyword, '%'))
+          )
+    """)
     Page<TrainerProfile> searchTrainers(
             @Param("status") UserStatus status,
             @Param("specialization") String specialization,

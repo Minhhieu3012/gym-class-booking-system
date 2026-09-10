@@ -1,6 +1,7 @@
 package com.gym.gym_booking.controller;
 
 import com.gym.gym_booking.dto.trainer.TrainerProfileRequestDTO;
+import com.gym.gym_booking.dto.trainer.TrainerProfileUpdateRequestDTO;
 import com.gym.gym_booking.dto.trainer.TrainerResponseDTO;
 import com.gym.gym_booking.dto.trainer.RejectTrainerRequestDTO;
 import com.gym.gym_booking.enums.UserStatus;
@@ -29,7 +30,7 @@ public class TrainerController {
 
     @GetMapping
     public ResponseEntity<Page<TrainerResponseDTO>> getTrainers(
-            @RequestParam(required = false) UserStatus status,
+//            @RequestParam(required = false) UserStatus status,
             @RequestParam(required = false) String specialization,
             @RequestParam(required = false) String keyword,
             @PageableDefault(
@@ -42,7 +43,7 @@ public class TrainerController {
 
         return ResponseEntity.ok(
                 trainerService.getTrainers(
-                        status,
+//                        status,
                         specialization,
                         keyword,
                         pageable
@@ -60,23 +61,10 @@ public class TrainerController {
         );
     }
 
-    @PostMapping("/profile")
-    @PreAuthorize("hasRole('TRAINER')")
-    public ResponseEntity<TrainerResponseDTO> createProfile(
-            @Valid @RequestBody TrainerProfileRequestDTO request
-    ) {
-
-        return ResponseEntity
-                .status(HttpStatus.CREATED)
-                .body(
-                        trainerService.createProfile(request)
-                );
-    }
-
     @PatchMapping("/profile")
     @PreAuthorize("hasRole('TRAINER')")
     public ResponseEntity<TrainerResponseDTO> updateProfile(
-            @Valid @RequestBody TrainerProfileRequestDTO request
+            @Valid @RequestBody TrainerProfileUpdateRequestDTO request
     ) {
 
         return ResponseEntity.ok(
