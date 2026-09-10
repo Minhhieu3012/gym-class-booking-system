@@ -54,7 +54,9 @@ public class SecurityConfig {
 
                             .requestMatchers(
                                     "/trainers",
-                                    "/trainers/**"
+                                    "/trainers/**",
+                                    "/rooms",
+                                    "/rooms/**"
                             ).permitAll()
 
                             .anyRequest().authenticated()
