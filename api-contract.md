@@ -1819,7 +1819,7 @@ TRAINER
 
 ---
 
-## 10.6. Reschedule PT Booking
+## 10.6. Reschedule PT Booking [DEFERRED] - Chuyển sang Phase sau
 
 ### Endpoint
 
@@ -2276,7 +2276,7 @@ PATCH /member-packages/{id}/adjust
 
 # 13. Transaction APIs
 
-## 13.1. Get My Transactions
+## 13.1. Get My Transactions [DEFERRED] - Chuyển sang Phase sau
 
 ```http
 GET /transactions/me
@@ -2305,7 +2305,7 @@ paymentMethod
 
 ---
 
-## 13.2. Get Transaction Details
+## 13.2. Get Transaction Details [DEFERRED] - Chuyển sang Phase sau
 
 ```http
 GET /transactions/{id}
