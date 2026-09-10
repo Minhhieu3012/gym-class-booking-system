@@ -6,6 +6,8 @@ import * as LoginPage from "../pages/auth/login";
 import * as RegisterPage from "../pages/auth/register";
 import * as RegisterTrainerPage from "../pages/auth/register-trainer";
 import * as LandingPage from "../pages/public/landing";
+import * as ProfilePage from "../pages/public/profile";
+import * as ChangePasswordPage from "../pages/public/change-password";
 
 // Types
 export interface Route {
@@ -63,11 +65,14 @@ const routes: Route[] = [
   {
     path: "/profile",
     requiresAuth: true,
-    view: () => `
-      <section class="container py-5 text-center">
-        <h1>Hồ sơ cá nhân</h1>
-        <p class="text-neutral">TODO: import render() từ pages/profile/index.ts</p>
-      </section>`,
+    view: ProfilePage.render,
+    init: ProfilePage.init,
+  },
+  {
+    path: "/change-password",
+    requiresAuth: true,
+    view: ChangePasswordPage.render,
+    init: ChangePasswordPage.init,
   },
   {
     path: "/admin/dashboard",
