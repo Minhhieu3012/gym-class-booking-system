@@ -5,12 +5,15 @@ import type { UserRole } from "../models/auth";
 import * as LoginPage from "../pages/auth/login";
 import * as RegisterPage from "../pages/auth/register";
 import * as RegisterTrainerPage from "../pages/auth/register-trainer";
+import * as ForgotPasswordPage from "../pages/auth/forgot-password";
+import * as ResetPasswordPage from "../pages/auth/reset-password";
 import * as LandingPage from "../pages/public/landing";
 import * as ProfilePage from "../pages/public/profile";
 import * as ChangePasswordPage from "../pages/public/change-password";
 import * as RoomsPage from "../pages/admin/rooms";
 import * as ClassTypesPage from "../pages/admin/class-types";
 import * as PackagesPage from "../pages/admin/packages";
+import * as DashboardPage from "../pages/admin/dashboard";
 
 // Types
 export interface Route {
@@ -23,6 +26,18 @@ export interface Route {
 
 // Route definitions
 const routes: Route[] = [
+  {
+    path: "/forgot-password",
+    requiresAuth: false,
+    view: ForgotPasswordPage.render,
+    init: ForgotPasswordPage.init,
+  },
+  {
+    path: "/reset-password",
+    requiresAuth: false,
+    view: ResetPasswordPage.render,
+    init: ResetPasswordPage.init,
+  },
   {
     path: "/",
     requiresAuth: false,
@@ -82,11 +97,8 @@ const routes: Route[] = [
     // requiresAuth: false,
     requiresAuth: true,
     roles: ["ADMIN"],
-    view: () => `
-      <section class="container-fluid py-4">
-        <h1>Admin Dashboard</h1>
-        <p class="text-neutral">TODO: import render() từ pages/admin/dashboard.ts</p>
-      </section>`,
+    view: DashboardPage.render,
+    init: DashboardPage.init,
   },
   {
     path: "/admin/rooms",
