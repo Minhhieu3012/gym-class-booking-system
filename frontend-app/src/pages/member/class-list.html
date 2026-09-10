@@ -1,0 +1,133 @@
+<main class="member-classes-page bg-surface-alt min-vh-100 pb-5">
+  <!-- ── NAVBAR ── -->
+  <nav class="classes-navbar w-100 d-flex justify-content-between align-items-center px-3 px-md-4 py-3 bg-surface border-bottom border-theme sticky-top">
+    <div class="d-flex align-items-center gap-3">
+      <a href="/profile" data-link class="btn-back text-secondary-theme d-flex align-items-center justify-content-center" aria-label="Quay lại">
+        <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M19 12H5M12 19l-7-7 7-7" />
+        </svg>
+      </a>
+      <div>
+        <div class="d-flex align-items-center gap-2">
+          <span class="logo-lightning">⚡</span>
+          <span class="brand-title fw-bold text-secondary-theme">PULSE GYM</span>
+        </div>
+        <p class="page-subtitle text-neutral mb-0">LỊCH LỚP HỌC NHÓM (GROUP CLASSES)</p>
+      </div>
+    </div>
+    <div class="d-flex align-items-center gap-2">
+      <a href="/member/packages" data-link class="btn-packages btn-brand-outline py-1 px-3 rounded-pill text-decoration-none d-flex align-items-center gap-1">
+        <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
+        </svg>
+        <span class="d-none d-sm-inline">Gói tập của tôi</span>
+      </a>
+    </div>
+  </nav>
+
+  <!-- ── TOAST THÔNG BÁO ── -->
+  <div class="toast-container position-fixed top-0 end-0 p-3" style="z-index: 1090;">
+    <div id="booking-toast" class="toast align-items-center border-0 shadow-lg text-white bg-success" role="alert" aria-live="assertive" aria-atomic="true">
+      <div class="d-flex">
+        <div class="toast-body d-flex align-items-center gap-2 py-3 px-3">
+          <span id="toast-icon">
+            <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+            </svg>
+          </span>
+          <span id="toast-message" class="fw-semibold">Đặt lớp thành công!</span>
+        </div>
+        <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── CONTENT CONTAINER ── -->
+  <div class="container py-4 px-3 px-md-4">
+    <!-- HERO HEADER -->
+    <div class="classes-hero card-theme p-4 mb-4 position-relative overflow-hidden">
+      <div class="row align-items-center">
+        <div class="col-12 col-md-8">
+          <span class="badge-theme badge-active px-3 py-1 mb-2">LỊCH TẬP NHÓM HÔM NAY</span>
+          <h1 class="hero-title fw-bold text-secondary-theme mb-2">Xem Lịch &amp; Đặt Lớp</h1>
+          <p class="hero-desc text-neutral mb-0">
+            Khám phá các buổi tập nhóm sôi động với huấn luyện viên chuyên nghiệp. Chọn ngày và đặt chỗ nhanh chóng!
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- PHẦN 1: BỘ LỌC NGANG (FORM FILTER) -->
+    <!-- ============================================================ -->
+    <section class="card-theme p-3 p-md-4 mb-4 filter-section shadow-theme-sm">
+      <form id="classes-filter-form" class="row g-3 align-items-end" onsubmit="return false;">
+        <!-- Ô chọn ngày -->
+        <div class="col-12 col-sm-6 col-md-5">
+          <label for="filter-date" class="form-label fw-bold text-secondary-theme fs-7 mb-1 d-flex align-items-center gap-1">
+            <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+            </svg>
+            CHỌN NGÀY TẬP
+          </label>
+          <input 
+            type="date" 
+            id="filter-date" 
+            class="form-control form-control-lg border-theme bg-surface fs-6 py-2 shadow-none" 
+          />
+        </div>
+
+        <!-- Dropdown chọn loại lớp -->
+        <div class="col-12 col-sm-6 col-md-5">
+          <label for="filter-class-type" class="form-label fw-bold text-secondary-theme fs-7 mb-1 d-flex align-items-center gap-1">
+            <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h7" />
+            </svg>
+            LOẠI LỚP HỌC
+          </label>
+          <select 
+            id="filter-class-type" 
+            class="form-select form-select-lg border-theme bg-surface fs-6 py-2 shadow-none"
+          >
+            <option value="">Tất cả môn học / loại lớp</option>
+          </select>
+        </div>
+
+        <!-- Nút Reset / Hôm nay -->
+        <div class="col-12 col-md-2 d-flex gap-2">
+          <button 
+            type="button" 
+            id="btn-today-classes" 
+            class="btn-brand-outline w-100 justify-content-center py-2"
+          >
+            Hôm nay
+          </button>
+        </div>
+      </form>
+    </section>
+
+    <!-- ============================================================ -->
+    <!-- PHẦN 2: NỘI DUNG DANH SÁCH LỚP (VERTICAL LIST VIEW) -->
+    <!-- ============================================================ -->
+    <section class="class-list-section">
+      <div class="d-flex justify-content-between align-items-center mb-3">
+        <h2 class="fw-bold text-secondary-theme fs-5 mb-0 d-flex align-items-center gap-2">
+          <span>Danh sách lớp học</span>
+          <span id="class-count-badge" class="badge bg-danger rounded-pill fs-7">0</span>
+        </h2>
+        <span id="selected-date-display" class="text-neutral fs-7 fw-semibold"></span>
+      </div>
+
+      <!-- Container danh sách lớp học (Render Vertical List bằng Bootstrap Cards, TUYỆT ĐỐI KHÔNG dùng Calendar) -->
+      <div id="class-list-container" class="d-flex flex-column gap-3">
+        <!-- Placeholder Spinner khi tải dữ liệu -->
+        <div class="text-center py-5">
+          <div class="spinner-border text-danger" role="status">
+            <span class="visually-hidden">Đang tải...</span>
+          </div>
+          <p class="text-neutral mt-2 mb-0">Đang tìm kiếm các lớp học phù hợp...</p>
+        </div>
+      </div>
+    </section>
+  </div>
+</main>

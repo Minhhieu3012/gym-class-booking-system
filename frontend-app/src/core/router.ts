@@ -14,6 +14,8 @@ import * as RoomsPage from "../pages/admin/rooms";
 import * as ClassTypesPage from "../pages/admin/class-types";
 import * as PackagesPage from "../pages/admin/packages";
 import * as DashboardPage from "../pages/admin/dashboard";
+import * as MemberPackagesPage from "../pages/member/packages";
+import * as MemberClassesPage from "../pages/member/class-list";
 
 // Types
 export interface Route {
@@ -91,6 +93,22 @@ const routes: Route[] = [
     requiresAuth: true,
     view: ChangePasswordPage.render,
     init: ChangePasswordPage.init,
+  },
+  {
+    path: "/member/packages",
+    // requiresAuth: false,
+    requiresAuth: true,
+    roles: ["MEMBER", "ADMIN"],
+    view: MemberPackagesPage.render,
+    init: MemberPackagesPage.init,
+  },
+  {
+    path: "/member/classes",
+    // requiresAuth: false,
+    requiresAuth: true,
+    roles: ["MEMBER", "ADMIN"],
+    view: MemberClassesPage.render,
+    init: MemberClassesPage.init,
   },
   {
     path: "/admin/dashboard",
