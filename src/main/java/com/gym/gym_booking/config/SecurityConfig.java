@@ -37,14 +37,34 @@ public class SecurityConfig {
                         )
                 )
 
-                .authorizeHttpRequests(auth -> auth
-                        .requestMatchers(
-                                "/auth/login",
-                                "/auth/register"
-                        ).permitAll()
+//                .authorizeHttpRequests(auth -> auth
+//                        .requestMatchers(
+//                                "/auth/login",
+//                                "/auth/register"
+//                        ).permitAll()
+//
+//                        .anyRequest().authenticated()
+                    .authorizeHttpRequests(auth -> auth
 
-                        .anyRequest().authenticated()
-                )
+                            .requestMatchers(
+                                    "/auth/login",
+                                    "/auth/register",
+                                    "/auth/register-trainer"
+                            ).permitAll()
+
+                            .requestMatchers(
+                                    "/trainers",
+                                    "/trainers/**",
+                                    "/rooms",
+                                    "/rooms/**",
+                                    "/class-types",
+                                    "/class-types/**",
+                                    "/classes",
+                                    "/classes/**"
+                            ).permitAll()
+
+                            .anyRequest().authenticated()
+                    )
 
                 .addFilterBefore(
                         jwtAuthenticationFilter,

@@ -3,6 +3,7 @@ package com.gym.gym_booking.controller;
 import com.gym.gym_booking.dto.auth.LoginRequestDTO;
 import com.gym.gym_booking.dto.auth.LoginResponseDTO;
 import com.gym.gym_booking.dto.auth.RegisterRequestDTO;
+import com.gym.gym_booking.dto.auth.RegisterTrainerRequestDTO;
 import com.gym.gym_booking.dto.user.UserResponseDTO;
 import com.gym.gym_booking.service.AuthService;
 import jakarta.validation.Valid;
@@ -27,6 +28,18 @@ public class AuthController {
         return ResponseEntity
                 .status(HttpStatus.CREATED)
                 .body(authService.register(request));
+    }
+
+    @PostMapping("/register-trainer")
+    public ResponseEntity<UserResponseDTO> registerTrainer(
+            @Valid @RequestBody RegisterTrainerRequestDTO request
+    ) {
+
+        return ResponseEntity
+                .status(HttpStatus.CREATED)
+                .body(
+                        authService.registerTrainer(request)
+                );
     }
 
     @PostMapping("/login")
