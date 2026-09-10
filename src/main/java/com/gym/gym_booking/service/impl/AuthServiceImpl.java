@@ -4,13 +4,16 @@ import com.gym.gym_booking.dto.auth.LoginRequestDTO;
 import com.gym.gym_booking.dto.auth.LoginResponseDTO;
 import com.gym.gym_booking.dto.auth.RegisterRequestDTO;
 import com.gym.gym_booking.dto.user.UserResponseDTO;
+import com.gym.gym_booking.entity.TrainerProfile;
 import com.gym.gym_booking.entity.User;
 import com.gym.gym_booking.enums.UserRole;
 import com.gym.gym_booking.enums.UserStatus;
 import com.gym.gym_booking.mapper.UserMapper;
+import com.gym.gym_booking.repository.TrainerProfileRepository;
 import com.gym.gym_booking.repository.UserRepository;
 import com.gym.gym_booking.security.JwtService;
 import com.gym.gym_booking.service.AuthService;
+import jakarta.transaction.Transactional;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -18,22 +21,26 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import com.gym.gym_booking.dto.auth.RegisterTrainerRequestDTO;
 
 @Service
 public class AuthServiceImpl implements AuthService {
 
     private final UserRepository userRepository;
+    private final TrainerProfileRepository trainerProfileRepository;
     private final PasswordEncoder passwordEncoder;
     private final AuthenticationManager authenticationManager;
     private final JwtService jwtService;
 
     public AuthServiceImpl(
             UserRepository userRepository,
+            TrainerProfileRepository trainerProfileRepository,
             PasswordEncoder passwordEncoder,
             AuthenticationManager authenticationManager,
             JwtService jwtService
     ) {
         this.userRepository = userRepository;
+        this.trainerProfileRepository = trainerProfileRepository;
         this.passwordEncoder = passwordEncoder;
         this.authenticationManager = authenticationManager;
         this.jwtService = jwtService;
@@ -63,6 +70,70 @@ public class AuthServiceImpl implements AuthService {
         user.setStatus(UserStatus.ACTIVE);
 
         User savedUser = userRepository.save(user);
+
+        return UserMapper.toResponse(savedUser);
+    }
+
+    @Override
+    @Transactional
+    public UserResponseDTO registerTrainer(
+            RegisterTrainerRequestDTO request
+    ) {
+
+        if (userRepository.existsByEmail(request.getEmail())) {
+            throw new RuntimeException("Email already exists");
+        }
+
+        if (userRepository.existsByPhone(request.getPhone())) {
+            throw new RuntimeException("Phone already exists");
+        }
+
+        // =========================
+        // Create User
+        // =========================
+
+        User user = new User();
+
+        user.setEmail(request.getEmail().trim());
+        user.setPhone(request.getPhone().trim());
+        user.setPassword(
+                passwordEncoder.encode(request.getPassword())
+        );
+        user.setFullName(request.getFullName().trim());
+        user.setAddress(
+                request.getAddress() != null
+                        ? request.getAddress().trim()
+                        : null
+        );
+
+        user.setRole(UserRole.TRAINER);
+
+        // Trainer must be approved by Admin
+        user.setStatus(UserStatus.PENDING);
+
+        User savedUser = userRepository.save(user);
+
+        // =========================
+        // Create Trainer Profile
+        // =========================
+
+        TrainerProfile trainerProfile = new TrainerProfile();
+
+        trainerProfile.setUser(savedUser);
+        trainerProfile.setSpecialization(
+                request.getSpecialization().trim()
+        );
+        trainerProfile.setExperienceYear(
+                request.getExperienceYears()
+        );
+        trainerProfile.setHourlyFee(
+                request.getHourlyFee()
+        );
+        trainerProfile.setBio(
+                request.getBio()
+        );
+
+        trainerProfileRepository.save(trainerProfile);
 
         return UserMapper.toResponse(savedUser);
     }

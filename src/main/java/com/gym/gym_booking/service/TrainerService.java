@@ -1,9 +1,6 @@
 package com.gym.gym_booking.service;
 
-import com.gym.gym_booking.dto.trainer.RejectTrainerRequestDTO;
-import com.gym.gym_booking.dto.trainer.TrainerApprovalResponseDTO;
-import com.gym.gym_booking.dto.trainer.TrainerProfileRequestDTO;
-import com.gym.gym_booking.dto.trainer.TrainerResponseDTO;
+import com.gym.gym_booking.dto.trainer.*;
 import com.gym.gym_booking.enums.UserStatus;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -11,7 +8,7 @@ import org.springframework.data.domain.Pageable;
 public interface TrainerService {
 
     Page<TrainerResponseDTO> getTrainers(
-            UserStatus status,
+//            UserStatus status,
             String specialization,
             String keyword,
             Pageable pageable
@@ -21,12 +18,8 @@ public interface TrainerService {
             Long id
     );
 
-    TrainerResponseDTO createProfile(
-            TrainerProfileRequestDTO request
-    );
-
     TrainerResponseDTO updateProfile(
-            TrainerProfileRequestDTO request
+            TrainerProfileUpdateRequestDTO request
     );
 
     TrainerApprovalResponseDTO approveTrainer(

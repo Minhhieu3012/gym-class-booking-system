@@ -1,9 +1,6 @@
 package com.gym.gym_booking.service.impl;
 
-import com.gym.gym_booking.dto.trainer.RejectTrainerRequestDTO;
-import com.gym.gym_booking.dto.trainer.TrainerApprovalResponseDTO;
-import com.gym.gym_booking.dto.trainer.TrainerProfileRequestDTO;
-import com.gym.gym_booking.dto.trainer.TrainerResponseDTO;
+import com.gym.gym_booking.dto.trainer.*;
 import com.gym.gym_booking.entity.TrainerProfile;
 import com.gym.gym_booking.entity.User;
 import com.gym.gym_booking.enums.UserRole;
@@ -68,7 +65,7 @@ public class TrainerServiceImpl implements TrainerService {
     @Override
     @Transactional(readOnly = true)
     public Page<TrainerResponseDTO> getTrainers(
-            UserStatus status,
+//            UserStatus status,
             String specialization,
             String keyword,
             Pageable pageable
@@ -92,7 +89,7 @@ public class TrainerServiceImpl implements TrainerService {
 
         return trainerProfileRepository
                 .searchTrainers(
-                        status,
+                        UserStatus.ACTIVE,
                         specialization,
                         keyword,
                         pageable
@@ -108,65 +105,23 @@ public class TrainerServiceImpl implements TrainerService {
 
         TrainerProfile trainer =
                 trainerProfileRepository
-                        .findById(id)
+                        .findByUserId(id)
                         .orElseThrow(() ->
                                 new RuntimeException(
                                         "Trainer not found"
                                 )
                         );
+        if (trainer.getUser().getStatus() != UserStatus.ACTIVE) {
+            throw new RuntimeException("Trainer not found");
+        }
 
         return toResponse(trainer);
+
     }
-
-    @Override
-    @Transactional
-    public TrainerResponseDTO createProfile(
-            TrainerProfileRequestDTO request
-    ) {
-
-        User currentUser = getCurrentUser();
-
-        if (currentUser.getRole() != UserRole.TRAINER) {
-            throw new RuntimeException(
-                    "Only trainer can create trainer profile"
-            );
-        }
-
-        if (trainerProfileRepository
-                .existsByUserId(currentUser.getId())) {
-
-            throw new RuntimeException(
-                    "Trainer profile already exists"
-            );
-        }
-
-        TrainerProfile trainer =
-                new TrainerProfile();
-
-        trainer.setUser(currentUser);
-        trainer.setSpecialization(
-                request.getSpecialization().trim()
-        );
-        trainer.setExperienceYear(
-                request.getExperienceYears()
-        );
-        trainer.setHourlyFee(
-                request.getHourlyFee()
-        );
-        trainer.setBio(
-                request.getBio()
-        );
-
-        TrainerProfile saved =
-                trainerProfileRepository.save(trainer);
-
-        return toResponse(saved);
-    }
-
     @Override
     @Transactional
     public TrainerResponseDTO updateProfile(
-            TrainerProfileRequestDTO request
+            TrainerProfileUpdateRequestDTO request
     ) {
 
         User currentUser = getCurrentUser();
@@ -186,18 +141,29 @@ public class TrainerServiceImpl implements TrainerService {
                                 )
                         );
 
-        trainer.setSpecialization(
-                request.getSpecialization().trim()
-        );
-        trainer.setExperienceYear(
-                request.getExperienceYears()
-        );
-        trainer.setHourlyFee(
-                request.getHourlyFee()
-        );
-        trainer.setBio(
-                request.getBio()
-        );
+        if (request.getSpecialization() != null) {
+            trainer.setSpecialization(
+                    request.getSpecialization().trim()
+            );
+        }
+
+        if (request.getExperienceYears() != null) {
+            trainer.setExperienceYear(
+                    request.getExperienceYears()
+            );
+        }
+
+        if (request.getHourlyFee() != null) {
+            trainer.setHourlyFee(
+                    request.getHourlyFee()
+            );
+        }
+
+        if (request.getBio() != null) {
+            trainer.setBio(
+                    request.getBio().trim()
+            );
+        }
 
         TrainerProfile saved =
                 trainerProfileRepository.save(trainer);
@@ -213,7 +179,7 @@ public class TrainerServiceImpl implements TrainerService {
 
         TrainerProfile trainer =
                 trainerProfileRepository
-                        .findById(trainerId)
+                        .findByUserId(trainerId)
                         .orElseThrow(() ->
                                 new RuntimeException(
                                         "Trainer not found"
@@ -261,7 +227,7 @@ public class TrainerServiceImpl implements TrainerService {
 
         TrainerProfile trainer =
                 trainerProfileRepository
-                        .findById(trainerId)
+                        .findByUserId(trainerId)
                         .orElseThrow(() ->
                                 new RuntimeException(
                                         "Trainer not found"
