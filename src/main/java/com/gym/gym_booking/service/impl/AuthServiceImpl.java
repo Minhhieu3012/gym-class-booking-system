@@ -74,32 +74,195 @@ public class AuthServiceImpl implements AuthService {
         return UserMapper.toResponse(savedUser);
     }
 
+//    @Override
+//    @Transactional
+//    public UserResponseDTO registerTrainer(
+//            RegisterTrainerRequestDTO request
+//    ) {
+//
+//        if (userRepository.existsByEmail(request.getEmail())) {
+//            throw new RuntimeException("Email already exists");
+//        }
+//
+//        if (userRepository.existsByPhone(request.getPhone())) {
+//            throw new RuntimeException("Phone already exists");
+//        }
+//
+//        // Create User
+//
+//        User user = new User();
+//
+//        user.setEmail(request.getEmail().trim());
+//        user.setPhone(request.getPhone().trim());
+//        user.setPassword(
+//                passwordEncoder.encode(request.getPassword())
+//        );
+//        user.setFullName(request.getFullName().trim());
+//        user.setAddress(
+//                request.getAddress() != null
+//                        ? request.getAddress().trim()
+//                        : null
+//        );
+//
+//        user.setRole(UserRole.TRAINER);
+//
+//        // Trainer must be approved by Admin
+//        user.setStatus(UserStatus.PENDING);
+//
+//        User savedUser = userRepository.save(user);
+//
+//        // Create Trainer Profile
+//        TrainerProfile trainerProfile = new TrainerProfile();
+//
+//        trainerProfile.setUser(savedUser);
+//        trainerProfile.setSpecialization(
+//                request.getSpecialization().trim()
+//        );
+//        trainerProfile.setExperienceYear(
+//                request.getExperienceYears()
+//        );
+//        trainerProfile.setHourlyFee(
+//                request.getHourlyFee()
+//        );
+//        trainerProfile.setBio(
+//                request.getBio()
+//        );
+//
+//        trainerProfileRepository.save(trainerProfile);
+//
+//        return UserMapper.toResponse(savedUser);
+//    }
     @Override
     @Transactional
     public UserResponseDTO registerTrainer(
             RegisterTrainerRequestDTO request
     ) {
 
-        if (userRepository.existsByEmail(request.getEmail())) {
-            throw new RuntimeException("Email already exists");
+        String email = request.getEmail().trim();
+        String phone = request.getPhone().trim();
+
+        // Check email
+
+        User emailUser = userRepository
+                .findByEmail(email)
+                .orElse(null);
+
+        // Check phone
+        User phoneUser = userRepository
+                .findByPhone(phone)
+                .orElse(null);
+
+        // Email đã tồn tại
+        if (emailUser != null) {
+
+            // Chỉ cho TRAINER đã bị REJECTED đăng ký lại
+            if (emailUser.getRole() != UserRole.TRAINER
+                    || emailUser.getStatus() != UserStatus.REJECTED) {
+
+                throw new RuntimeException(
+                        "Email already exists"
+                );
+            }
         }
 
-        if (userRepository.existsByPhone(request.getPhone())) {
-            throw new RuntimeException("Phone already exists");
+        // Phone đã tồn tại
+        if (phoneUser != null) {
+
+            // Nếu phone thuộc một user khác
+            if (emailUser == null
+                    || !phoneUser.getId().equals(emailUser.getId())) {
+
+                throw new RuntimeException(
+                        "Phone already exists"
+                );
+            }
+
+            // Phone thuộc chính Trainer REJECTED
+            if (phoneUser.getRole() != UserRole.TRAINER
+                    || phoneUser.getStatus() != UserStatus.REJECTED) {
+
+                throw new RuntimeException(
+                        "Phone already exists"
+                );
+            }
         }
 
-        // =========================
-        // Create User
-        // =========================
+        // RE-REGISTER TRAINER REJECTED
+        if (emailUser != null
+                && emailUser.getRole() == UserRole.TRAINER
+                && emailUser.getStatus() == UserStatus.REJECTED) {
 
+            User user = emailUser;
+
+            user.setEmail(email);
+            user.setPhone(phone);
+
+            user.setPassword(
+                    passwordEncoder.encode(request.getPassword())
+            );
+
+            user.setFullName(
+                    request.getFullName().trim()
+            );
+
+            user.setAddress(
+                    request.getAddress() != null
+                            ? request.getAddress().trim()
+                            : null
+            );
+
+            user.setStatus(UserStatus.PENDING);
+
+            User savedUser = userRepository.save(user);
+
+            TrainerProfile trainerProfile =
+                    trainerProfileRepository
+                            .findByUserId(savedUser.getId())
+                            .orElseThrow(() ->
+                                    new RuntimeException(
+                                            "Trainer profile not found"
+                                    )
+                            );
+
+            trainerProfile.setSpecialization(
+                    request.getSpecialization().trim()
+            );
+
+            trainerProfile.setExperienceYear(
+                    request.getExperienceYears()
+            );
+
+            trainerProfile.setHourlyFee(
+                    request.getHourlyFee()
+            );
+
+            trainerProfile.setBio(
+                    request.getBio()
+            );
+
+            // Reset thông tin approval cũ
+            trainerProfile.setApprovedAt(null);
+            trainerProfile.setApprovedBy(null);
+
+            trainerProfileRepository.save(trainerProfile);
+
+            return UserMapper.toResponse(savedUser);
+        }
+
+        // CREATE NEW TRAINER
         User user = new User();
 
-        user.setEmail(request.getEmail().trim());
-        user.setPhone(request.getPhone().trim());
+        user.setEmail(email);
+        user.setPhone(phone);
+
         user.setPassword(
                 passwordEncoder.encode(request.getPassword())
         );
-        user.setFullName(request.getFullName().trim());
+
+        user.setFullName(
+                request.getFullName().trim()
+        );
+
         user.setAddress(
                 request.getAddress() != null
                         ? request.getAddress().trim()
@@ -107,28 +270,27 @@ public class AuthServiceImpl implements AuthService {
         );
 
         user.setRole(UserRole.TRAINER);
-
-        // Trainer must be approved by Admin
         user.setStatus(UserStatus.PENDING);
 
         User savedUser = userRepository.save(user);
 
-        // =========================
         // Create Trainer Profile
-        // =========================
-
         TrainerProfile trainerProfile = new TrainerProfile();
 
         trainerProfile.setUser(savedUser);
+
         trainerProfile.setSpecialization(
                 request.getSpecialization().trim()
         );
+
         trainerProfile.setExperienceYear(
                 request.getExperienceYears()
         );
+
         trainerProfile.setHourlyFee(
                 request.getHourlyFee()
         );
+
         trainerProfile.setBio(
                 request.getBio()
         );
