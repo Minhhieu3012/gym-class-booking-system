@@ -1,0 +1,104 @@
+.register-header-wrapper {
+  max-width: 480px;
+}
+.register-header-icon {
+  font-size: 0.9rem;
+}
+.register-header-title {
+  font-size: 0.7rem;
+  letter-spacing: 1px;
+}
+.register-nav-wrapper {
+  max-width: 480px;
+}
+.register-badge-icon {
+  color: #facc15;
+}
+.register-content-wrapper {
+  max-width: 420px;
+}
+.register-phase-label {
+  font-size: 0.7rem;
+  letter-spacing: 0.1em;
+}
+.register-title {
+  font-size: 2rem;
+  line-height: 1.1;
+}
+.register-subtitle {
+  font-size: 0.875rem;
+  line-height: 1.5;
+}
+.register-vip-badge-text {
+  font-size: 0.8rem;
+}
+.register-vip-badge-status {
+  font-size: 0.7rem;
+  letter-spacing: 0.05em;
+}
+.register-label {
+  font-size: 0.75rem;
+  letter-spacing: 0.05em;
+}
+.register-input-icon {
+  border-right: none;
+}
+.register-input-field {
+  border-left: none;
+  box-shadow: none;
+}
+.register-label-status {
+  font-size: 0.7rem;
+  letter-spacing: 0.05em;
+}
+.register-input-email {
+  border-left: none;
+  border-right: none;
+  box-shadow: none;
+}
+.register-input-status-icon {
+  border-left: none;
+}
+.register-pw-strength-label {
+  font-size: 0.7rem;
+  letter-spacing: 0.05em;
+}
+.register-pw-bar-container {
+  height: 3px;
+  background-color: var(--color-border);
+}
+.register-pw-bar {
+  width: 0%;
+  background-color: var(--color-tertiary);
+  transition: width 0.3s ease, background-color 0.3s ease;
+}
+.register-terms-checkbox {
+  border-color: var(--color-border);
+}
+.register-terms-label {
+  font-size: 0.8rem;
+  line-height: 1.4;
+}
+.register-terms-note {
+  font-size: 0.72rem;
+}
+.register-error-msg {
+  font-size: 0.85rem;
+  min-height: 1.25rem;
+}
+.register-submit-btn {
+  font-size: 0.95rem;
+  letter-spacing: 0.06em;
+}
+.register-footer-text {
+  font-size: 0.875rem;
+}
+.register-footer-divider-text {
+  font-size: 0.7rem;
+}
+.register-footer-coach-text {
+  font-size: 0.85rem;
+}
+.register-footer-coach-icon {
+  color: var(--color-tertiary);
+}

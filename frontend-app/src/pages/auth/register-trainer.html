@@ -1,0 +1,250 @@
+<main class="min-vh-100 d-flex flex-column align-items-center bg-surface-alt pb-5">
+  <div class="register-trainer-header-wrapper w-100 px-3 pt-2 d-flex align-items-center gap-2">
+    <span class="register-trainer-header-icon">⚡</span>
+    <span class="register-trainer-header-title fw-bold text-secondary-theme">PULSE GYM</span>
+  </div>
+
+  <div class="register-trainer-nav-wrapper w-100 p-3 d-flex justify-content-between align-items-center">
+    <a href="/register" data-link class="btn btn-link text-neutral p-0 text-decoration-none">
+      <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+        <path d="M19 12H5M12 19l-7-7 7-7" />
+      </svg>
+    </a>
+    <div class="badge-theme badge-active px-3 py-2">
+      <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" class="me-1">
+        <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+      </svg>
+      CADRE // 2025 COHORT
+    </div>
+    <span class="register-trainer-nav-step text-neutral fw-bold">02/03</span>
+  </div>
+
+  <div class="register-trainer-content-wrapper container mt-2">
+    <div class="mb-3">
+      <p class="register-trainer-portal-label text-primary-theme fw-bold mb-1">
+        PULSE RECRUITMENT PORTAL
+      </p>
+      <h1 class="register-trainer-title fw-bold mb-2 text-secondary-theme">
+        Coach Application
+      </h1>
+      <p class="register-trainer-subtitle text-neutral mb-4">
+        Join the PULSE elite training cadre and mentor high-performance athletes worldwide.
+      </p>
+
+      <div class="d-flex align-items-start gap-3 p-3 rounded-theme-md bg-surface border-theme shadow-theme-sm mb-4">
+        <div class="register-trainer-verification-icon-wrapper d-flex align-items-center justify-content-center rounded-circle flex-shrink-0">
+          <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" class="text-tertiary" viewBox="0 0 24 24">
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+            <polyline points="9 12 11 14 15 10" />
+          </svg>
+        </div>
+        <div>
+          <div class="d-flex align-items-center gap-2 mb-1">
+            <span class="register-trainer-verification-title fw-bold text-secondary-theme">Verification Gate</span>
+            <span class="register-trainer-verification-badge badge-theme badge-pending px-2 py-1">PENDING ADMIN REVIEW</span>
+          </div>
+          <p class="register-trainer-verification-desc mb-0 text-neutral">
+            Your profile &amp; credentials undergo strict technical audit before profile activation on the public roster.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <form id="trainer-form" novalidate autocomplete="on">
+      <div class="d-flex align-items-center gap-2 mb-3">
+        <span class="register-trainer-section-icon d-flex align-items-center justify-content-center rounded-circle fw-bold text-primary-theme">01</span>
+        <span class="register-trainer-section-title fw-bold text-secondary-theme">
+          ACCOUNT CREDENTIALS
+        </span>
+        <span class="register-trainer-section-step text-neutral ms-auto">STEP 1</span>
+      </div>
+
+      <div class="card-theme p-4 mb-4">
+        <div class="mb-4">
+          <label for="trainer-fullname" class="register-trainer-label form-label fw-bold text-secondary-theme mb-2">
+            LEGAL FULL NAME
+          </label>
+          <div class="input-group shadow-theme-sm rounded-theme-md">
+            <span class="register-trainer-input-icon input-group-text bg-surface border-theme">
+              <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" class="text-neutral" viewBox="0 0 24 24">
+                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+                <circle cx="12" cy="7" r="4" />
+              </svg>
+            </span>
+            <input type="text" id="trainer-fullname" name="fullName" class="register-trainer-input-field form-control border-theme bg-surface py-2" placeholder="e.g. Elena Rostova" autocomplete="name" required />
+          </div>
+        </div>
+
+        <div class="mb-4">
+          <div class="d-flex justify-content-between align-items-center mb-2">
+            <label for="trainer-email" class="register-trainer-label form-label fw-bold text-secondary-theme mb-0">
+              OFFICIAL EMAIL ADDRESS
+            </label>
+            <span class="register-trainer-label-status text-tertiary fw-bold d-flex align-items-center gap-1">
+              <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                <polyline points="20 6 9 17 4 12" />
+              </svg>
+              DOMAIN VERIFIED
+            </span>
+          </div>
+          <div class="input-group shadow-theme-sm rounded-theme-md">
+            <span class="register-trainer-input-icon input-group-text bg-surface border-theme">
+              <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" class="text-neutral" viewBox="0 0 24 24">
+                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
+                <polyline points="22,6 12,12 2,6" />
+              </svg>
+            </span>
+            <input type="email" id="trainer-email" name="email" class="register-trainer-input-email form-control border-theme bg-surface py-2" placeholder="elena.cadre@pulsefitness.com" autocomplete="email" required />
+            <span class="register-trainer-input-status-icon input-group-text bg-surface border-theme text-tertiary">
+              <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                <polyline points="20 6 9 17 4 12" />
+              </svg>
+            </span>
+          </div>
+        </div>
+
+        <div class="mb-4">
+          <label for="trainer-phone" class="register-trainer-label form-label fw-bold text-secondary-theme mb-2">
+            PHONE NUMBER
+          </label>
+          <div class="input-group shadow-theme-sm rounded-theme-md">
+            <span class="register-trainer-input-icon input-group-text bg-surface border-theme">
+              <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" class="text-neutral" viewBox="0 0 24 24">
+                <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.65 3.35 2 2 0 0 1 3.62 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.59a16 16 0 0 0 6 6l.96-.96a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21.73 16z" />
+              </svg>
+            </span>
+            <input type="tel" id="trainer-phone" name="phone" class="register-trainer-input-field form-control border-theme bg-surface py-2" placeholder="(555) 234-8901" autocomplete="tel" required />
+          </div>
+        </div>
+
+        <div class="mb-1">
+          <div class="d-flex justify-content-between align-items-center mb-2">
+            <label for="trainer-password" class="register-trainer-label form-label fw-bold text-secondary-theme mb-0">
+              SECURITY PASSWORD
+            </label>
+            <span id="trainer-pw-strength" class="register-trainer-pw-strength-label text-tertiary fw-bold"></span>
+          </div>
+          <div class="input-group shadow-theme-sm rounded-theme-md">
+            <span class="register-trainer-input-icon input-group-text bg-surface border-theme">
+              <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" class="text-neutral" viewBox="0 0 24 24">
+                <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
+                <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+              </svg>
+            </span>
+            <input type="password" id="trainer-password" name="password" class="register-trainer-input-email form-control border-theme bg-surface py-2" placeholder="SuperCadre2025#" autocomplete="new-password" required />
+            <button type="button" id="trainer-toggle-pw" class="register-trainer-input-status-icon input-group-text bg-surface border-theme text-neutral" aria-label="Hiện/ẩn mật khẩu">
+              <svg id="trainer-pw-eye-icon" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
+                <circle cx="12" cy="12" r="3" />
+              </svg>
+            </button>
+          </div>
+          
+          <div class="mt-2 d-flex gap-1">
+            <div id="trainer-pw-bar-1" class="register-trainer-pw-bar flex-fill rounded-theme-sm"></div>
+            <div id="trainer-pw-bar-2" class="register-trainer-pw-bar flex-fill rounded-theme-sm"></div>
+            <div id="trainer-pw-bar-3" class="register-trainer-pw-bar flex-fill rounded-theme-sm"></div>
+            <div id="trainer-pw-bar-4" class="register-trainer-pw-bar flex-fill rounded-theme-sm"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="d-flex align-items-center gap-2 mb-3">
+        <span class="register-trainer-section-icon register-trainer-section-icon--alt d-flex align-items-center justify-content-center rounded-circle fw-bold text-tertiary">02</span>
+        <span class="register-trainer-section-title fw-bold text-secondary-theme">
+          COACHING CREDENTIALS
+        </span>
+        <span class="register-trainer-section-step text-neutral ms-auto">STEP 2</span>
+      </div>
+
+      <div class="card-theme p-4 mb-4">
+        <div class="mb-4">
+          <label for="trainer-specialization" class="register-trainer-label form-label fw-bold text-secondary-theme mb-2">
+            SPECIALIZATION
+          </label>
+          <div class="input-group shadow-theme-sm rounded-theme-md">
+            <span class="register-trainer-input-icon input-group-text bg-surface border-theme">
+              <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" class="text-neutral" viewBox="0 0 24 24">
+                <circle cx="12" cy="12" r="10" />
+                <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3" />
+                <line x1="12" y1="17" x2="12.01" y2="17" />
+              </svg>
+            </span>
+            <input type="text" id="trainer-specialization" name="specialization" class="register-trainer-input-field form-control border-theme bg-surface py-2" placeholder="e.g. Strength &amp; Power, Boxing &amp; Combat" required />
+          </div>
+        </div>
+
+        <div class="row g-3 mb-4">
+          <div class="col-6">
+            <label for="trainer-experience" class="register-trainer-label form-label fw-bold text-secondary-theme mb-2">
+              EXPERIENCE
+            </label>
+            <div class="input-group shadow-theme-sm rounded-theme-md">
+              <span class="register-trainer-input-icon input-group-text bg-surface border-theme">
+                <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" class="text-neutral" viewBox="0 0 24 24">
+                  <rect x="2" y="7" width="20" height="14" rx="2" ry="2" />
+                  <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16" />
+                </svg>
+              </span>
+              <input type="number" id="trainer-experience" name="experienceYears" class="register-trainer-input-field form-control border-theme bg-surface py-2" placeholder="6" min="0" max="50" required />
+            </div>
+            <small class="register-trainer-helper-text text-neutral">Years</small>
+          </div>
+          <div class="col-6">
+            <label for="trainer-hourly-fee" class="register-trainer-label form-label fw-bold text-secondary-theme mb-2">
+              CLIENT RATE
+            </label>
+            <div class="input-group shadow-theme-sm rounded-theme-md">
+              <span class="register-trainer-input-icon input-group-text bg-surface border-theme">
+                <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" class="text-neutral" viewBox="0 0 24 24">
+                  <line x1="12" y1="1" x2="12" y2="23" />
+                  <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
+                </svg>
+              </span>
+              <input type="number" id="trainer-hourly-fee" name="hourlyFee" class="register-trainer-input-field form-control border-theme bg-surface py-2" placeholder="95" min="0" required />
+            </div>
+            <small class="register-trainer-helper-text text-neutral">$/hr</small>
+          </div>
+        </div>
+
+        <div class="mb-1">
+          <div class="d-flex justify-content-between align-items-center mb-2">
+            <label for="trainer-bio" class="register-trainer-label form-label fw-bold text-secondary-theme mb-0">
+              BIO &amp; COACHING PHILOSOPHY
+            </label>
+            <span id="trainer-bio-count" class="register-trainer-bio-count text-neutral">0 / 500</span>
+          </div>
+          <textarea id="trainer-bio" name="bio" class="register-trainer-textarea form-control border-theme bg-surface shadow-theme-sm" placeholder="Former Olympic weightlifting contender with 6+ years priming competitive athletes for peak force production and joint durability..." maxlength="500" required></textarea>
+        </div>
+      </div>
+
+      <div class="form-check d-flex align-items-start gap-2 mb-4 p-0">
+        <input class="register-trainer-terms-checkbox form-check-input flex-shrink-0 mt-1" type="checkbox" id="trainer-certify" required />
+        <label class="register-trainer-terms-label form-check-label text-neutral" for="trainer-certify">
+          I certify that all licensing, qualifications, and athlete liability provisions presented are genuine, current, and subject to periodic audit.
+        </label>
+      </div>
+
+      <div id="trainer-error" class="register-trainer-error-msg text-danger mt-2 text-center"></div>
+
+      <button type="submit" id="trainer-submit" class="register-trainer-submit-btn btn-brand w-100 justify-content-center py-3 mt-2 shadow-theme-md">
+        SUBMIT APPLICATION ⚡
+      </button>
+
+      <div class="d-flex align-items-center justify-content-center gap-2 mt-3">
+        <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" class="text-neutral" viewBox="0 0 24 24">
+          <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
+          <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+        </svg>
+        <span class="register-trainer-turnaround-text text-neutral">AVERAGE REVIEW TURNAROUND: 24–48 HOURS</span>
+      </div>
+    </form>
+
+    <div class="text-center mt-4">
+      <p class="register-trainer-footer-text mb-0 text-neutral">
+        Already a certified cadre coach?
+        <a href="/login" data-link class="text-tertiary fw-bold ms-1">Log In</a>
+      </p>
+    </div>
+  </div>
+</main>
