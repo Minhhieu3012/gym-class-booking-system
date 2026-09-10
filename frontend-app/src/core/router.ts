@@ -17,6 +17,8 @@ import * as DashboardPage from "../pages/admin/dashboard";
 import * as MemberPackagesPage from "../pages/member/packages";
 import * as MemberClassesPage from "../pages/member/class-list";
 import * as MemberPTBookingPage from "../pages/member/pt-booking";
+import * as MemberMyBookingsPage from "../pages/member/my-bookings";
+import * as TrainerPTRequestsPage from "../pages/trainer/pt-requests";
 
 // Types
 export interface Route {
@@ -118,6 +120,22 @@ const routes: Route[] = [
     roles: ["MEMBER", "ADMIN"],
     view: MemberPTBookingPage.render,
     init: MemberPTBookingPage.init,
+  },
+  {
+    path: "/member/my-bookings",
+    // requiresAuth: false,
+    requiresAuth: true,
+    roles: ["MEMBER", "ADMIN"],
+    view: MemberMyBookingsPage.render,
+    init: MemberMyBookingsPage.init,
+  },
+  {
+    path: "/trainer/pt-requests",
+    // requiresAuth: false,
+    requiresAuth: true,
+    roles: ["TRAINER", "ADMIN"],
+    view: TrainerPTRequestsPage.render,
+    init: TrainerPTRequestsPage.init,
   },
   {
     path: "/admin/dashboard",
