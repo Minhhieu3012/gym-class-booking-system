@@ -1,19 +1,10 @@
-<div
-  class="d-flex min-vh-100"
-  style="
-    background-color: var(--color-surface);
-    font-family: var(--font-primary);
-  "
->
-  
+<div class="dash-layout-wrapper d-flex min-vh-100">
   <aside
-    class="bg-surface-alt border-theme d-flex flex-column flex-shrink-0"
-    style="width: 250px; border-right: 1px solid var(--color-border)"
+    class="dash-sidebar bg-surface-alt border-theme d-flex flex-column flex-shrink-0"
   >
     <div class="p-4 d-flex align-items-center gap-2">
       <div
-        class="rounded-theme-md bg-surface border-theme d-flex align-items-center justify-content-center"
-        style="width: 32px; height: 32px"
+        class="dash-logo-icon-wrapper rounded-theme-md bg-surface border-theme d-flex align-items-center justify-content-center"
       >
         <svg
           width="18"
@@ -26,21 +17,12 @@
           <polyline points="22 12 18 12 15 21 9 3 6 12 2 12" />
         </svg>
       </div>
-      <span
-        class="fw-bold text-secondary-theme"
-        style="font-size: 1.1rem; letter-spacing: -0.02em"
+      <span class="dash-logo-title fw-bold text-secondary-theme"
         >PULSE GYM</span
       >
     </div>
 
-    <div
-      class="px-3 mb-2 text-neutral fw-bold"
-      style="
-        font-size: 0.65rem;
-        letter-spacing: 0.1em;
-        text-transform: uppercase;
-      "
-    >
+    <div class="dash-sidebar-nav-label px-3 mb-2 text-neutral fw-bold">
       Command Center
     </div>
 
@@ -48,8 +30,7 @@
       <a
         href="/admin/dashboard"
         data-link
-        class="admin-nav-link nav-link d-flex align-items-center gap-3 px-3 py-2 rounded-theme-md text-neutral"
-        style="font-size: 0.9rem; font-weight: 500"
+        class="dash-nav-link admin-nav-link nav-link d-flex align-items-center gap-3 px-3 py-2 rounded-theme-md text-neutral"
       >
         <svg
           width="18"
@@ -69,8 +50,7 @@
       <a
         href="/admin/rooms"
         data-link
-        class="admin-nav-link nav-link d-flex align-items-center gap-3 px-3 py-2 rounded-theme-md text-neutral"
-        style="font-size: 0.9rem; font-weight: 500"
+        class="dash-nav-link admin-nav-link nav-link d-flex align-items-center gap-3 px-3 py-2 rounded-theme-md text-neutral"
       >
         <svg
           width="18"
@@ -88,8 +68,7 @@
       <a
         href="/admin/class-types"
         data-link
-        class="admin-nav-link nav-link d-flex align-items-center gap-3 px-3 py-2 rounded-theme-md text-neutral"
-        style="font-size: 0.9rem; font-weight: 500"
+        class="dash-nav-link admin-nav-link nav-link d-flex align-items-center gap-3 px-3 py-2 rounded-theme-md text-neutral"
       >
         <svg
           width="18"
@@ -112,8 +91,7 @@
       <a
         href="/admin/packages"
         data-link
-        class="admin-nav-link nav-link d-flex align-items-center gap-3 px-3 py-2 rounded-theme-md text-neutral"
-        style="font-size: 0.9rem; font-weight: 500"
+        class="dash-nav-link admin-nav-link nav-link d-flex align-items-center gap-3 px-3 py-2 rounded-theme-md text-neutral"
       >
         <svg
           width="18"
@@ -133,19 +111,11 @@
 
   <!-- CONTENT AREA -->
   <main class="flex-grow-1 d-flex flex-column h-100 overflow-auto">
-    
     <header
-      class="bg-surface border-theme px-4 py-3 d-flex align-items-center justify-content-between sticky-top"
-      style="border-bottom: 1px solid var(--color-border); z-index: 10"
+      class="dash-header bg-surface border-theme px-4 py-3 d-flex align-items-center justify-content-between sticky-top"
     >
       <div class="d-flex align-items-center gap-2">
-        <span
-          class="text-neutral fw-semibold"
-          style="
-            font-size: 0.8rem;
-            letter-spacing: 0.05em;
-            text-transform: uppercase;
-          "
+        <span class="dash-header-breadcrumb text-neutral fw-semibold"
           >Command Center</span
         >
         <svg
@@ -158,20 +128,13 @@
         >
           <polyline points="9 18 15 12 9 6" />
         </svg>
-        <span
-          class="text-secondary fw-bold"
-          style="
-            font-size: 0.8rem;
-            letter-spacing: 0.05em;
-            text-transform: uppercase;
-          "
+        <span class="dash-header-breadcrumb text-secondary fw-bold"
           >Analytics Overview</span
         >
       </div>
       <div class="d-flex align-items-center gap-3">
         <button
-          class="btn btn-sm border-theme bg-surface-alt text-neutral d-flex align-items-center gap-2"
-          style="font-weight: 600; font-size: 0.8rem"
+          class="dash-header-btn-last30 btn btn-sm border-theme bg-surface-alt text-neutral d-flex align-items-center gap-2"
         >
           <svg
             width="14"
@@ -208,45 +171,29 @@
       </div>
     </header>
 
-    
-    <div class="p-4 p-md-5 w-100 mx-auto" style="max-width: 1200px">
-      
+    <div class="dash-content-container p-4 p-md-5 w-100 mx-auto">
       <div class="mb-4 d-flex flex-column gap-1">
-        <h1
-          class="fw-bold text-secondary-theme m-0"
-          style="font-size: 2rem; letter-spacing: -0.02em"
-        >
+        <h1 class="dash-page-title fw-bold text-secondary-theme m-0">
           Performance & Operations Overview
         </h1>
         <div
-          class="badge-theme badge-active d-inline-flex align-items-center gap-2 mt-2"
-          style="width: fit-content; font-size: 0.75rem; padding: 0.4em 0.8em"
+          class="dash-page-title-badge badge-theme badge-active d-inline-flex align-items-center gap-2 mt-2"
         >
           ● Live Sync Active
         </div>
       </div>
 
-      
       <div class="row g-4 mb-4">
-        
         <div class="col-12 col-md-4">
           <div
-            class="card-theme bg-surface-alt border-theme p-4 h-100 d-flex flex-column"
-            style="border-radius: var(--radius-md)"
+            class="dash-stat-card card-theme bg-surface-alt border-theme p-4 h-100 d-flex flex-column"
           >
             <div class="d-flex align-items-start justify-content-between mb-3">
-              <span
-                class="text-neutral fw-bold"
-                style="
-                  font-size: 0.75rem;
-                  letter-spacing: 0.05em;
-                  text-transform: uppercase;
-                "
+              <span class="dash-stat-label text-neutral fw-bold"
                 >Total Members</span
               >
               <div
-                class="rounded-theme-md bg-surface border-theme d-flex align-items-center justify-content-center"
-                style="width: 32px; height: 32px"
+                class="dash-stat-icon-wrapper rounded-theme-md bg-surface border-theme d-flex align-items-center justify-content-center"
               >
                 <svg
                   width="16"
@@ -263,20 +210,12 @@
                 </svg>
               </div>
             </div>
-            <div
-              class="fw-bold text-secondary-theme mb-2"
-              style="font-size: 2.2rem; line-height: 1"
-            >
+            <div class="dash-stat-value fw-bold text-secondary-theme mb-2">
               3,842
             </div>
             <div class="d-flex align-items-center gap-2 mt-auto">
               <span
-                class="badge-theme bg-surface border-theme"
-                style="
-                  color: var(--color-tertiary);
-                  font-weight: 700;
-                  font-size: 0.75rem;
-                "
+                class="dash-stat-trend dash-stat-trend--up badge-theme bg-surface border-theme"
               >
                 <svg
                   width="12"
@@ -292,32 +231,21 @@
                 </svg>
                 +12.4%
               </span>
-              <span class="text-neutral" style="font-size: 0.8rem"
-                >284 new signups</span
-              >
+              <span class="dash-stat-desc text-neutral">284 new signups</span>
             </div>
           </div>
         </div>
 
-        
         <div class="col-12 col-md-4">
           <div
-            class="card-theme bg-surface-alt border-theme p-4 h-100 d-flex flex-column"
-            style="border-radius: var(--radius-md)"
+            class="dash-stat-card card-theme bg-surface-alt border-theme p-4 h-100 d-flex flex-column"
           >
             <div class="d-flex align-items-start justify-content-between mb-3">
-              <span
-                class="text-neutral fw-bold"
-                style="
-                  font-size: 0.75rem;
-                  letter-spacing: 0.05em;
-                  text-transform: uppercase;
-                "
+              <span class="dash-stat-label text-neutral fw-bold"
                 >Monthly Revenue</span
               >
               <div
-                class="rounded-theme-md bg-surface border-theme d-flex align-items-center justify-content-center"
-                style="width: 32px; height: 32px"
+                class="dash-stat-icon-wrapper rounded-theme-md bg-surface border-theme d-flex align-items-center justify-content-center"
               >
                 <svg
                   width="16"
@@ -332,20 +260,12 @@
                 </svg>
               </div>
             </div>
-            <div
-              class="fw-bold text-secondary-theme mb-2"
-              style="font-size: 2.2rem; line-height: 1"
-            >
+            <div class="dash-stat-value fw-bold text-secondary-theme mb-2">
               $148,920
             </div>
             <div class="d-flex align-items-center gap-2 mt-auto">
               <span
-                class="badge-theme bg-surface border-theme"
-                style="
-                  color: var(--color-tertiary);
-                  font-weight: 700;
-                  font-size: 0.75rem;
-                "
+                class="dash-stat-trend dash-stat-trend--up badge-theme bg-surface border-theme"
               >
                 <svg
                   width="12"
@@ -361,32 +281,21 @@
                 </svg>
                 +8.2%
               </span>
-              <span class="text-neutral" style="font-size: 0.8rem"
-                >$12.4k pending</span
-              >
+              <span class="dash-stat-desc text-neutral">$12.4k pending</span>
             </div>
           </div>
         </div>
 
-        
         <div class="col-12 col-md-4">
           <div
-            class="card-theme bg-surface-alt border-theme p-4 h-100 d-flex flex-column"
-            style="border-radius: var(--radius-md)"
+            class="dash-stat-card card-theme bg-surface-alt border-theme p-4 h-100 d-flex flex-column"
           >
             <div class="d-flex align-items-start justify-content-between mb-3">
-              <span
-                class="text-neutral fw-bold"
-                style="
-                  font-size: 0.75rem;
-                  letter-spacing: 0.05em;
-                  text-transform: uppercase;
-                "
+              <span class="dash-stat-label text-neutral fw-bold"
                 >Active Classes</span
               >
               <div
-                class="rounded-theme-md bg-surface border-theme d-flex align-items-center justify-content-center"
-                style="width: 32px; height: 32px"
+                class="dash-stat-icon-wrapper rounded-theme-md bg-surface border-theme d-flex align-items-center justify-content-center"
               >
                 <svg
                   width="16"
@@ -401,22 +310,20 @@
               </div>
             </div>
             <div
-              class="fw-bold text-secondary-theme mb-2 d-flex align-items-baseline gap-1"
-              style="font-size: 2.2rem; line-height: 1"
+              class="dash-stat-value fw-bold text-secondary-theme mb-2 d-flex align-items-baseline gap-1"
             >
               164
-              <span class="text-neutral fw-semibold" style="font-size: 0.9rem"
+              <span class="dash-stat-value-unit text-neutral fw-semibold"
                 >/ week</span
               >
             </div>
             <div class="d-flex align-items-center gap-2 mt-auto">
               <span
-                class="badge-theme bg-surface border-theme text-secondary"
-                style="font-weight: 700; font-size: 0.75rem"
+                class="dash-stat-trend badge-theme bg-surface border-theme text-secondary"
               >
                 +5 added
               </span>
-              <span class="text-neutral" style="font-size: 0.8rem"
+              <span class="dash-stat-desc text-neutral"
                 >94.2% trainer utilization</span
               >
             </div>
@@ -424,22 +331,17 @@
         </div>
       </div>
 
-      
       <div class="row g-4">
         <div class="col-12 col-lg-8">
           <div
-            class="card-theme bg-surface-alt border-theme p-4 h-100"
-            style="border-radius: var(--radius-md); min-height: 350px"
+            class="dash-chart-card card-theme bg-surface-alt border-theme p-4 h-100"
           >
             <div class="d-flex justify-content-between align-items-start mb-4">
               <div>
-                <h3
-                  class="fw-bold text-secondary-theme m-0"
-                  style="font-size: 1.1rem"
-                >
+                <h3 class="dash-chart-title fw-bold text-secondary-theme m-0">
                   Revenue Stream Velocity
                 </h3>
-                <p class="text-neutral m-0" style="font-size: 0.85rem">
+                <p class="dash-chart-desc text-neutral m-0">
                   Aggregated recurring memberships vs. one-time PT add-ons
                 </p>
               </div>
@@ -448,8 +350,7 @@
               </div>
             </div>
             <div
-              class="w-100 h-100 d-flex align-items-center justify-content-center border-theme rounded-theme-sm bg-surface"
-              style="border-style: dashed !important; min-height: 250px"
+              class="dash-chart-placeholder w-100 h-100 d-flex align-items-center justify-content-center border-theme rounded-theme-sm bg-surface"
             >
               <span class="text-neutral fw-semibold"
                 >[ Chart Visualization Placeholder ]</span
@@ -459,56 +360,40 @@
         </div>
         <div class="col-12 col-lg-4">
           <div
-            class="card-theme bg-surface-alt border-theme p-4 h-100"
-            style="border-radius: var(--radius-md); min-height: 350px"
+            class="dash-list-card card-theme bg-surface-alt border-theme p-4 h-100"
           >
-            <h3
-              class="fw-bold text-secondary-theme m-0 mb-1"
-              style="font-size: 1.1rem"
-            >
+            <h3 class="dash-list-title fw-bold text-secondary-theme m-0 mb-1">
               Top Booked Classes
             </h3>
-            <p class="text-neutral mb-4" style="font-size: 0.85rem">
+            <p class="dash-list-desc text-neutral mb-4">
               Capacity load by studio program
             </p>
             <div class="d-flex flex-column gap-3">
               <div class="d-flex align-items-center justify-content-between">
                 <div class="d-flex align-items-center gap-3">
                   <span
-                    class="badge-theme bg-surface border-theme"
-                    style="
-                      color: var(--color-tertiary);
-                      font-weight: 700;
-                      width: 28px;
-                      text-align: center;
-                    "
+                    class="dash-list-badge dash-list-badge--top badge-theme bg-surface border-theme"
                     >01</span
                   >
                   <div>
                     <div
-                      class="fw-bold text-secondary-theme"
-                      style="font-size: 0.85rem"
+                      class="dash-list-item-title fw-bold text-secondary-theme"
                     >
                       HIIT Circuit Surge
                     </div>
-                    <div class="text-neutral" style="font-size: 0.75rem">
+                    <div class="dash-list-item-desc text-neutral">
                       Trainer: Alex Rivera
                     </div>
                   </div>
                 </div>
                 <div class="text-end">
                   <div
-                    class="fw-bold text-secondary-theme"
-                    style="font-size: 0.85rem"
+                    class="dash-list-item-value fw-bold text-secondary-theme"
                   >
                     482 bks
                   </div>
                   <div
-                    style="
-                      color: var(--color-tertiary);
-                      font-size: 0.7rem;
-                      font-weight: 600;
-                    "
+                    class="dash-list-item-status dash-list-item-status--full"
                   >
                     98% Full
                   </div>
@@ -518,35 +403,27 @@
               <div class="d-flex align-items-center justify-content-between">
                 <div class="d-flex align-items-center gap-3">
                   <span
-                    class="badge-theme bg-surface border-theme text-secondary"
-                    style="font-weight: 700; width: 28px; text-align: center"
+                    class="dash-list-badge badge-theme bg-surface border-theme text-secondary"
                     >02</span
                   >
                   <div>
                     <div
-                      class="fw-bold text-secondary-theme"
-                      style="font-size: 0.85rem"
+                      class="dash-list-item-title fw-bold text-secondary-theme"
                     >
                       Power Vinyasa Flow
                     </div>
-                    <div class="text-neutral" style="font-size: 0.75rem">
+                    <div class="dash-list-item-desc text-neutral">
                       Trainer: Maya Lin
                     </div>
                   </div>
                 </div>
                 <div class="text-end">
                   <div
-                    class="fw-bold text-secondary-theme"
-                    style="font-size: 0.85rem"
+                    class="dash-list-item-value fw-bold text-secondary-theme"
                   >
                     390 bks
                   </div>
-                  <div
-                    class="text-info"
-                    style="font-size: 0.7rem; font-weight: 600"
-                  >
-                    91% Full
-                  </div>
+                  <div class="dash-list-item-status text-info">91% Full</div>
                 </div>
               </div>
             </div>

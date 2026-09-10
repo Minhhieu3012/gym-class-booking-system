@@ -1,0 +1,127 @@
+.dash-layout-wrapper {
+  background-color: var(--color-surface);
+  font-family: var(--font-primary);
+}
+.dash-sidebar {
+  width: 250px;
+  border-right: 1px solid var(--color-border);
+}
+.dash-logo-icon-wrapper {
+  width: 32px;
+  height: 32px;
+}
+.dash-logo-title {
+  font-size: 1.1rem;
+  letter-spacing: -0.02em;
+}
+.dash-sidebar-nav-label {
+  font-size: 0.65rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+.dash-nav-link {
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+.dash-header {
+  border-bottom: 1px solid var(--color-border);
+  z-index: 10;
+}
+.dash-header-breadcrumb {
+  font-size: 0.8rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+.dash-header-btn-last30 {
+  font-weight: 600;
+  font-size: 0.8rem;
+}
+.dash-content-container {
+  max-width: 1200px;
+}
+.dash-page-title {
+  font-size: 2rem;
+  letter-spacing: -0.02em;
+}
+.dash-page-title-badge {
+  width: fit-content;
+  font-size: 0.75rem;
+  padding: 0.4em 0.8em;
+}
+.dash-stat-card {
+  border-radius: var(--radius-md);
+}
+.dash-stat-label {
+  font-size: 0.75rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+.dash-stat-icon-wrapper {
+  width: 32px;
+  height: 32px;
+}
+.dash-stat-value {
+  font-size: 2.2rem;
+  line-height: 1;
+}
+.dash-stat-value-unit {
+  font-size: 0.9rem;
+}
+.dash-stat-trend {
+  font-weight: 700;
+  font-size: 0.75rem;
+}
+.dash-stat-trend--up {
+  color: var(--color-tertiary);
+}
+.dash-stat-desc {
+  font-size: 0.8rem;
+}
+.dash-chart-card {
+  border-radius: var(--radius-md);
+  min-height: 350px;
+}
+.dash-chart-title {
+  font-size: 1.1rem;
+}
+.dash-chart-desc {
+  font-size: 0.85rem;
+}
+.dash-chart-placeholder {
+  border-style: dashed !important;
+  min-height: 250px;
+}
+.dash-list-card {
+  border-radius: var(--radius-md);
+  min-height: 350px;
+}
+.dash-list-title {
+  font-size: 1.1rem;
+}
+.dash-list-desc {
+  font-size: 0.85rem;
+}
+.dash-list-badge {
+  font-weight: 700;
+  width: 28px;
+  text-align: center;
+}
+.dash-list-badge--top {
+  color: var(--color-tertiary);
+}
+.dash-list-item-title {
+  font-size: 0.85rem;
+}
+.dash-list-item-desc {
+  font-size: 0.75rem;
+}
+.dash-list-item-value {
+  font-size: 0.85rem;
+}
+.dash-list-item-status {
+  font-size: 0.7rem;
+  font-weight: 600;
+}
+.dash-list-item-status--full {
+  color: var(--color-tertiary);
+}

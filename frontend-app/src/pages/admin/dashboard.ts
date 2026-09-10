@@ -1,4 +1,5 @@
 import template from "./dashboard.html?raw";
+import "./dashboard.css";
 
 export function render(): string {
   return template;
