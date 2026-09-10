@@ -1,0 +1,129 @@
+.register-trainer-header-wrapper {
+  max-width: 480px;
+}
+.register-trainer-header-icon {
+  font-size: 0.9rem;
+}
+.register-trainer-header-title {
+  font-size: 0.7rem;
+  letter-spacing: 1px;
+}
+.register-trainer-nav-wrapper {
+  max-width: 480px;
+}
+.register-trainer-nav-step {
+  font-size: 0.75rem;
+}
+.register-trainer-content-wrapper {
+  max-width: 420px;
+}
+.register-trainer-portal-label {
+  font-size: 0.7rem;
+  letter-spacing: 0.1em;
+}
+.register-trainer-title {
+  font-size: 1.9rem;
+  line-height: 1.1;
+}
+.register-trainer-subtitle {
+  font-size: 0.875rem;
+  line-height: 1.5;
+}
+.register-trainer-verification-icon-wrapper {
+  width: 36px;
+  height: 36px;
+  background-color: var(--color-tertiary-light);
+}
+.register-trainer-verification-title {
+  font-size: 0.8rem;
+}
+.register-trainer-verification-badge {
+  font-size: 0.65rem;
+}
+.register-trainer-verification-desc {
+  font-size: 0.75rem;
+  line-height: 1.4;
+}
+.register-trainer-section-icon {
+  width: 24px;
+  height: 24px;
+  background-color: var(--color-primary-light);
+  font-size: 0.7rem;
+  flex-shrink: 0;
+}
+.register-trainer-section-icon--alt {
+  background-color: var(--color-tertiary-light);
+}
+.register-trainer-section-title {
+  font-size: 0.8rem;
+  letter-spacing: 0.08em;
+}
+.register-trainer-section-step {
+  font-size: 0.7rem;
+}
+.register-trainer-label {
+  font-size: 0.75rem;
+  letter-spacing: 0.05em;
+}
+.register-trainer-input-icon {
+  border-right: none;
+}
+.register-trainer-input-field {
+  border-left: none;
+  box-shadow: none;
+}
+.register-trainer-label-status {
+  font-size: 0.7rem;
+}
+.register-trainer-input-email {
+  border-left: none;
+  border-right: none;
+  box-shadow: none;
+}
+.register-trainer-input-status-icon {
+  border-left: none;
+}
+.register-trainer-pw-strength-label {
+  font-size: 0.7rem;
+  letter-spacing: 0.05em;
+}
+.register-trainer-pw-bar {
+  height: 3px;
+  background-color: var(--color-border);
+  transition: background-color 0.3s ease;
+}
+.register-trainer-helper-text {
+  font-size: 0.7rem;
+}
+.register-trainer-bio-count {
+  font-size: 0.7rem;
+}
+.register-trainer-textarea {
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
+  resize: vertical;
+  min-height: 120px;
+  font-size: 0.875rem;
+  line-height: 1.5;
+}
+.register-trainer-terms-checkbox {
+  border-color: var(--color-border);
+}
+.register-trainer-terms-label {
+  font-size: 0.8rem;
+  line-height: 1.4;
+}
+.register-trainer-error-msg {
+  font-size: 0.85rem;
+  min-height: 1.25rem;
+}
+.register-trainer-submit-btn {
+  font-size: 0.95rem;
+  letter-spacing: 0.06em;
+}
+.register-trainer-turnaround-text {
+  font-size: 0.72rem;
+}
+.register-trainer-footer-text {
+  font-size: 0.875rem;
+}

@@ -1,6 +1,7 @@
 import { authService } from "../../services/auth.service";
 import { navigate } from "../../core/router";
 import template from "./register.html?raw";
+import "./register.css";
 
 export function render(): string {
   return template;

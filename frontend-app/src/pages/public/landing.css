@@ -1,0 +1,179 @@
+.landing-navbar {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  border-bottom: 1px solid var(--color-border);
+}
+.landing-navbar-logo-icon {
+  font-size: 1rem;
+}
+.landing-navbar-logo-text {
+  font-size: 0.75rem;
+  letter-spacing: 1.5px;
+}
+.landing-navbar-badge {
+  font-size: 0.65rem;
+}
+.landing-navbar-link {
+  font-size: 0.8rem;
+}
+.landing-hero-section {
+  min-height: 72vh;
+  overflow: hidden;
+}
+.landing-hero-gradient {
+  background: linear-gradient(
+    180deg,
+    rgba(0, 0, 0, 0.1) 0%,
+    rgba(33, 37, 41, 0.82) 60%,
+    var(--color-secondary) 100%
+  );
+  z-index: 1;
+}
+.landing-hero-bg-wrapper {
+  z-index: 0;
+  overflow: hidden;
+}
+.landing-hero-bg-pattern {
+  width: 100%;
+  height: 100%;
+  background:
+    radial-gradient(
+      ellipse 70% 60% at 50% 40%,
+      var(--color-primary-light) 0%,
+      transparent 70%
+    ),
+    linear-gradient(
+      135deg,
+      var(--color-surface-alt) 0%,
+      var(--color-border) 100%
+    );
+}
+.landing-hero-content {
+  z-index: 2;
+  max-width: 480px;
+}
+.landing-hero-tagline {
+  font-size: 0.65rem;
+  letter-spacing: 0.15em;
+}
+.landing-hero-title {
+  font-size: 2.8rem;
+  line-height: 1;
+  letter-spacing: -1px;
+}
+.landing-hero-desc {
+  font-size: 0.875rem;
+  line-height: 1.5;
+  max-width: 300px;
+}
+.landing-hero-location {
+  font-size: 0.75rem;
+}
+.landing-stat-value {
+  font-size: 1.5rem;
+  line-height: 1;
+}
+.landing-stat-label {
+  font-size: 0.65rem;
+  letter-spacing: 0.05em;
+  line-height: 1.3;
+}
+.landing-cta-primary {
+  font-size: 1rem;
+  letter-spacing: 0.05em;
+}
+.landing-cta-secondary {
+  font-size: 0.85rem;
+}
+.landing-section-container {
+  max-width: 480px;
+}
+.landing-section-eyebrow {
+  font-size: 0.65rem;
+  letter-spacing: 0.12em;
+}
+.landing-section-link {
+  font-size: 0.75rem;
+}
+.landing-section-title {
+  font-size: 1.5rem;
+}
+.landing-section-desc {
+  font-size: 0.8rem;
+}
+.landing-class-list {
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.landing-class-card {
+  width: 220px;
+}
+.landing-badge-small {
+  font-size: 0.6rem;
+}
+.landing-class-title {
+  font-size: 1rem;
+}
+.landing-class-desc {
+  font-size: 0.75rem;
+  line-height: 1.4;
+}
+.landing-class-meta-text {
+  font-size: 0.7rem;
+}
+.landing-class-meta-badge {
+  font-size: 0.65rem;
+}
+.landing-trainer-avatar {
+  width: 52px;
+  height: 52px;
+  font-size: 1.2rem;
+}
+.landing-trainer-name {
+  font-size: 0.9rem;
+}
+.landing-trainer-role {
+  font-size: 0.75rem;
+}
+.landing-trainer-exp {
+  font-size: 0.75rem;
+}
+.landing-trainer-rating {
+  font-size: 0.75rem;
+}
+.landing-trainer-reviews {
+  font-size: 0.7rem;
+}
+.landing-trainer-badge {
+  font-size: 0.65rem;
+}
+.landing-amenity-eyebrow {
+  font-size: 0.65rem;
+  letter-spacing: 0.12em;
+}
+.landing-amenity-sub-eyebrow {
+  font-size: 0.65rem;
+  letter-spacing: 0.1em;
+}
+.landing-amenity-icon-wrapper {
+  width: 36px;
+  height: 36px;
+}
+.landing-amenity-title {
+  font-size: 0.875rem;
+}
+.landing-amenity-desc {
+  font-size: 0.75rem;
+}
+.landing-footer-cta {
+  border-top: 1px solid var(--color-border);
+}
+.landing-footer-btn-secondary {
+  font-size: 0.8rem;
+  padding: 0.5rem 1.2rem;
+}
+.landing-footer-btn-primary {
+  font-size: 0.8rem;
+  padding: 0.5rem 1.4rem;
+}

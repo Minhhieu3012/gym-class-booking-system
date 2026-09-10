@@ -1,6 +1,8 @@
 import { authService } from "../../services/auth.service";
 import { navigate } from "../../core/router";
 import loginTemplate from "./login.html?raw";
+import "./login.css";
+
 
 export function render(): string {
   return loginTemplate;

@@ -1,5 +1,6 @@
 import template from "./forgot-password.html?raw";
 import { authService } from "../../services/auth.service";
+import "./forgot-password.css";
 
 export function render(): string {
   return template;

@@ -1,6 +1,8 @@
 import template from "./reset-password.html?raw";
 import { authService } from "../../services/auth.service";
 import { navigate } from "../../core/router";
+import "./reset-password.css";
+
 
 export function render(): string {
   return template;

@@ -1,6 +1,7 @@
 import template from "./class-types.html?raw";
 import { classTypeService } from "../../services/admin-core.service";
 import { authService } from "../../services/auth.service";
+import "./class-types.css";
 import type { ClassTypeResponse } from "../../models/admin";
 
 declare const bootstrap: {

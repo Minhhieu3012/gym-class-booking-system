@@ -1,5 +1,6 @@
 import { isAuthenticated, hasRole } from "../../core/api";
 import template from "./landing.html?raw";
+import "./landing.css";
 
 export function render(): string {
   return template;

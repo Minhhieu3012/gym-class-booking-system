@@ -1,6 +1,7 @@
 import template from "./rooms.html?raw";
 import { roomService } from "../../services/admin-core.service";
 import { authService } from "../../services/auth.service";
+import "./rooms.css";
 import type { RoomResponse, RoomStatus } from "../../models/admin";
 
 declare const bootstrap: {

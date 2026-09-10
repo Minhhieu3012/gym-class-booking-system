@@ -2,6 +2,7 @@ import { userService } from "../../services/user.service";
 import { authService } from "../../services/auth.service";
 import { navigate } from "../../core/router";
 import template from "./change-password.html?raw";
+import "./change-password.css";
 
 export function render(): string {
   return template;

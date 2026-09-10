@@ -1,6 +1,7 @@
 import template from "./packages.html?raw";
 import { packageService } from "../../services/admin-core.service";
 import { authService } from "../../services/auth.service";
+import "./packages.css";
 import type { PackageResponse } from "../../models/admin";
 
 declare const bootstrap: {

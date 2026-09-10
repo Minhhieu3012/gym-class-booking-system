@@ -1,205 +1,75 @@
 <main class="bg-surface-alt min-vh-100 pb-5">
   <!-- ── NAVBAR ── -->
-  <nav
-    class="w-100 d-flex justify-content-between align-items-center px-3 py-2 bg-surface"
-    style="
-      border-bottom: 1px solid var(--color-border);
-      position: sticky;
-      top: 0;
-      z-index: 100;
-    "
-  >
+  <nav class="profile-navbar w-100 d-flex justify-content-between align-items-center px-3 py-2 bg-surface">
     <div class="d-flex align-items-center gap-2">
-      <span style="font-size: 0.85rem">⚡</span>
+      <span class="profile-navbar-logo-icon">⚡</span>
       <div>
-        <p
-          class="mb-0 text-neutral"
-          style="font-size: 0.6rem; letter-spacing: 1px"
-        >
+        <p class="profile-navbar-logo-text mb-0 text-neutral">
           PULSE GYM
         </p>
-        <p
-          class="mb-0 fw-bold text-tertiary"
-          style="font-size: 0.8rem"
-          id="nav-greeting"
-        >
+        <p class="profile-navbar-greeting mb-0 fw-bold text-tertiary" id="nav-greeting">
           Hey —
         </p>
       </div>
     </div>
     <div class="d-flex align-items-center gap-3">
-      <button
-        class="btn p-0 border-0 bg-transparent text-neutral"
-        aria-label="Notifications"
-      >
-        <svg
-          width="20"
-          height="20"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="2"
-          viewBox="0 0 24 24"
-        >
+      <button class="btn p-0 border-0 bg-transparent text-neutral" aria-label="Notifications">
+        <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
           <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9" />
           <path d="M13.73 21a2 2 0 0 1-3.46 0" />
         </svg>
       </button>
-      <div
-        id="nav-avatar"
-        class="rounded-circle border-theme d-flex align-items-center justify-content-center bg-surface-alt fw-bold text-secondary-theme overflow-hidden"
-        style="
-          width: 32px;
-          height: 32px;
-          font-size: 0.85rem;
-          cursor: pointer;
-          flex-shrink: 0;
-        "
-      >
+      <div id="nav-avatar" class="profile-navbar-avatar rounded-circle border-theme d-flex align-items-center justify-content-center bg-surface-alt fw-bold text-secondary-theme overflow-hidden">
         ?
       </div>
     </div>
   </nav>
 
   <!-- ── PAGE HEADER ── -->
-  <div class="container pt-4 pb-2" style="max-width: 520px">
+  <div class="profile-header-container container pt-4 pb-2">
     <div class="d-flex justify-content-between align-items-center mb-1">
       <a href="/" data-link class="text-neutral text-decoration-none">
-        <svg
-          width="20"
-          height="20"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="2"
-          viewBox="0 0 24 24"
-        >
+        <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
           <path d="M19 12H5M12 19l-7-7 7-7" />
         </svg>
       </a>
-      <p
-        class="fw-bold text-secondary-theme mb-0"
-        style="font-size: 0.85rem; letter-spacing: 0.05em"
-      >
+      <p class="profile-header-title fw-bold text-secondary-theme mb-0">
         MY PROFILE
       </p>
-      <button
-        class="btn p-0 border-0 bg-transparent text-neutral"
-        aria-label="Settings"
-      >
-        <svg
-          width="20"
-          height="20"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="2"
-          viewBox="0 0 24 24"
-        >
+      <button class="btn p-0 border-0 bg-transparent text-neutral" aria-label="Settings">
+        <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
           <circle cx="12" cy="12" r="3" />
-          <path
-            d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"
-          />
+          <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z" />
         </svg>
       </button>
     </div>
-    <p
-      class="text-center text-neutral mb-0"
-      style="font-size: 0.72rem; letter-spacing: 0.08em"
-    >
-      <span id="profile-id-badge" class="text-tertiary fw-semibold"
-        >● ID —</span
-      >
-      <span
-        class="badge-theme badge-active ms-2 px-2 py-1"
-        style="font-size: 0.6rem"
-        >ACTIVE</span
-      >
+    <p class="profile-id-text text-center text-neutral mb-0">
+      <span id="profile-id-badge" class="text-tertiary fw-semibold">● ID —</span>
+      <span class="profile-badge-small badge-theme badge-active ms-2 px-2 py-1">ACTIVE</span>
     </p>
   </div>
 
-  <div class="container" style="max-width: 520px">
+  <div class="profile-main-container container">
     <!-- ── AVATAR CARD ── -->
     <div class="card-theme p-4 text-center mb-3">
       <div class="position-relative d-inline-block mb-3">
-        <img
-          id="profile-avatar"
-          src=""
-          alt="Avatar"
-          class="rounded-circle border-theme"
-          style="
-            width: 96px;
-            height: 96px;
-            object-fit: cover;
-            background-color: var(--color-surface-alt);
-          "
-        />
-        <button
-          id="btn-avatar-trigger"
-          class="position-absolute bottom-0 end-0 rounded-circle border-0 d-flex align-items-center justify-content-center"
-          style="
-            width: 28px;
-            height: 28px;
-            background-color: var(--color-tertiary);
-            cursor: pointer;
-          "
-          aria-label="Đổi avatar"
-          type="button"
-        >
-          <svg
-            width="14"
-            height="14"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2.5"
-            class="text-secondary-theme"
-            viewBox="0 0 24 24"
-          >
-            <path
-              d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"
-            />
+        <img id="profile-avatar" src="" alt="Avatar" class="profile-avatar-img rounded-circle border-theme" />
+        <button id="btn-avatar-trigger" class="profile-avatar-btn position-absolute bottom-0 end-0 rounded-circle border-0 d-flex align-items-center justify-content-center" aria-label="Đổi avatar" type="button">
+          <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" class="text-secondary-theme" viewBox="0 0 24 24">
+            <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z" />
             <circle cx="12" cy="13" r="4" />
           </svg>
         </button>
       </div>
-      <input
-        type="file"
-        id="profile-avatar-input"
-        accept="image/*"
-        class="d-none"
-      />
-      <h2
-        id="profile-name-display"
-        class="fw-bold text-secondary-theme mb-1"
-        style="font-size: 1.2rem"
-      ></h2>
+      <input type="file" id="profile-avatar-input" accept="image/*" class="d-none" />
+      <h2 id="profile-name-display" class="profile-name-title fw-bold text-secondary-theme mb-1"></h2>
       <div class="d-flex justify-content-center align-items-center gap-2 mb-2">
-        <span
-          class="badge-theme badge-active px-2 py-1"
-          style="font-size: 0.65rem"
-          >PRO ATHLETE</span
-        >
-        <span
-          id="profile-member-since"
-          class="text-neutral"
-          style="font-size: 0.72rem"
-          >MEMBER SINCE —</span
-        >
+        <span class="profile-member-badge badge-theme badge-active px-2 py-1">PRO ATHLETE</span>
+        <span id="profile-member-since" class="profile-member-since text-neutral">MEMBER SINCE —</span>
       </div>
-      <button
-        id="btn-change-avatar-label"
-        type="button"
-        class="btn-brand-outline d-inline-flex align-items-center gap-2 px-3 py-2"
-        style="font-size: 0.75rem"
-      >
-        <svg
-          width="14"
-          height="14"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="2"
-          viewBox="0 0 24 24"
-        >
-          <path
-            d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"
-          />
+      <button id="btn-change-avatar-label" type="button" class="profile-change-avatar-btn btn-brand-outline d-inline-flex align-items-center gap-2 px-3 py-2">
+        <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z" />
           <circle cx="12" cy="13" r="4" />
         </svg>
         Change Avatar
@@ -209,40 +79,21 @@
     <!-- ── STATS ROW ── -->
     <div class="card-theme p-3 mb-3 d-flex justify-content-around text-center">
       <div>
-        <p class="fw-bold text-tertiary mb-0" style="font-size: 1.3rem">142</p>
-        <p
-          class="text-neutral mb-0"
-          style="font-size: 0.6rem; letter-spacing: 0.05em"
-        >
-          WORKOUTS
-        </p>
-        <p class="text-tertiary mb-0" style="font-size: 0.65rem">↑ 12% MoM</p>
+        <p class="profile-stat-value-large fw-bold text-tertiary mb-0">142</p>
+        <p class="profile-stat-label text-neutral mb-0">WORKOUTS</p>
+        <p class="profile-stat-subtext text-tertiary mb-0">↑ 12% MoM</p>
       </div>
-      <div style="width: 1px; background-color: var(--color-border)"></div>
+      <div class="profile-stat-divider"></div>
       <div>
-        <p class="fw-bold text-secondary-theme mb-0" style="font-size: 1.3rem">
-          18d
-        </p>
-        <p
-          class="text-neutral mb-0"
-          style="font-size: 0.6rem; letter-spacing: 0.05em"
-        >
-          STREAK
-        </p>
-        <p class="text-tertiary mb-0" style="font-size: 0.65rem">● Active</p>
+        <p class="profile-stat-value-large fw-bold text-secondary-theme mb-0">18d</p>
+        <p class="profile-stat-label text-neutral mb-0">STREAK</p>
+        <p class="profile-stat-subtext text-tertiary mb-0">● Active</p>
       </div>
-      <div style="width: 1px; background-color: var(--color-border)"></div>
+      <div class="profile-stat-divider"></div>
       <div>
-        <p class="fw-bold text-secondary-theme mb-0" style="font-size: 1.1rem">
-          ELITE VIP
-        </p>
-        <p
-          class="text-neutral mb-0"
-          style="font-size: 0.6rem; letter-spacing: 0.05em"
-        >
-          STATUS
-        </p>
-        <p class="text-neutral mb-0" style="font-size: 0.65rem">Tier 1</p>
+        <p class="profile-stat-value-medium fw-bold text-secondary-theme mb-0">ELITE VIP</p>
+        <p class="profile-stat-label text-neutral mb-0">STATUS</p>
+        <p class="profile-stat-subtext text-neutral mb-0">Tier 1</p>
       </div>
     </div>
 
@@ -250,28 +101,13 @@
     <div class="card-theme p-4 mb-3">
       <div class="d-flex justify-content-between align-items-center mb-4">
         <div class="d-flex align-items-center gap-2">
-          <svg
-            width="16"
-            height="16"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-            class="text-tertiary"
-            viewBox="0 0 24 24"
-          >
+          <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" class="text-tertiary" viewBox="0 0 24 24">
             <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
             <circle cx="12" cy="7" r="4" />
           </svg>
-          <span
-            class="fw-bold text-secondary-theme"
-            style="font-size: 0.85rem; letter-spacing: 0.05em"
-            >Athlete Details</span
-          >
+          <span class="profile-section-title fw-bold text-secondary-theme">Athlete Details</span>
         </div>
-        <span
-          class="text-tertiary fw-bold d-flex align-items-center gap-1"
-          style="font-size: 0.7rem"
-        >
+        <span class="profile-sync-status text-tertiary fw-bold d-flex align-items-center gap-1">
           <svg width="10" height="10" fill="currentColor" viewBox="0 0 24 24">
             <circle cx="12" cy="12" r="10" />
           </svg>
@@ -280,117 +116,43 @@
       </div>
 
       <form id="profile-form" novalidate>
-        <!-- Full Name -->
         <div class="mb-3">
-          <label
-            class="form-label fw-bold text-secondary-theme mb-2"
-            for="profile-fullname"
-            style="font-size: 0.72rem; letter-spacing: 0.05em"
-          >
+          <label class="profile-label form-label fw-bold text-secondary-theme mb-2" for="profile-fullname">
             FULL LEGAL NAME
           </label>
           <div class="input-group shadow-theme-sm rounded-theme-md">
-            <span
-              class="input-group-text bg-surface border-theme"
-              style="border-right: none"
-            >
-              <svg
-                width="16"
-                height="16"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-                class="text-neutral"
-                viewBox="0 0 24 24"
-              >
+            <span class="profile-input-icon input-group-text bg-surface border-theme">
+              <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" class="text-neutral" viewBox="0 0 24 24">
                 <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
                 <circle cx="12" cy="7" r="4" />
               </svg>
             </span>
-            <input
-              type="text"
-              id="profile-fullname"
-              name="fullName"
-              class="form-control border-theme bg-surface py-2"
-              style="border-left: none; box-shadow: none"
-              placeholder="Alex Morgan"
-              autocomplete="name"
-            />
+            <input type="text" id="profile-fullname" name="fullName" class="profile-input-field form-control border-theme bg-surface py-2" placeholder="Alex Morgan" autocomplete="name" />
           </div>
         </div>
 
-        
         <div class="mb-3">
           <div class="d-flex justify-content-between align-items-center mb-2">
-            <label
-              class="form-label fw-bold text-secondary-theme mb-0"
-              for="profile-email"
-              style="font-size: 0.72rem; letter-spacing: 0.05em"
-            >
+            <label class="profile-label form-label fw-bold text-secondary-theme mb-0" for="profile-email">
               PRIMARY EMAIL
             </label>
-            <span
-              class="text-tertiary fw-bold d-flex align-items-center gap-1"
-              style="font-size: 0.68rem"
-            >
-              <svg
-                width="10"
-                height="10"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2.5"
-                viewBox="0 0 24 24"
-              >
+            <span class="profile-email-status text-tertiary fw-bold d-flex align-items-center gap-1">
+              <svg width="10" height="10" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
                 <polyline points="20 6 9 17 4 12" />
               </svg>
               VERIFIED
             </span>
           </div>
           <div class="input-group shadow-theme-sm rounded-theme-md">
-            <span
-              class="input-group-text bg-surface border-theme"
-              style="border-right: none"
-            >
-              <svg
-                width="16"
-                height="16"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-                class="text-neutral"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"
-                />
+            <span class="profile-input-icon input-group-text bg-surface border-theme">
+              <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" class="text-neutral" viewBox="0 0 24 24">
+                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
                 <polyline points="22,6 12,12 2,6" />
               </svg>
             </span>
-            <input
-              type="email"
-              id="profile-email"
-              name="email"
-              class="form-control border-theme bg-surface py-2"
-              style="
-                border-left: none;
-                border-right: none;
-                box-shadow: none;
-                opacity: 0.7;
-              "
-              readonly
-            />
-            <span
-              class="input-group-text bg-surface border-theme text-neutral"
-              style="border-left: none"
-            >
-              <svg
-                width="14"
-                height="14"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-                viewBox="0 0 24 24"
-              >
+            <input type="email" id="profile-email" name="email" class="profile-input-email form-control border-theme bg-surface py-2" readonly />
+            <span class="profile-input-status-icon input-group-text bg-surface border-theme text-neutral">
+              <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                 <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
                 <path d="M7 11V7a5 5 0 0 1 10 0v4" />
               </svg>
@@ -398,132 +160,50 @@
           </div>
         </div>
 
-        <!-- Phone -->
         <div class="mb-3">
-          <label
-            class="form-label fw-bold text-secondary-theme mb-2"
-            for="profile-phone"
-            style="font-size: 0.72rem; letter-spacing: 0.05em"
-          >
+          <label class="profile-label form-label fw-bold text-secondary-theme mb-2" for="profile-phone">
             MOBILE CONTACT
           </label>
           <div class="input-group shadow-theme-sm rounded-theme-md">
-            <span
-              class="input-group-text bg-surface border-theme"
-              style="border-right: none"
-            >
-              <svg
-                width="16"
-                height="16"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-                class="text-neutral"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.65 3.35 2 2 0 0 1 3.62 1h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 8.59a16 16 0 0 0 6 6l.96-.96a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16z"
-                />
+            <span class="profile-input-icon input-group-text bg-surface border-theme">
+              <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" class="text-neutral" viewBox="0 0 24 24">
+                <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.65 3.35 2 2 0 0 1 3.62 1h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 8.59a16 16 0 0 0 6 6l.96-.96a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16z" />
               </svg>
             </span>
-            <input
-              type="tel"
-              id="profile-phone"
-              name="phone"
-              class="form-control border-theme bg-surface py-2"
-              style="border-left: none; box-shadow: none"
-              placeholder="+1 (555) 234-8901"
-              autocomplete="tel"
-            />
+            <input type="tel" id="profile-phone" name="phone" class="profile-input-field form-control border-theme bg-surface py-2" placeholder="+1 (555) 234-8901" autocomplete="tel" />
           </div>
         </div>
 
-        <!-- Address -->
         <div class="mb-4">
-          <label
-            class="form-label fw-bold text-secondary-theme mb-2"
-            for="profile-address"
-            style="font-size: 0.72rem; letter-spacing: 0.05em"
-          >
+          <label class="profile-label form-label fw-bold text-secondary-theme mb-2" for="profile-address">
             PRIMARY ADDRESS
           </label>
           <div class="input-group shadow-theme-sm rounded-theme-md">
-            <span
-              class="input-group-text bg-surface border-theme"
-              style="border-right: none"
-            >
-              <svg
-                width="16"
-                height="16"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-                class="text-neutral"
-                viewBox="0 0 24 24"
-              >
+            <span class="profile-input-icon input-group-text bg-surface border-theme">
+              <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" class="text-neutral" viewBox="0 0 24 24">
                 <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
                 <circle cx="12" cy="10" r="3" />
               </svg>
             </span>
-            <input
-              type="text"
-              id="profile-address"
-              name="address"
-              class="form-control border-theme bg-surface py-2"
-              style="border-left: none; box-shadow: none"
-              placeholder="742 Evergreen Terrace, Sector 4, Metro City"
-              autocomplete="street-address"
-            />
+            <input type="text" id="profile-address" name="address" class="profile-input-field form-control border-theme bg-surface py-2" placeholder="742 Evergreen Terrace, Sector 4, Metro City" autocomplete="street-address" />
           </div>
         </div>
 
-        <!-- Error -->
-        <div
-          id="profile-error"
-          class="text-danger text-center mb-3"
-          style="font-size: 0.85rem; min-height: 1.25rem"
-        ></div>
+        <div id="profile-error" class="profile-error-msg text-danger text-center mb-3"></div>
 
-        <!-- Submit -->
-        <button
-          type="submit"
-          id="btn-update-profile"
-          class="btn-brand w-100 justify-content-center py-3 shadow-theme-md"
-          style="font-size: 0.95rem; letter-spacing: 0.06em"
-        >
+        <button type="submit" id="btn-update-profile" class="profile-submit-btn btn-brand w-100 justify-content-center py-3 shadow-theme-md">
           SAVE CHANGES ⚡
         </button>
-        <button
-          type="button"
-          id="btn-discard-profile"
-          class="btn-brand-outline w-100 justify-content-center py-2 mt-2"
-          style="font-size: 0.8rem"
-        >
+        <button type="button" id="btn-discard-profile" class="profile-discard-btn btn-brand-outline w-100 justify-content-center py-2 mt-2">
           DISCARD CHANGES
         </button>
 
-        <!-- Change Password Link -->
-        <div
-          class="text-center mt-4 pt-3"
-          style="border-top: 1px solid var(--color-border)"
-        >
-          <p class="text-neutral mb-2" style="font-size: 0.75rem">
+        <div class="profile-password-section text-center mt-4 pt-3">
+          <p class="profile-password-text text-neutral mb-2">
             Muốn thay đổi mật khẩu?
           </p>
-          <a
-            href="/change-password"
-            data-link
-            class="btn-brand-outline d-inline-flex align-items-center justify-content-center gap-2 px-4 py-2"
-            style="font-size: 0.8rem; width: 100%"
-          >
-            <svg
-              width="14"
-              height="14"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-              viewBox="0 0 24 24"
-            >
+          <a href="/change-password" data-link class="profile-password-btn btn-brand-outline d-inline-flex align-items-center justify-content-center gap-2 px-4 py-2">
+            <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
               <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
               <path d="M7 11V7a5 5 0 0 1 10 0v4" />
             </svg>
