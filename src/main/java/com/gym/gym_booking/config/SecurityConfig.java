@@ -58,7 +58,9 @@ public class SecurityConfig {
                                     "/rooms",
                                     "/rooms/**",
                                     "/class-types",
-                                    "/class-types/**"
+                                    "/class-types/**",
+                                    "/classes",
+                                    "/classes/**"
                             ).permitAll()
 
                             .anyRequest().authenticated()
