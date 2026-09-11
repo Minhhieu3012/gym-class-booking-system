@@ -37,12 +37,12 @@ export class PaymentService {
   }
 
   /**
-   * Mua gói tập mới cho hội viên hiện tại
-   * POST /member-packages
+   * Mua gói tập mới cho hội viên hiện tại (Tạo giao dịch)
+   * POST /transactions
    */
-  async buyPackage(data: BuyPackageRequest): Promise<MemberPackage> {
-    const { data: responseData } = await apiClient.post<MemberPackage>(
-      "/member-packages",
+  async buyPackage(data: BuyPackageRequest): Promise<any> {
+    const { data: responseData } = await apiClient.post<any>(
+      "/transactions",
       data,
     );
     return responseData;
