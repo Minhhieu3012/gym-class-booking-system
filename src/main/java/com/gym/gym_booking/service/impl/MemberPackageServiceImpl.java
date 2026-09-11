@@ -10,12 +10,14 @@ import com.gym.gym_booking.repository.UserRepository;
 import com.gym.gym_booking.service.MemberPackageService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Service
 public class MemberPackageServiceImpl
@@ -58,18 +60,18 @@ public class MemberPackageServiceImpl
     // UPDATE STATUS
     // =====================================================
 
-    private void updateStatus(MemberPackage memberPackage) {
-
-        if (memberPackage.getStatus()
-                == MemberPackageStatus.ACTIVE
-                && LocalDate.now()
-                .isAfter(memberPackage.getEndDate())) {
-
-            memberPackage.setStatus(
-                    MemberPackageStatus.EXPIRED
-            );
-        }
-    }
+//    private void updateStatus(MemberPackage memberPackage) {
+//
+//        if (memberPackage.getStatus()
+//                == MemberPackageStatus.ACTIVE
+//                && LocalDate.now()
+//                .isAfter(memberPackage.getEndDate())) {
+//
+//            memberPackage.setStatus(
+//                    MemberPackageStatus.EXPIRED
+//            );
+//        }
+//    }
 
     // =====================================================
     // MAPPER
@@ -140,7 +142,7 @@ public class MemberPackageServiceImpl
                             );
         }
 
-        packages.forEach(this::updateStatus);
+//        packages.forEach(this::updateStatus);
 
         return packages.map(this::toResponse);
     }
@@ -176,7 +178,7 @@ public class MemberPackageServiceImpl
                                         "Member package not found"
                                 ));
 
-        updateStatus(memberPackage);
+//        updateStatus(memberPackage);
 
         return toResponse(memberPackage);
     }
@@ -236,7 +238,7 @@ public class MemberPackageServiceImpl
                             .findAll(pageable);
         }
 
-        packages.forEach(this::updateStatus);
+//        packages.forEach(this::updateStatus);
 
         return packages.map(this::toResponse);
     }
@@ -261,8 +263,32 @@ public class MemberPackageServiceImpl
                                         "Member package not found"
                                 ));
 
-        updateStatus(memberPackage);
+//        updateStatus(memberPackage);
 
         return toResponse(memberPackage);
+    }
+    @Override
+    @Scheduled(cron = "0 0 0 * * *")
+    @Transactional
+    public void expireMemberPackages() {
+
+        LocalDate today = LocalDate.now();
+
+        List<MemberPackage> expiredPackages =
+                memberPackageRepository
+                        .findByStatusAndEndDateBefore(
+                                MemberPackageStatus.ACTIVE,
+                                today
+                        );
+
+        expiredPackages.forEach(memberPackage ->
+                memberPackage.setStatus(
+                        MemberPackageStatus.EXPIRED
+                )
+        );
+
+        if (!expiredPackages.isEmpty()) {
+            memberPackageRepository.saveAll(expiredPackages);
+        }
     }
 }
