@@ -14,6 +14,12 @@ import * as RoomsPage from "../pages/admin/rooms";
 import * as ClassTypesPage from "../pages/admin/class-types";
 import * as PackagesPage from "../pages/admin/packages";
 import * as DashboardPage from "../pages/admin/dashboard";
+import * as MemberPackagesPage from "../pages/member/packages";
+import * as MemberClassesPage from "../pages/member/class-list";
+import * as MemberPTBookingPage from "../pages/member/pt-booking";
+import * as MemberMyBookingsPage from "../pages/member/my-bookings";
+import * as TrainerPTRequestsPage from "../pages/trainer/pt-requests";
+import * as TrainerTimeSlotsPage from "../pages/trainer/time-slots";
 
 // Types
 export interface Route {
@@ -91,6 +97,53 @@ const routes: Route[] = [
     requiresAuth: true,
     view: ChangePasswordPage.render,
     init: ChangePasswordPage.init,
+  },
+  {
+    path: "/member/packages",
+    // requiresAuth: false,
+    requiresAuth: true,
+    roles: ["MEMBER", "ADMIN"],
+    view: MemberPackagesPage.render,
+    init: MemberPackagesPage.init,
+  },
+  {
+    path: "/member/classes",
+    // requiresAuth: false,
+    requiresAuth: true,
+    roles: ["MEMBER", "ADMIN"],
+    view: MemberClassesPage.render,
+    init: MemberClassesPage.init,
+  },
+  {
+    path: "/member/pt-booking",
+    // requiresAuth: false,
+    requiresAuth: true,
+    roles: ["MEMBER", "ADMIN"],
+    view: MemberPTBookingPage.render,
+    init: MemberPTBookingPage.init,
+  },
+  {
+    path: "/member/my-bookings",
+    // requiresAuth: false,
+    requiresAuth: true,
+    roles: ["MEMBER", "ADMIN"],
+    view: MemberMyBookingsPage.render,
+    init: MemberMyBookingsPage.init,
+  },
+  {
+    path: "/trainer/pt-requests",
+    // requiresAuth: false,
+    requiresAuth: true,
+    roles: ["TRAINER", "ADMIN"],
+    view: TrainerPTRequestsPage.render,
+    init: TrainerPTRequestsPage.init,
+  },
+  {
+    path: "/trainer/time-slots",
+    requiresAuth: true,
+    roles: ["TRAINER", "ADMIN"],
+    view: TrainerTimeSlotsPage.render,
+    init: TrainerTimeSlotsPage.init,
   },
   {
     path: "/admin/dashboard",

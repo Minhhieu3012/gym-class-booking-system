@@ -34,7 +34,7 @@ export const roomService = {
   },
   async update(id: number, payload: UpdateRoomRequest): Promise<RoomResponse> {
     const { data } = await apiClient.patch<RoomResponse>(
-      `/rooms/${id}`,
+      `/admin/rooms/${id}`,
       payload,
     );
     return data;
@@ -45,7 +45,7 @@ export const roomService = {
     payload: UpdateRoomStatusRequest,
   ): Promise<RoomResponse> {
     const { data } = await apiClient.patch<RoomResponse>(
-      `/rooms/${id}/status`,
+      `/admin/rooms/${id}`,
       payload,
     );
     return data;
@@ -71,7 +71,7 @@ export const classTypeService = {
   },
   async create(payload: CreateClassTypeRequest): Promise<ClassTypeResponse> {
     const { data } = await apiClient.post<ClassTypeResponse>(
-      "/class-types",
+      "/admin/class-types",
       payload,
     );
     return data;
@@ -82,7 +82,7 @@ export const classTypeService = {
     payload: UpdateClassTypeRequest,
   ): Promise<ClassTypeResponse> {
     const { data } = await apiClient.patch<ClassTypeResponse>(
-      `/class-types/${id}`,
+      `/admin/class-types/${id}`,
       payload,
     );
     return data;
@@ -95,19 +95,25 @@ export const packageService = {
     params?: PackageQueryParams,
   ): Promise<PageResponse<PackageResponse>> {
     const { data } = await apiClient.get<PageResponse<PackageResponse>>(
-      "/packages",
+      "/admin/packages",
       { params },
     );
     return data;
   },
   async getById(id: number): Promise<PackageResponse> {
-    const { data } = await apiClient.get<PackageResponse>(`/packages/${id}`);
+    const { data } = await apiClient.get<PackageResponse>(
+      `/admin/packages/${id}`,
+    );
     return data;
   },
   async create(payload: CreatePackageRequest): Promise<PackageResponse> {
+    const body: any = {
+      ...payload,
+      active: payload.isActive ?? true,
+    };
     const { data } = await apiClient.post<PackageResponse>(
-      "/packages",
-      payload,
+      "/admin/packages",
+      body,
     );
     return data;
   },
@@ -115,21 +121,22 @@ export const packageService = {
     id: number,
     payload: UpdatePackageRequest,
   ): Promise<PackageResponse> {
+    const body: any = { ...payload };
+    if (payload.isActive !== undefined) {
+      body.active = payload.isActive;
+    }
     const { data } = await apiClient.patch<PackageResponse>(
-      `/packages/${id}`,
-      payload,
+      `/admin/packages/${id}`,
+      body,
     );
     return data;
   },
-  // PATCH /packages/{id}/deactivate
+  // PATCH /admin/packages/{id}
   async deactivate(id: number): Promise<PackageResponse> {
-    const { data } = await apiClient.patch<PackageResponse>(
-      `/packages/${id}/deactivate`,
-    );
-    return data;
+    return this.update(id, { isActive: false });
   },
 
-  // Contract KHÔNG có route /packages/{id}/activate riêng (chỉ có deactivate).
+  // Contract: cập nhật trạng thái isActive = true
   async activate(id: number): Promise<PackageResponse> {
     return this.update(id, { isActive: true });
   },

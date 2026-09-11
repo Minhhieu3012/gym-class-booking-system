@@ -1,0 +1,246 @@
+/* ============================================================
+   Member Group Class List & Booking Styles
+   Mobile-first, Vertical Card List Aesthetics
+   ============================================================ */
+
+.member-classes-page {
+  font-family: var(--font-primary);
+}
+
+/* Navbar */
+.classes-navbar {
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  background-color: rgba(255, 255, 255, 0.95);
+  z-index: 1000;
+}
+
+.btn-back {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  border: 1px solid var(--color-border);
+  background: var(--color-surface);
+  transition: all var(--transition-fast);
+}
+
+.btn-back:hover {
+  background: var(--color-surface-alt);
+  color: var(--color-primary);
+  border-color: var(--color-primary);
+  transform: translateX(-2px);
+}
+
+.brand-title {
+  font-size: var(--text-lg);
+  letter-spacing: -0.02em;
+}
+
+.page-subtitle {
+  font-size: 0.7rem;
+  letter-spacing: 0.08em;
+  font-weight: 700;
+}
+
+.logo-lightning {
+  font-size: 1.2rem;
+}
+
+/* Hero */
+.classes-hero {
+  background: linear-gradient(135deg, #ffffff 0%, #fff4f5 100%);
+  border: 1px solid rgba(220, 53, 69, 0.15);
+  border-radius: var(--radius-xl);
+}
+
+.hero-title {
+  font-size: clamp(1.4rem, 3.5vw, 2rem);
+  letter-spacing: -0.02em;
+}
+
+.hero-desc {
+  max-width: 600px;
+  font-size: var(--text-base);
+}
+
+/* Filter Section */
+.filter-section {
+  border-radius: var(--radius-lg);
+}
+
+.filter-section .form-control:focus,
+.filter-section .form-select:focus {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.15);
+}
+
+/* ============================================================
+   Class Card (Vertical List View)
+   ============================================================ */
+.gym-class-card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  transition: all var(--transition-normal);
+  position: relative;
+  overflow: hidden;
+}
+
+.gym-class-card:hover {
+  border-color: rgba(220, 53, 69, 0.35);
+  box-shadow: var(--shadow-md);
+  transform: translateY(-2px);
+}
+
+.gym-class-card.class-full {
+  border-left: 5px solid #fd7e14;
+}
+
+.gym-class-card.class-past {
+  border-left: 5px solid var(--color-neutral);
+  opacity: 0.85;
+}
+
+.gym-class-card.class-available {
+  border-left: 5px solid var(--color-tertiary);
+}
+
+/* Class Type Badge */
+.class-type-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  padding: 0.25rem 0.65rem;
+  border-radius: var(--radius-sm);
+  background: var(--color-tertiary-light);
+  color: var(--color-tertiary);
+}
+
+/* Class Title */
+.class-title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--color-secondary);
+}
+
+/* Time & Location Pills */
+.class-meta-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: var(--text-sm);
+  color: var(--color-secondary);
+  background: var(--color-surface-alt);
+  padding: 0.35rem 0.75rem;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--color-border);
+}
+
+.class-time-highlight {
+  font-weight: 700;
+  color: var(--color-primary);
+}
+
+/* Trainer Info */
+.trainer-info {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-size: var(--text-sm);
+  color: var(--color-secondary);
+}
+
+.trainer-icon-wrap {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: var(--color-tertiary-light);
+  color: var(--color-tertiary);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 0.75rem;
+}
+
+/* Capacity Indicator */
+.capacity-box {
+  min-width: 130px;
+}
+
+.capacity-text {
+  font-size: var(--text-sm);
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+.capacity-progress {
+  height: 6px;
+  background-color: var(--color-surface-alt);
+  border-radius: 999px;
+  overflow: hidden;
+  border: 1px solid var(--color-border);
+}
+
+.capacity-progress-bar {
+  height: 100%;
+  border-radius: 999px;
+  transition: width 0.3s ease;
+}
+
+.progress-available {
+  background-color: var(--color-tertiary);
+}
+
+.progress-warning {
+  background-color: #fd7e14;
+}
+
+.progress-full {
+  background-color: var(--color-primary);
+}
+
+/* Action Button */
+.btn-book-class {
+  min-width: 120px;
+  font-weight: 700;
+  font-size: var(--text-sm);
+  padding: 0.65rem 1.25rem;
+  border-radius: var(--radius-md);
+  transition: all var(--transition-fast);
+}
+
+.btn-book-class:disabled {
+  background-color: #e9ecef !important;
+  color: #6c757d !important;
+  border-color: #dee2e6 !important;
+  cursor: not-allowed;
+  box-shadow: none !important;
+  transform: none !important;
+}
+
+/* Empty State */
+.empty-classes-card {
+  background: #ffffff;
+  border: 2px dashed var(--color-border);
+  border-radius: var(--radius-xl);
+  padding: 3.5rem 1.5rem;
+  text-align: center;
+}
+
+.empty-icon-wrap {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  background: var(--color-primary-light);
+  color: var(--color-primary);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1.25rem;
+}

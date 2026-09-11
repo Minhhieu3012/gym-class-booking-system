@@ -1,4 +1,4 @@
-﻿import axios from "axios";
+import axios from "axios";
 import type { AxiosError, InternalAxiosRequestConfig } from "axios";
 import type { AuthUser, LoginResponse, UserRole } from "../models/auth";
 
@@ -115,3 +115,5 @@ export function hasRole(...roles: UserRole[]): boolean {
   const user = getStoredUser();
   return !!user && roles.includes(user.role);
 }
+
+export default apiClient;

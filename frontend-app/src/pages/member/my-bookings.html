@@ -1,0 +1,147 @@
+<main class="member-my-bookings-page bg-surface-alt min-vh-100 pb-5">
+  <!-- ── NAVBAR ── -->
+  <nav class="my-bookings-navbar w-100 d-flex justify-content-between align-items-center px-3 px-md-4 py-3 bg-surface border-bottom border-theme sticky-top">
+    <div class="d-flex align-items-center gap-3">
+      <a href="/profile" data-link class="btn-back text-secondary-theme d-flex align-items-center justify-content-center" aria-label="Quay lại">
+        <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M19 12H5M12 19l-7-7 7-7" />
+        </svg>
+      </a>
+      <div>
+        <div class="d-flex align-items-center gap-2">
+          <span class="logo-lightning">⚡</span>
+          <span class="brand-title fw-bold text-secondary-theme">PULSE GYM</span>
+        </div>
+        <p class="page-subtitle text-neutral mb-0">QUẢN LÝ LỊCH ĐẶT CỦA HỘI VIÊN</p>
+      </div>
+    </div>
+    <div class="d-flex align-items-center gap-2">
+      <a href="/member/classes" data-link class="btn-brand-outline py-1 px-3 rounded-pill text-decoration-none d-flex align-items-center gap-1">
+        <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4" />
+        </svg>
+        <span class="d-none d-sm-inline">Đặt lớp mới</span>
+      </a>
+    </div>
+  </nav>
+
+  <!-- ── TOAST THÔNG BÁO ── -->
+  <div class="toast-container position-fixed top-0 end-0 p-3" style="z-index: 1090;">
+    <div id="my-bookings-toast" class="toast align-items-center border-0 shadow-lg text-white bg-success" role="alert" aria-live="assertive" aria-atomic="true">
+      <div class="d-flex">
+        <div class="toast-body d-flex align-items-center gap-2 py-3 px-3">
+          <span id="bookings-toast-icon">
+            <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+            </svg>
+          </span>
+          <span id="bookings-toast-message" class="fw-semibold">Thao tác thành công!</span>
+        </div>
+        <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── MAIN CONTENT ── -->
+  <div class="container py-4 px-3 px-md-4">
+    <!-- HERO HEADER -->
+    <div class="bookings-hero card-theme p-4 p-md-5 mb-4 position-relative overflow-hidden">
+      <div class="row align-items-center">
+        <div class="col-12 col-md-8">
+          <span class="badge-theme badge-active px-3 py-1 mb-2">LỊCH TRÌNH CÁ NHÂN</span>
+          <h1 class="hero-title fw-bold text-secondary-theme mb-2">Lịch Đặt Của Tôi</h1>
+          <p class="hero-desc text-neutral mb-0">
+            Theo dõi tất cả lịch học lớp nhóm và buổi huấn luyện 1-1 của bạn. Lưu ý: Huỷ lịch cần được thực hiện trước giờ tập ít nhất 24 tiếng.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- BOOTSTRAP NAV TABS: 2 TAB (LỚP NHÓM & LỊCH PT 1-1) -->
+    <div class="bookings-tabs-wrapper mb-4">
+      <ul class="nav nav-pills p-1 bg-surface rounded-theme-md shadow-theme-sm d-flex" id="booking-nav-tabs" role="tablist">
+        <li class="nav-item flex-fill" role="presentation">
+          <button 
+            class="nav-link active w-100 py-2 fw-bold text-center tab-btn" 
+            id="tab-classes-btn" 
+            data-bs-toggle="pill" 
+            data-bs-target="#tab-classes-pane" 
+            type="button" 
+            role="tab" 
+            aria-controls="tab-classes-pane" 
+            aria-selected="true"
+          >
+            <span class="d-flex align-items-center justify-content-center gap-2">
+              <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+              </svg>
+              <span>Lớp nhóm</span>
+            </span>
+          </button>
+        </li>
+        <li class="nav-item flex-fill" role="presentation">
+          <button 
+            class="nav-link w-100 py-2 fw-bold text-center tab-btn" 
+            id="tab-pt-btn" 
+            data-bs-toggle="pill" 
+            data-bs-target="#tab-pt-pane" 
+            type="button" 
+            role="tab" 
+            aria-controls="tab-pt-pane" 
+            aria-selected="false"
+          >
+            <span class="d-flex align-items-center justify-content-center gap-2">
+              <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+              </svg>
+              <span>Lịch PT 1-1</span>
+            </span>
+          </button>
+        </li>
+      </ul>
+    </div>
+
+    <!-- TAB PANES -->
+    <div class="tab-content" id="booking-tabs-content">
+      <!-- TAB 1: LỚP NHÓM -->
+      <div class="tab-pane fade show active" id="tab-classes-pane" role="tabpanel" aria-labelledby="tab-classes-btn">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+          <h2 class="section-title fs-5 fw-bold text-secondary-theme mb-0">Các buổi tập lớp nhóm đã đặt</h2>
+          <button type="button" id="btn-refresh-class-bookings" class="btn-brand-outline py-1 px-3 d-flex align-items-center gap-1 fs-7">
+            <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+            </svg>
+            <span>Tải lại</span>
+          </button>
+        </div>
+
+        <div id="member-class-bookings-container" class="d-flex flex-column gap-3">
+          <div class="text-center py-5">
+            <div class="spinner-border text-danger" role="status"></div>
+            <p class="text-neutral mt-2 mb-0">Đang tải danh sách đặt lớp nhóm...</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- TAB 2: LỊCH PT 1-1 -->
+      <div class="tab-pane fade" id="tab-pt-pane" role="tabpanel" aria-labelledby="tab-pt-btn">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+          <h2 class="section-title fs-5 fw-bold text-secondary-theme mb-0">Các lịch huấn luyện 1-1 đã gửi</h2>
+          <button type="button" id="btn-refresh-pt-bookings" class="btn-brand-outline py-1 px-3 d-flex align-items-center gap-1 fs-7">
+            <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+            </svg>
+            <span>Tải lại</span>
+          </button>
+        </div>
+
+        <div id="member-pt-bookings-container" class="d-flex flex-column gap-3">
+          <div class="text-center py-5">
+            <div class="spinner-border text-danger" role="status"></div>
+            <p class="text-neutral mt-2 mb-0">Đang tải danh sách đặt lịch PT...</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
