@@ -20,6 +20,7 @@ import * as MemberPTBookingPage from "../pages/member/pt-booking";
 import * as MemberMyBookingsPage from "../pages/member/my-bookings";
 import * as TrainerPTRequestsPage from "../pages/trainer/pt-requests";
 import * as TrainerTimeSlotsPage from "../pages/trainer/time-slots";
+import { initNotification } from "../components/notification-popover";
 
 // Types
 export interface Route {
@@ -251,6 +252,9 @@ async function handleRoute(): Promise<void> {
   if (route.init) {
     await route.init();
   }
+
+  // Khởi tạo notification bell & popover nếu trang có header chứa notification
+  initNotification();
 }
 
 export function initRouter(): void {

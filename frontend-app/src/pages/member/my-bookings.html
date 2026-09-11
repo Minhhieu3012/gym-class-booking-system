@@ -16,6 +16,16 @@
       </div>
     </div>
     <div class="d-flex align-items-center gap-2">
+      <div class="dropdown position-relative me-2">
+        <button id="notification-bell" class="btn p-0 border-0 bg-transparent text-secondary-theme position-relative d-flex align-items-center justify-content-center" aria-label="Notifications" type="button">
+          <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9" />
+            <path d="M13.73 21a2 2 0 0 1-3.46 0" />
+          </svg>
+        </button>
+        <div id="notification-dropdown" class="dropdown-menu dropdown-menu-end shadow-lg p-0" style="min-width: 320px; max-width: 380px; z-index: 1050; right: 0; left: auto;">
+        </div>
+      </div>
       <a href="/member/classes" data-link class="btn-brand-outline py-1 px-3 rounded-pill text-decoration-none d-flex align-items-center gap-1">
         <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4" />
@@ -144,4 +154,56 @@
       </div>
     </div>
   </div>
+
+  <!-- ── BOOTSTRAP MODAL ĐÁNH GIÁ (REVIEW) ── -->
+  <div class="modal fade" id="reviewModal" tabindex="-1" aria-labelledby="reviewModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content bg-surface border-theme shadow-lg">
+        <div class="modal-header border-theme">
+          <h5 class="modal-title fw-bold text-secondary-theme" id="reviewModalLabel">
+            <span class="text-warning me-2">★</span>Đánh Giá Buổi Tập
+          </h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form id="reviewForm" onsubmit="return false;">
+            <!-- Khối chọn số sao đánh giá (Rating từ 1 đến 5) -->
+            <div class="mb-3">
+              <label for="reviewRating" class="form-label fw-semibold text-secondary-theme">
+                Số sao đánh giá:
+              </label>
+              <select class="form-select bg-surface-alt text-secondary-theme border-theme" id="reviewRating" required>
+                <option value="5" selected>⭐⭐⭐⭐⭐ (5 sao - Xuất sắc)</option>
+                <option value="4">⭐⭐⭐⭐ (4 sao - Rất tốt)</option>
+                <option value="3">⭐⭐⭐ (3 sao - Hài lòng)</option>
+                <option value="2">⭐⭐ (2 sao - Tạm được)</option>
+                <option value="1">⭐ (1 sao - Chưa hài lòng)</option>
+              </select>
+            </div>
+
+            <!-- Textarea nhập nhận xét -->
+            <div class="mb-3">
+              <label for="reviewComment" class="form-label fw-semibold text-secondary-theme">
+                Nhận xét của bạn:
+              </label>
+              <textarea
+                class="form-control bg-surface-alt text-secondary-theme border-theme"
+                id="reviewComment"
+                rows="4"
+                placeholder="Hãy chia sẻ cảm nhận về lớp học, huấn luyện viên..."
+                required
+              ></textarea>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer border-theme">
+          <button type="button" class="btn btn-secondary px-3" data-bs-dismiss="modal">Đóng</button>
+          <button type="button" class="btn btn-warning fw-bold px-4 text-dark" id="submitReviewBtn">
+            Gửi đánh giá
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
 </main>
+

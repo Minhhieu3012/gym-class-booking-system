@@ -1,5 +1,6 @@
 import { userService } from "../../services/user.service";
 import { authService } from "../../services/auth.service";
+import { initNotification } from "../../components/notification-popover";
 import template from "./profile.html?raw";
 import "./profile.css";
 
@@ -12,7 +13,8 @@ export function render(): string {
 }
 
 export function init(): void {
-    const avatarImg = document.querySelector<HTMLImageElement>("#profile-avatar");
+  initNotification();
+  const avatarImg = document.querySelector<HTMLImageElement>("#profile-avatar");
   const avatarInput = document.querySelector<HTMLInputElement>(
     "#profile-avatar-input",
   );

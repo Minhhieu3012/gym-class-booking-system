@@ -13,12 +13,16 @@
       </div>
     </div>
     <div class="d-flex align-items-center gap-3">
-      <button class="btn p-0 border-0 bg-transparent text-neutral" aria-label="Notifications">
-        <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-          <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9" />
-          <path d="M13.73 21a2 2 0 0 1-3.46 0" />
-        </svg>
-      </button>
+      <div class="dropdown position-relative">
+        <button id="notification-bell" class="btn p-0 border-0 bg-transparent text-neutral position-relative d-flex align-items-center justify-content-center" aria-label="Notifications" type="button">
+          <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9" />
+            <path d="M13.73 21a2 2 0 0 1-3.46 0" />
+          </svg>
+        </button>
+        <div id="notification-dropdown" class="dropdown-menu dropdown-menu-end shadow-lg p-0" style="min-width: 320px; max-width: 380px; z-index: 1050; right: 0; left: auto;">
+        </div>
+      </div>
       <div id="nav-avatar" class="profile-navbar-avatar rounded-circle border-theme d-flex align-items-center justify-content-center bg-surface-alt fw-bold text-secondary-theme overflow-hidden">
         ?
       </div>

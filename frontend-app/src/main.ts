@@ -1,5 +1,6 @@
-﻿import "./style.css";
+import "./style.css";
 import { initRouter, navigate } from "./core/router";
+import { initNotification } from "./components/notification-popover";
 
 // Global SPA link handler
 document.body.addEventListener("click", (event: MouseEvent) => {
@@ -17,3 +18,7 @@ document.body.addEventListener("click", (event: MouseEvent) => {
 
 // Initialize router
 initRouter();
+
+// Initialize notification popover (nếu header đã có sẵn trong DOM ban đầu)
+initNotification();
+

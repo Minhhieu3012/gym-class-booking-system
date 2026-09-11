@@ -1,12 +1,27 @@
 import template from "./my-bookings.html?raw";
 import "./my-bookings.css";
 import { bookingService, BookingService } from "../../services/booking.service";
+import interactionService from "../../services/interaction.service";
+import { initNotification } from "../../components/notification-popover";
 import type { ClassBooking, PTBooking } from "../../models/booking";
 
 // Khai báo kiểu Bootstrap toàn cục
 declare const bootstrap: {
   Toast: new (el: Element, options?: unknown) => { show(): void; hide(): void };
+  Modal: {
+    new (el: Element, options?: unknown): { show(): void; hide(): void };
+    getOrCreateInstance(
+      el: Element,
+      options?: unknown,
+    ): { show(): void; hide(): void };
+    getInstance(el: Element): { show(): void; hide(): void } | null;
+  };
 };
+
+// State tạm lưu thông tin lượt đặt đang được đánh giá
+let currentReviewBookingId: number | null = null;
+let currentReviewBookingType: "class" | "pt" | null = null;
+let currentReviewButton: HTMLButtonElement | null = null;
 
 /**
  * Định dạng thời gian và ngày tháng
@@ -149,6 +164,132 @@ function showToast(message: string, isSuccess = true): void {
 }
 
 /**
+ * Mở modal đánh giá cho một booking cụ thể
+ */
+function handleOpenReviewModal(btn: HTMLButtonElement): void {
+  const bookingIdStr = btn.getAttribute("data-booking-id");
+  const bookingType = btn.getAttribute("data-booking-type") as "class" | "pt";
+
+  if (!bookingIdStr || !bookingType) return;
+
+  currentReviewBookingId = Number(bookingIdStr);
+  currentReviewBookingType = bookingType;
+  currentReviewButton = btn;
+
+  // Reset form đánh giá
+  const commentInput =
+    document.querySelector<HTMLTextAreaElement>("#reviewComment");
+  if (commentInput) {
+    commentInput.value = "";
+  }
+  const ratingSelect =
+    document.querySelector<HTMLSelectElement>("#reviewRating");
+  if (ratingSelect) {
+    ratingSelect.value = "5";
+  }
+
+  // Mở Bootstrap Modal
+  const modalEl = document.getElementById("reviewModal");
+  if (modalEl) {
+    if (typeof bootstrap !== "undefined" && bootstrap.Modal) {
+      const modalInstance = bootstrap.Modal.getOrCreateInstance(modalEl);
+      modalInstance.show();
+    } else {
+      modalEl.classList.add("show");
+      modalEl.style.display = "block";
+    }
+  }
+}
+
+/**
+ * Xử lý submit form đánh giá và gọi API
+ */
+async function handleSubmitReview(): Promise<void> {
+  if (!currentReviewBookingId || !currentReviewBookingType) {
+    alert("Không tìm thấy thông tin lượt đặt cần đánh giá.");
+    return;
+  }
+
+  const ratingSelect =
+    document.querySelector<HTMLSelectElement>("#reviewRating");
+  const commentInput =
+    document.querySelector<HTMLTextAreaElement>("#reviewComment");
+  const submitBtn =
+    document.querySelector<HTMLButtonElement>("#submitReviewBtn");
+
+  const rating = Number(ratingSelect?.value || 5);
+  const comment = commentInput?.value.trim() || "";
+
+  if (!comment) {
+    alert("Vui lòng nhập nội dung nhận xét trước khi gửi đánh giá.");
+    commentInput?.focus();
+    return;
+  }
+
+  // Chuẩn bị payload dựa vào bookingType
+  const payload =
+    currentReviewBookingType === "class"
+      ? { classBookingId: currentReviewBookingId, rating, comment }
+      : { ptBookingId: currentReviewBookingId, rating, comment };
+
+  try {
+    if (submitBtn) {
+      submitBtn.disabled = true;
+      submitBtn.textContent = "Đang gửi...";
+    }
+
+    await interactionService.createReview(payload);
+
+    // Đóng Modal
+    const modalEl = document.getElementById("reviewModal");
+    if (modalEl) {
+      if (typeof bootstrap !== "undefined" && bootstrap.Modal) {
+        const modalInstance = bootstrap.Modal.getOrCreateInstance(modalEl);
+        modalInstance.hide();
+      } else {
+        modalEl.classList.remove("show");
+        modalEl.style.display = "none";
+      }
+    }
+
+    // Hiển thị thông báo thành công
+    alert("Đánh giá thành công!");
+    showToast("Đánh giá thành công!", true);
+
+    // Disable nút 'Đánh giá' của item vừa rồi
+    if (currentReviewButton) {
+      currentReviewButton.disabled = true;
+      currentReviewButton.classList.remove("btn-warning");
+      currentReviewButton.classList.add("btn-secondary");
+      currentReviewButton.innerHTML = `
+        <svg width="14" height="14" fill="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+        </svg>
+        <span>Đã đánh giá</span>
+      `;
+    }
+
+    // Reset state
+    currentReviewBookingId = null;
+    currentReviewBookingType = null;
+    currentReviewButton = null;
+  } catch (error: any) {
+    console.error("Lỗi khi gửi đánh giá:", error);
+    const msg =
+      error?.response?.data?.message ||
+      error?.message ||
+      "Không thể gửi đánh giá. Vui lòng thử lại sau!";
+    alert(`Lỗi: ${msg}`);
+    showToast(msg, false);
+  } finally {
+    if (submitBtn) {
+      submitBtn.disabled = false;
+      submitBtn.textContent = "Gửi đánh giá";
+    }
+  }
+}
+
+/**
  * TAB 1: Tải lịch đặt lớp học nhóm của hội viên
  * GET /class-bookings/me
  */
@@ -209,6 +350,7 @@ export async function loadMyClassBookings(): Promise<void> {
         // CHỈ hiển thị nút Hủy lịch nếu status là CONFIRMED hoặc PENDING.
         // TUYỆT ĐỐI KHÔNG làm nút Đổi lịch (Reschedule).
         const canCancel = b.status === "CONFIRMED" || b.status === "PENDING";
+        const isCompleted = b.status === "COMPLETED";
 
         return `
           <div class="booking-card ${statusInfo.cardClass} shadow-theme-sm">
@@ -246,7 +388,7 @@ export async function loadMyClassBookings(): Promise<void> {
                 }
               </div>
 
-              <div class="col-12 col-md-4 d-flex justify-content-md-end">
+              <div class="col-12 col-md-4 d-flex justify-content-md-end gap-2 flex-wrap">
                 ${
                   canCancel
                     ? `
@@ -260,6 +402,23 @@ export async function loadMyClassBookings(): Promise<void> {
                       <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
                     </svg>
                     <span class="ms-1">Hủy lịch</span>
+                  </button>
+                `
+                    : ""
+                }
+                ${
+                  isCompleted
+                    ? `
+                  <button 
+                    type="button" 
+                    class="btn btn-warning btn-review text-dark fw-semibold d-inline-flex align-items-center gap-1"
+                    data-booking-id="${b.id}"
+                    data-booking-type="class"
+                  >
+                    <svg width="14" height="14" fill="currentColor" viewBox="0 0 24 24">
+                      <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
+                    </svg>
+                    <span>Đánh giá</span>
                   </button>
                 `
                     : ""
@@ -338,6 +497,7 @@ export async function loadMyPTBookings(): Promise<void> {
         // CHỈ hiển thị nút Hủy lịch nếu status là CONFIRMED hoặc PENDING.
         // TUYỆT ĐỐI KHÔNG làm nút Đổi lịch (Reschedule).
         const canCancel = b.status === "CONFIRMED" || b.status === "PENDING";
+        const isCompleted = b.status === "COMPLETED";
 
         return `
           <div class="booking-card ${statusInfo.cardClass} shadow-theme-sm">
@@ -379,7 +539,7 @@ export async function loadMyPTBookings(): Promise<void> {
                 }
               </div>
 
-              <div class="col-12 col-md-4 d-flex justify-content-md-end">
+              <div class="col-12 col-md-4 d-flex justify-content-md-end gap-2 flex-wrap">
                 ${
                   canCancel
                     ? `
@@ -393,6 +553,23 @@ export async function loadMyPTBookings(): Promise<void> {
                       <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
                     </svg>
                     <span class="ms-1">Hủy lịch</span>
+                  </button>
+                `
+                    : ""
+                }
+                ${
+                  isCompleted
+                    ? `
+                  <button 
+                    type="button" 
+                    class="btn btn-warning btn-review text-dark fw-semibold d-inline-flex align-items-center gap-1"
+                    data-booking-id="${b.id}"
+                    data-booking-type="pt"
+                  >
+                    <svg width="14" height="14" fill="currentColor" viewBox="0 0 24 24">
+                      <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
+                    </svg>
+                    <span>Đánh giá</span>
                   </button>
                 `
                     : ""
@@ -531,35 +708,64 @@ function attachEvents(): void {
     btnRefreshPT.addEventListener("click", () => loadMyPTBookings());
   }
 
-  // Bắt sự kiện click Hủy lịch lớp học (Event delegation)
+  // Bắt sự kiện click Hủy lịch / Đánh giá lớp học (Event delegation)
   const classContainer = document.querySelector<HTMLDivElement>(
     "#member-class-bookings-container",
   );
   if (classContainer) {
     classContainer.addEventListener("click", (event: MouseEvent) => {
-      const target = (event.target as HTMLElement).closest<HTMLButtonElement>(
-        ".btn-cancel-class-booking",
-      );
-      if (target && !target.disabled) {
+      const cancelTarget = (
+        event.target as HTMLElement
+      ).closest<HTMLButtonElement>(".btn-cancel-class-booking");
+      if (cancelTarget && !cancelTarget.disabled) {
         event.preventDefault();
-        handleCancelClassBooking(target);
+        handleCancelClassBooking(cancelTarget);
+        return;
+      }
+
+      const reviewTarget = (
+        event.target as HTMLElement
+      ).closest<HTMLButtonElement>(".btn-review");
+      if (reviewTarget && !reviewTarget.disabled) {
+        event.preventDefault();
+        handleOpenReviewModal(reviewTarget);
       }
     });
   }
 
-  // Bắt sự kiện click Hủy lịch PT (Event delegation)
+  // Bắt sự kiện click Hủy lịch / Đánh giá PT (Event delegation)
   const ptContainer = document.querySelector<HTMLDivElement>(
     "#member-pt-bookings-container",
   );
   if (ptContainer) {
     ptContainer.addEventListener("click", (event: MouseEvent) => {
-      const target = (event.target as HTMLElement).closest<HTMLButtonElement>(
-        ".btn-cancel-pt-booking",
-      );
-      if (target && !target.disabled) {
+      const cancelTarget = (
+        event.target as HTMLElement
+      ).closest<HTMLButtonElement>(".btn-cancel-pt-booking");
+      if (cancelTarget && !cancelTarget.disabled) {
         event.preventDefault();
-        handleCancelPTBooking(target);
+        handleCancelPTBooking(cancelTarget);
+        return;
       }
+
+      const reviewTarget = (
+        event.target as HTMLElement
+      ).closest<HTMLButtonElement>(".btn-review");
+      if (reviewTarget && !reviewTarget.disabled) {
+        event.preventDefault();
+        handleOpenReviewModal(reviewTarget);
+      }
+    });
+  }
+
+  // Bắt sự kiện click nút Gửi đánh giá trên Modal
+  const submitReviewBtn = document.querySelector<HTMLButtonElement>(
+    "#submitReviewBtn",
+  );
+  if (submitReviewBtn) {
+    submitReviewBtn.addEventListener("click", (event: MouseEvent) => {
+      event.preventDefault();
+      handleSubmitReview();
     });
   }
 }
@@ -575,6 +781,7 @@ export function render(): string {
  * Khởi tạo dữ liệu khi view mount vào DOM
  */
 export async function init(): Promise<void> {
+  initNotification();
   attachEvents();
   await Promise.all([loadMyClassBookings(), loadMyPTBookings()]);
 }
