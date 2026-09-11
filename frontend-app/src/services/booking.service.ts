@@ -9,6 +9,7 @@ import type {
   PTBookingRequest,
   CancelBookingRequest,
   RejectPTRequest,
+  CreateTimeSlotRequest,
   ClassQueryParams,
   ClassBookingQueryParams,
   PTBookingQueryParams,
@@ -174,6 +175,29 @@ export class BookingService {
     const { data: responseData } = await apiClient.patch<PTBooking>(
       `/pt-bookings/${id}/reject`,
       data,
+    );
+    return responseData;
+  }
+
+  /**
+   * Huấn luyện viên tạo khung giờ rảnh mới
+   * POST /trainers/time-slots
+   */
+  async createTimeSlot(data: CreateTimeSlotRequest): Promise<TrainerTimeSlot> {
+    const { data: responseData } = await apiClient.post<TrainerTimeSlot>(
+      "/trainers/time-slots",
+      data,
+    );
+    return responseData;
+  }
+
+  /**
+   * Huấn luyện viên hủy / vô hiệu hóa khung giờ rảnh
+   * PATCH /trainers/time-slots/{id}/deactivate
+   */
+  async deactivateTimeSlot(id: number): Promise<TrainerTimeSlot> {
+    const { data: responseData } = await apiClient.patch<TrainerTimeSlot>(
+      `/trainers/time-slots/${id}/deactivate`,
     );
     return responseData;
   }

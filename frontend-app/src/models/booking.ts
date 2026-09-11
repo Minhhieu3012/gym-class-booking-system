@@ -101,6 +101,11 @@ export interface RejectPTRequest {
   rejectReason: string;
 }
 
+export interface CreateTimeSlotRequest {
+  startTime: string;
+  endTime: string;
+}
+
 // Query Parameters
 export interface ClassQueryParams {
   page?: number;

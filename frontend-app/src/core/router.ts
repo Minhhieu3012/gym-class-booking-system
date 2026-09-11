@@ -19,6 +19,7 @@ import * as MemberClassesPage from "../pages/member/class-list";
 import * as MemberPTBookingPage from "../pages/member/pt-booking";
 import * as MemberMyBookingsPage from "../pages/member/my-bookings";
 import * as TrainerPTRequestsPage from "../pages/trainer/pt-requests";
+import * as TrainerTimeSlotsPage from "../pages/trainer/time-slots";
 
 // Types
 export interface Route {
@@ -136,6 +137,13 @@ const routes: Route[] = [
     roles: ["TRAINER", "ADMIN"],
     view: TrainerPTRequestsPage.render,
     init: TrainerPTRequestsPage.init,
+  },
+  {
+    path: "/trainer/time-slots",
+    requiresAuth: true,
+    roles: ["TRAINER", "ADMIN"],
+    view: TrainerTimeSlotsPage.render,
+    init: TrainerTimeSlotsPage.init,
   },
   {
     path: "/admin/dashboard",

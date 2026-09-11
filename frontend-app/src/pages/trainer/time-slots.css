@@ -1,0 +1,209 @@
+/* ============================================================
+   Trainer Time Slots Management Page Styles
+   Mobile-first, Responsive Card Grid & Form Layout
+   ============================================================ */
+
+.trainer-time-slots-page {
+  font-family: var(--font-primary);
+}
+
+/* Navbar */
+.trainer-navbar {
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  background-color: rgba(255, 255, 255, 0.95);
+  z-index: 1000;
+}
+
+.btn-back {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  border: 1px solid var(--color-border);
+  background: var(--color-surface);
+  transition: all var(--transition-fast);
+}
+
+.btn-back:hover {
+  background: var(--color-surface-alt);
+  color: var(--color-primary);
+  border-color: var(--color-primary);
+  transform: translateX(-2px);
+}
+
+.brand-title {
+  font-size: var(--text-lg);
+  letter-spacing: -0.02em;
+}
+
+.page-subtitle {
+  font-size: 0.7rem;
+  letter-spacing: 0.08em;
+  font-weight: 700;
+}
+
+.logo-lightning {
+  font-size: 1.2rem;
+}
+
+/* Hero Header */
+.timeslot-hero {
+  background: linear-gradient(135deg, #ffffff 0%, #fff5f5 100%);
+  border: 1px solid rgba(220, 53, 69, 0.2);
+  border-radius: var(--radius-xl);
+}
+
+.hero-title {
+  font-size: clamp(1.4rem, 3.5vw, 2rem);
+  letter-spacing: -0.02em;
+}
+
+.hero-desc {
+  max-width: 580px;
+  line-height: 1.6;
+}
+
+.hero-decor-circle {
+  position: absolute;
+  top: -40px;
+  right: -40px;
+  width: 180px;
+  height: 180px;
+  background: radial-gradient(circle, rgba(220, 53, 69, 0.12) 0%, rgba(255, 255, 255, 0) 70%);
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+/* Time Slot Card */
+.timeslot-card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  transition: all var(--transition-normal);
+  position: relative;
+  overflow: hidden;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.timeslot-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.06);
+}
+
+/* Card States */
+.timeslot-card.card-available {
+  border-left: 4px solid #10b981;
+}
+
+.timeslot-card.card-booked {
+  border-left: 4px solid #ef4444;
+  background: #fef2f2;
+}
+
+.timeslot-card.card-inactive {
+  border-left: 4px solid #9ca3af;
+  opacity: 0.75;
+  background: #f9fafb;
+}
+
+.timeslot-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.75rem;
+}
+
+.timeslot-date-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--color-neutral);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.timeslot-time-title {
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: var(--color-secondary);
+  letter-spacing: -0.01em;
+  margin-bottom: 0.35rem;
+}
+
+.timeslot-duration {
+  font-size: 0.75rem;
+  color: var(--color-neutral);
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+/* Status Badges */
+.slot-badge {
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  padding: 0.25rem 0.6rem;
+  border-radius: var(--radius-pill);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.slot-badge-available {
+  background-color: #ecfdf5;
+  color: #059669;
+  border: 1px solid rgba(16, 185, 129, 0.3);
+}
+
+.slot-badge-booked {
+  background-color: #fef2f2;
+  color: #dc2626;
+  border: 1px solid rgba(239, 68, 68, 0.3);
+}
+
+.slot-badge-inactive {
+  background-color: #f3f4f6;
+  color: #6b7280;
+  border: 1px solid rgba(156, 163, 175, 0.3);
+}
+
+/* Deactivate Button */
+.btn-deactivate-slot {
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 0.35rem 0.75rem;
+  border-radius: var(--radius-pill);
+  transition: all var(--transition-fast);
+}
+
+/* Empty State */
+.empty-slots-card {
+  background: var(--color-surface);
+  border: 1px dashed var(--color-border);
+  border-radius: var(--radius-xl);
+  padding: 3rem 1.5rem;
+  text-align: center;
+}
+
+.empty-icon-box {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: #fef2f2;
+  color: #dc2626;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 1rem auto;
+}
+
+@media (max-width: 576px) {
+  .timeslot-hero {
+    padding: 1.5rem !important;
+  }
+}
