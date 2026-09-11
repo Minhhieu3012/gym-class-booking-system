@@ -60,7 +60,9 @@ public class SecurityConfig {
                                     "/class-types",
                                     "/class-types/**",
                                     "/classes",
-                                    "/classes/**"
+                                    "/classes/**",
+                                    "/packages",
+                                    "/packages/**"
                             ).permitAll()
 
                             .anyRequest().authenticated()
