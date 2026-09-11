@@ -1,0 +1,268 @@
+package com.gym.gym_booking.service.impl;
+
+import com.gym.gym_booking.dto.member_package.MemberPackageResponseDTO;
+import com.gym.gym_booking.entity.MemberPackage;
+import com.gym.gym_booking.entity.User;
+import com.gym.gym_booking.enums.MemberPackageStatus;
+import com.gym.gym_booking.enums.UserRole;
+import com.gym.gym_booking.repository.MemberPackageRepository;
+import com.gym.gym_booking.repository.UserRepository;
+import com.gym.gym_booking.service.MemberPackageService;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.time.LocalDate;
+
+@Service
+public class MemberPackageServiceImpl
+        implements MemberPackageService {
+
+    private final MemberPackageRepository memberPackageRepository;
+    private final UserRepository userRepository;
+
+    public MemberPackageServiceImpl(
+            MemberPackageRepository memberPackageRepository,
+            UserRepository userRepository
+    ) {
+        this.memberPackageRepository = memberPackageRepository;
+        this.userRepository = userRepository;
+    }
+
+    // CURRENT USER
+    private User getCurrentUser() {
+
+        Authentication authentication =
+                SecurityContextHolder
+                        .getContext()
+                        .getAuthentication();
+
+        if (authentication == null
+                || !authentication.isAuthenticated()) {
+
+            throw new RuntimeException("Unauthorized");
+        }
+
+        String email = authentication.getName();
+
+        return userRepository
+                .findByEmail(email)
+                .orElseThrow(() ->
+                        new RuntimeException("User not found"));
+    }
+
+    // =====================================================
+    // UPDATE STATUS
+    // =====================================================
+
+    private void updateStatus(MemberPackage memberPackage) {
+
+        if (memberPackage.getStatus()
+                == MemberPackageStatus.ACTIVE
+                && LocalDate.now()
+                .isAfter(memberPackage.getEndDate())) {
+
+            memberPackage.setStatus(
+                    MemberPackageStatus.EXPIRED
+            );
+        }
+    }
+
+    // =====================================================
+    // MAPPER
+    // =====================================================
+
+    private MemberPackageResponseDTO toResponse(
+            MemberPackage memberPackage
+    ) {
+
+        User member = memberPackage.getMember();
+
+        return new MemberPackageResponseDTO(
+                memberPackage.getId(),
+
+                member.getId(),
+                member.getFullName(),
+
+                memberPackage.getPackageEntity().getId(),
+                memberPackage.getPackageEntity().getName(),
+
+                memberPackage.getStartDate(),
+                memberPackage.getEndDate(),
+
+                memberPackage.getSessionsRemaining(),
+
+                memberPackage.getStatus()
+        );
+    }
+
+    // =====================================================
+    // MEMBER
+    // =====================================================
+
+    @Override
+    @Transactional
+    public Page<MemberPackageResponseDTO> getMyPackages(
+            MemberPackageStatus status,
+            Pageable pageable
+    ) {
+
+        User currentUser = getCurrentUser();
+
+        if (currentUser.getRole() != UserRole.MEMBER) {
+            throw new RuntimeException(
+                    "Only member can access own packages"
+            );
+        }
+
+        Page<MemberPackage> packages;
+
+        if (status != null) {
+
+            packages =
+                    memberPackageRepository
+                            .findByMemberIdAndStatus(
+                                    currentUser.getId(),
+                                    status,
+                                    pageable
+                            );
+
+        } else {
+
+            packages =
+                    memberPackageRepository
+                            .findByMemberId(
+                                    currentUser.getId(),
+                                    pageable
+                            );
+        }
+
+        packages.forEach(this::updateStatus);
+
+        return packages.map(this::toResponse);
+    }
+
+    @Override
+    @Transactional
+    public MemberPackageResponseDTO getMyPackageById(
+            Long id
+    ) {
+
+        if (id == null || id <= 0) {
+            throw new RuntimeException(
+                    "Invalid member package ID"
+            );
+        }
+
+        User currentUser = getCurrentUser();
+
+        if (currentUser.getRole() != UserRole.MEMBER) {
+            throw new RuntimeException(
+                    "Only member can access own packages"
+            );
+        }
+
+        MemberPackage memberPackage =
+                memberPackageRepository
+                        .findByIdAndMemberId(
+                                id,
+                                currentUser.getId()
+                        )
+                        .orElseThrow(() ->
+                                new RuntimeException(
+                                        "Member package not found"
+                                ));
+
+        updateStatus(memberPackage);
+
+        return toResponse(memberPackage);
+    }
+
+    // =====================================================
+    // ADMIN
+    // =====================================================
+
+    @Override
+    @Transactional
+    public Page<MemberPackageResponseDTO> getAllMemberPackages(
+            Long memberId,
+            MemberPackageStatus status,
+            Pageable pageable
+    ) {
+
+        if (memberId != null && memberId <= 0) {
+            throw new RuntimeException(
+                    "Invalid member ID"
+            );
+        }
+
+        Page<MemberPackage> packages;
+
+        if (memberId != null && status != null) {
+
+            packages =
+                    memberPackageRepository
+                            .findByMemberIdAndStatus(
+                                    memberId,
+                                    status,
+                                    pageable
+                            );
+
+        } else if (memberId != null) {
+
+            packages =
+                    memberPackageRepository
+                            .findByMemberId(
+                                    memberId,
+                                    pageable
+                            );
+
+        } else if (status != null) {
+
+            packages =
+                    memberPackageRepository
+                            .findByStatus(
+                                    status,
+                                    pageable
+                            );
+
+        } else {
+
+            packages =
+                    memberPackageRepository
+                            .findAll(pageable);
+        }
+
+        packages.forEach(this::updateStatus);
+
+        return packages.map(this::toResponse);
+    }
+
+    @Override
+    @Transactional
+    public MemberPackageResponseDTO getMemberPackageById(
+            Long id
+    ) {
+
+        if (id == null || id <= 0) {
+            throw new RuntimeException(
+                    "Invalid member package ID"
+            );
+        }
+
+        MemberPackage memberPackage =
+                memberPackageRepository
+                        .findById(id)
+                        .orElseThrow(() ->
+                                new RuntimeException(
+                                        "Member package not found"
+                                ));
+
+        updateStatus(memberPackage);
+
+        return toResponse(memberPackage);
+    }
+}

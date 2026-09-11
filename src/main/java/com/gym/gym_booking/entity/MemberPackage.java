@@ -31,9 +31,6 @@ public class MemberPackage {
     @Column(nullable = false, length = 20)
     private MemberPackageStatus status;
 
-    @Column(name = "priority_order")
-    private Integer priorityOrder;
-
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(
             name = "member_id",
