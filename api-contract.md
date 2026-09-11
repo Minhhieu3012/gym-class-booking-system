@@ -1445,20 +1445,27 @@ MEMBER
 
 ### Business Rules
 
-- `memberPackageId` is optional: If provided, consumes that specific package. If omitted or null, system automatically selects the member's active package with the highest `priority_order` and nearest expiration date.
-- Member package must belong to current member.
-- Member package must be ACTIVE.
-- Current date must be within package validity period.
-- sessionsRemaining > 0.
+- `memberPackageId` is optional.
+- If `memberPackageId` is provided, the system consumes that specific MemberPackage.
+- If `memberPackageId` is omitted or null, the system automatically selects an eligible MemberPackage of the current member.
+- When automatically selecting a package, the system prioritizes:
+    1. MemberPackage with status `ACTIVE`.
+    2. MemberPackage whose validity period includes the current date.
+    3. MemberPackage with `sessionsRemaining > 0`.
+    4. MemberPackage with the nearest `endDate`.
+- MemberPackage must belong to the current member.
+- MemberPackage must be `ACTIVE`.
+- Current date must be within the package validity period.
+- `sessionsRemaining > 0`.
 - Gym class must exist.
 - Gym class must allow booking.
 - Class must not have started.
 - Class must have available capacity.
 - Member cannot have another active booking for the same class.
 - One package session is consumed.
-- currentCount increases by 1.
-- Booking status becomes CONFIRMED.
-- Attendance status becomes NOT_MARKED.
+- `currentCount` increases by 1.
+- Booking status becomes `CONFIRMED`.
+- Attendance status becomes `NOT_MARKED`.
 - All operations must be transactional.
 
 ### Success
