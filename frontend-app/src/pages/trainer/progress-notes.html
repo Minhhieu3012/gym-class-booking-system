@@ -1,0 +1,153 @@
+<main class="trainer-progress-notes-page bg-surface-alt min-vh-100 pb-5">
+  <!-- ── NAVBAR ── -->
+  <nav class="progress-navbar w-100 d-flex justify-content-between align-items-center px-3 px-md-4 py-3 bg-surface border-bottom border-theme sticky-top">
+    <div class="d-flex align-items-center gap-3">
+      <a href="/profile" data-link class="btn-back text-secondary-theme d-flex align-items-center justify-content-center" aria-label="Quay lại">
+        <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M19 12H5M12 19l-7-7 7-7" />
+        </svg>
+      </a>
+      <div>
+        <div class="d-flex align-items-center gap-2">
+          <span class="logo-lightning">⚡</span>
+          <span class="brand-title fw-bold text-secondary-theme">PULSE GYM</span>
+        </div>
+        <p class="page-subtitle text-neutral mb-0">HUẤN LUYỆN VIÊN · GHI CHÚ TIẾN ĐỘ HỘI VIÊN</p>
+      </div>
+    </div>
+    <div class="d-flex align-items-center gap-3">
+      <!-- Notification Dropdown -->
+      <div class="dropdown position-relative">
+        <button id="notification-bell" class="btn p-0 border-0 bg-transparent text-secondary-theme position-relative d-flex align-items-center justify-content-center" aria-label="Notifications" type="button">
+          <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9" />
+            <path d="M13.73 21a2 2 0 0 1-3.46 0" />
+          </svg>
+        </button>
+        <div id="notification-dropdown" class="dropdown-menu dropdown-menu-end shadow-lg p-0" style="min-width: 320px; max-width: 380px; z-index: 1050; right: 0; left: auto;">
+        </div>
+      </div>
+      <span class="badge-theme badge-active px-3 py-1">TRAINER PORTAL</span>
+    </div>
+  </nav>
+
+  <!-- ── TOAST THÔNG BÁO ── -->
+  <div class="toast-container position-fixed top-0 end-0 p-3" style="z-index: 1090;">
+    <div id="progress-note-toast" class="toast align-items-center border-0 shadow-lg text-white bg-success" role="alert" aria-live="assertive" aria-atomic="true">
+      <div class="d-flex">
+        <div class="toast-body d-flex align-items-center gap-2 py-3 px-3">
+          <span id="progress-note-toast-icon">
+            <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+            </svg>
+          </span>
+          <span id="progress-note-toast-message" class="fw-semibold">Thao tác thành công!</span>
+        </div>
+        <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── CONTENT CONTAINER ── -->
+  <div class="container py-4 px-3 px-md-4">
+    <!-- HERO HEADER -->
+    <div class="trainer-hero card-theme p-4 p-md-5 mb-4 position-relative overflow-hidden">
+      <div class="row align-items-center">
+        <div class="col-12 col-md-8">
+          <span class="badge-theme badge-active px-3 py-1 mb-2">QUẢN LÝ TIẾN ĐỘ THỂ LỰC</span>
+          <h1 class="hero-title fw-bold text-secondary-theme mb-2">Ghi Chú Tiến Độ Học Viên</h1>
+          <p class="hero-desc text-neutral mb-0">
+            Lưu lại nhận xét sau mỗi buổi tập, đánh giá mức độ tiến bộ thể lực, điều chỉnh bài tập và lưu ý dinh dưỡng/y tế cho từng học viên.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="row g-4 justify-content-center">
+      <!-- FORM TẠO GHI CHÚ TIẾN ĐỘ -->
+      <div class="col-12 col-lg-8">
+        <div class="card card-theme bg-surface border-theme shadow-sm">
+          <div class="card-header bg-surface border-theme py-3 px-4">
+            <h2 class="fs-5 fw-bold text-secondary-theme mb-1">Tạo Ghi Chú Mới</h2>
+            <small class="text-neutral">Chọn hội viên và nhập nội dung đánh giá để lưu vào hồ sơ tập luyện</small>
+          </div>
+          <div class="card-body p-4">
+            <form id="progressNoteForm" onsubmit="return false;">
+              <!-- 1. Chọn Hội viên (memberId) -->
+              <div class="mb-4">
+                <label for="memberSelect" class="form-label fw-bold text-secondary-theme mb-2">
+                  <span class="text-danger me-1">*</span>Chọn Hội viên:
+                </label>
+                <div class="input-group">
+                  <span class="input-group-text bg-surface-alt border-theme text-neutral">
+                    <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                    </svg>
+                  </span>
+                  <select class="form-select bg-surface-alt text-secondary-theme border-theme py-2" id="memberSelect" required>
+                    <option value="" selected disabled>-- Vui lòng chọn hội viên --</option>
+                    <option value="1">Nguyễn Văn An (Mã: #MB-0001 · an.nguyen@example.com)</option>
+                    <option value="2">Trần Thị Mai (Mã: #MB-0002 · mai.tran@example.com)</option>
+                    <option value="3">Lê Hoàng Cường (Mã: #MB-0003 · cuong.le@example.com)</option>
+                    <option value="4">Phạm Minh Đức (Mã: #MB-0004 · duc.pham@example.com)</option>
+                    <option value="5">Võ Thảo Linh (Mã: #MB-0005 · linh.vo@example.com)</option>
+                  </select>
+                </div>
+                <div class="form-text text-neutral">
+                  Huấn luyện viên có thể chọn học viên trong các lớp nhóm hoặc buổi tập cá nhân 1-1.
+                </div>
+              </div>
+
+              <!-- 2. Nhập nội dung ghi chú (content) -->
+              <div class="mb-4">
+                <label for="noteContent" class="form-label fw-bold text-secondary-theme mb-2">
+                  <span class="text-danger me-1">*</span>Nội dung ghi chú tiến độ / sức khỏe:
+                </label>
+                <textarea
+                  class="form-control bg-surface-alt text-secondary-theme border-theme"
+                  id="noteContent"
+                  rows="6"
+                  placeholder="Nhập chi tiết nhận xét về thể lực, mức tạ, kỹ thuật động tác, nhịp tim hoặc lưu ý chấn thương..."
+                  required
+                ></textarea>
+                <div class="form-text text-neutral">
+                  Ghi chú này sẽ được lưu trữ an toàn và dùng làm cơ sở đánh giá lộ trình tập luyện tiếp theo của học viên.
+                </div>
+              </div>
+
+              <!-- Nút Lưu ghi chú -->
+              <div class="d-flex justify-content-end gap-2 pt-2 border-top border-theme">
+                <button type="reset" class="btn btn-outline-secondary px-4 py-2" id="resetNoteBtn">
+                  Làm mới
+                </button>
+                <button type="button" class="btn btn-primary fw-bold px-4 py-2 d-inline-flex align-items-center gap-2" id="saveNoteBtn">
+                  <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+                  </svg>
+                  <span>Lưu ghi chú</span>
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      <!-- DANH SÁCH GHI CHÚ GẦN ĐÂY -->
+      <div class="col-12 col-lg-8">
+        <div class="card card-theme bg-surface border-theme shadow-sm">
+          <div class="card-header bg-surface border-theme py-3 px-4 d-flex justify-content-between align-items-center">
+            <h3 class="fs-6 fw-bold text-secondary-theme mb-0">Ghi Chú Đã Lưu Trong Phiên</h3>
+            <span class="badge bg-secondary rounded-pill" id="recent-notes-count">0 ghi chú</span>
+          </div>
+          <div class="card-body p-0">
+            <div id="recent-notes-list" class="list-group list-group-flush">
+              <div class="p-4 text-center text-muted" id="recent-notes-empty">
+                <p class="mb-0" style="font-size: 0.875rem;">Chưa có ghi chú nào được lưu trong phiên này.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>

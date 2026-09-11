@@ -20,6 +20,8 @@ import * as MemberPTBookingPage from "../pages/member/pt-booking";
 import * as MemberMyBookingsPage from "../pages/member/my-bookings";
 import * as TrainerPTRequestsPage from "../pages/trainer/pt-requests";
 import * as TrainerTimeSlotsPage from "../pages/trainer/time-slots";
+import * as TrainerAttendancePage from "../pages/trainer/attendance";
+import * as TrainerProgressNotesPage from "../pages/trainer/progress-notes";
 import { initNotification } from "../components/notification-popover";
 
 // Types
@@ -145,6 +147,20 @@ const routes: Route[] = [
     roles: ["TRAINER", "ADMIN"],
     view: TrainerTimeSlotsPage.render,
     init: TrainerTimeSlotsPage.init,
+  },
+  {
+    path: "/trainer/attendance",
+    requiresAuth: true,
+    roles: ["TRAINER", "ADMIN"],
+    view: TrainerAttendancePage.render,
+    init: TrainerAttendancePage.init,
+  },
+  {
+    path: "/trainer/progress-notes",
+    requiresAuth: true,
+    roles: ["TRAINER", "ADMIN"],
+    view: TrainerProgressNotesPage.render,
+    init: TrainerProgressNotesPage.init,
   },
   {
     path: "/admin/dashboard",
