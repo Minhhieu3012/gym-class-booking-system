@@ -120,70 +120,45 @@ function getDemoConversations(isTrainerRole: boolean): ConversationItem[] {
 
 function getInitialDemoMessages(partnerId: number, myId: number): ChatMessageDTO[] {
   const now = Date.now();
-  if (partnerId === 101 || partnerId === 201) {
-    return [
-      {
-        id: 1,
-        senderId: partnerId,
-        receiverId: myId,
-        content: "Chào bạn! Hôm nay bạn có dự định tập các bài Cardio hay cơ lưng xô không?",
-        imageUrl: null,
-        sentAt: new Date(now - 30 * 60 * 1000).toISOString(),
-        readAt: new Date(now - 29 * 60 * 1000).toISOString(),
-      },
-      {
-        id: 2,
-        senderId: myId,
-        receiverId: partnerId,
-        content: "Chào huấn luyện viên, hôm nay mình muốn tập trung vào bài Deadlift và Squat ạ!",
-        imageUrl: null,
-        sentAt: new Date(now - 25 * 60 * 1000).toISOString(),
-        readAt: new Date(now - 24 * 60 * 1000).toISOString(),
-      },
-      {
-        id: 3,
-        senderId: partnerId,
-        receiverId: myId,
-        content: "Bạn xem kỹ lại tư thế đặt chân và siết cơ bụng trong ảnh mẫu này trước khi vào bài nhé:",
-        imageUrl: "https://images.unsplash.com/photo-1517838277536-f5f99be501cd?w=600&auto=format&fit=crop&q=80",
-        sentAt: new Date(now - 15 * 60 * 1000).toISOString(),
-        readAt: new Date(now - 14 * 60 * 1000).toISOString(),
-      },
-    ];
-  } else if (partnerId === 102 || partnerId === 202) {
-    return [
-      {
-        id: 11,
-        senderId: partnerId,
-        receiverId: myId,
-        content: "Chào bạn, hôm nay tiến độ bài tập giãn cơ của bạn thế nào rồi?",
-        imageUrl: null,
-        sentAt: new Date(now - 60 * 60 * 1000).toISOString(),
-        readAt: new Date(now - 55 * 60 * 1000).toISOString(),
-      },
-      {
-        id: 12,
-        senderId: myId,
-        receiverId: partnerId,
-        content: "Mình cảm thấy rất khỏe và đỡ mỏi lưng hơn nhiều rồi ạ!",
-        imageUrl: null,
-        sentAt: new Date(now - 45 * 60 * 1000).toISOString(),
-        readAt: new Date(now - 44 * 60 * 1000).toISOString(),
-      },
-    ];
-  }
+  const msgs: ChatMessageDTO[] = [];
+  const sampleTopics: [string, string][] = [
+    ["Chào bạn! Hôm nay bạn có dự định tập các bài Cardio hay cơ lưng xô không?", "Chào HLV, hôm nay em muốn tập trung vào bài Deadlift và Squat ạ!"],
+    ["Rất tốt! Bạn nhớ khởi động kỹ khớp háng và cổ chân 10 phút nhé.", "Dạ em vừa khởi động xong rồi, chuẩn bị vào set khởi động ạ."],
+    ["Set 1: Mức tạ 40kg, 12 reps, tập trung cảm nhận cơ mông và đùi sau.", "Em đã xong set 1 rất nhẹ nhàng ạ!"],
+    ["Tăng lên 60kg cho set 2 nhé, nhớ gồng chặt core và thở đều.", "Dạ em đã hoàn thành set 2, cảm giác cơ phát lực rất tốt."],
+    ["Set 3: 70kg, 8 reps, chú ý giữ thẳng lưng không để võng nhé.", "Dạ em vừa xong set 3, hơi đuối một chút nhưng form vẫn chuẩn."],
+    ["Tuyệt vời! Nghỉ 90 giây rồi uống một ngụm nước nhỏ.", "Dạ em đang nghỉ và bù điện giải đây ạ."],
+    ["Tiếp theo chuyển sang Squat nhé: 4 sets x 10 reps.", "Squat hôm nay em tập với thanh Barbell tự do đúng không anh?"],
+    ["Đúng rồi em, xuống sâu song song với sàn và mở gối theo hướng mũi chân.", "Dạ vâng, em bắt đầu set Squat đầu tiên đây ạ."],
+    ["Set 1 Squat thế nào rồi em?", "Em xong rồi ạ, đùi trước cảm nhận căng rất đã!"],
+    ["Rất chuẩn! Hoàn thành nốt các set còn lại rồi giãn cơ tĩnh nhé.", "Em đã hoàn thành toàn bộ buổi tập hôm nay rồi ạ! Cảm ơn HLV! 💪"]
+  ];
 
-  return [
-    {
-      id: 21,
+  let idCounter = 1;
+  sampleTopics.forEach((pair, idx) => {
+    // Partner message (incoming)
+    msgs.push({
+      id: idCounter++,
       senderId: partnerId,
       receiverId: myId,
-      content: "Xin chào! Rất vui được đồng hành cùng bạn trong lộ trình tập luyện tại Pulse Gym!",
+      content: pair[0],
+      imageUrl: idx === 1 ? "https://images.unsplash.com/photo-1517838277536-f5f99be501cd?w=600&auto=format&fit=crop&q=80" : null,
+      sentAt: new Date(now - (sampleTopics.length - idx) * 4 * 60 * 1000).toISOString(),
+      readAt: new Date(now - (sampleTopics.length - idx) * 4 * 60 * 1000 + 30000).toISOString(),
+    });
+    // My message (outgoing)
+    msgs.push({
+      id: idCounter++,
+      senderId: myId,
+      receiverId: partnerId,
+      content: pair[1],
       imageUrl: null,
-      sentAt: new Date(now - 2 * 3600 * 1000).toISOString(),
-      readAt: new Date(now - 2 * 3600 * 1000).toISOString(),
-    },
-  ];
+      sentAt: new Date(now - (sampleTopics.length - idx) * 4 * 60 * 1000 + 60000).toISOString(),
+      readAt: new Date(now - (sampleTopics.length - idx) * 4 * 60 * 1000 + 90000).toISOString(),
+    });
+  });
+
+  return msgs;
 }
 
 // ==================== HELPER FUNCTIONS ====================
@@ -249,6 +224,12 @@ function scrollToBottom(): void {
   const messageArea = document.getElementById("message-area");
   if (messageArea) {
     messageArea.scrollTop = messageArea.scrollHeight;
+    requestAnimationFrame(() => {
+      messageArea.scrollTop = messageArea.scrollHeight;
+    });
+    setTimeout(() => {
+      messageArea.scrollTop = messageArea.scrollHeight;
+    }, 60);
   }
 }
 
@@ -853,9 +834,12 @@ export async function init(): Promise<void> {
   // Render danh sách hội thoại
   renderConversations(conversations);
 
-  // Tự động chọn cuộc hội thoại đầu tiên để sẵn sàng chat ngay lập tức!
+  // Trên Desktop/Tablet (>= 768px): Tự động chọn cuộc hội thoại đầu tiên
+  // Trên Mobile (< 768px): Giữ danh sách liên hệ chiếm toàn màn hình, chỉ mở chat khi người dùng chọn liên hệ
   if (conversations.length > 0) {
-    await selectConversation(conversations[0].userId);
+    if (typeof window !== "undefined" && window.innerWidth >= 768) {
+      await selectConversation(conversations[0].userId);
+    }
   }
 
   // Thiết lập sự kiện Form gửi tin nhắn

@@ -288,6 +288,13 @@ public class ChatServiceImpl implements ChatService {
                 dto
         );
 
+        // 3. Đẩy thông báo xác nhận thành công tới kênh /user/queue/ack của người gửi
+        messagingTemplate.convertAndSendToUser(
+                sender.getEmail(),
+                "/queue/ack",
+                dto
+        );
+
         return dto;
     }
 
