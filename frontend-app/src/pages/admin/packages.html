@@ -1,457 +1,363 @@
-<div class="pkg-layout-wrapper admin-theme d-flex">
+<div class="admin-layout-wrapper d-flex min-vh-100">
   <!-- ══════════════════════════════════════════
-       SIDEBAR
+       SIDEBAR (Fixed Desktop-first, Dark Theme)
   ═══════════════════════════════════════════ -->
-  <aside id="admin-sidebar" class="pkg-sidebar bg-surface d-flex flex-column">
-    <!-- Logo -->
-    <div
-      class="pkg-sidebar-logo-container d-flex align-items-center gap-2 px-4"
-    >
-      <div
-        class="pkg-sidebar-logo-icon-wrapper rounded-theme-md d-flex align-items-center justify-content-center"
-      >
-        <svg
-          width="18"
-          height="18"
-          fill="none"
-          stroke="var(--color-primary)"
-          stroke-width="2.5"
-          viewBox="0 0 24 24"
-        >
-          <path d="M18 20V10M12 20V4M6 20v-6" />
+  <aside id="admin-sidebar" class="admin-sidebar d-flex flex-column flex-shrink-0">
+    <!-- Brand Header -->
+    <div class="sidebar-brand d-flex align-items-center gap-3 px-4 py-3 border-bottom border-dark-subtle">
+      <div class="brand-logo-badge rounded-3 d-flex align-items-center justify-content-center">
+        <svg width="22" height="22" fill="none" stroke="#a3e635" stroke-width="2.5" viewBox="0 0 24 24">
+          <polyline points="22 12 18 12 15 21 9 3 6 12 2 12" />
         </svg>
       </div>
-      <div>
-        <p class="pkg-sidebar-logo-title mb-0 fw-bold text-secondary-theme">
-          PULSE
-        </p>
-        <p class="pkg-sidebar-logo-subtitle mb-0 text-neutral">PERFORMANCE</p>
+      <div class="d-flex flex-column">
+        <span class="brand-title fw-bold text-white tracking-wide">PULSE GYM</span>
+        <span class="brand-subtitle text-secondary-emphasis small">ADMIN PORTAL</span>
       </div>
     </div>
 
-    <!-- Nav label -->
-    <p class="pkg-sidebar-nav-label mb-0 text-neutral px-4 mt-4 mb-2">
-      COMMAND CENTER
-    </p>
+    <!-- Navigation Label -->
+    <div class="sidebar-nav-label px-4 pt-4 pb-2 text-uppercase fw-semibold text-muted small">
+      Quản lý hệ thống
+    </div>
 
-    <!-- Nav links -->
-    <nav class="d-flex flex-column px-3 gap-1 flex-grow-1">
+    <!-- Navigation Links -->
+    <nav class="nav nav-pills flex-column px-3 gap-1 flex-grow-1">
+      <!-- 1. Dashboard -->
       <a
         href="/admin/dashboard"
         data-link
-        class="sidebar-link d-flex align-items-center gap-3 px-3 py-2 rounded-theme-md text-neutral"
+        class="admin-nav-link nav-link d-flex align-items-center gap-3 px-3 py-2 rounded-3 text-secondary-emphasis"
         id="nav-dashboard"
       >
-        <svg
-          width="16"
-          height="16"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="2"
-          viewBox="0 0 24 24"
-        >
-          <rect x="3" y="3" width="7" height="7" />
-          <rect x="14" y="3" width="7" height="7" />
-          <rect x="14" y="14" width="7" height="7" />
-          <rect x="3" y="14" width="7" height="7" />
+        <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <rect x="3" y="3" width="7" height="9" rx="1" />
+          <rect x="14" y="3" width="7" height="5" rx="1" />
+          <rect x="14" y="12" width="7" height="9" rx="1" />
+          <rect x="3" y="16" width="7" height="5" rx="1" />
         </svg>
-        <span class="pkg-sidebar-nav-text">Dashboard</span>
+        <span>Dashboard</span>
       </a>
 
+      <!-- 2. Users -->
+      <a
+        href="/admin/users"
+        data-link
+        class="admin-nav-link nav-link d-flex align-items-center gap-3 px-3 py-2 rounded-3 text-secondary-emphasis"
+        id="nav-users"
+      >
+        <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+          <circle cx="9" cy="7" r="4" />
+          <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
+          <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+        </svg>
+        <span>Users</span>
+      </a>
+
+      <!-- 3. Trainers -->
+      <a
+        href="/admin/trainers"
+        data-link
+        class="admin-nav-link nav-link d-flex align-items-center gap-3 px-3 py-2 rounded-3 text-secondary-emphasis"
+        id="nav-trainers"
+      >
+        <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <path d="M6 9l6 6 6-6" />
+          <circle cx="12" cy="12" r="10" />
+          <path d="M12 8v8" />
+        </svg>
+        <span>Trainers</span>
+      </a>
+
+      <!-- 4. Rooms -->
       <a
         href="/admin/rooms"
         data-link
-        class="sidebar-link d-flex align-items-center gap-3 px-3 py-2 rounded-theme-md text-neutral"
+        class="admin-nav-link nav-link d-flex align-items-center gap-3 px-3 py-2 rounded-3 text-secondary-emphasis"
         id="nav-rooms"
       >
-        <svg
-          width="16"
-          height="16"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="2"
-          viewBox="0 0 24 24"
-        >
+        <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
           <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
           <polyline points="9 22 9 12 15 12 15 22" />
         </svg>
-        <span class="pkg-sidebar-nav-text">Rooms</span>
+        <span>Rooms</span>
       </a>
 
+      <!-- 5. Class Types -->
       <a
         href="/admin/class-types"
         data-link
-        class="sidebar-link d-flex align-items-center gap-3 px-3 py-2 rounded-theme-md text-neutral"
+        class="admin-nav-link nav-link d-flex align-items-center gap-3 px-3 py-2 rounded-3 text-secondary-emphasis"
         id="nav-class-types"
       >
-        <svg
-          width="16"
-          height="16"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="2"
-          viewBox="0 0 24 24"
-        >
+        <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
           <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20" />
-          <path
-            d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"
-          />
+          <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z" />
         </svg>
-        <span class="pkg-sidebar-nav-text">Class Types</span>
+        <span>Class Types</span>
       </a>
 
+      <!-- 6. Packages (Active) -->
       <a
         href="/admin/packages"
         data-link
-        class="sidebar-link sidebar-link--active d-flex align-items-center gap-3 px-3 py-2 rounded-theme-md"
+        class="admin-nav-link nav-link active d-flex align-items-center gap-3 px-3 py-2 rounded-3 text-white"
         id="nav-packages"
       >
-        <svg
-          width="16"
-          height="16"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="2"
-          viewBox="0 0 24 24"
-        >
-          <line x1="8" y1="6" x2="21" y2="6" />
-          <line x1="8" y1="12" x2="21" y2="12" />
-          <line x1="8" y1="18" x2="21" y2="18" />
-          <line x1="3" y1="6" x2="3.01" y2="6" />
-          <line x1="3" y1="12" x2="3.01" y2="12" />
-          <line x1="3" y1="18" x2="3.01" y2="18" />
+        <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <rect x="2" y="7" width="20" height="14" rx="2" ry="2" />
+          <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16" />
         </svg>
-        <span class="pkg-sidebar-nav-text--active">Packages</span>
+        <span>Packages</span>
+      </a>
+
+      <!-- 7. Reviews -->
+      <a
+        href="/admin/reviews"
+        data-link
+        class="admin-nav-link nav-link d-flex align-items-center gap-3 px-3 py-2 rounded-3 text-secondary-emphasis"
+        id="nav-reviews"
+      >
+        <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+        </svg>
+        <span>Reviews</span>
+      </a>
+
+      <!-- 8. Transactions -->
+      <a
+        href="/admin/transactions"
+        data-link
+        class="admin-nav-link nav-link d-flex align-items-center gap-3 px-3 py-2 rounded-3 text-secondary-emphasis"
+        id="nav-transactions"
+      >
+        <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <rect x="1" y="4" width="22" height="16" rx="2" ry="2" />
+          <line x1="1" y1="10" x2="23" y2="10" />
+        </svg>
+        <span>Transactions</span>
       </a>
     </nav>
 
-    <div class="pkg-sidebar-user-container px-4 py-3">
-      <div class="d-flex align-items-center gap-2">
-        <div
-          id="sidebar-avatar"
-          class="pkg-sidebar-user-avatar rounded-circle d-flex align-items-center justify-content-center fw-bold bg-surface-alt text-secondary-theme"
-        >
+    <!-- Sidebar Footer / Admin Info Mini Card -->
+    <div class="sidebar-footer p-3 border-top border-dark-subtle mt-auto">
+      <div class="d-flex align-items-center gap-2 px-2 py-1">
+        <div class="admin-avatar-sm rounded-circle d-flex align-items-center justify-content-center fw-bold">
           A
         </div>
         <div class="overflow-hidden">
-          <p
-            id="sidebar-username"
-            class="pkg-sidebar-user-name mb-0 fw-semibold text-secondary-theme text-truncate"
-          >
-            Admin
-          </p>
-          <p class="pkg-sidebar-user-role mb-0 text-neutral text-truncate">
-            System Administrator
-          </p>
+          <div class="text-white small fw-semibold text-truncate" id="sidebar-admin-name">Admin</div>
+          <div class="text-muted small text-truncate">System Administrator</div>
         </div>
       </div>
     </div>
   </aside>
 
   <!-- ══════════════════════════════════════════
-       MAIN CONTENT WRAPPER
+       MAIN CONTENT WRAPPER (Independent Scroll)
   ═══════════════════════════════════════════ -->
-  <div class="pkg-main-content d-flex flex-column flex-grow-1">
-    <header
-      class="pkg-header bg-surface d-flex align-items-center justify-content-between px-4"
-    >
+  <div class="admin-main d-flex flex-column flex-grow-1">
+    <!-- Top Header -->
+    <header class="admin-header bg-white border-bottom px-4 py-3 d-flex align-items-center justify-content-between sticky-top shadow-xs">
+      <!-- Breadcrumbs -->
       <div class="d-flex align-items-center gap-2">
-        <span class="pkg-header-breadcrumb text-neutral">Command Center</span>
-        <svg
-          width="12"
-          height="12"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="2"
-          class="text-neutral"
-          viewBox="0 0 24 24"
-        >
+        <span class="text-muted small text-uppercase fw-semibold">Command Center</span>
+        <svg width="14" height="14" fill="none" stroke="#64748b" stroke-width="2" viewBox="0 0 24 24">
           <polyline points="9 18 15 12 9 6" />
         </svg>
-        <span class="pkg-header-breadcrumb text-neutral"
-          >Inventory & Pricing</span
-        >
-        <svg
-          width="12"
-          height="12"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="2"
-          class="text-neutral"
-          viewBox="0 0 24 24"
-        >
-          <polyline points="9 18 15 12 9 6" />
-        </svg>
-        <span class="pkg-header-breadcrumb fw-semibold text-secondary-theme"
-          >Packages & Passes</span
-        >
+        <span class="fw-bold text-dark small text-uppercase">Quản lý Gói tập</span>
       </div>
+
+      <!-- Header Right: Admin User Name & Logout Button -->
       <div class="d-flex align-items-center gap-3">
-        <div
-          class="pkg-header-status d-flex align-items-center gap-2 px-3 py-1 rounded-theme-md bg-surface-alt border-theme"
-        >
-          <span class="pkg-header-status-dot rounded-circle"></span>
-          <span class="text-secondary-theme fw-semibold" id="pkg-catalog-tag"
-            >Catalog v2.4</span
-          >
+        <!-- Admin Profile Info -->
+        <div class="d-flex align-items-center gap-2 py-1 px-2 rounded-3 bg-light border">
+          <div class="header-avatar rounded-circle d-flex align-items-center justify-content-center fw-bold text-white bg-dark">
+            A
+          </div>
+          <span id="admin-name" class="fw-semibold text-dark small px-1">Admin</span>
         </div>
+
+        <!-- Logout Button -->
         <button
-          class="pkg-header-notification btn p-0 border-0 bg-transparent text-neutral position-relative"
-          aria-label="Notifications"
+          type="button"
+          id="btn-logout"
+          class="btn btn-outline-danger btn-sm d-flex align-items-center gap-2 px-3 py-2 rounded-3"
+          title="Đăng xuất khỏi hệ thống"
         >
-          <svg
-            width="18"
-            height="18"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-            viewBox="0 0 24 24"
-          >
-            <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9" />
-            <path d="M13.73 21a2 2 0 0 1-3.46 0" />
+          <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
+            <polyline points="16 17 21 12 16 7" />
+            <line x1="21" y1="12" x2="9" y2="12" />
           </svg>
-          <span
-            class="pkg-header-notification-dot position-absolute top-0 end-0 rounded-circle"
-          ></span>
+          <span class="fw-medium">Đăng xuất</span>
         </button>
-        <div
-          id="header-avatar"
-          class="pkg-header-avatar rounded-circle d-flex align-items-center justify-content-center fw-bold bg-surface-alt text-secondary-theme border-theme"
-        >
-          A
-        </div>
       </div>
     </header>
 
-    <!-- PAGE CONTENT -->
-    <main class="flex-grow-1 p-4 p-lg-5">
-      <div
-        class="d-flex align-items-start justify-content-between mb-4 flex-wrap gap-3"
-      >
-        <div>
-          <h1 class="pkg-page-title fw-bold text-secondary-theme mb-1">
-            Package Management
-            <span class="pkg-page-title-badge ms-2 badge-theme badge-active"
-              >CATALOG v2.4</span
-            >
-          </h1>
-          <p class="pkg-page-desc text-neutral mb-0">
-            Configure recurring memberships, personal training bundles, and
-            drop-in session passes across all facility zones.
-          </p>
-        </div>
-        <button
-          id="btn-open-add-package"
-          class="pkg-add-btn btn-brand d-flex align-items-center gap-2"
-          type="button"
-        >
-          <svg
-            width="16"
-            height="16"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2.5"
-            viewBox="0 0 24 24"
-          >
-            <circle cx="12" cy="12" r="10" />
-            <line x1="12" y1="8" x2="12" y2="16" />
-            <line x1="8" y1="12" x2="16" y2="12" />
-          </svg>
-          + Add New Package
-        </button>
-      </div>
-
-      <!-- Stats Row -->
-      <div class="row g-3 mb-4">
-        <div class="col-6 col-xl-4">
-          <div class="pkg-stat-card card-theme p-3">
-            <p class="pkg-stat-label text-neutral mb-1">TOTAL PACKAGES</p>
-            <p
-              id="stat-total"
-              class="pkg-stat-value fw-bold text-secondary-theme mb-0"
-            >
-              —
-            </p>
-            <p class="pkg-stat-desc text-neutral mt-1 mb-0">Tiers active</p>
-          </div>
-        </div>
-        <div class="col-6 col-xl-4">
-          <div class="pkg-stat-card card-theme p-3">
-            <p class="pkg-stat-label text-neutral mb-1">ACTIVE</p>
-            <p
-              id="stat-active"
-              class="pkg-stat-value fw-bold text-tertiary mb-0"
-            >
-              —
-            </p>
-            <p class="pkg-stat-desc text-neutral mt-1 mb-0">
-              Available to members
+    <!-- Main Content Area -->
+    <main class="admin-content-body flex-grow-1 p-4 p-xl-5">
+      <div class="container-fluid p-0">
+        <!-- Page Header -->
+        <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center gap-3 mb-4">
+          <div>
+            <h1 class="page-main-title fw-bold text-dark mb-1">
+              Quản lý Gói tập
+            </h1>
+            <p class="text-muted mb-0">
+              Cấu hình danh mục thẻ hội viên, mức giá, thời hạn sử dụng và số buổi tập.
             </p>
           </div>
-        </div>
-        <div class="col-6 col-xl-4">
-          <div class="pkg-stat-card card-theme p-3">
-            <p class="pkg-stat-label text-neutral mb-1">INACTIVE</p>
-            <p
-              id="stat-inactive"
-              class="pkg-stat-value fw-bold text-primary-theme mb-0"
-            >
-              —
-            </p>
-            <p class="pkg-stat-desc text-neutral mt-1 mb-0">
-              Archived / Discontinued
-            </p>
-          </div>
-        </div>
-      </div>
-
-      <!-- Alert area -->
-      <div id="pkg-alert" class="mb-3 d-none"></div>
-
-      <!-- Table Card -->
-      <div class="pkg-table-card card-theme overflow-hidden">
-        <!-- Table toolbar -->
-        <div
-          class="pkg-table-header d-flex align-items-center justify-content-between px-4 py-3"
-        >
-          <p class="pkg-table-title mb-0 fw-semibold text-secondary-theme">
-            <svg
-              width="15"
-              height="15"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-              class="pkg-table-title-icon me-1 text-secondary-theme"
-              viewBox="0 0 24 24"
-            >
-              <line x1="8" y1="6" x2="21" y2="6" />
-              <line x1="8" y1="12" x2="21" y2="12" />
-              <line x1="8" y1="18" x2="21" y2="18" />
-              <line x1="3" y1="6" x2="3.01" y2="6" />
-              <line x1="3" y1="12" x2="3.01" y2="12" />
-              <line x1="3" y1="18" x2="3.01" y2="18" />
-            </svg>
-            Package Records
-          </p>
           <div class="d-flex align-items-center gap-2">
-            <label
-              for="pkg-filter-status"
-              class="pkg-filter-label text-neutral mb-0"
-              >Filter:</label
-            >
-            <select
-              id="pkg-filter-status"
-              class="pkg-filter-select form-select form-select-sm border-theme bg-surface text-secondary-theme"
-            >
-              <option value="">All Statuses</option>
-              <option value="true">Active</option>
-              <option value="false">Inactive</option>
-            </select>
-          </div>
-        </div>
-
-        <!-- Loading -->
-        <div id="pkg-loading" class="py-5 text-center">
-          <div class="pkg-loading-spinner spinner-border" role="status">
-            <span class="visually-hidden">Loading...</span>
-          </div>
-          <p class="pkg-loading-text text-neutral mt-3 mb-0">
-            Fetching package data...
-          </p>
-        </div>
-
-        <!-- Table -->
-        <div class="table-responsive d-none" id="pkg-table-wrapper">
-          <table class="pkg-table table mb-0" id="pkg-table">
-            <thead>
-              <tr class="pkg-table-head-row">
-                <th class="pkg-table-th text-neutral px-4 py-3">ID</th>
-                <th class="pkg-table-th text-neutral px-3 py-3">
-                  PACKAGE NAME
-                </th>
-                <th class="pkg-table-th text-neutral px-3 py-3">DESCRIPTION</th>
-                <th class="pkg-table-th text-neutral px-3 py-3 text-end">
-                  PRICE ($)
-                </th>
-                <th class="pkg-table-th text-neutral px-3 py-3 text-center">
-                  DURATION
-                </th>
-                <th class="pkg-table-th text-neutral px-3 py-3 text-center">
-                  QUOTA
-                </th>
-                <th class="pkg-table-th text-neutral px-3 py-3 text-center">
-                  STATUS
-                </th>
-                <th class="pkg-table-th text-neutral px-4 py-3 text-end">
-                  ACTIONS
-                </th>
-              </tr>
-            </thead>
-            <tbody id="pkg-tbody">
-              <!-- rows injected by packages.ts -->
-            </tbody>
-          </table>
-
-          <!-- Empty state -->
-          <div id="pkg-empty" class="py-5 text-center d-none">
-            <svg
-              width="48"
-              height="48"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="1.2"
-              class="text-neutral mb-3"
-              viewBox="0 0 24 24"
-            >
-              <line x1="8" y1="6" x2="21" y2="6" />
-              <line x1="8" y1="12" x2="21" y2="12" />
-              <line x1="8" y1="18" x2="21" y2="18" />
-              <line x1="3" y1="6" x2="3.01" y2="6" />
-              <line x1="3" y1="12" x2="3.01" y2="12" />
-              <line x1="3" y1="18" x2="3.01" y2="18" />
-            </svg>
-            <p class="pkg-empty-title fw-semibold text-secondary-theme mb-1">
-              No packages found
-            </p>
-            <p class="pkg-empty-desc text-neutral mb-0">
-              Add the first package tier using the button above.
-            </p>
-          </div>
-        </div>
-
-        <!-- Pagination (reserved) -->
-        <div
-          id="pkg-pagination"
-          class="pkg-pagination d-flex align-items-center justify-content-between px-4 py-3"
-        >
-          <span
-            id="pkg-page-info"
-            class="pkg-pagination-info text-neutral"
-          ></span>
-          <div class="d-flex gap-2">
             <button
-              id="btn-pkg-prev-page"
-              class="pkg-pagination-btn btn-brand-outline px-3 py-1"
-              disabled
+              id="btn-open-add-package"
+              class="btn btn-primary rounded-3 d-flex align-items-center gap-2 px-3 py-2 shadow-sm fw-semibold"
+              type="button"
             >
-              Prev
+              <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                <line x1="12" y1="5" x2="12" y2="19" />
+                <line x1="5" y1="12" x2="19" y2="12" />
+              </svg>
+              <span>Thêm Gói tập mới</span>
             </button>
-            <button
-              id="btn-pkg-next-page"
-              class="pkg-pagination-btn btn-brand-outline px-3 py-1"
-              disabled
-            >
-              Next
-            </button>
+          </div>
+        </div>
+
+        <!-- 3 Stats Cards Row -->
+        <div class="row g-3 mb-4">
+          <div class="col-12 col-sm-4">
+            <div class="card border-0 shadow-sm rounded-4 p-3 bg-white h-100">
+              <div class="d-flex align-items-center justify-content-between">
+                <div>
+                  <p class="text-muted small text-uppercase fw-semibold mb-1">Tổng số gói</p>
+                  <h3 id="stat-total" class="fw-bold text-dark mb-0">—</h3>
+                </div>
+                <div class="rounded-3 bg-primary-subtle text-primary p-2 d-flex align-items-center justify-content-center" style="width: 44px; height: 44px;">
+                  <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                    <rect x="2" y="7" width="20" height="14" rx="2" ry="2" />
+                    <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16" />
+                  </svg>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-12 col-sm-4">
+            <div class="card border-0 shadow-sm rounded-4 p-3 bg-white h-100">
+              <div class="d-flex align-items-center justify-content-between">
+                <div>
+                  <p class="text-muted small text-uppercase fw-semibold mb-1">Đang phát hành</p>
+                  <h3 id="stat-active" class="fw-bold text-success mb-0">—</h3>
+                </div>
+                <div class="rounded-3 bg-success-subtle text-success p-2 d-flex align-items-center justify-content-center" style="width: 44px; height: 44px;">
+                  <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                    <polyline points="20 6 9 17 4 12" />
+                  </svg>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-12 col-sm-4">
+            <div class="card border-0 shadow-sm rounded-4 p-3 bg-white h-100">
+              <div class="d-flex align-items-center justify-content-between">
+                <div>
+                  <p class="text-muted small text-uppercase fw-semibold mb-1">Tạm dừng / Lưu trữ</p>
+                  <h3 id="stat-inactive" class="fw-bold text-secondary mb-0">—</h3>
+                </div>
+                <div class="rounded-3 bg-secondary-subtle text-secondary p-2 d-flex align-items-center justify-content-center" style="width: 44px; height: 44px;">
+                  <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                    <circle cx="12" cy="12" r="10" />
+                    <line x1="15" y1="9" x2="9" y2="15" />
+                    <line x1="9" y1="9" x2="15" y2="15" />
+                  </svg>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Alert Area -->
+        <div id="pkg-alert" class="mb-4" style="display: none;"></div>
+
+        <!-- Toolbar / Filter Card -->
+        <div class="card border-0 shadow-sm rounded-4 p-3 p-md-4 bg-white mb-4">
+          <div class="row g-3 align-items-center justify-content-between">
+            <div class="col-12 col-md-8 col-lg-8">
+              <div class="input-group">
+                <span class="input-group-text bg-light border-end-0 text-muted">
+                  <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                    <circle cx="11" cy="11" r="8" />
+                    <line x1="21" y1="21" x2="16.65" y2="16.65" />
+                  </svg>
+                </span>
+                <input
+                  type="text"
+                  id="pkg-search-input"
+                  class="form-control border-start-0 ps-0 bg-light"
+                  placeholder="Tìm kiếm theo tên gói, mô tả..."
+                  aria-label="Tìm kiếm gói tập"
+                />
+              </div>
+            </div>
+
+            <div class="col-12 col-md-4 col-lg-4">
+              <div class="d-flex align-items-center gap-2 justify-content-md-end">
+                <label for="pkg-filter-status" class="form-label text-nowrap mb-0 small fw-bold text-muted">
+                  Trạng thái:
+                </label>
+                <select id="pkg-filter-status" class="form-select bg-light" style="max-width: 200px;">
+                  <option value="" selected>Tất cả trạng thái</option>
+                  <option value="true">Đang phát hành</option>
+                  <option value="false">Tạm dừng</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Packages Table Card -->
+        <div class="card border-0 shadow-sm rounded-4 overflow-hidden bg-white mb-4">
+          <!-- Loading State -->
+          <div id="pkg-loading" class="py-5 text-center">
+            <div class="spinner-border spinner-border-sm text-primary me-2" role="status"></div>
+            <span class="text-muted small">Đang tải danh sách gói tập...</span>
+          </div>
+
+          <!-- Table Container -->
+          <div class="table-responsive" id="pkg-table-wrapper" style="display: none;">
+            <table class="table table-hover align-middle mb-0 custom-package-table" id="pkg-table">
+              <thead class="table-light border-bottom">
+                <tr>
+                  <th scope="col" class="ps-4 py-3 text-muted text-uppercase small fw-bold" style="width: 100px;">Mã gói</th>
+                  <th scope="col" class="py-3 text-muted text-uppercase small fw-bold">Tên gói tập</th>
+                  <th scope="col" class="py-3 text-muted text-uppercase small fw-bold">Mô tả</th>
+                  <th scope="col" class="py-3 text-muted text-uppercase small fw-bold text-end" style="width: 140px;">Giá (USD)</th>
+                  <th scope="col" class="py-3 text-muted text-uppercase small fw-bold text-center" style="width: 120px;">Thời hạn</th>
+                  <th scope="col" class="py-3 text-muted text-uppercase small fw-bold text-center" style="width: 120px;">Số buổi</th>
+                  <th scope="col" class="py-3 text-muted text-uppercase small fw-bold text-center" style="width: 140px;">Trạng thái</th>
+                  <th scope="col" class="pe-4 py-3 text-muted text-uppercase small fw-bold text-end" style="width: 180px;">Thao tác</th>
+                </tr>
+              </thead>
+              <tbody id="pkg-tbody">
+                <!-- Rows injected by packages.ts -->
+              </tbody>
+            </table>
+
+            <!-- Empty State -->
+            <div id="pkg-empty" class="py-5 text-center" style="display: none;">
+              <svg width="48" height="48" fill="none" stroke="#94a3b8" stroke-width="1.5" class="mb-3" viewBox="0 0 24 24">
+                <rect x="2" y="7" width="20" height="14" rx="2" ry="2" />
+                <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16" />
+              </svg>
+              <p class="fw-semibold text-dark mb-1">Không tìm thấy gói tập nào</p>
+              <p class="text-muted small mb-0">Thử thay đổi bộ lọc hoặc thêm gói tập mới.</p>
+            </div>
           </div>
         </div>
       </div>
-      <!-- /card-theme -->
     </main>
   </div>
-  <!-- /main-content-wrapper -->
 </div>
-<!-- /admin-theme wrapper -->
 
 <!-- ══════════════════════════════════════════════════════
      MODAL — Add / Edit Package
@@ -463,132 +369,108 @@
   aria-labelledby="modal-pkg-label"
   aria-hidden="true"
 >
-  <div
-    class="pkg-modal-dialog modal-dialog modal-dialog-centered modal-dialog-scrollable"
-  >
-    <div
-      class="pkg-modal-content modal-content bg-surface border-theme shadow-theme-lg"
-    >
-      <div class="pkg-modal-header modal-header">
-        <div class="d-flex align-items-center gap-2">
-          <span class="pkg-modal-header-dot rounded-circle"></span>
-          <h5
-            class="pkg-modal-title modal-title fw-bold text-secondary-theme mb-0"
-            id="modal-pkg-label"
-          >
-            Add New Package
-          </h5>
-        </div>
+  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" style="max-width: 560px;">
+    <div class="modal-content border-0 shadow-lg rounded-4 overflow-hidden">
+      <!-- Modal Header -->
+      <div class="modal-header border-bottom px-4 py-3 bg-white">
+        <h5 class="modal-title fw-bold text-dark mb-0" id="modal-pkg-label">
+          Thêm Gói tập mới
+        </h5>
         <button
           type="button"
-          class="pkg-modal-close-btn btn-close"
+          class="btn-close shadow-none"
           data-bs-dismiss="modal"
-          aria-label="Close"
+          aria-label="Đóng"
         ></button>
       </div>
 
-      <div class="pkg-modal-body modal-body">
-        <p id="modal-pkg-subtitle" class="pkg-modal-subtitle text-neutral mb-4">
-          Set pricing, validity window, and quota restrictions.
+      <!-- Modal Body -->
+      <div class="modal-body px-4 py-4 bg-white">
+        <p id="modal-pkg-subtitle" class="text-muted small mb-4">
+          Thiết lập mức giá, hạn sử dụng và số buổi tập cho gói thẻ.
         </p>
 
         <form id="pkg-form" novalidate>
           <input type="hidden" id="pkg-id-hidden" value="" />
 
           <!-- Package Name -->
-          <div class="mb-4">
-            <div class="d-flex align-items-center justify-content-between mb-2">
-              <label
-                for="pkg-name"
-                class="pkg-modal-label form-label fw-bold text-secondary-theme mb-0"
-              >
-                PACKAGE NAME <span class="text-primary-theme">*</span>
+          <div class="mb-3">
+            <div class="d-flex align-items-center justify-content-between mb-1">
+              <label for="pkg-name" class="form-label fw-semibold text-dark small mb-0">
+                TÊN GÓI TẬP <span class="text-danger">*</span>
               </label>
-              <span id="pkg-name-counter" class="pkg-modal-counter text-neutral"
-                >0 / 60 chars</span
-              >
+              <span id="pkg-name-counter" class="text-muted" style="font-size: 0.75rem;">0 / 60 ký tự</span>
             </div>
             <input
               type="text"
               id="pkg-name"
               name="name"
-              class="pkg-modal-input form-control border-theme bg-surface py-2"
-              placeholder="e.g. VIP PT 10-Pack"
+              class="form-control rounded-3 border-light-subtle shadow-none py-2"
+              placeholder="ví dụ: VIP PT 10-Pack"
               maxlength="60"
               required
               autocomplete="off"
             />
-            <div id="pkg-name-error" class="pkg-modal-error mt-1">
+            <div id="pkg-name-error" class="text-danger small mt-1" style="display: none;">
               Tên gói không được để trống.
             </div>
           </div>
 
           <!-- Description -->
-          <div class="mb-4">
-            <label
-              for="pkg-description"
-              class="pkg-modal-label form-label fw-bold text-secondary-theme mb-2"
-            >
-              DESCRIPTION <span class="text-primary-theme">*</span>
+          <div class="mb-3">
+            <label for="pkg-description" class="form-label fw-semibold text-dark small mb-1">
+              MÔ TẢ GÓI <span class="text-danger">*</span>
             </label>
             <textarea
               id="pkg-description"
               name="description"
-              class="pkg-modal-textarea form-control border-theme bg-surface py-2"
-              placeholder="Personal training bundle — 10 one-on-one sessions with certified PT..."
+              rows="3"
+              class="form-control rounded-3 border-light-subtle shadow-none py-2"
+              placeholder="Mô tả quyền lợi hội viên, 10 buổi tập kèm HLV riêng..."
               maxlength="400"
               required
             ></textarea>
-            <div id="pkg-description-error" class="pkg-modal-error mt-1">
+            <div id="pkg-description-error" class="text-danger small mt-1" style="display: none;">
               Mô tả không được để trống.
             </div>
           </div>
 
           <!-- Price / Duration / Sessions — 3 col grid -->
-          <div class="row g-3 mb-4">
+          <div class="row g-3 mb-3">
             <!-- Price -->
             <div class="col-12 col-sm-4">
-              <label
-                for="pkg-price"
-                class="pkg-modal-label form-label fw-bold text-secondary-theme mb-2"
-              >
-                PRICE ($) <span class="text-primary-theme">*</span>
+              <label for="pkg-price" class="form-label fw-semibold text-dark small mb-1">
+                GIÁ ($) <span class="text-danger">*</span>
               </label>
               <div class="input-group">
-                <span
-                  class="pkg-modal-input-icon input-group-text bg-surface-alt border-theme text-neutral fw-semibold"
-                  >$</span
-                >
+                <span class="input-group-text bg-light border-light-subtle text-muted fw-semibold">$</span>
                 <input
                   type="number"
                   id="pkg-price"
                   name="price"
-                  class="pkg-modal-input-price form-control border-theme bg-surface py-2"
+                  class="form-control border-light-subtle shadow-none py-2"
                   placeholder="500.00"
                   min="0"
                   step="0.01"
                   required
                 />
               </div>
-              <div id="pkg-price-error" class="pkg-modal-error mt-1">
+              <div id="pkg-price-error" class="text-danger small mt-1" style="display: none;">
                 Giá phải lớn hơn 0.
               </div>
             </div>
 
             <!-- Duration (Days) — stepper -->
             <div class="col-12 col-sm-4">
-              <label
-                for="pkg-duration"
-                class="pkg-modal-label form-label fw-bold text-secondary-theme mb-2"
-              >
-                DURATION <span class="text-primary-theme">*</span>
+              <label for="pkg-duration" class="form-label fw-semibold text-dark small mb-1">
+                THỜI HẠN <span class="text-danger">*</span>
               </label>
-              <div class="d-flex align-items-center gap-2">
+              <div class="input-group">
                 <button
                   type="button"
                   id="btn-dur-minus"
-                  class="pkg-modal-stepper-btn btn border-theme bg-surface-alt text-secondary-theme d-flex align-items-center justify-content-center"
-                  aria-label="Decrease days"
+                  class="btn btn-outline-secondary border-light-subtle px-2 shadow-none"
+                  aria-label="Giảm ngày"
                 >
                   −
                 </button>
@@ -596,7 +478,7 @@
                   type="number"
                   id="pkg-duration"
                   name="durationDays"
-                  class="pkg-modal-stepper-input form-control border-theme bg-surface text-center py-2"
+                  class="form-control border-light-subtle shadow-none text-center px-1 py-2"
                   value="30"
                   min="1"
                   max="3650"
@@ -605,31 +487,26 @@
                 <button
                   type="button"
                   id="btn-dur-plus"
-                  class="pkg-modal-stepper-btn btn border-theme bg-surface-alt text-secondary-theme d-flex align-items-center justify-content-center"
-                  aria-label="Increase days"
+                  class="btn btn-outline-secondary border-light-subtle px-2 shadow-none"
+                  aria-label="Tăng ngày"
                 >
                   +
                 </button>
               </div>
-              <p class="pkg-modal-stepper-unit text-neutral mt-1 mb-0">
-                days validity
-              </p>
+              <p class="text-muted mt-1 mb-0" style="font-size: 0.72rem;">ngày hiệu lực</p>
             </div>
 
             <!-- Session Count — stepper -->
             <div class="col-12 col-sm-4">
-              <label
-                for="pkg-sessions"
-                class="pkg-modal-label form-label fw-bold text-secondary-theme mb-2"
-              >
-                QUOTA <span class="text-primary-theme">*</span>
+              <label for="pkg-sessions" class="form-label fw-semibold text-dark small mb-1">
+                SỐ BUỔI <span class="text-danger">*</span>
               </label>
-              <div class="d-flex align-items-center gap-2">
+              <div class="input-group">
                 <button
                   type="button"
                   id="btn-sess-minus"
-                  class="pkg-modal-stepper-btn btn border-theme bg-surface-alt text-secondary-theme d-flex align-items-center justify-content-center"
-                  aria-label="Decrease sessions"
+                  class="btn btn-outline-secondary border-light-subtle px-2 shadow-none"
+                  aria-label="Giảm buổi"
                 >
                   −
                 </button>
@@ -637,7 +514,7 @@
                   type="number"
                   id="pkg-sessions"
                   name="sessionCount"
-                  class="pkg-modal-stepper-input form-control border-theme bg-surface text-center py-2"
+                  class="form-control border-light-subtle shadow-none text-center px-1 py-2"
                   value="10"
                   min="1"
                   max="999"
@@ -646,87 +523,72 @@
                 <button
                   type="button"
                   id="btn-sess-plus"
-                  class="pkg-modal-stepper-btn btn border-theme bg-surface-alt text-secondary-theme d-flex align-items-center justify-content-center"
-                  aria-label="Increase sessions"
+                  class="btn btn-outline-secondary border-light-subtle px-2 shadow-none"
+                  aria-label="Tăng buổi"
                 >
                   +
                 </button>
               </div>
-              <p class="pkg-modal-stepper-unit text-neutral mt-1 mb-0">
-                sessions quota
-              </p>
+              <p class="text-muted mt-1 mb-0" style="font-size: 0.72rem;">buổi tập</p>
             </div>
           </div>
 
           <!-- Status toggle -->
-          <div class="mb-4">
-            <label
-              class="pkg-modal-label form-label fw-bold text-secondary-theme mb-3"
-            >
-              CATALOG PUBLISHING STATUS
+          <div class="p-3 bg-light rounded-3 mb-3 border">
+            <label class="form-label fw-semibold text-dark small mb-2 d-block">
+              TRẠNG THÁI PHÁT HÀNH
             </label>
             <div class="d-flex align-items-center gap-3">
-              <label
-                class="pkg-modal-toggle-wrapper pkg-modal-toggle"
-                aria-label="Toggle package active status"
-              >
+              <div class="form-check form-switch mb-0">
                 <input
+                  class="form-check-input shadow-none"
                   type="checkbox"
+                  role="switch"
                   id="pkg-is-active"
                   name="isActive"
                   checked
+                  style="width: 2.5em; height: 1.3em; cursor: pointer;"
                 />
-                <span class="pkg-modal-toggle-slider"></span>
-              </label>
+              </div>
               <div>
-                <p
-                  id="pkg-status-label"
-                  class="pkg-modal-status-label mb-0 fw-semibold text-secondary-theme"
-                >
-                  Active (Available in Member App)
+                <p id="pkg-status-label" class="mb-0 fw-semibold text-dark small">
+                  Đang phát hành (Hiển thị trên App)
                 </p>
-                <p
-                  id="pkg-status-hint"
-                  class="pkg-modal-status-hint mb-0 text-neutral"
-                >
-                  Members can see and purchase this package.
+                <p id="pkg-status-hint" class="text-muted small mb-0" style="font-size: 0.75rem;">
+                  Hội viên có thể tìm thấy và mua gói tập này.
                 </p>
               </div>
             </div>
           </div>
 
+          <!-- Error Alert inside Form -->
           <div
             id="pkg-form-error"
-            class="pkg-modal-form-error text-center py-2 px-3 rounded-theme-md"
+            class="alert alert-danger py-2 px-3 rounded-3 small mb-0"
+            style="display: none;"
           ></div>
         </form>
       </div>
 
-      <div class="pkg-modal-footer modal-footer d-flex">
+      <!-- Modal Footer -->
+      <div class="modal-footer border-top px-4 py-3 bg-light d-flex justify-content-end gap-2">
         <button
           type="button"
-          class="pkg-modal-footer-btn btn-brand-outline px-4 py-2"
+          class="btn btn-outline-secondary rounded-3 px-3 py-2 fw-medium small"
           data-bs-dismiss="modal"
         >
-          Cancel
+          Hủy bỏ
         </button>
         <button
           type="submit"
           form="pkg-form"
           id="btn-pkg-submit"
-          class="pkg-modal-footer-btn btn-brand px-4 py-2"
+          class="btn btn-primary rounded-3 px-3 py-2 fw-medium small d-flex align-items-center gap-2"
         >
-          <svg
-            width="14"
-            height="14"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2.5"
-            viewBox="0 0 24 24"
-          >
-            <polyline points="20 6 9 17 4 12" />
+          <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+            <polyline points="20 6 9 17 4 12"/>
           </svg>
-          Save Package
+          <span>Lưu Gói tập</span>
         </button>
       </div>
     </div>

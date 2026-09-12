@@ -1,6 +1,7 @@
 import template from "./class-types.html?raw";
 import { classTypeService } from "../../services/admin-core.service";
 import { authService } from "../../services/auth.service";
+import { getStoredUser, STORAGE_KEYS } from "../../core/api";
 import "./class-types.css";
 import type { ClassTypeResponse } from "../../models/admin";
 
@@ -96,16 +97,12 @@ export async function init(): Promise<void> {
     const isSuccess = type === "success";
     alertEl.style.display = "block";
     alertEl.innerHTML = `
-      <div class="d-flex align-items-center gap-2 px-4 py-3 rounded-theme-md"
-           style="background-color: ${isSuccess ? "var(--color-tertiary-light)" : "var(--color-primary-light)"}; border: 1px solid ${isSuccess ? "var(--color-tertiary)" : "var(--color-primary)"};">
-        <svg width="16" height="16" fill="none" stroke="${isSuccess ? "var(--color-tertiary)" : "var(--color-primary)"}" stroke-width="2.5" viewBox="0 0 24 24">
-          ${
-            isSuccess
-              ? '<polyline points="20 6 9 17 4 12"/>'
-              : '<circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>'
-          }
+      <div class="alert alert-${isSuccess ? "success" : "danger"} alert-dismissible fade show rounded-3 shadow-sm d-flex align-items-center gap-2 mb-0" role="alert">
+        <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          ${isSuccess ? '<polyline points="20 6 9 17 4 12"/>' : '<circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>'}
         </svg>
-        <span style="font-size: 0.85rem; font-weight: 600; color: ${isSuccess ? "var(--color-tertiary)" : "var(--color-primary)"};">${msg}</span>
+        <span class="fw-medium">${msg}</span>
+        <button type="button" class="btn-close ms-auto" data-bs-dismiss="alert" aria-label="Close"></button>
       </div>`;
     setTimeout(() => {
       if (alertEl) alertEl.style.display = "none";
@@ -121,9 +118,7 @@ export async function init(): Promise<void> {
   }
 
   function buildStatusBadge(isActive: boolean): string {
-    return `<span class="badge-theme ${isActive ? "badge-active" : "badge-inactive"}" style="font-size: 0.68rem; letter-spacing: 0.05em;">
-      ${isActive ? "● ACTIVE" : "○ INACTIVE"}
-    </span>`;
+    return `<span class="badge ${isActive ? "bg-success-subtle text-success border border-success-subtle" : "bg-secondary-subtle text-secondary border border-secondary-subtle"} rounded-pill small fw-semibold px-2 py-1">${isActive ? "ACTIVE" : "INACTIVE"}</span>`;
   }
 
   function buildRow(ct: ClassTypeResponse): string {
@@ -136,18 +131,18 @@ export async function init(): Promise<void> {
 
     return `
       <tr data-ct-id="${ct.id}">
-        <td class="px-4 py-3 text-neutral" style="font-size: 0.8rem; font-weight: 600; white-space: nowrap;">
-          <span class="badge-theme bg-surface-alt border-theme text-neutral" style="font-size: 0.68rem; border-radius: var(--radius-sm) !important; padding: 0.2em 0.55em;">${idStr}</span>
+        <td class="ps-4 py-3">
+          <span class="badge bg-light text-dark border font-monospace px-2 py-1 rounded-3">${idStr}</span>
         </td>
-        <td class="px-3 py-3" style="min-width: 160px;">
-          <p class="mb-0 fw-semibold text-secondary-theme" style="font-size: 0.88rem;">${escapeHtml(ct.name)}</p>
+        <td class="py-3">
+          <span class="fw-bold text-dark">${escapeHtml(ct.name)}</span>
         </td>
-        <td class="px-3 py-3 text-neutral" style="font-size: 0.82rem; max-width: 320px;">
+        <td class="py-3 text-muted small" style="max-width: 320px;">
           ${shortDesc}
         </td>
-        <td class="px-3 py-3 text-center">
+        <td class="py-3 text-center">
           <div class="d-flex flex-column align-items-center gap-1">
-            <label class="ct-toggle" title="Toggle active status" aria-label="Toggle class type active status">
+            <label class="ct-toggle" title="Chuyển trạng thái" aria-label="Chuyển trạng thái thể loại lớp">
               <input
                 type="checkbox"
                 class="ct-status-toggle"
@@ -160,24 +155,24 @@ export async function init(): Promise<void> {
             ${buildStatusBadge(ct.isActive)}
           </div>
         </td>
-        <td class="px-4 py-3 text-end">
+        <td class="pe-4 py-3 text-end">
           <button
-            class="btn-edit-ct"
+            class="btn btn-sm btn-outline-primary rounded-3 d-inline-flex align-items-center gap-1 btn-edit-ct"
             data-id="${ct.id}"
             type="button"
-            aria-label="Edit class type ${escapeHtml(ct.name)}"
+            aria-label="Sửa thể loại ${escapeHtml(ct.name)}"
           >
-            <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+            <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
               <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/>
               <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/>
             </svg>
-            Edit
+            <span>Sửa</span>
           </button>
         </td>
       </tr>`;
   }
 
-    function renderTable(items: ClassTypeResponse[]): void {
+  function renderTable(items: ClassTypeResponse[]): void {
     if (!tbody || !tableWrapper || !emptyEl) return;
 
     tableWrapper.style.display = "block";
@@ -193,7 +188,7 @@ export async function init(): Promise<void> {
     }
   }
 
-    async function loadClassTypes(): Promise<void> {
+  async function loadClassTypes(): Promise<void> {
     if (loadingEl) loadingEl.style.display = "block";
     if (tableWrapper) tableWrapper.style.display = "none";
 
@@ -209,7 +204,7 @@ export async function init(): Promise<void> {
     }
   }
 
-    function attachToggleListeners(): void {
+  function attachToggleListeners(): void {
     document
       .querySelectorAll<HTMLInputElement>(".ct-status-toggle")
       .forEach((toggle) => {
@@ -232,15 +227,18 @@ export async function init(): Promise<void> {
 
             // Update badge
             const row = toggle.closest("tr");
-            const badgeEl = row?.querySelector<HTMLSpanElement>(".badge-theme");
-            if (badgeEl) {
-              badgeEl.className = `badge-theme ${newActive ? "badge-active" : "badge-inactive"}`;
-              badgeEl.textContent = newActive ? "● ACTIVE" : "○ INACTIVE";
+            const badgeContainer = row?.querySelector("td:nth-child(4) .d-flex");
+            if (badgeContainer) {
+              const oldBadge = badgeContainer.querySelector(".badge");
+              if (oldBadge) {
+                oldBadge.className = `badge ${newActive ? "bg-success-subtle text-success border border-success-subtle" : "bg-secondary-subtle text-secondary border border-secondary-subtle"} rounded-pill small fw-semibold px-2 py-1`;
+                oldBadge.textContent = newActive ? "ACTIVE" : "INACTIVE";
+              }
             }
 
             setStats(allClassTypes);
             showAlert(
-              `Class type status updated to ${newActive ? "Active" : "Inactive"}.`,
+              `Trạng thái thể loại đã chuyển sang ${newActive ? "Hoạt động" : "Tạm dừng"}.`,
               "success",
             );
           } catch (error: unknown) {
@@ -451,5 +449,71 @@ export async function init(): Promise<void> {
     renderTable(filtered);
   });
 
+    setupAdminProfile();
+    setupLogoutAction();
+    highlightActiveNav();
+
     await loadClassTypes();
 }
+
+/**
+ * Hiển thị thông tin Admin trên Header và Sidebar
+ */
+function setupAdminProfile(): void {
+  const user = getStoredUser();
+  const displayName = user?.fullName || user?.email || user?.phone || "Admin";
+
+  const headerName = document.querySelector<HTMLElement>("#admin-name");
+  if (headerName) {
+    headerName.textContent = displayName;
+  }
+
+  const sidebarName = document.querySelector<HTMLElement>("#sidebar-admin-name");
+  if (sidebarName) {
+    sidebarName.textContent = displayName;
+  }
+}
+
+/**
+ * Xử lý đăng xuất
+ */
+function setupLogoutAction(): void {
+  const logoutBtn = document.querySelector<HTMLElement>("#btn-logout");
+  if (!logoutBtn) return;
+
+  logoutBtn.addEventListener("click", async (e: Event) => {
+    e.preventDefault();
+    try {
+      if (authService && typeof authService.logout === "function") {
+        await authService.logout();
+      }
+    } catch (err) {
+      console.warn("Lỗi khi gọi API logout:", err);
+    } finally {
+      localStorage.removeItem(STORAGE_KEYS.ACCESS_TOKEN);
+      localStorage.removeItem(STORAGE_KEYS.REFRESH_TOKEN);
+      localStorage.removeItem(STORAGE_KEYS.USER);
+      window.location.href = "/auth/login.html";
+    }
+  });
+}
+
+/**
+ * Làm nổi bật menu active trên Sidebar
+ */
+function highlightActiveNav(): void {
+  const currentPath = window.location.pathname;
+  const navLinks = document.querySelectorAll<HTMLAnchorElement>(".admin-nav-link");
+
+  navLinks.forEach((link) => {
+    const href = link.getAttribute("href");
+    if (href === currentPath || (currentPath === "/admin/class-types" && href === "/admin/class-types") || (currentPath === "/admin/classes" && href === "/admin/class-types")) {
+      link.classList.add("active", "text-white");
+      link.classList.remove("text-secondary-emphasis");
+    } else {
+      link.classList.remove("active", "text-white");
+      link.classList.add("text-secondary-emphasis");
+    }
+  });
+}
+

@@ -234,6 +234,13 @@ const routes: Route[] = [
     init: DashboardPage.init,
   },
   {
+    path: "/admin/dashboard.html",
+    requiresAuth: true,
+    roles: ["ADMIN"],
+    view: DashboardPage.render,
+    init: DashboardPage.init,
+  },
+  {
     path: "/admin/users",
     requiresAuth: true,
     roles: ["ADMIN"],
@@ -241,7 +248,21 @@ const routes: Route[] = [
     init: UsersPage.init,
   },
   {
+    path: "/admin/users.html",
+    requiresAuth: true,
+    roles: ["ADMIN"],
+    view: UsersPage.render,
+    init: UsersPage.init,
+  },
+  {
     path: "/admin/trainers",
+    requiresAuth: true,
+    roles: ["ADMIN"],
+    view: TrainersPage.render,
+    init: TrainersPage.init,
+  },
+  {
+    path: "/admin/trainers.html",
     requiresAuth: true,
     roles: ["ADMIN"],
     view: TrainersPage.render,
@@ -269,6 +290,13 @@ const routes: Route[] = [
     init: RoomsPage.init,
   },
   {
+    path: "/admin/rooms.html",
+    requiresAuth: true,
+    roles: ["ADMIN"],
+    view: RoomsPage.render,
+    init: RoomsPage.init,
+  },
+  {
     path: "/admin/class-types",
     requiresAuth: true,
     roles: ["ADMIN"],
@@ -276,7 +304,28 @@ const routes: Route[] = [
     init: ClassTypesPage.init,
   },
   {
+    path: "/admin/class-types.html",
+    requiresAuth: true,
+    roles: ["ADMIN"],
+    view: ClassTypesPage.render,
+    init: ClassTypesPage.init,
+  },
+  {
+    path: "/admin/classes",
+    requiresAuth: true,
+    roles: ["ADMIN"],
+    view: ClassTypesPage.render,
+    init: ClassTypesPage.init,
+  },
+  {
     path: "/admin/packages",
+    requiresAuth: true,
+    roles: ["ADMIN"],
+    view: PackagesPage.render,
+    init: PackagesPage.init,
+  },
+  {
+    path: "/admin/packages.html",
     requiresAuth: true,
     roles: ["ADMIN"],
     view: PackagesPage.render,
