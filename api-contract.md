@@ -814,8 +814,10 @@ Public
 ## 5.3. Create Room
 
 ```http
-POST /rooms
+POST /admin/rooms
 ```
+
+*(Alias supported: `POST /rooms`)*
 
 ### Authentication
 
@@ -854,8 +856,10 @@ ADMIN
 ## 5.4. Update Room
 
 ```http
-PATCH /rooms/{id}
+PATCH /admin/rooms/{id}
 ```
+
+*(Alias supported: `PATCH /rooms/{id}`)*
 
 ### Authentication
 
@@ -892,8 +896,10 @@ ADMIN
 ## 5.5. Update Room Status
 
 ```http
-PATCH /rooms/{id}/status
+PATCH /admin/rooms/{id}/status
 ```
+
+*(Alias supported: `PATCH /rooms/{id}/status`)*
 
 ### Authentication
 
@@ -920,10 +926,56 @@ INACTIVE
 
 # 6. Class Type APIs
 
-## 6.1. Get Class Types
+## 6.1. Get Class Types (Public)
 
 ```http
 GET /class-types
+```
+
+---
+
+## 6.1.1. Get Class Types (Admin)
+
+```http
+GET /admin/class-types
+```
+
+### Authentication
+
+```text
+ADMIN
+```
+
+### Query Parameters
+
+```text
+status, page, size
+```
+
+### Success
+
+```text
+200 OK
+```
+
+---
+
+## 6.1.2. Get Class Type By Id (Admin)
+
+```http
+GET /admin/class-types/{id}
+```
+
+### Authentication
+
+```text
+ADMIN
+```
+
+### Success
+
+```text
+200 OK
 ```
 
 ### Authentication
@@ -963,8 +1015,10 @@ Public
 ## 6.3. Create Class Type
 
 ```http
-POST /class-types
+POST /admin/class-types
 ```
+
+*(Alias supported: `POST /class-types`)*
 
 ### Authentication
 
@@ -993,8 +1047,10 @@ ADMIN
 ## 6.4. Update Class Type
 
 ```http
-PATCH /class-types/{id}
+PATCH /admin/class-types/{id}
 ```
+
+*(Alias supported: `PATCH /class-types/{id}`)*
 
 ### Authentication
 
@@ -1022,10 +1078,56 @@ ADMIN
 
 # 7. Gym Class APIs
 
-## 7.1. Get Class List
+## 7.1. Get Class List (Public)
 
 ```http
 GET /classes
+```
+
+---
+
+## 7.1.1. Get Class List (Admin)
+
+```http
+GET /admin/classes
+```
+
+### Authentication
+
+```text
+ADMIN
+```
+
+### Query Parameters
+
+```text
+classTypeId, trainerId, roomId, status, from, to, keyword, page, size
+```
+
+### Success
+
+```text
+200 OK
+```
+
+---
+
+## 7.1.2. Get Class By Id (Admin)
+
+```http
+GET /admin/classes/{id}
+```
+
+### Authentication
+
+```text
+ADMIN
+```
+
+### Success
+
+```text
+200 OK
 ```
 
 ### Authentication
@@ -1079,8 +1181,10 @@ Public
 ## 7.3. Create Class
 
 ```http
-POST /classes
+POST /admin/classes
 ```
+
+*(Alias supported: `POST /classes`)*
 
 ### Authentication
 
@@ -1128,8 +1232,10 @@ ADMIN
 ## 7.4. Update Class
 
 ```http
-PATCH /classes/{id}
+PATCH /admin/classes/{id}
 ```
+
+*(Alias supported: `PATCH /classes/{id}`)*
 
 ### Authentication
 
@@ -1170,8 +1276,10 @@ ADMIN
 ## 7.5. Cancel Class
 
 ```http
-PATCH /classes/{id}/cancel
+PATCH /admin/classes/{id}/cancel
 ```
+
+*(Alias supported: `PATCH /classes/{id}/cancel`)*
 
 ### Authentication
 
@@ -1410,6 +1518,33 @@ TRAINER
 ```text
 - Trainer can deactivate only their own time slots.
 - A booked time slot cannot be deactivated unless cancellation policy allows it.
+```
+
+### Success
+
+```text
+200 OK
+```
+
+---
+
+## 8.5. Activate Time Slot
+
+```http
+PATCH /trainers/time-slots/{id}/activate
+```
+
+### Authentication
+
+```text
+TRAINER
+```
+
+### Business Rules
+
+```text
+- Trainer can reactivate only their own inactive time slots.
+- Time slot status transitions back to AVAILABLE.
 ```
 
 ### Success
@@ -1994,10 +2129,56 @@ to
 
 # 11. Package APIs
 
-## 11.1. Get Available Packages
+## 11.1. Get Available Packages (Public)
 
 ```http
 GET /packages
+```
+
+---
+
+## 11.1.1. Get Packages (Admin)
+
+```http
+GET /admin/packages
+```
+
+### Authentication
+
+```text
+ADMIN
+```
+
+### Query Parameters
+
+```text
+isActive, page, size
+```
+
+### Success
+
+```text
+200 OK
+```
+
+---
+
+## 11.1.2. Get Package Details (Admin)
+
+```http
+GET /admin/packages/{id}
+```
+
+### Authentication
+
+```text
+ADMIN
+```
+
+### Success
+
+```text
+200 OK
 ```
 
 ### Authentication
@@ -2045,8 +2226,10 @@ Public
 ## 11.3. Create Package
 
 ```http
-POST /packages
+POST /admin/packages
 ```
+
+*(Alias supported: `POST /packages`)*
 
 ### Authentication
 
@@ -2078,8 +2261,10 @@ ADMIN
 ## 11.4. Update Package
 
 ```http
-PATCH /packages/{id}
+PATCH /admin/packages/{id}
 ```
+
+*(Alias supported: `PATCH /packages/{id}`)*
 
 ### Authentication
 
@@ -2253,8 +2438,10 @@ size
 ## 12.5. Adjust Member Package (Manual Override)
 
 ```http
-PATCH /member-packages/{id}/adjust
+PATCH /admin/member-packages/{id}/adjust
 ```
+
+*(Alias supported: `PATCH /member-packages/{id}/adjust`)*
 
 **Authentication:** ADMIN
 
@@ -2373,8 +2560,10 @@ size
 ## 13.4. Update Transaction Status
 
 ```http
-PATCH /transactions/{id}/status
+PATCH /admin/transactions/{id}/status
 ```
+
+*(Alias supported: `PATCH /transactions/{id}/status`)*
 
 ### Authentication
 
@@ -2892,6 +3081,26 @@ MEMBER / TRAINER / ADMIN
 
 ---
 
+## 17.5. Reset Test Notifications
+
+```http
+POST /notifications/reset
+```
+
+### Authentication
+
+```text
+MEMBER / TRAINER / ADMIN
+```
+
+### Success
+
+```text
+200 OK
+```
+
+---
+
 # 18. API Authorization Summary
 
 | Module                | Public | MEMBER | TRAINER | ADMIN |
@@ -3347,7 +3556,7 @@ SUBSCRIBE /user/queue/notifications
 
 | Method | Endpoint                                | Auth                     | Description                       |
 | ------ | --------------------------------------- | ------------------------ | --------------------------------- |
-| POST   | `/auth/login`                           | Public                   | Login using phone or address      |
+| POST   | `/auth/login`                           | Public                   | Login using phone or email        |
 | POST   | `/auth/register`                        | Public                   | Register Member                   |
 | POST   | `/auth/register-trainer`                | Public                   | Submit Trainer application        |
 | POST   | `/auth/forgot-password`                 | Public                   | Request reset password token      |
@@ -3358,31 +3567,38 @@ SUBSCRIBE /user/queue/notifications
 | PATCH  | `/users/me`                             | All authenticated        | Update own profile                |
 | PATCH  | `/users/me/password`                    | All authenticated        | Change password                   |
 | GET    | `/users`                                | ADMIN                    | Get users                         |
-| PATCH  | `/users/{id}/status`                    | ADMIN                    | Update user status                |
+| PATCH  | `/users/{id}/status`                    | ADMIN                    | Update user status (lock/unlock)  |
 | GET    | `/trainers`                             | Public                   | Get trainer list                  |
 | GET    | `/trainers/{id}`                        | Public                   | Get trainer details               |
 | POST   | `/trainers/profile`                     | TRAINER                  | Create trainer profile            |
 | PATCH  | `/trainers/profile`                     | TRAINER                  | Update trainer profile            |
-| PATCH  | `/admin/trainers/{id}/approve`          | ADMIN                    | Approve trainer                   |
-| PATCH  | `/admin/trainers/{id}/reject`           | ADMIN                    | Reject trainer                    |
+| PATCH  | `/admin/trainers/{id}/approve`          | ADMIN                    | Approve trainer application       |
+| PATCH  | `/admin/trainers/{id}/reject`           | ADMIN                    | Reject trainer application        |
 | GET    | `/rooms`                                | Public                   | Get rooms                         |
 | GET    | `/rooms/{id}`                           | Public                   | Get room details                  |
-| POST   | `/rooms`                                | ADMIN                    | Create room                       |
-| PATCH  | `/rooms/{id}`                           | ADMIN                    | Update room                       |
-| PATCH  | `/rooms/{id}/status`                    | ADMIN                    | Update room status                |
+| POST   | `/admin/rooms`                          | ADMIN                    | Create room                       |
+| PATCH  | `/admin/rooms/{id}`                     | ADMIN                    | Update room details               |
+| PATCH  | `/admin/rooms/{id}/status`              | ADMIN                    | Update room status                |
 | GET    | `/class-types`                          | Public                   | Get class types                   |
 | GET    | `/class-types/{id}`                     | Public                   | Get class type details            |
-| POST   | `/class-types`                          | ADMIN                    | Create class type                 |
-| PATCH  | `/class-types/{id}`                     | ADMIN                    | Update class type                 |
+| GET    | `/admin/class-types`                    | ADMIN                    | Get all class types for admin     |
+| GET    | `/admin/class-types/{id}`               | ADMIN                    | Get class type details for admin  |
+| POST   | `/admin/class-types`                    | ADMIN                    | Create class type                 |
+| PATCH  | `/admin/class-types/{id}`               | ADMIN                    | Update class type                 |
 | GET    | `/classes`                              | Public                   | Get class list                    |
 | GET    | `/classes/{id}`                         | Public                   | Get class details                 |
-| POST   | `/classes`                              | ADMIN                    | Create class                      |
-| PATCH  | `/classes/{id}`                         | ADMIN                    | Update class                      |
-| PATCH  | `/classes/{id}/cancel`                  | ADMIN                    | Cancel class                      |
+| GET    | `/admin/classes`                        | ADMIN                    | Get all gym classes for admin     |
+| GET    | `/admin/classes/{id}`                   | ADMIN                    | Get gym class by id for admin     |
+| POST   | `/admin/classes`                        | ADMIN                    | Create class                      |
+| PATCH  | `/admin/classes/{id}`                   | ADMIN                    | Update class                      |
+| PATCH  | `/admin/classes/{id}/cancel`            | ADMIN                    | Cancel class                      |
+| PATCH  | `/admin/classes/{id}/restore`           | ADMIN                    | Restore cancelled class           |
+| GET    | `/admin/classes/conflicts`              | ADMIN                    | Detect schedule conflicts         |
 | GET    | `/classes/{classId}/bookings`           | TRAINER / ADMIN          | Get class bookings                |
 | GET    | `/trainers/{trainerId}/time-slots`      | MEMBER / TRAINER / ADMIN | Get trainer time slots            |
 | POST   | `/trainers/time-slots`                  | TRAINER                  | Create time slot                  |
 | PATCH  | `/trainers/time-slots/{id}`             | TRAINER                  | Update time slot                  |
+| PATCH  | `/trainers/time-slots/{id}/activate`    | TRAINER                  | Activate time slot                |
 | PATCH  | `/trainers/time-slots/{id}/deactivate`  | TRAINER                  | Deactivate time slot              |
 | POST   | `/class-bookings`                       | MEMBER                   | Book group class                  |
 | GET    | `/class-bookings/me`                    | MEMBER                   | Get own class bookings            |
@@ -3396,21 +3612,35 @@ SUBSCRIBE /user/queue/notifications
 | PATCH  | `/pt-bookings/{id}/confirm`             | TRAINER                  | Confirm PT booking                |
 | PATCH  | `/pt-bookings/{id}/reject`              | TRAINER                  | Reject PT booking                 |
 | PATCH  | `/pt-bookings/{id}/cancel`              | MEMBER / TRAINER / ADMIN | Cancel PT booking                 |
+| PATCH  | `/pt-bookings/{id}/reschedule`          | MEMBER                   | Reschedule PT booking             |
 | PATCH  | `/pt-bookings/{id}/attendance`          | TRAINER / ADMIN          | Update PT attendance              |
 | GET    | `/pt-bookings/trainer/me`               | TRAINER                  | Get trainer's PT bookings         |
 | GET    | `/packages`                             | Public                   | Get available packages            |
 | GET    | `/packages/{id}`                        | Public                   | Get package details               |
-| POST   | `/packages`                             | ADMIN                    | Create package                    |
-| PATCH  | `/packages/{id}`                        | ADMIN                    | Update package                    |
+| GET    | `/admin/packages`                       | ADMIN                    | Get all packages for admin        |
+| GET    | `/admin/packages/{id}`                  | ADMIN                    | Get package details for admin     |
+| POST   | `/admin/packages`                       | ADMIN                    | Create package                    |
+| PATCH  | `/admin/packages/{id}`                  | ADMIN                    | Update package                    |
 | PATCH  | `/packages/{id}/deactivate`             | ADMIN                    | Deactivate package                |
 | POST   | `/member-packages`                      | MEMBER                   | Purchase package                  |
-| GET    | `/member-packages/me`                   | MEMBER                   | Get own packages                  |
-| GET    | `/member-packages/{id}`                 | MEMBER / ADMIN           | Get package details               |
-| GET    | `/member-packages`                      | ADMIN                    | Get all member packages           |
+| GET    | `/member-packages/me`                   | MEMBER                   | Get own member packages           |
+| GET    | `/member-packages/me/{id}`              | MEMBER                   | Get my member package by id       |
+| GET    | `/member-packages/{id}`                 | MEMBER / ADMIN           | Get member package details        |
+| GET    | `/member-packages`                      | ADMIN                    | Get all member packages (alias)   |
+| GET    | `/admin/member-packages`                | ADMIN                    | Get all member packages           |
+| GET    | `/admin/member-packages/{id}`           | ADMIN                    | Get member package by id          |
+| PATCH  | `/admin/member-packages/{id}/adjust`    | ADMIN                    | Adjust member package             |
+| PATCH  | `/member-packages/{id}/adjust`          | ADMIN                    | Adjust member package (alias)     |
+| POST   | `/transactions`                         | MEMBER                   | Create payment transaction        |
 | GET    | `/transactions/me`                      | MEMBER                   | Get own transactions              |
+| GET    | `/transactions/me/{id}`                 | MEMBER                   | Get own transaction by id         |
 | GET    | `/transactions/{id}`                    | MEMBER / ADMIN           | Get transaction details           |
-| GET    | `/transactions`                         | ADMIN                    | Get all transactions              |
-| PATCH  | `/transactions/{id}/status`             | ADMIN                    | Update transaction status         |
+| GET    | `/transactions`                         | ADMIN                    | Get all transactions (alias)      |
+| GET    | `/admin/transactions`                   | ADMIN                    | Get all transactions              |
+| GET    | `/admin/transactions/{id}`              | ADMIN                    | Get transaction by id             |
+| POST   | `/admin/transactions/{id}/mock-payment` | ADMIN                    | Mock payment transaction          |
+| PATCH  | `/admin/transactions/{id}/status`       | ADMIN                    | Update transaction status         |
+| PATCH  | `/transactions/{id}/status`             | ADMIN                    | Update transaction status (alias) |
 | POST   | `/reviews`                              | MEMBER                   | Create review                     |
 | GET    | `/reviews`                              | Public                   | Get reviews                       |
 | GET    | `/reviews/{id}`                         | Public                   | Get review details                |
@@ -3428,12 +3658,10 @@ SUBSCRIBE /user/queue/notifications
 | GET    | `/notifications/me/unread-count`        | All authenticated        | Get unread count                  |
 | PATCH  | `/notifications/{id}/read`              | All authenticated        | Mark notification as read         |
 | PATCH  | `/notifications/me/read-all`            | All authenticated        | Mark all as read                  |
+| POST   | `/notifications/reset`                  | All authenticated        | Reset test notifications          |
 | POST   | `/upload`                               | All authenticated        | Upload image/file                 |
 | POST   | `/feedbacks`                            | MEMBER                   | Submit system feedback            |
 | GET    | `/feedbacks`                            | ADMIN                    | Get all feedbacks                 |
-| PATCH  | `/member-packages/{id}/adjust`          | ADMIN                    | Manual adjust package             |
-| GET    | `/admin/classes/conflicts`              | ADMIN                    | Detect schedule conflicts         |
-| PATCH  | `/pt-bookings/{id}/reschedule`          | MEMBER                   | Reschedule PT booking             |
 | PATCH  | `/feedbacks/{id}/status`                | ADMIN                    | Update feedback resolution status |
 | GET    | `/admin/analytics/overview`             | ADMIN                    | Dashboard metrics overview        |
 | GET    | `/admin/analytics/top-performers`       | ADMIN                    | Top classes & trainers            |
