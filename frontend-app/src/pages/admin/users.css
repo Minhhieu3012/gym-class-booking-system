@@ -1,0 +1,146 @@
+/* ============================================================
+   ADMIN USERS MANAGEMENT - STYLES
+   ============================================================ */
+
+/* Kế thừa và mở rộng layout Desktop-first từ Dashboard */
+@import "./dashboard.css";
+
+/* ══════════════════════════════════════════
+   TOOLBAR BỘ LỌC TÌM KIẾM
+   ═══════════════════════════════════════════ */
+.user-toolbar-card {
+  border: 1px solid #e2e8f0 !important;
+  transition: box-shadow 0.2s ease;
+}
+
+.user-toolbar-card .form-control,
+.user-toolbar-card .form-select {
+  border-color: #cbd5e1;
+  font-size: 0.9rem;
+  padding: 0.55rem 0.85rem;
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+.user-toolbar-card .form-control:focus,
+.user-toolbar-card .form-select:focus {
+  border-color: #94a3b8;
+  box-shadow: 0 0 0 3px rgba(148, 163, 184, 0.2);
+  background-color: #ffffff !important;
+}
+
+.user-toolbar-card .input-group-text {
+  border-color: #cbd5e1;
+}
+
+/* ══════════════════════════════════════════
+   USER TABLE & ROWS
+   ═══════════════════════════════════════════ */
+.user-table-card {
+  border: 1px solid #e2e8f0 !important;
+}
+
+.custom-user-table {
+  font-family: inherit;
+}
+
+.custom-user-table thead th {
+  background-color: #f8fafc !important;
+  border-bottom: 1px solid #e2e8f0;
+  font-size: 0.78rem;
+  letter-spacing: 0.05em;
+  color: #64748b;
+  font-weight: 700;
+}
+
+.custom-user-table td {
+  padding: 1rem 0.75rem;
+  font-size: 0.9rem;
+  border-bottom: 1px solid #f1f5f9;
+}
+
+.user-table-row {
+  transition: background-color 0.15s ease;
+}
+
+.user-table-row:hover {
+  background-color: #f8fafc !important;
+}
+
+/* Avatar Mini in table */
+.user-avatar-mini {
+  width: 36px;
+  height: 36px;
+  background-color: #e2e8f0;
+  color: #334155;
+  font-size: 0.85rem;
+  flex-shrink: 0;
+  border: 1px solid #cbd5e1;
+}
+
+/* ══════════════════════════════════════════
+   STATUS BADGES
+   ═══════════════════════════════════════════ */
+.badge-status {
+  font-size: 0.75rem;
+  letter-spacing: 0.03em;
+  font-weight: 600;
+}
+
+.badge-active {
+  background-color: #dcfce7 !important;
+  color: #15803d !important;
+  border: 1px solid #bbf7d0 !important;
+}
+
+.badge-locked {
+  background-color: #fee2e2 !important;
+  color: #b91c1c !important;
+  border: 1px solid #fecaca !important;
+}
+
+.badge-pending {
+  background-color: #fef9c3 !important;
+  color: #a16207 !important;
+  border: 1px solid #fde047 !important;
+}
+
+.badge-rejected {
+  background-color: #f1f5f9 !important;
+  color: #475569 !important;
+  border: 1px solid #cbd5e1 !important;
+}
+
+/* ══════════════════════════════════════════
+   ACTION BUTTONS & PAGINATION
+   ═══════════════════════════════════════════ */
+.btn-toggle-status {
+  font-size: 0.8rem;
+  transition: all 0.2s ease;
+}
+
+.btn-toggle-status:hover {
+  transform: translateY(-1px);
+}
+
+.btn-toggle-status:active {
+  transform: translateY(0);
+}
+
+.pagination .page-link {
+  color: #475569;
+  border-radius: 6px;
+  margin: 0 2px;
+  border-color: #e2e8f0;
+  font-size: 0.85rem;
+}
+
+.pagination .page-item.active .page-link {
+  background-color: #0f172a;
+  border-color: #0f172a;
+  color: #ffffff;
+}
+
+.pagination .page-link:hover {
+  background-color: #f1f5f9;
+  color: #0f172a;
+}
