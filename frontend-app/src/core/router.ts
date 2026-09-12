@@ -127,7 +127,20 @@ const routes: Route[] = [
   },
   {
     path: "/member/my-bookings",
-    // requiresAuth: false,
+    requiresAuth: true,
+    roles: ["MEMBER", "ADMIN"],
+    view: MemberMyBookingsPage.render,
+    init: MemberMyBookingsPage.init,
+  },
+  {
+    path: "/member/my-bookings.html",
+    requiresAuth: true,
+    roles: ["MEMBER", "ADMIN"],
+    view: MemberMyBookingsPage.render,
+    init: MemberMyBookingsPage.init,
+  },
+  {
+    path: "/my-bookings.html",
     requiresAuth: true,
     roles: ["MEMBER", "ADMIN"],
     view: MemberMyBookingsPage.render,

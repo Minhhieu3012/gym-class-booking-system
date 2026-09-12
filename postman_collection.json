@@ -1451,6 +1451,99 @@
               "response": []
             }
           ]
+        },
+        {
+          "name": "Reviews",
+          "item": [
+            {
+              "name": "TC 2.2 - Create Review for Class Booking",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{member_token}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"classBookingId\": 103,\r\n    \"rating\": 5,\r\n    \"comment\": \"HLV rất nhiệt tình\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "http://localhost:8080/reviews",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8080",
+                  "path": [
+                    "reviews"
+                  ]
+                },
+                "description": "TC 2.2: Member gửi đánh giá 5 sao cho Class Booking đã hoàn thành. Kỳ vọng trả về 201 Created."
+              },
+              "response": []
+            },
+            {
+              "name": "TC 2.2 - Create Review for PT Booking",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{member_token}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"ptBookingId\": 203,\r\n    \"rating\": 5,\r\n    \"comment\": \"HLV rất nhiệt tình\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "http://localhost:8080/reviews",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8080",
+                  "path": [
+                    "reviews"
+                  ]
+                },
+                "description": "TC 2.2: Member gửi đánh giá 5 sao cho PT Booking đã hoàn thành. Kỳ vọng trả về 201 Created."
+              },
+              "response": []
+            }
+          ]
         }
       ]
     }
