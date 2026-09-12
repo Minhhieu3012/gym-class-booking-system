@@ -1,5 +1,5 @@
 // SPA Router — History API, Auth Guard, Theme Switcher
-import { isAuthenticated, hasRole } from "./api";
+import { isAuthenticated, hasRole, getStoredUser } from "./api";
 import type { UserRole } from "../models/auth";
 
 import * as LoginPage from "../pages/auth/login";
@@ -14,6 +14,10 @@ import * as RoomsPage from "../pages/admin/rooms";
 import * as ClassTypesPage from "../pages/admin/class-types";
 import * as PackagesPage from "../pages/admin/packages";
 import * as DashboardPage from "../pages/admin/dashboard";
+import * as UsersPage from "../pages/admin/users";
+import * as TrainersPage from "../pages/admin/trainers";
+import * as ReviewsPage from "../pages/admin/reviews";
+import * as TransactionsPage from "../pages/admin/transactions";
 import * as MemberPackagesPage from "../pages/member/packages";
 import * as MemberClassesPage from "../pages/member/class-list";
 import * as MemberPTBookingPage from "../pages/member/pt-booking";
@@ -56,6 +60,18 @@ const routes: Route[] = [
   },
   {
     path: "/login",
+    requiresAuth: false,
+    view: LoginPage.render,
+    init: LoginPage.init,
+  },
+  {
+    path: "/auth/login.html",
+    requiresAuth: false,
+    view: LoginPage.render,
+    init: LoginPage.init,
+  },
+  {
+    path: "/auth/login",
     requiresAuth: false,
     view: LoginPage.render,
     init: LoginPage.init,
@@ -218,7 +234,63 @@ const routes: Route[] = [
     init: DashboardPage.init,
   },
   {
+    path: "/admin/dashboard.html",
+    requiresAuth: true,
+    roles: ["ADMIN"],
+    view: DashboardPage.render,
+    init: DashboardPage.init,
+  },
+  {
+    path: "/admin/users",
+    requiresAuth: true,
+    roles: ["ADMIN"],
+    view: UsersPage.render,
+    init: UsersPage.init,
+  },
+  {
+    path: "/admin/users.html",
+    requiresAuth: true,
+    roles: ["ADMIN"],
+    view: UsersPage.render,
+    init: UsersPage.init,
+  },
+  {
+    path: "/admin/trainers",
+    requiresAuth: true,
+    roles: ["ADMIN"],
+    view: TrainersPage.render,
+    init: TrainersPage.init,
+  },
+  {
+    path: "/admin/trainers.html",
+    requiresAuth: true,
+    roles: ["ADMIN"],
+    view: TrainersPage.render,
+    init: TrainersPage.init,
+  },
+  {
+    path: "/admin/reviews",
+    requiresAuth: true,
+    roles: ["ADMIN"],
+    view: ReviewsPage.render,
+    init: ReviewsPage.init,
+  },
+  {
+    path: "/admin/reviews.html",
+    requiresAuth: true,
+    roles: ["ADMIN"],
+    view: ReviewsPage.render,
+    init: ReviewsPage.init,
+  },
+  {
     path: "/admin/rooms",
+    requiresAuth: true,
+    roles: ["ADMIN"],
+    view: RoomsPage.render,
+    init: RoomsPage.init,
+  },
+  {
+    path: "/admin/rooms.html",
     requiresAuth: true,
     roles: ["ADMIN"],
     view: RoomsPage.render,
@@ -232,11 +304,46 @@ const routes: Route[] = [
     init: ClassTypesPage.init,
   },
   {
+    path: "/admin/class-types.html",
+    requiresAuth: true,
+    roles: ["ADMIN"],
+    view: ClassTypesPage.render,
+    init: ClassTypesPage.init,
+  },
+  {
+    path: "/admin/classes",
+    requiresAuth: true,
+    roles: ["ADMIN"],
+    view: ClassTypesPage.render,
+    init: ClassTypesPage.init,
+  },
+  {
     path: "/admin/packages",
     requiresAuth: true,
     roles: ["ADMIN"],
     view: PackagesPage.render,
     init: PackagesPage.init,
+  },
+  {
+    path: "/admin/packages.html",
+    requiresAuth: true,
+    roles: ["ADMIN"],
+    view: PackagesPage.render,
+    init: PackagesPage.init,
+  },
+  {
+    path: "/admin/transactions",
+    requiresAuth: true,
+    roles: ["ADMIN"],
+    view: TransactionsPage.render,
+    init: TransactionsPage.init,
+  },
+  {
+    path: "/admin/transactions.html",
+    requiresAuth: true,
+    roles: ["ADMIN"],
+    view: TransactionsPage.render,
+    init: TransactionsPage.init,
   },
 ];
 
@@ -248,6 +355,23 @@ function view404(): string {
       <p class="fs-5 text-neutral mb-4">Không tìm thấy trang bạn yêu cầu.</p>
       <a href="/" data-link class="btn-brand">Về trang chủ</a>
     </section>`;
+}
+
+/**
+ * Router Guard chuyên biệt cho các trang Admin:
+ * Kiểm tra nếu window.location.pathname chứa '/admin/':
+ * Lấy thông tin user từ localStorage. Nếu không có user hoặc user.role !== 'ADMIN',
+ * lập tức chuyển hướng về /auth/login.html bằng window.location.href.
+ */
+export function checkAdminRouteGuard(pathname: string = window.location.pathname): boolean {
+  if (pathname.includes("/admin/")) {
+    const user = getStoredUser();
+    if (!user || user.role !== "ADMIN") {
+      window.location.href = "/auth/login.html";
+      return false;
+    }
+  }
+  return true;
 }
 
 // Theme Switcher — gắn / gỡ class .admin-theme và .gym-chat-app trên <body>
@@ -267,6 +391,9 @@ function applyTheme(path: string): void {
 
 // navigate — thay đổi URL không reload trang
 export function navigate(path: string): void {
+  if (!checkAdminRouteGuard(path)) {
+    return;
+  }
   window.history.pushState({}, "", path);
   handleRoute();
 }
@@ -274,6 +401,12 @@ export function navigate(path: string): void {
 // Core route matching & rendering
 async function handleRoute(): Promise<void> {
   const pathname = window.location.pathname;
+
+  // --- Chặn ngay các trang /admin/ nếu không phải ADMIN ---
+  if (!checkAdminRouteGuard(pathname)) {
+    return;
+  }
+
   const appRoot = document.querySelector<HTMLDivElement>("#app");
   if (!appRoot) return;
 
@@ -340,5 +473,14 @@ async function handleRoute(): Promise<void> {
 
 export function initRouter(): void {
   window.addEventListener("popstate", handleRoute);
+  if (!checkAdminRouteGuard()) {
+    return;
+  }
   handleRoute();
 }
+
+// Kiểm tra ngay khi khởi động
+if (typeof window !== "undefined") {
+  checkAdminRouteGuard();
+}
+

@@ -24,4 +24,11 @@ public interface MemberPackageService {
 
     MemberPackageResponseDTO getMemberPackageById(Long id);
     void expireMemberPackages();
+
+    MemberPackageResponseDTO adjustMemberPackage(
+            Long id,
+            Integer sessionsAdjustment,
+            java.time.LocalDate newEndDate,
+            String reason
+    );
 }

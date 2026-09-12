@@ -377,7 +377,6 @@ async function handleBookClassClick(btn: HTMLButtonElement): Promise<void> {
   `;
 
   try {
-    // TODO(mock-pending-api): chờ BE hoàn thiện ClassBookingController — xem api-contract.md mục 9
     // Gọi API bookClass - KHÔNG truyền memberPackageId để Backend tự động chọn gói tối ưu
     await bookingService.bookClass({ gymClassId });
 

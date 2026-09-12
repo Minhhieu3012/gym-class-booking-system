@@ -1,6 +1,7 @@
 import template from "./packages.html?raw";
 import { packageService } from "../../services/admin-core.service";
 import { authService } from "../../services/auth.service";
+import { getStoredUser, STORAGE_KEYS } from "../../core/api";
 import "./packages.css";
 import type { PackageResponse } from "../../models/admin";
 
@@ -28,7 +29,7 @@ export function render(): string {
 }
 
 export async function init(): Promise<void> {
-    const tbody = document.querySelector<HTMLTableSectionElement>("#pkg-tbody");
+  const tbody = document.querySelector<HTMLTableSectionElement>("#pkg-tbody");
   const loadingEl = document.querySelector<HTMLDivElement>("#pkg-loading");
   const tableWrapper =
     document.querySelector<HTMLDivElement>("#pkg-table-wrapper");
@@ -41,6 +42,8 @@ export async function init(): Promise<void> {
   const statInactive =
     document.querySelector<HTMLParagraphElement>("#stat-inactive");
 
+  const searchInput =
+    document.querySelector<HTMLInputElement>("#pkg-search-input");
   const filterSelect =
     document.querySelector<HTMLSelectElement>("#pkg-filter-status");
   const btnOpenAdd = document.querySelector<HTMLButtonElement>(
@@ -86,9 +89,8 @@ export async function init(): Promise<void> {
   const btnSessPlus =
     document.querySelector<HTMLButtonElement>("#btn-sess-plus");
 
-  
   function escapeHtml(str: string): string {
-    return String(str)
+    return String(str ?? "")
       .replace(/&/g, "&amp;")
       .replace(/</g, "&lt;")
       .replace(/>/g, "&gt;")
@@ -104,16 +106,16 @@ export async function init(): Promise<void> {
     const ok = type === "success";
     alertEl.style.display = "block";
     alertEl.innerHTML = `
-      <div class="d-flex align-items-center gap-2 px-4 py-3 rounded-theme-md"
-           style="background-color: ${ok ? "var(--color-tertiary-light)" : "var(--color-primary-light)"}; border: 1px solid ${ok ? "var(--color-tertiary)" : "var(--color-primary)"};">
-        <svg width="16" height="16" fill="none" stroke="${ok ? "var(--color-tertiary)" : "var(--color-primary)"}" stroke-width="2.5" viewBox="0 0 24 24">
+      <div class="alert alert-${ok ? "success" : "danger"} alert-dismissible fade show rounded-3 shadow-sm d-flex align-items-center gap-2 mb-0" role="alert">
+        <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
           ${
             ok
               ? '<polyline points="20 6 9 17 4 12"/>'
               : '<circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>'
           }
         </svg>
-        <span style="font-size: 0.85rem; font-weight: 600; color: ${ok ? "var(--color-tertiary)" : "var(--color-primary)"};">${msg}</span>
+        <span class="fw-medium">${msg}</span>
+        <button type="button" class="btn-close ms-auto" data-bs-dismiss="alert" aria-label="Close"></button>
       </div>`;
     setTimeout(() => {
       if (alertEl) alertEl.style.display = "none";
@@ -136,66 +138,77 @@ export async function init(): Promise<void> {
   }
 
   function buildStatusBadge(isActive: boolean): string {
-    return `<span class="badge-theme ${isActive ? "badge-active" : "badge-inactive"}" style="font-size: 0.68rem; letter-spacing: 0.05em;">
-      ${isActive ? "● ACTIVE" : "○ INACTIVE"}
-    </span>`;
+    return `<span class="badge ${isActive ? "bg-success-subtle text-success border border-success-subtle" : "bg-secondary-subtle text-secondary border border-secondary-subtle"} px-2.5 py-1 rounded-pill small fw-semibold">${isActive ? "ACTIVE" : "INACTIVE"}</span>`;
   }
 
   function buildRow(pkg: PackageResponse): string {
     const idStr = `PKG-${String(pkg.id).padStart(3, "0")}`;
+    const rawDesc = pkg.description ?? "";
     const shortDesc =
-      pkg.description.length > 60
-        ? escapeHtml(pkg.description.slice(0, 60)) + "…"
-        : escapeHtml(pkg.description);
+      rawDesc.length > 60
+        ? escapeHtml(rawDesc.slice(0, 60)) + "…"
+        : escapeHtml(rawDesc);
 
     return `
       <tr data-pkg-id="${pkg.id}">
-        <td class="px-4 py-3 text-neutral" style="font-size: 0.8rem; font-weight: 600; white-space: nowrap;">
-          <span class="badge-theme bg-surface-alt border-theme text-neutral"
-            style="font-size: 0.68rem; border-radius: var(--radius-sm) !important; padding: 0.2em 0.55em;">${idStr}</span>
+        <td class="ps-4 py-3">
+          <span class="badge bg-light text-dark border font-monospace px-2.5 py-1 rounded-3">${idStr}</span>
         </td>
-        <td class="px-3 py-3" style="min-width: 160px;">
-          <p class="mb-0 fw-semibold text-secondary-theme" style="font-size: 0.88rem;">${escapeHtml(pkg.name)}</p>
+        <td class="py-3" style="min-width: 150px;">
+          <span class="fw-bold text-dark">${escapeHtml(pkg.name)}</span>
         </td>
-        <td class="px-3 py-3 text-neutral" style="font-size: 0.82rem; max-width: 240px;">
+        <td class="py-3 text-muted small" style="max-width: 260px;">
           ${shortDesc}
         </td>
-        <td class="px-3 py-3 text-end" style="white-space: nowrap;">
-          <span class="fw-bold text-secondary-theme" style="font-size: 0.92rem;">$${fmtPrice(pkg.price)}</span>
+        <td class="py-3 text-end">
+          <span class="fw-bold text-dark font-monospace">${fmtPrice(pkg.price)} $</span>
         </td>
-        <td class="px-3 py-3 text-center" style="white-space: nowrap;">
-          <span class="fw-semibold text-secondary-theme" style="font-size: 0.88rem;">${pkg.durationDays}</span>
-          <span class="text-neutral" style="font-size: 0.72rem;"> Days</span>
+        <td class="py-3 text-center">
+          <span class="badge bg-light text-dark border px-2 py-1 rounded-3">${pkg.durationDays} ngày</span>
         </td>
-        <td class="px-3 py-3 text-center" style="white-space: nowrap;">
-          <span class="fw-semibold text-secondary-theme" style="font-size: 0.88rem;">${pkg.sessionCount}</span>
-          <span class="text-neutral" style="font-size: 0.72rem;"> Sessions</span>
+        <td class="py-3 text-center">
+          <span class="badge bg-light text-dark border px-2 py-1 rounded-3">${pkg.sessionCount} buổi</span>
         </td>
-        <td class="px-3 py-3 text-center">
-          <div class="d-flex flex-column align-items-center gap-1">
-            <label class="pkg-toggle" title="Toggle active status" aria-label="Toggle package status">
-              <input type="checkbox" class="pkg-status-toggle"
-                data-id="${pkg.id}" data-current="${pkg.isActive}"
-                ${pkg.isActive ? "checked" : ""} />
-              <span class="pkg-toggle-slider"></span>
-            </label>
-            ${buildStatusBadge(pkg.isActive)}
+        <td class="py-3 text-center">
+          ${buildStatusBadge(pkg.isActive)}
+        </td>
+        <td class="pe-4 py-3 text-end">
+          <div class="d-inline-flex align-items-center gap-1 justify-content-end">
+            <button class="btn btn-outline-secondary btn-sm rounded-3 px-2 py-1 btn-edit-pkg d-inline-flex align-items-center gap-1 shadow-none" data-id="${pkg.id}" title="Chỉnh sửa">
+              <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/>
+                <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/>
+              </svg>
+              <span class="small">Sửa</span>
+            </button>
+            <button class="btn btn-outline-${pkg.isActive ? "warning" : "success"} btn-sm rounded-3 px-2 py-1 btn-toggle-pkg d-inline-flex align-items-center gap-1 shadow-none" data-id="${pkg.id}" data-current="${pkg.isActive}" title="${pkg.isActive ? "Tạm dừng gói tập" : "Kích hoạt gói tập"}">
+              <span class="small">${pkg.isActive ? "Tạm dừng" : "Kích hoạt"}</span>
+            </button>
           </div>
-        </td>
-        <td class="px-4 py-3 text-end">
-          <button class="btn-edit-pkg" data-id="${pkg.id}" type="button"
-            aria-label="Edit package ${escapeHtml(pkg.name)}">
-            <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
-              <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/>
-              <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/>
-            </svg>
-            Edit
-          </button>
         </td>
       </tr>`;
   }
 
-    function renderTable(items: PackageResponse[]): void {
+  function getFilteredPackages(): PackageResponse[] {
+    const keyword = searchInput?.value.trim().toLowerCase() ?? "";
+    const statusVal = filterSelect?.value ?? "";
+
+    return allPackages.filter((pkg) => {
+      const matchesKeyword =
+        !keyword ||
+        (pkg.name && pkg.name.toLowerCase().includes(keyword)) ||
+        (pkg.description && pkg.description.toLowerCase().includes(keyword));
+
+      const matchesStatus =
+        statusVal === "" ||
+        (statusVal === "true" && pkg.isActive) ||
+        (statusVal === "false" && !pkg.isActive);
+
+      return matchesKeyword && matchesStatus;
+    });
+  }
+
+  function renderTable(items: PackageResponse[]): void {
     if (!tbody || !tableWrapper || !emptyEl) return;
     tableWrapper.style.display = "block";
     if (items.length === 0) {
@@ -209,7 +222,7 @@ export async function init(): Promise<void> {
     }
   }
 
-    async function loadPackages(): Promise<void> {
+  async function loadPackages(): Promise<void> {
     if (loadingEl) loadingEl.style.display = "block";
     if (tableWrapper) tableWrapper.style.display = "none";
 
@@ -217,7 +230,7 @@ export async function init(): Promise<void> {
       const page = await packageService.getAll();
       allPackages = page.content;
       setStats(allPackages);
-      renderTable(allPackages);
+      renderTable(getFilteredPackages());
     } catch (error: unknown) {
       showAlert(authService.extractErrorMessage(error), "danger");
     } finally {
@@ -225,16 +238,16 @@ export async function init(): Promise<void> {
     }
   }
 
-    function attachToggleListeners(): void {
+  function attachToggleListeners(): void {
     document
-      .querySelectorAll<HTMLInputElement>(".pkg-status-toggle")
-      .forEach((toggle) => {
-        toggle.addEventListener("change", async () => {
-          const id = Number(toggle.dataset.id);
-          const wasActive = toggle.dataset.current === "true";
+      .querySelectorAll<HTMLButtonElement>(".btn-toggle-pkg")
+      .forEach((btn) => {
+        btn.addEventListener("click", async () => {
+          const id = Number(btn.dataset.id);
+          const wasActive = btn.dataset.current === "true";
           const newActive = !wasActive;
 
-          toggle.disabled = true;
+          btn.disabled = true;
           try {
             if (newActive) {
               await packageService.activate(id);
@@ -245,32 +258,23 @@ export async function init(): Promise<void> {
             // Update in-memory state
             const pkg = allPackages.find((p) => p.id === id);
             if (pkg) pkg.isActive = newActive;
-            toggle.dataset.current = String(newActive);
-
-            // Update badge
-            const row = toggle.closest("tr");
-            const badgeEl = row?.querySelector<HTMLSpanElement>(".badge-theme");
-            if (badgeEl) {
-              badgeEl.className = `badge-theme ${newActive ? "badge-active" : "badge-inactive"}`;
-              badgeEl.textContent = newActive ? "● ACTIVE" : "○ INACTIVE";
-            }
 
             setStats(allPackages);
+            renderTable(getFilteredPackages());
             showAlert(
-              `Package ${newActive ? "activated" : "deactivated"} successfully.`,
+              `Trạng thái gói "${pkg?.name}" đã chuyển sang ${newActive ? "Hoạt động" : "Tạm dừng"}.`,
               "success",
             );
           } catch (error: unknown) {
-            toggle.checked = !toggle.checked;
             showAlert(authService.extractErrorMessage(error), "danger");
           } finally {
-            toggle.disabled = false;
+            btn.disabled = false;
           }
         });
       });
   }
 
-    function attachEditListeners(): void {
+  function attachEditListeners(): void {
     document
       .querySelectorAll<HTMLButtonElement>(".btn-edit-pkg")
       .forEach((btn) => {
@@ -283,7 +287,7 @@ export async function init(): Promise<void> {
       });
   }
 
-    function clearFormErrors(): void {
+  function clearFormErrors(): void {
     if (nameError) nameError.style.display = "none";
     if (descError) descError.style.display = "none";
     if (priceError) priceError.style.display = "none";
@@ -293,143 +297,127 @@ export async function init(): Promise<void> {
     }
   }
 
-  function syncStatusLabel(active: boolean): void {
-    if (statusLabel)
-      statusLabel.textContent = active
-        ? "Active (Available in Member App)"
-        : "Inactive (Hidden from Members)";
-    if (statusHint)
-      statusHint.textContent = active
-        ? "Members can see and purchase this package."
-        : "This package is archived and not visible to members.";
+  function resetForm(): void {
+    if (pkgForm) pkgForm.reset();
+    if (hiddenId) hiddenId.value = "";
+    if (nameCounter) nameCounter.textContent = "0 / 60 ký tự";
+    if (durInput) durInput.value = "30";
+    if (sessInput) sessInput.value = "10";
+    if (isActiveCheck) isActiveCheck.checked = true;
+    updateStatusLabels(true);
+    clearFormErrors();
   }
 
-  function openAddModal(): void {
-    if (
-      !hiddenId ||
-      !nameInput ||
-      !descTextarea ||
-      !priceInput ||
-      !durInput ||
-      !sessInput ||
-      !isActiveCheck
-    )
-      return;
-    if (modalLabel) modalLabel.textContent = "Add New Package";
+  function updateStatusLabels(active: boolean): void {
+    if (statusLabel) {
+      statusLabel.textContent = active
+        ? "Đang phát hành (Hiển thị trên App)"
+        : "Tạm dừng (Lưu trữ / Không hiển thị)";
+    }
+    if (statusHint) {
+      statusHint.textContent = active
+        ? "Hội viên có thể tìm thấy và mua gói tập này."
+        : "Gói bị ẩn khỏi ứng dụng người dùng, không thể mua mới.";
+    }
+  }
+
+  function openCreateModal(): void {
+    resetForm();
+    if (modalLabel) modalLabel.textContent = "Thêm Gói tập mới";
     if (modalSubtitle)
       modalSubtitle.textContent =
-        "Set pricing, validity window, and quota restrictions.";
-    if (submitBtn)
+        "Thiết lập mức giá, hạn sử dụng và số buổi tập cho gói thẻ.";
+    if (submitBtn) {
       submitBtn.innerHTML = `
-      <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
-        <polyline points="20 6 9 17 4 12"/>
-      </svg> Save Package`;
-
-    hiddenId.value = "";
-    nameInput.value = "";
-    descTextarea.value = "";
-    priceInput.value = "";
-    durInput.value = "30";
-    sessInput.value = "10";
-    isActiveCheck.checked = true;
-    clearFormErrors();
-    if (nameCounter) nameCounter.textContent = "0 / 60 chars";
-    syncStatusLabel(true);
-
+        <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+          <polyline points="20 6 9 17 4 12"/>
+        </svg> Lưu Gói tập`;
+    }
     getModal()?.show();
   }
 
   function openEditModal(pkg: PackageResponse): void {
-    if (
-      !hiddenId ||
-      !nameInput ||
-      !descTextarea ||
-      !priceInput ||
-      !durInput ||
-      !sessInput ||
-      !isActiveCheck
-    )
-      return;
-    if (modalLabel) modalLabel.textContent = "Edit Package";
+    resetForm();
+    if (modalLabel) modalLabel.textContent = "Chỉnh sửa Gói tập";
     if (modalSubtitle)
-      modalSubtitle.textContent = `Updating details for PKG-${String(pkg.id).padStart(3, "0")}.`;
-    if (submitBtn)
+      modalSubtitle.textContent = `Cập nhật thông số kỹ thuật cho mã gói PKG-${String(pkg.id).padStart(3, "0")}.`;
+    if (hiddenId) hiddenId.value = String(pkg.id);
+    if (nameInput) {
+      nameInput.value = pkg.name;
+      if (nameCounter)
+        nameCounter.textContent = `${pkg.name.length} / 60 ký tự`;
+    }
+    if (descTextarea) descTextarea.value = pkg.description;
+    if (priceInput) priceInput.value = String(pkg.price);
+    if (durInput) durInput.value = String(pkg.durationDays);
+    if (sessInput) sessInput.value = String(pkg.sessionCount);
+    if (isActiveCheck) isActiveCheck.checked = pkg.isActive;
+    updateStatusLabels(pkg.isActive);
+
+    if (submitBtn) {
       submitBtn.innerHTML = `
-      <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
-        <polyline points="20 6 9 17 4 12"/>
-      </svg> Update Package`;
-
-    hiddenId.value = String(pkg.id);
-    nameInput.value = pkg.name;
-    descTextarea.value = pkg.description;
-    priceInput.value = String(pkg.price);
-    durInput.value = String(pkg.durationDays);
-    sessInput.value = String(pkg.sessionCount);
-    isActiveCheck.checked = pkg.isActive;
-    clearFormErrors();
-    if (nameCounter) nameCounter.textContent = `${pkg.name.length} / 60 chars`;
-    syncStatusLabel(pkg.isActive);
-
+        <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+          <polyline points="20 6 9 17 4 12"/>
+        </svg> Cập nhật Gói tập`;
+    }
     getModal()?.show();
   }
 
-    btnDurMinus?.addEventListener("click", () => {
+  // Event: Open Add modal
+  btnOpenAdd?.addEventListener("click", openCreateModal);
+
+  // Character counter for package name
+  nameInput?.addEventListener("input", () => {
+    if (nameCounter) {
+      nameCounter.textContent = `${nameInput.value.length} / 60 ký tự`;
+    }
+  });
+
+  // Active status toggle inside modal
+  isActiveCheck?.addEventListener("change", () => {
+    updateStatusLabels(isActiveCheck.checked);
+  });
+
+  // Duration steppers
+  btnDurMinus?.addEventListener("click", () => {
     if (!durInput) return;
-    const v = parseInt(durInput.value, 10) || 1;
-    if (v > 1) durInput.value = String(v - 1);
+    const cur = parseInt(durInput.value, 10) || 30;
+    if (cur > 1) durInput.value = String(cur - 1);
   });
   btnDurPlus?.addEventListener("click", () => {
     if (!durInput) return;
-    const v = parseInt(durInput.value, 10) || 1;
-    if (v < 3650) durInput.value = String(v + 1);
+    const cur = parseInt(durInput.value, 10) || 0;
+    if (cur < 3650) durInput.value = String(cur + 1);
   });
+
+  // Session steppers
   btnSessMinus?.addEventListener("click", () => {
     if (!sessInput) return;
-    const v = parseInt(sessInput.value, 10) || 1;
-    if (v > 1) sessInput.value = String(v - 1);
+    const cur = parseInt(sessInput.value, 10) || 10;
+    if (cur > 1) sessInput.value = String(cur - 1);
   });
   btnSessPlus?.addEventListener("click", () => {
     if (!sessInput) return;
-    const v = parseInt(sessInput.value, 10) || 1;
-    if (v < 999) sessInput.value = String(v + 1);
+    const cur = parseInt(sessInput.value, 10) || 0;
+    if (cur < 999) sessInput.value = String(cur + 1);
   });
 
-    nameInput?.addEventListener("input", () => {
-    if (nameCounter)
-      nameCounter.textContent = `${nameInput.value.length} / 60 chars`;
-  });
-
-    isActiveCheck?.addEventListener("change", () => {
-    syncStatusLabel(isActiveCheck.checked);
-  });
-
-    btnOpenAdd?.addEventListener("click", openAddModal);
-
-    pkgForm?.addEventListener("submit", async (e: Event) => {
+  // Form Submit
+  pkgForm?.addEventListener("submit", async (e: SubmitEvent) => {
     e.preventDefault();
     clearFormErrors();
 
-    if (
-      !nameInput ||
-      !descTextarea ||
-      !priceInput ||
-      !durInput ||
-      !sessInput ||
-      !isActiveCheck ||
-      !hiddenId
-    )
-      return;
+    const name = nameInput?.value.trim() ?? "";
+    const description = descTextarea?.value.trim() ?? "";
+    const priceRaw = priceInput?.value.trim() ?? "";
+    const price = parseFloat(priceRaw);
+    const durationDays = parseInt(durInput?.value ?? "0", 10);
+    const sessionCount = parseInt(sessInput?.value ?? "0", 10);
+    const isActive = isActiveCheck?.checked ?? true;
+    const editingId = hiddenId?.value ? Number(hiddenId.value) : null;
 
-    const name = nameInput.value.trim();
-    const description = descTextarea.value.trim();
-        const price = Number(priceInput.value);
-    const durationDays = Number(durInput.value);
-    const sessionCount = Number(sessInput.value);
-    const isActive = isActiveCheck.checked;
-    const editingId = hiddenId.value ? Number(hiddenId.value) : null;
-
-    // Client-side validation
     let hasError = false;
+
     if (!name) {
       if (nameError) nameError.style.display = "block";
       hasError = true;
@@ -438,20 +426,22 @@ export async function init(): Promise<void> {
       if (descError) descError.style.display = "block";
       hasError = true;
     }
-    if (!price || price <= 0) {
+    if (!priceRaw || isNaN(price) || price <= 0) {
       if (priceError) priceError.style.display = "block";
       hasError = true;
     }
+
     if (hasError) return;
 
+    // Disable submit button
     if (submitBtn) {
       submitBtn.disabled = true;
-      submitBtn.textContent = editingId ? "Updating..." : "Saving...";
+      submitBtn.textContent = editingId ? "Đang cập nhật..." : "Đang lưu...";
     }
 
     try {
       if (editingId) {
-                const updated = await packageService.update(editingId, {
+        const updated = await packageService.update(editingId, {
           name,
           description,
           price,
@@ -461,9 +451,9 @@ export async function init(): Promise<void> {
         });
         const idx = allPackages.findIndex((p) => p.id === editingId);
         if (idx !== -1) allPackages[idx] = { ...allPackages[idx], ...updated };
-        showAlert(`Package "${updated.name}" updated successfully.`, "success");
+        showAlert(`Gói "${updated.name}" đã được cập nhật thành công.`, "success");
       } else {
-                const created = await packageService.create({
+        const created = await packageService.create({
           name,
           description,
           price,
@@ -472,19 +462,12 @@ export async function init(): Promise<void> {
           isActive,
         });
         allPackages.push(created);
-        showAlert(`Package "${created.name}" created successfully.`, "success");
+        showAlert(`Gói "${created.name}" đã được tạo thành công.`, "success");
       }
 
       // Re-render table & stats
       setStats(allPackages);
-      const filterVal = filterSelect?.value;
-      const filtered =
-        filterVal === "true"
-          ? allPackages.filter((p) => p.isActive)
-          : filterVal === "false"
-            ? allPackages.filter((p) => !p.isActive)
-            : allPackages;
-      renderTable(filtered);
+      renderTable(getFilteredPackages());
 
       getModal()?.hide();
     } catch (error: unknown) {
@@ -499,21 +482,83 @@ export async function init(): Promise<void> {
         submitBtn.innerHTML = `
           <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
             <polyline points="20 6 9 17 4 12"/>
-          </svg> ${hiddenId.value ? "Update Package" : "Save Package"}`;
+          </svg> ${hiddenId?.value ? "Cập nhật Gói tập" : "Lưu Gói tập"}`;
       }
     }
   });
 
-    filterSelect?.addEventListener("change", () => {
-    const val = filterSelect.value;
-    const filtered =
-      val === "true"
-        ? allPackages.filter((p) => p.isActive)
-        : val === "false"
-          ? allPackages.filter((p) => !p.isActive)
-          : allPackages;
-    renderTable(filtered);
+  searchInput?.addEventListener("input", () => {
+    renderTable(getFilteredPackages());
   });
 
-    await loadPackages();
+  filterSelect?.addEventListener("change", () => {
+    renderTable(getFilteredPackages());
+  });
+
+  setupAdminProfile();
+  setupLogoutAction();
+  highlightActiveNav();
+
+  await loadPackages();
+}
+
+/**
+ * Hiển thị thông tin Admin trên Header và Sidebar
+ */
+function setupAdminProfile(): void {
+  const user = getStoredUser();
+  const displayName = user?.fullName || user?.email || user?.phone || "Admin";
+
+  const headerName = document.querySelector<HTMLElement>("#admin-name");
+  if (headerName) {
+    headerName.textContent = displayName;
+  }
+
+  const sidebarName = document.querySelector<HTMLElement>("#sidebar-admin-name");
+  if (sidebarName) {
+    sidebarName.textContent = displayName;
+  }
+}
+
+/**
+ * Xử lý đăng xuất
+ */
+function setupLogoutAction(): void {
+  const logoutBtn = document.querySelector<HTMLElement>("#btn-logout");
+  if (!logoutBtn) return;
+
+  logoutBtn.addEventListener("click", async (e: Event) => {
+    e.preventDefault();
+    try {
+      if (authService && typeof authService.logout === "function") {
+        await authService.logout();
+      }
+    } catch (err) {
+      console.warn("Lỗi khi gọi API logout:", err);
+    } finally {
+      localStorage.removeItem(STORAGE_KEYS.ACCESS_TOKEN);
+      localStorage.removeItem(STORAGE_KEYS.REFRESH_TOKEN);
+      localStorage.removeItem(STORAGE_KEYS.USER);
+      window.location.href = "/auth/login.html";
+    }
+  });
+}
+
+/**
+ * Làm nổi bật menu active trên Sidebar
+ */
+function highlightActiveNav(): void {
+  const currentPath = window.location.pathname;
+  const navLinks = document.querySelectorAll<HTMLAnchorElement>(".admin-nav-link");
+
+  navLinks.forEach((link) => {
+    const href = link.getAttribute("href");
+    if (href === currentPath || (currentPath === "/admin/packages" && href === "/admin/packages")) {
+      link.classList.add("active", "text-white");
+      link.classList.remove("text-secondary-emphasis");
+    } else {
+      link.classList.remove("active", "text-white");
+      link.classList.add("text-secondary-emphasis");
+    }
+  });
 }

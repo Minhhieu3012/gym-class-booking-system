@@ -1,0 +1,494 @@
+<div class="admin-layout-wrapper d-flex min-vh-100">
+  <!-- ══════════════════════════════════════════
+       SIDEBAR (Fixed Desktop-first, Dark Theme)
+  ═══════════════════════════════════════════ -->
+  <aside id="admin-sidebar" class="admin-sidebar d-flex flex-column flex-shrink-0">
+    <!-- Brand Header -->
+    <div class="sidebar-brand d-flex align-items-center gap-3 px-4 py-3 border-bottom border-dark-subtle">
+      <div class="brand-logo-badge rounded-3 d-flex align-items-center justify-content-center">
+        <svg width="22" height="22" fill="none" stroke="#a3e635" stroke-width="2.5" viewBox="0 0 24 24">
+          <polyline points="22 12 18 12 15 21 9 3 6 12 2 12" />
+        </svg>
+      </div>
+      <div class="d-flex flex-column">
+        <span class="brand-title fw-bold text-white tracking-wide">PULSE GYM</span>
+        <span class="brand-subtitle text-secondary-emphasis small">ADMIN PORTAL</span>
+      </div>
+    </div>
+
+    <!-- Navigation Label -->
+    <div class="sidebar-nav-label px-4 pt-4 pb-2 text-uppercase fw-semibold text-muted small">
+      Quản lý hệ thống
+    </div>
+
+    <!-- Navigation Links -->
+    <nav class="nav nav-pills flex-column px-3 gap-1 flex-grow-1">
+      <!-- 1. Dashboard -->
+      <a
+        href="/admin/dashboard"
+        data-link
+        class="admin-nav-link nav-link d-flex align-items-center gap-3 px-3 py-2 rounded-3 text-secondary-emphasis"
+        id="nav-dashboard"
+      >
+        <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <rect x="3" y="3" width="7" height="9" rx="1" />
+          <rect x="14" y="3" width="7" height="5" rx="1" />
+          <rect x="14" y="12" width="7" height="9" rx="1" />
+          <rect x="3" y="16" width="7" height="5" rx="1" />
+        </svg>
+        <span>Dashboard</span>
+      </a>
+
+      <!-- 2. Users (Active) -->
+      <a
+        href="/admin/users"
+        data-link
+        class="admin-nav-link nav-link active d-flex align-items-center gap-3 px-3 py-2 rounded-3 text-white"
+        id="nav-users"
+      >
+        <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+          <circle cx="9" cy="7" r="4" />
+          <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
+          <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+        </svg>
+        <span>Users</span>
+      </a>
+
+      <!-- 3. Trainers -->
+      <a
+        href="/admin/trainers"
+        data-link
+        class="admin-nav-link nav-link d-flex align-items-center gap-3 px-3 py-2 rounded-3 text-secondary-emphasis"
+        id="nav-trainers"
+      >
+        <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <path d="M6 9l6 6 6-6" />
+          <circle cx="12" cy="12" r="10" />
+          <path d="M12 8v8" />
+        </svg>
+        <span>Trainers</span>
+      </a>
+
+      <!-- 4. Rooms -->
+      <a
+        href="/admin/rooms"
+        data-link
+        class="admin-nav-link nav-link d-flex align-items-center gap-3 px-3 py-2 rounded-3 text-secondary-emphasis"
+        id="nav-rooms"
+      >
+        <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+          <polyline points="9 22 9 12 15 12 15 22" />
+        </svg>
+        <span>Rooms</span>
+      </a>
+
+      <!-- 5. Class Types -->
+      <a
+        href="/admin/class-types"
+        data-link
+        class="admin-nav-link nav-link d-flex align-items-center gap-3 px-3 py-2 rounded-3 text-secondary-emphasis"
+        id="nav-class-types"
+      >
+        <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20" />
+          <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z" />
+        </svg>
+        <span>Class Types</span>
+      </a>
+
+      <!-- 6. Packages -->
+      <a
+        href="/admin/packages"
+        data-link
+        class="admin-nav-link nav-link d-flex align-items-center gap-3 px-3 py-2 rounded-3 text-secondary-emphasis"
+        id="nav-packages"
+      >
+        <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <rect x="2" y="7" width="20" height="14" rx="2" ry="2" />
+          <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16" />
+        </svg>
+        <span>Packages</span>
+      </a>
+
+      <!-- 7. Reviews -->
+      <a
+        href="/admin/reviews"
+        data-link
+        class="admin-nav-link nav-link d-flex align-items-center gap-3 px-3 py-2 rounded-3 text-secondary-emphasis"
+        id="nav-reviews"
+      >
+        <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+        </svg>
+        <span>Reviews</span>
+      </a>
+
+      <!-- 8. Transactions -->
+      <a
+        href="/admin/transactions"
+        data-link
+        class="admin-nav-link nav-link d-flex align-items-center gap-3 px-3 py-2 rounded-3 text-secondary-emphasis"
+        id="nav-transactions"
+      >
+        <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <rect x="1" y="4" width="22" height="16" rx="2" ry="2" />
+          <line x1="1" y1="10" x2="23" y2="10" />
+        </svg>
+        <span>Transactions</span>
+      </a>
+    </nav>
+
+    <!-- Sidebar Footer / Admin Info Mini Card -->
+    <div class="sidebar-footer p-3 border-top border-dark-subtle mt-auto">
+      <div class="d-flex align-items-center gap-2 px-2 py-1">
+        <div class="admin-avatar-sm rounded-circle d-flex align-items-center justify-content-center fw-bold">
+          A
+        </div>
+        <div class="overflow-hidden">
+          <div class="text-white small fw-semibold text-truncate" id="sidebar-admin-name">Admin</div>
+          <div class="text-muted small text-truncate">System Administrator</div>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- ══════════════════════════════════════════
+       MAIN CONTENT WRAPPER (Independent Scroll)
+  ═══════════════════════════════════════════ -->
+  <div class="admin-main d-flex flex-column flex-grow-1">
+    <!-- Top Header -->
+    <header class="admin-header bg-white border-bottom px-4 py-3 d-flex align-items-center justify-content-between sticky-top">
+      <!-- Breadcrumbs -->
+      <div class="d-flex align-items-center gap-2">
+        <span class="text-muted small text-uppercase fw-semibold">Command Center</span>
+        <svg width="14" height="14" fill="none" stroke="#64748b" stroke-width="2" viewBox="0 0 24 24">
+          <polyline points="9 18 15 12 9 6" />
+        </svg>
+        <span class="fw-bold text-dark small text-uppercase">Quản lý Người dùng</span>
+      </div>
+
+      <!-- Header Right: Admin User Name & Logout Button -->
+      <div class="d-flex align-items-center gap-3">
+        <!-- Admin Profile Info -->
+        <div class="d-flex align-items-center gap-2 py-1 px-2 rounded-3 bg-light border">
+          <div class="header-avatar rounded-circle d-flex align-items-center justify-content-center fw-bold text-white bg-dark">
+            A
+          </div>
+          <span id="admin-name" class="fw-semibold text-dark small px-1">Admin</span>
+        </div>
+
+        <!-- Logout Button -->
+        <button
+          type="button"
+          id="btn-logout"
+          class="btn btn-outline-danger btn-sm d-flex align-items-center gap-2 px-3 py-2 rounded-3"
+          title="Đăng xuất khỏi hệ thống"
+        >
+          <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
+            <polyline points="16 17 21 12 16 7" />
+            <line x1="21" y1="12" x2="9" y2="12" />
+          </svg>
+          <span class="fw-medium">Đăng xuất</span>
+        </button>
+      </div>
+    </header>
+
+    <!-- Main Content Area -->
+    <main class="admin-content-body flex-grow-1 p-4 p-xl-5">
+      <div class="container-fluid p-0">
+        <!-- Page Header -->
+        <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center gap-3 mb-4">
+          <div>
+            <h1 class="page-main-title fw-bold text-dark mb-1">
+              Quản lý Người dùng
+            </h1>
+            <p class="text-muted mb-0">
+              Danh sách tài khoản, kiểm soát vai trò và phân quyền hoạt động trong hệ thống.
+            </p>
+          </div>
+          <div class="d-flex align-items-center gap-2">
+            <span id="users-count-badge" class="badge bg-primary-subtle text-primary border border-primary-subtle px-3 py-2 rounded-pill small fw-semibold">
+              Đang tải...
+            </span>
+          </div>
+        </div>
+
+        <!-- ══════════════════════════════════════════
+             TOOLBAR / BỘ LỌC TÌM KIẾM
+        ═══════════════════════════════════════════ -->
+        <div class="card border-0 shadow-sm rounded-4 p-3 p-md-4 bg-white mb-4 user-toolbar-card">
+          <div class="row g-3 align-items-center">
+            <!-- Keyword Search -->
+            <div class="col-12 col-md-5 col-lg-5">
+              <div class="input-group">
+                <span class="input-group-text bg-light border-end-0 text-muted">
+                  <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                    <circle cx="11" cy="11" r="8" />
+                    <line x1="21" y1="21" x2="16.65" y2="16.65" />
+                  </svg>
+                </span>
+                <input
+                  type="text"
+                  id="filter-keyword"
+                  class="form-control border-start-0 ps-0 bg-light"
+                  placeholder="Tìm kiếm theo họ tên, email, SĐT..."
+                  aria-label="Tìm kiếm người dùng"
+                />
+              </div>
+            </div>
+
+            <!-- Role Dropdown -->
+            <div class="col-12 col-sm-6 col-md-3 col-lg-3">
+              <select id="filter-role" class="form-select bg-light">
+                <option value="ALL" selected>Tất cả vai trò (ALL)</option>
+                <option value="MEMBER">Hội viên (MEMBER)</option>
+                <option value="TRAINER">Huấn luyện viên (TRAINER)</option>
+                <option value="ADMIN">Quản trị viên (ADMIN)</option>
+              </select>
+            </div>
+
+            <!-- Status Dropdown -->
+            <div class="col-12 col-sm-6 col-md-3 col-lg-3">
+              <select id="filter-status" class="form-select bg-light">
+                <option value="ALL" selected>Tất cả trạng thái (ALL)</option>
+                <option value="ACTIVE">Hoạt động (ACTIVE)</option>
+                <option value="LOCKED">Bị khóa (LOCKED)</option>
+                <option value="PENDING">Chờ duyệt (PENDING)</option>
+                <option value="REJECTED">Bị từ chối (REJECTED)</option>
+              </select>
+            </div>
+
+            <!-- Reset Filters Button -->
+            <div class="col-12 col-md-1 col-lg-1 d-flex justify-content-end">
+              <button
+                type="button"
+                id="btn-reset-filters"
+                class="btn btn-light border text-muted w-100 d-flex align-items-center justify-content-center"
+                title="Đặt lại bộ lọc"
+              >
+                <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                  <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8" />
+                  <path d="M3 3v5h5" />
+                </svg>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- ══════════════════════════════════════════
+             BOOTSTRAP TABLE
+        ═══════════════════════════════════════════ -->
+        <div class="card border-0 shadow-sm rounded-4 overflow-hidden bg-white user-table-card">
+          <div class="table-responsive">
+            <table class="table table-hover align-middle mb-0 custom-user-table">
+              <thead class="table-light border-bottom">
+                <tr>
+                  <th scope="col" class="ps-4 py-3 text-muted text-uppercase small fw-bold" style="width: 80px;">ID</th>
+                  <th scope="col" class="py-3 text-muted text-uppercase small fw-bold">Họ tên</th>
+                  <th scope="col" class="py-3 text-muted text-uppercase small fw-bold">Email</th>
+                  <th scope="col" class="py-3 text-muted text-uppercase small fw-bold">Số điện thoại</th>
+                  <th scope="col" class="py-3 text-muted text-uppercase small fw-bold">Vai trò</th>
+                  <th scope="col" class="py-3 text-muted text-uppercase small fw-bold">Trạng thái</th>
+                  <th scope="col" class="text-end pe-4 py-3 text-muted text-uppercase small fw-bold" style="width: 220px;">Thao tác</th>
+                </tr>
+              </thead>
+              <tbody id="user-table-body">
+                <!-- Data rows rendered dynamically via users.ts -->
+                <tr>
+                  <td colspan="7" class="text-center py-5 text-muted">
+                    <div class="spinner-border spinner-border-sm text-primary me-2" role="status"></div>
+                    Đang tải danh sách người dùng...
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <!-- Table Footer / Pagination Controls -->
+          <div class="card-footer bg-white border-top px-4 py-3 d-flex flex-column flex-sm-row align-items-center justify-content-between gap-2">
+            <span class="text-muted small" id="table-pagination-info">
+              Đang hiển thị...
+            </span>
+            <nav aria-label="Users pagination" id="pagination-wrapper">
+              <ul class="pagination pagination-sm mb-0 gap-1" id="pagination-controls">
+                <!-- Dynamic pagination buttons -->
+              </ul>
+            </nav>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════
+     USER STATUS MODAL (Khóa / Mở khóa)
+═══════════════════════════════════════════ -->
+<div class="modal fade" id="userStatusModal" tabindex="-1" aria-labelledby="userStatusModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content rounded-4 border-0 shadow-lg">
+      <div class="modal-header border-bottom px-4 py-3">
+        <h5 class="modal-title fw-bold d-flex align-items-center gap-2" id="userStatusModalLabel">
+          <span id="userStatusModalIcon"></span>
+          <span id="userStatusModalTitle">Thay đổi trạng thái tài khoản</span>
+        </h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body p-4">
+        <div class="d-flex align-items-center gap-3 p-3 rounded-3 mb-3 border" id="userStatusModalInfoBox">
+          <div id="userStatusModalBadgeIcon"></div>
+          <div>
+            <div class="fw-bold" id="userStatusModalUserName">Tên người dùng</div>
+            <div class="small text-muted" id="userStatusModalUserEmail">email@example.com</div>
+          </div>
+        </div>
+        <p class="text-dark mb-1" id="userStatusConfirmMessage">
+          Bạn có chắc chắn muốn thay đổi trạng thái tài khoản này?
+        </p>
+        <p class="text-muted small mb-0" id="userStatusSubMessage">
+          Thao tác này sẽ cập nhật ngay lập tức quyền truy cập của người dùng.
+        </p>
+      </div>
+      <div class="modal-footer border-top bg-light rounded-bottom-4 px-4 py-3 d-flex justify-content-end gap-2">
+        <button type="button" class="btn btn-light border px-4 rounded-3 text-muted" data-bs-dismiss="modal">
+          Hủy
+        </button>
+        <button type="button" id="btn-confirm-user-status" class="btn btn-danger px-4 rounded-3 fw-semibold d-flex align-items-center gap-2 shadow-sm">
+          <span>Xác nhận</span>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════
+     ADJUST MEMBER PACKAGE MODAL (Cộng/Trừ lượt tập)
+═══════════════════════════════════════════ -->
+<div class="modal fade" id="adjustPackageModal" tabindex="-1" aria-labelledby="adjustPackageModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content rounded-4 border-0 shadow-lg">
+      <div class="modal-header border-bottom px-4 py-3 bg-light-subtle">
+        <h5 class="modal-title fw-bold d-flex align-items-center gap-2 text-primary" id="adjustPackageModalLabel">
+          <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <circle cx="12" cy="12" r="10" />
+            <line x1="12" y1="8" x2="12" y2="16" />
+            <line x1="8" y1="12" x2="16" y2="12" />
+          </svg>
+          <span>Điều chỉnh Lượt tập & Gói tập</span>
+        </h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+
+      <form id="adjustPackageForm">
+        <div class="modal-body p-4">
+          <!-- Member Info Banner -->
+          <div class="d-flex align-items-center gap-3 p-3 rounded-3 mb-3 border bg-primary-subtle border-primary-subtle">
+            <div class="rounded-circle bg-white text-primary p-2 d-flex align-items-center justify-content-center shadow-xs">
+              <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+                <circle cx="12" cy="7" r="4" />
+              </svg>
+            </div>
+            <div>
+              <div class="fw-bold text-dark" id="adjustModalMemberName">Hội viên</div>
+              <div class="small text-muted" id="adjustModalMemberInfo">Mã hội viên: #...</div>
+            </div>
+          </div>
+
+          <!-- Select Package Dropdown -->
+          <div class="mb-3">
+            <label for="adjust-package-select" class="form-label small fw-bold text-dark">
+              Chọn Gói tập cần điều chỉnh <span class="text-danger">*</span>
+            </label>
+            <select id="adjust-package-select" class="form-select rounded-3">
+              <option value="" disabled selected>Đang tìm gói tập của hội viên...</option>
+            </select>
+            <div class="form-text extra-small" id="adjust-package-info">
+              Hệ thống sẽ tự động liệt kê các gói tập mà hội viên này đã sở hữu.
+            </div>
+          </div>
+
+          <!-- Direct Package ID input (optional fallback) -->
+          <div class="mb-3" id="adjust-package-manual-box" style="display: none;">
+            <label for="adjust-package-id-input" class="form-label small fw-bold text-dark">
+              ID Gói tập hội viên (MemberPackage ID)
+            </label>
+            <input
+              type="number"
+              id="adjust-package-id-input"
+              class="form-control rounded-3"
+              placeholder="Nhập ID gói tập hội viên..."
+            />
+          </div>
+
+          <!-- Sessions Adjustment Input -->
+          <div class="mb-3">
+            <label for="adjust-sessions-input" class="form-label small fw-bold text-dark">
+              Số lượt tập điều chỉnh (sessionsAdjustment)
+            </label>
+            <div class="input-group mb-2">
+              <span class="input-group-text bg-light text-muted">+/-</span>
+              <input
+                type="number"
+                id="adjust-sessions-input"
+                class="form-control rounded-end-3"
+                placeholder="Ví dụ: 5 để cộng thêm, -2 để trừ bớt..."
+                step="1"
+              />
+            </div>
+            <!-- Quick Preset Buttons -->
+            <div class="d-flex gap-1">
+              <button type="button" class="btn btn-sm btn-light border extra-small px-2 py-1 btn-session-preset" data-val="1">+1 buổi</button>
+              <button type="button" class="btn btn-sm btn-light border extra-small px-2 py-1 btn-session-preset" data-val="5">+5 buổi</button>
+              <button type="button" class="btn btn-sm btn-light border extra-small px-2 py-1 btn-session-preset" data-val="10">+10 buổi</button>
+              <button type="button" class="btn btn-sm btn-light border extra-small px-2 py-1 btn-session-preset" data-val="-1">-1 buổi</button>
+              <button type="button" class="btn btn-sm btn-light border extra-small px-2 py-1 btn-session-preset" data-val="-5">-5 buổi</button>
+            </div>
+          </div>
+
+          <!-- New End Date Input -->
+          <div class="mb-3">
+            <label for="adjust-end-date-input" class="form-label small fw-bold text-dark">
+              Gia hạn ngày kết thúc mới (newEndDate)
+            </label>
+            <input
+              type="date"
+              id="adjust-end-date-input"
+              class="form-control rounded-3"
+            />
+            <div class="form-text extra-small">Bỏ trống nếu giữ nguyên thời hạn hiện tại của gói.</div>
+          </div>
+
+          <!-- Reason Textarea -->
+          <div class="mb-2">
+            <label for="adjust-reason-input" class="form-label small fw-bold text-dark">
+              Lý do điều chỉnh (reason) <span class="text-danger">*</span>
+            </label>
+            <textarea
+              id="adjust-reason-input"
+              class="form-control rounded-3"
+              rows="3"
+              placeholder="Nhập lý do điều chỉnh (VD: Bồi hoàn buổi tập bị hủy kỹ thuật, gia hạn voucher...)"
+              required
+            ></textarea>
+          </div>
+        </div>
+
+        <div class="modal-footer border-top bg-light rounded-bottom-4 px-4 py-3 d-flex justify-content-end gap-2">
+          <button type="button" class="btn btn-light border px-4 rounded-3 text-muted" data-bs-dismiss="modal">
+            Hủy
+          </button>
+          <button type="submit" id="btn-confirm-adjust-package" class="btn btn-primary px-4 rounded-3 fw-semibold d-flex align-items-center gap-2 shadow-sm">
+            <span>Xác nhận Điều chỉnh</span>
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- Toast Container for Notifications -->
+<div class="toast-container position-fixed top-0 end-0 p-3" id="user-toast-container" style="z-index: 1090;"></div>

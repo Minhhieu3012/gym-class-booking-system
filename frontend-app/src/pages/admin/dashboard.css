@@ -1,127 +1,242 @@
-.dash-layout-wrapper {
-  background-color: var(--color-surface);
-  font-family: var(--font-primary);
+/* ============================================================
+   ADMIN DASHBOARD - DESKTOP-FIRST STYLES
+   ============================================================ */
+
+.admin-layout-wrapper {
+  background-color: #f8fafc;
+  font-family: "Plus Jakarta Sans", system-ui, -apple-system, sans-serif;
+  color: #1e293b;
+  width: 100%;
 }
-.dash-sidebar {
+
+/* ══════════════════════════════════════════
+   1. FIXED SIDEBAR (Dark Theme)
+   ═══════════════════════════════════════════ */
+.admin-sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
   width: 250px;
-  border-right: 1px solid var(--color-border);
+  background-color: #0f172a;
+  border-right: 1px solid #1e293b;
+  z-index: 1020;
+  overflow-y: auto;
+  overflow-x: hidden;
+  transition: width 0.3s ease;
 }
-.dash-logo-icon-wrapper {
-  width: 32px;
-  height: 32px;
+
+/* Custom Sleek Dark Scrollbar for Sidebar */
+.admin-sidebar::-webkit-scrollbar {
+  width: 5px;
 }
-.dash-logo-title {
-  font-size: 1.1rem;
-  letter-spacing: -0.02em;
+.admin-sidebar::-webkit-scrollbar-track {
+  background: #0f172a;
 }
-.dash-sidebar-nav-label {
+.admin-sidebar::-webkit-scrollbar-thumb {
+  background: #334155;
+  border-radius: 4px;
+}
+.admin-sidebar::-webkit-scrollbar-thumb:hover {
+  background: #475569;
+}
+
+/* Brand Section */
+.brand-logo-badge {
+  width: 38px;
+  height: 38px;
+  background: rgba(163, 230, 53, 0.12);
+  border: 1px solid rgba(163, 230, 53, 0.25);
+}
+.brand-title {
+  font-size: 1.15rem;
+  letter-spacing: 0.04em;
+}
+.brand-subtitle {
   font-size: 0.65rem;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: #94a3b8;
 }
-.dash-nav-link {
+
+/* Navigation Links */
+.sidebar-nav-label {
+  letter-spacing: 0.08em;
+  color: #64748b !important;
+}
+
+.admin-nav-link {
   font-size: 0.9rem;
   font-weight: 500;
+  color: #94a3b8 !important;
+  transition: all 0.2s ease;
+  border-left: 3px solid transparent;
 }
-.dash-header {
-  border-bottom: 1px solid var(--color-border);
-  z-index: 10;
+
+.admin-nav-link:hover {
+  background-color: rgba(255, 255, 255, 0.06);
+  color: #f8fafc !important;
+  transform: translateX(2px);
 }
-.dash-header-breadcrumb {
-  font-size: 0.8rem;
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
-}
-.dash-header-btn-last30 {
+
+.admin-nav-link.active {
+  background-color: #1e293b !important;
+  color: #a3e635 !important;
   font-weight: 600;
-  font-size: 0.8rem;
+  border-left-color: #a3e635 !important;
 }
-.dash-content-container {
-  max-width: 1200px;
+
+.admin-nav-link svg {
+  transition: transform 0.2s ease;
 }
-.dash-page-title {
-  font-size: 2rem;
-  letter-spacing: -0.02em;
+.admin-nav-link:hover svg {
+  transform: scale(1.08);
 }
-.dash-page-title-badge {
-  width: fit-content;
-  font-size: 0.75rem;
-  padding: 0.4em 0.8em;
-}
-.dash-stat-card {
-  border-radius: var(--radius-md);
-}
-.dash-stat-label {
-  font-size: 0.75rem;
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
-}
-.dash-stat-icon-wrapper {
+
+/* Sidebar Footer Profile */
+.admin-avatar-sm {
   width: 32px;
   height: 32px;
+  background-color: #1e293b;
+  color: #a3e635;
+  border: 1px solid #334155;
+  font-size: 0.85rem;
 }
-.dash-stat-value {
-  font-size: 2.2rem;
-  line-height: 1;
+
+/* ══════════════════════════════════════════
+   2. MAIN CONTENT WRAPPER (Independent Scroll)
+   ═══════════════════════════════════════════ */
+.admin-main {
+  margin-left: 250px;
+  width: calc(100% - 250px);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: #f8fafc;
 }
-.dash-stat-value-unit {
-  font-size: 0.9rem;
+
+/* Header */
+.admin-header {
+  height: 64px;
+  background-color: #ffffff !important;
+  border-bottom: 1px solid #e2e8f0;
+  z-index: 1010;
 }
-.dash-stat-trend {
-  font-weight: 700;
-  font-size: 0.75rem;
-}
-.dash-stat-trend--up {
-  color: var(--color-tertiary);
-}
-.dash-stat-desc {
+
+.header-avatar {
+  width: 30px;
+  height: 30px;
   font-size: 0.8rem;
+  background-color: #0f172a !important;
 }
-.dash-chart-card {
-  border-radius: var(--radius-md);
-  min-height: 350px;
+
+/* Page Title & Status */
+.page-main-title {
+  font-size: 1.65rem;
+  letter-spacing: -0.02em;
+  color: #0f172a;
 }
-.dash-chart-title {
-  font-size: 1.1rem;
+
+.live-dot {
+  width: 8px;
+  height: 8px;
+  display: inline-block;
+  animation: pulse-live 2s infinite;
 }
-.dash-chart-desc {
-  font-size: 0.85rem;
+
+@keyframes pulse-live {
+  0% {
+    transform: scale(0.95);
+    box-shadow: 0 0 0 0 rgba(22, 163, 74, 0.7);
+  }
+  70% {
+    transform: scale(1);
+    box-shadow: 0 0 0 6px rgba(22, 163, 74, 0);
+  }
+  100% {
+    transform: scale(0.95);
+    box-shadow: 0 0 0 0 rgba(22, 163, 74, 0);
+  }
 }
-.dash-chart-placeholder {
-  border-style: dashed !important;
-  min-height: 250px;
+
+/* ══════════════════════════════════════════
+   3. KPI CARDS (Shadow & Professional Hover Effect)
+   ═══════════════════════════════════════════ */
+.kpi-card {
+  transition: transform 0.22s cubic-bezier(0.34, 1.56, 0.64, 1),
+              box-shadow 0.22s ease,
+              border-color 0.22s ease;
+  border: 1px solid #e2e8f0 !important;
+  background: #ffffff;
+  cursor: default;
 }
-.dash-list-card {
-  border-radius: var(--radius-md);
-  min-height: 350px;
+
+.kpi-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 28px -6px rgba(15, 23, 42, 0.08),
+              0 6px 10px -4px rgba(15, 23, 42, 0.04) !important;
+  border-color: #cbd5e1 !important;
 }
-.dash-list-title {
-  font-size: 1.1rem;
+
+.kpi-label {
+  font-size: 0.75rem;
+  letter-spacing: 0.06em;
+  color: #64748b;
 }
-.dash-list-desc {
-  font-size: 0.85rem;
+
+.kpi-value {
+  font-size: 2.1rem;
+  line-height: 1.15;
+  color: #0f172a;
+  letter-spacing: -0.03em;
 }
-.dash-list-badge {
-  font-weight: 700;
-  width: 28px;
-  text-align: center;
+
+.kpi-icon-badge {
+  width: 44px;
+  height: 44px;
+  flex-shrink: 0;
+  transition: transform 0.25s ease;
 }
-.dash-list-badge--top {
-  color: var(--color-tertiary);
+
+.kpi-card:hover .kpi-icon-badge {
+  transform: scale(1.1);
 }
-.dash-list-item-title {
-  font-size: 0.85rem;
+
+/* Subordinate sections */
+.analytics-chart-box {
+  min-height: 220px;
+  background-color: #f8fafc;
+  border-color: #cbd5e1 !important;
 }
-.dash-list-item-desc {
+
+.analytics-chart-icon-box {
+  width: 54px;
+  height: 54px;
+}
+
+.shortcut-icon-box {
+  width: 36px;
+  height: 36px;
+  flex-shrink: 0;
+}
+
+.extra-small {
   font-size: 0.75rem;
 }
-.dash-list-item-value {
-  font-size: 0.85rem;
-}
-.dash-list-item-status {
-  font-size: 0.7rem;
-  font-weight: 600;
-}
-.dash-list-item-status--full {
-  color: var(--color-tertiary);
+
+/* ══════════════════════════════════════════
+   4. RESPONSIVE FALLBACKS (Desktop-first)
+   ═══════════════════════════════════════════ */
+@media (max-width: 991.98px) {
+  .admin-sidebar {
+    position: static;
+    width: 100%;
+    height: auto;
+  }
+  .admin-main {
+    margin-left: 0;
+    width: 100%;
+  }
+  .admin-layout-wrapper {
+    flex-direction: column;
+  }
 }

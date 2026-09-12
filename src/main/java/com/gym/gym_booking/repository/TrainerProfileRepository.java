@@ -21,7 +21,7 @@ public interface TrainerProfileRepository
     SELECT t
     FROM TrainerProfile t
     JOIN t.user u
-    WHERE u.status = :status
+    WHERE (:status IS NULL OR u.status = :status)
       AND (
             :specialization IS NULL
             OR :specialization = ''

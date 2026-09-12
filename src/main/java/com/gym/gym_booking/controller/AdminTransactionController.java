@@ -71,4 +71,25 @@ public class AdminTransactionController {
                 paymentService.mockPayment(id, status)
         );
     }
+
+    @PatchMapping("/{id}/status")
+    public ResponseEntity<TransactionResponseDTO>
+    updateTransactionStatus(
+            @PathVariable Long id,
+            @RequestBody(required = false)
+            java.util.Map<String, Object> body,
+            @RequestParam(required = false)
+            TransactionStatus status
+    ) {
+        TransactionStatus newStatus = status;
+        if (newStatus == null && body != null && body.containsKey("status") && body.get("status") != null) {
+            newStatus = TransactionStatus.valueOf(body.get("status").toString().toUpperCase());
+        }
+        if (newStatus == null) {
+            throw new IllegalArgumentException("Trạng thái không được để trống");
+        }
+        return ResponseEntity.ok(
+                paymentService.mockPayment(id, newStatus)
+        );
+    }
 }

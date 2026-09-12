@@ -41,14 +41,23 @@ export interface BuyPackageRequest {
 export interface TransactionResponse {
   id: number;
   amount: number;
-  status: string;
+  status: "PENDING" | "SUCCESS" | "FAILED" | string;
   transactionCode: string;
   paymentMethod: PaymentMethod | string;
   createdAt: string;
   completedAt?: string;
   memberId?: number;
+  memberName?: string;
+  memberEmail?: string;
   packageId?: number;
+  packageName?: string;
   memberPackageId?: number;
+}
+
+export interface AdjustMemberPackageRequest {
+  sessionsAdjustment?: number;
+  newEndDate?: string;
+  reason: string;
 }
 
 // Query Parameters
@@ -59,7 +68,18 @@ export interface PackageQueryParams {
 }
 
 export interface MemberPackageQueryParams {
+  memberId?: number;
   page?: number;
   size?: number;
   status?: MemberPackageStatus | string;
 }
+
+export interface TransactionQueryParams {
+  memberId?: number;
+  status?: string;
+  page?: number;
+  size?: number;
+  sort?: string;
+  keyword?: string;
+}
+

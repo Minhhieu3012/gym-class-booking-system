@@ -48,7 +48,63 @@ export class PaymentService {
     );
     return responseData;
   }
+
+  /**
+   * Lấy danh sách giao dịch cho Quản trị viên
+   * GET /transactions
+   */
+  async getTransactions(
+    params?: any,
+  ): Promise<PageResponse<TransactionResponse>> {
+    const { data } = await apiClient.get<PageResponse<TransactionResponse>>(
+      "/transactions",
+      { params },
+    );
+    return data;
+  }
+
+  /**
+   * Cập nhật trạng thái giao dịch (Duyệt: SUCCESS, Hủy: FAILED)
+   * PATCH /transactions/${id}/status
+   */
+  async updateTransactionStatus(
+    id: number,
+    status: string,
+  ): Promise<TransactionResponse> {
+    const { data } = await apiClient.patch<TransactionResponse>(
+      `/transactions/${id}/status`,
+      { status },
+    );
+    return data;
+  }
+
+  /**
+   * Điều chỉnh lượt tập thủ công cho gói tập hội viên
+   * PATCH /member-packages/${id}/adjust
+   */
+  async adjustMemberPackage(
+    id: number,
+    payload: {
+      sessionsAdjustment?: number;
+      newEndDate?: string;
+      reason: string;
+    },
+  ): Promise<MemberPackage> {
+    const { data } = await apiClient.patch<MemberPackage>(
+      `/member-packages/${id}/adjust`,
+      payload,
+    );
+    return data;
+  }
 }
+
+// Standalone functions for direct import
+export const getTransactions = (params?: any) =>
+  paymentService.getTransactions(params);
+export const updateTransactionStatus = (id: number, status: string) =>
+  paymentService.updateTransactionStatus(id, status);
+export const adjustMemberPackage = (id: number, payload: any) =>
+  paymentService.adjustMemberPackage(id, payload);
 
 // Export singleton instance
 export const paymentService = new PaymentService();

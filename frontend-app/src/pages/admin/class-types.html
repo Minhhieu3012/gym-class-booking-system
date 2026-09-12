@@ -1,446 +1,347 @@
-<div class="ct-layout-wrapper admin-theme d-flex">
+<div class="admin-layout-wrapper d-flex min-vh-100">
   <!-- ══════════════════════════════════════════
-       SIDEBAR
+       SIDEBAR (Fixed Desktop-first, Dark Theme)
   ═══════════════════════════════════════════ -->
-  <aside id="admin-sidebar" class="ct-sidebar bg-surface d-flex flex-column">
-    <!-- Logo -->
-    <div class="ct-sidebar-logo-container d-flex align-items-center gap-2 px-4">
-      <div
-        class="ct-sidebar-logo-icon-wrapper rounded-theme-md d-flex align-items-center justify-content-center"
-      >
-        <svg
-          width="18"
-          height="18"
-          fill="none"
-          stroke="var(--color-primary)"
-          stroke-width="2.5"
-          viewBox="0 0 24 24"
-        >
-          <path d="M18 20V10M12 20V4M6 20v-6" />
+  <aside id="admin-sidebar" class="admin-sidebar d-flex flex-column flex-shrink-0">
+    <!-- Brand Header -->
+    <div class="sidebar-brand d-flex align-items-center gap-3 px-4 py-3 border-bottom border-dark-subtle">
+      <div class="brand-logo-badge rounded-3 d-flex align-items-center justify-content-center">
+        <svg width="22" height="22" fill="none" stroke="#a3e635" stroke-width="2.5" viewBox="0 0 24 24">
+          <polyline points="22 12 18 12 15 21 9 3 6 12 2 12" />
         </svg>
       </div>
-      <div>
-        <p class="ct-sidebar-logo-title mb-0 fw-bold text-secondary-theme">
-          PULSE
-        </p>
-        <p class="ct-sidebar-logo-subtitle mb-0 text-neutral">PERFORMANCE</p>
+      <div class="d-flex flex-column">
+        <span class="brand-title fw-bold text-white tracking-wide">PULSE GYM</span>
+        <span class="brand-subtitle text-secondary-emphasis small">ADMIN PORTAL</span>
       </div>
     </div>
 
-    <!-- Nav label -->
-    <p class="ct-sidebar-nav-label mb-0 text-neutral px-4 mt-4 mb-2">
-      COMMAND CENTER
-    </p>
+    <!-- Navigation Label -->
+    <div class="sidebar-nav-label px-4 pt-4 pb-2 text-uppercase fw-semibold text-muted small">
+      Quản lý hệ thống
+    </div>
 
-    <!-- Nav links -->
-    <nav class="d-flex flex-column px-3 gap-1 flex-grow-1">
+    <!-- Navigation Links -->
+    <nav class="nav nav-pills flex-column px-3 gap-1 flex-grow-1">
+      <!-- 1. Dashboard -->
       <a
         href="/admin/dashboard"
         data-link
-        class="sidebar-link d-flex align-items-center gap-3 px-3 py-2 rounded-theme-md text-neutral"
+        class="admin-nav-link nav-link d-flex align-items-center gap-3 px-3 py-2 rounded-3 text-secondary-emphasis"
         id="nav-dashboard"
       >
-        <svg
-          width="16"
-          height="16"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="2"
-          viewBox="0 0 24 24"
-        >
-          <rect x="3" y="3" width="7" height="7" />
-          <rect x="14" y="3" width="7" height="7" />
-          <rect x="14" y="14" width="7" height="7" />
-          <rect x="3" y="14" width="7" height="7" />
+        <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <rect x="3" y="3" width="7" height="9" rx="1" />
+          <rect x="14" y="3" width="7" height="5" rx="1" />
+          <rect x="14" y="12" width="7" height="9" rx="1" />
+          <rect x="3" y="16" width="7" height="5" rx="1" />
         </svg>
-        <span class="ct-sidebar-nav-text">Dashboard</span>
+        <span>Dashboard</span>
       </a>
 
+      <!-- 2. Users -->
+      <a
+        href="/admin/users"
+        data-link
+        class="admin-nav-link nav-link d-flex align-items-center gap-3 px-3 py-2 rounded-3 text-secondary-emphasis"
+        id="nav-users"
+      >
+        <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+          <circle cx="9" cy="7" r="4" />
+          <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
+          <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+        </svg>
+        <span>Users</span>
+      </a>
+
+      <!-- 3. Trainers -->
+      <a
+        href="/admin/trainers"
+        data-link
+        class="admin-nav-link nav-link d-flex align-items-center gap-3 px-3 py-2 rounded-3 text-secondary-emphasis"
+        id="nav-trainers"
+      >
+        <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <path d="M6 9l6 6 6-6" />
+          <circle cx="12" cy="12" r="10" />
+          <path d="M12 8v8" />
+        </svg>
+        <span>Trainers</span>
+      </a>
+
+      <!-- 4. Rooms -->
       <a
         href="/admin/rooms"
         data-link
-        class="sidebar-link d-flex align-items-center gap-3 px-3 py-2 rounded-theme-md text-neutral"
+        class="admin-nav-link nav-link d-flex align-items-center gap-3 px-3 py-2 rounded-3 text-secondary-emphasis"
         id="nav-rooms"
       >
-        <svg
-          width="16"
-          height="16"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="2"
-          viewBox="0 0 24 24"
-        >
+        <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
           <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
           <polyline points="9 22 9 12 15 12 15 22" />
         </svg>
-        <span class="ct-sidebar-nav-text">Rooms</span>
+        <span>Rooms</span>
       </a>
 
+      <!-- 5. Class Types (Active) -->
       <a
         href="/admin/class-types"
         data-link
-        class="sidebar-link sidebar-link--active d-flex align-items-center gap-3 px-3 py-2 rounded-theme-md"
+        class="admin-nav-link nav-link active d-flex align-items-center gap-3 px-3 py-2 rounded-3 text-white"
         id="nav-class-types"
       >
-        <svg
-          width="16"
-          height="16"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="2"
-          viewBox="0 0 24 24"
-        >
+        <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
           <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20" />
-          <path
-            d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"
-          />
+          <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z" />
         </svg>
-        <span class="ct-sidebar-nav-text--active">Class Types</span>
+        <span>Class Types</span>
       </a>
 
+      <!-- 6. Packages -->
       <a
         href="/admin/packages"
         data-link
-        class="sidebar-link d-flex align-items-center gap-3 px-3 py-2 rounded-theme-md text-neutral"
+        class="admin-nav-link nav-link d-flex align-items-center gap-3 px-3 py-2 rounded-3 text-secondary-emphasis"
         id="nav-packages"
       >
-        <svg
-          width="16"
-          height="16"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="2"
-          viewBox="0 0 24 24"
-        >
-          <line x1="8" y1="6" x2="21" y2="6" />
-          <line x1="8" y1="12" x2="21" y2="12" />
-          <line x1="8" y1="18" x2="21" y2="18" />
-          <line x1="3" y1="6" x2="3.01" y2="6" />
-          <line x1="3" y1="12" x2="3.01" y2="12" />
-          <line x1="3" y1="18" x2="3.01" y2="18" />
+        <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <rect x="2" y="7" width="20" height="14" rx="2" ry="2" />
+          <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16" />
         </svg>
-        <span class="ct-sidebar-nav-text">Packages</span>
+        <span>Packages</span>
+      </a>
+
+      <!-- 7. Reviews -->
+      <a
+        href="/admin/reviews"
+        data-link
+        class="admin-nav-link nav-link d-flex align-items-center gap-3 px-3 py-2 rounded-3 text-secondary-emphasis"
+        id="nav-reviews"
+      >
+        <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+        </svg>
+        <span>Reviews</span>
+      </a>
+
+      <!-- 8. Transactions -->
+      <a
+        href="/admin/transactions"
+        data-link
+        class="admin-nav-link nav-link d-flex align-items-center gap-3 px-3 py-2 rounded-3 text-secondary-emphasis"
+        id="nav-transactions"
+      >
+        <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <rect x="1" y="4" width="22" height="16" rx="2" ry="2" />
+          <line x1="1" y1="10" x2="23" y2="10" />
+        </svg>
+        <span>Transactions</span>
       </a>
     </nav>
 
-    <div class="ct-sidebar-user-container px-4 py-3">
-      <div class="d-flex align-items-center gap-2">
-        <div
-          id="sidebar-avatar"
-          class="ct-sidebar-user-avatar rounded-circle d-flex align-items-center justify-content-center fw-bold bg-surface-alt text-secondary-theme"
-        >
+    <!-- Sidebar Footer / Admin Info Mini Card -->
+    <div class="sidebar-footer p-3 border-top border-dark-subtle mt-auto">
+      <div class="d-flex align-items-center gap-2 px-2 py-1">
+        <div class="admin-avatar-sm rounded-circle d-flex align-items-center justify-content-center fw-bold">
           A
         </div>
         <div class="overflow-hidden">
-          <p
-            id="sidebar-username"
-            class="ct-sidebar-user-name mb-0 fw-semibold text-secondary-theme text-truncate"
-          >
-            Admin
-          </p>
-          <p class="ct-sidebar-user-role mb-0 text-neutral text-truncate">
-            System Administrator
-          </p>
+          <div class="text-white small fw-semibold text-truncate" id="sidebar-admin-name">Admin</div>
+          <div class="text-muted small text-truncate">System Administrator</div>
         </div>
       </div>
     </div>
   </aside>
 
   <!-- ══════════════════════════════════════════
-       MAIN CONTENT WRAPPER
+       MAIN CONTENT WRAPPER (Independent Scroll)
   ═══════════════════════════════════════════ -->
-  <div class="ct-main-content d-flex flex-column flex-grow-1">
-    <header
-      class="ct-header bg-surface d-flex align-items-center justify-content-between px-4"
-    >
+  <div class="admin-main d-flex flex-column flex-grow-1">
+    <!-- Top Header -->
+    <header class="admin-header bg-white border-bottom px-4 py-3 d-flex align-items-center justify-content-between sticky-top shadow-xs">
+      <!-- Breadcrumbs -->
       <div class="d-flex align-items-center gap-2">
-        <span class="ct-header-breadcrumb text-neutral">Command Center</span>
-        <svg
-          width="12"
-          height="12"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="2"
-          class="text-neutral"
-          viewBox="0 0 24 24"
-        >
+        <span class="text-muted small text-uppercase fw-semibold">Command Center</span>
+        <svg width="14" height="14" fill="none" stroke="#64748b" stroke-width="2" viewBox="0 0 24 24">
           <polyline points="9 18 15 12 9 6" />
         </svg>
-        <span class="ct-header-breadcrumb text-neutral">Class Management</span>
-        <svg
-          width="12"
-          height="12"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="2"
-          class="text-neutral"
-          viewBox="0 0 24 24"
-        >
-          <polyline points="9 18 15 12 9 6" />
-        </svg>
-        <span class="ct-header-breadcrumb fw-semibold text-secondary-theme"
-          >Class Types Catalog</span
-        >
+        <span class="fw-bold text-dark small text-uppercase">Thể loại Lớp học</span>
       </div>
 
+      <!-- Header Right: Admin User Name & Logout Button -->
       <div class="d-flex align-items-center gap-3">
-        <div
-          class="ct-header-status d-flex align-items-center gap-2 px-3 py-1 rounded-theme-md bg-surface-alt border-theme"
-        >
-          <span class="ct-header-status-dot rounded-circle"></span>
-          <span class="text-secondary-theme fw-semibold">Catalog Synced</span>
+        <!-- Admin Profile Info -->
+        <div class="d-flex align-items-center gap-2 py-1 px-2 rounded-3 bg-light border">
+          <div class="header-avatar rounded-circle d-flex align-items-center justify-content-center fw-bold text-white bg-dark">
+            A
+          </div>
+          <span id="admin-name" class="fw-semibold text-dark small px-1">Admin</span>
         </div>
+
+        <!-- Logout Button -->
         <button
-          class="ct-header-notification btn p-0 border-0 bg-transparent text-neutral position-relative"
-          aria-label="Notifications"
+          type="button"
+          id="btn-logout"
+          class="btn btn-outline-danger btn-sm d-flex align-items-center gap-2 px-3 py-2 rounded-3"
+          title="Đăng xuất khỏi hệ thống"
         >
-          <svg
-            width="18"
-            height="18"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-            viewBox="0 0 24 24"
-          >
-            <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9" />
-            <path d="M13.73 21a2 2 0 0 1-3.46 0" />
+          <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
+            <polyline points="16 17 21 12 16 7" />
+            <line x1="21" y1="12" x2="9" y2="12" />
           </svg>
-          <span
-            class="ct-header-notification-dot position-absolute top-0 end-0 rounded-circle"
-          ></span>
+          <span class="fw-medium">Đăng xuất</span>
         </button>
-        <div
-          id="header-avatar"
-          class="ct-header-avatar rounded-circle d-flex align-items-center justify-content-center fw-bold bg-surface-alt text-secondary-theme border-theme"
-        >
-          A
-        </div>
       </div>
     </header>
 
-    <!-- PAGE CONTENT -->
-    <main class="flex-grow-1 p-4 p-lg-5">
-      <div
-        class="d-flex align-items-start justify-content-between mb-4 flex-wrap gap-3"
-      >
-        <div>
-          <h1 class="ct-page-title fw-bold text-secondary-theme mb-1">
-            Class Type Management
-            <span
-              id="ct-catalog-badge"
-              class="ct-page-title-badge ms-2 badge-theme badge-active"
-              >ACTIVE CATALOG</span
-            >
-          </h1>
-          <p class="ct-page-desc text-neutral mb-0">
-            Define workout modalities, intensity curves, equipment requirements,
-            and booking rules across facility studios.
-          </p>
-        </div>
-
-        <button
-          id="btn-open-add-class-type"
-          class="ct-add-btn btn-brand d-flex align-items-center gap-2"
-          type="button"
-        >
-          <svg
-            width="16"
-            height="16"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2.5"
-            viewBox="0 0 24 24"
-          >
-            <circle cx="12" cy="12" r="10" />
-            <line x1="12" y1="8" x2="12" y2="16" />
-            <line x1="8" y1="12" x2="16" y2="12" />
-          </svg>
-          + Add New Class Type
-        </button>
-      </div>
-
-      <!-- Stats Row -->
-      <div class="row g-3 mb-4">
-        <div class="col-6 col-xl-4">
-          <div class="ct-stat-card card-theme p-3">
-            <p class="ct-stat-label text-neutral mb-1">TOTAL MODALITIES</p>
-            <p
-              id="stat-total"
-              class="ct-stat-value fw-bold text-secondary-theme mb-0"
-            >
-              —
-            </p>
-            <p class="ct-stat-desc text-neutral mt-1 mb-0">
-              Active types cataloged
+    <!-- Main Content Area -->
+    <main class="admin-content-body flex-grow-1 p-4 p-xl-5">
+      <div class="container-fluid p-0">
+        <!-- Page Header -->
+        <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center gap-3 mb-4">
+          <div>
+            <h1 class="page-main-title fw-bold text-dark mb-1">
+              Thể loại Lớp học
+            </h1>
+            <p class="text-muted mb-0">
+              Quản lý danh mục bộ môn rèn luyện, mô tả chi tiết và trạng thái cung cấp trong lịch học.
             </p>
           </div>
-        </div>
-        <div class="col-6 col-xl-4">
-          <div class="ct-stat-card card-theme p-3">
-            <p class="ct-stat-label text-neutral mb-1">ACTIVE</p>
-            <p
-              id="stat-active"
-              class="ct-stat-value fw-bold text-tertiary mb-0"
-            >
-              —
-            </p>
-            <p class="ct-stat-desc text-neutral mt-1 mb-0">
-              Visible to members
-            </p>
-          </div>
-        </div>
-        <div class="col-6 col-xl-4">
-          <div class="ct-stat-card card-theme p-3">
-            <p class="ct-stat-label text-neutral mb-1">INACTIVE</p>
-            <p
-              id="stat-inactive"
-              class="ct-stat-value fw-bold text-primary-theme mb-0"
-            >
-              —
-            </p>
-            <p class="ct-stat-desc text-neutral mt-1 mb-0">
-              Hidden / Discontinued
-            </p>
-          </div>
-        </div>
-      </div>
-
-      <!-- Alert area -->
-      <div id="ct-alert" class="mb-3 d-none"></div>
-
-      <!-- Table Card -->
-      <div class="ct-table-card card-theme overflow-hidden">
-        <!-- Table toolbar -->
-        <div
-          class="ct-table-header d-flex align-items-center justify-content-between px-4 py-3"
-        >
-          <p class="ct-table-title mb-0 fw-semibold text-secondary-theme">
-            <svg
-              width="15"
-              height="15"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-              class="ct-table-title-icon me-1 text-secondary-theme"
-              viewBox="0 0 24 24"
-            >
-              <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20" />
-              <path
-                d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"
-              />
-            </svg>
-            Class Type Records
-          </p>
           <div class="d-flex align-items-center gap-2">
-            <label
-              for="ct-filter-status"
-              class="ct-filter-label text-neutral mb-0"
-              >Filter:</label
-            >
-            <select
-              id="ct-filter-status"
-              class="ct-filter-select form-select form-select-sm border-theme bg-surface text-secondary-theme"
-            >
-              <option value="">All Statuses</option>
-              <option value="true">Active</option>
-              <option value="false">Inactive</option>
-            </select>
-          </div>
-        </div>
-
-        <!-- Loading -->
-        <div id="ct-loading" class="py-5 text-center">
-          <div class="ct-loading-spinner spinner-border" role="status">
-            <span class="visually-hidden">Loading...</span>
-          </div>
-          <p class="ct-loading-text text-neutral mt-3 mb-0">
-            Fetching class type data...
-          </p>
-        </div>
-
-        <!-- Table (hidden until data loads) -->
-        <div class="table-responsive d-none" id="ct-table-wrapper">
-          <table id="ct-table" class="ct-table table mb-0">
-            <thead>
-              <tr class="ct-table-head-row">
-                <th class="ct-table-th text-neutral px-4 py-3">ID</th>
-                <th class="ct-table-th text-neutral px-3 py-3">CLASS NAME</th>
-                <th class="ct-table-th text-neutral px-3 py-3">DESCRIPTION</th>
-                <th class="ct-table-th text-neutral px-3 py-3 text-center">
-                  STATUS
-                </th>
-                <th class="ct-table-th text-neutral px-4 py-3 text-end">
-                  ACTIONS
-                </th>
-              </tr>
-            </thead>
-            <tbody id="ct-tbody">
-              <!-- rows injected by class-types.ts -->
-            </tbody>
-          </table>
-
-          <!-- Empty state -->
-          <div id="ct-empty" class="py-5 text-center d-none">
-            <svg
-              width="48"
-              height="48"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="1.2"
-              class="text-neutral mb-3"
-              viewBox="0 0 24 24"
-            >
-              <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20" />
-              <path
-                d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"
-              />
-            </svg>
-            <p class="ct-empty-title fw-semibold text-secondary-theme mb-1">
-              No class types found
-            </p>
-            <p class="ct-empty-desc text-neutral mb-0">
-              Add the first modality using the button above.
-            </p>
-          </div>
-        </div>
-
-        <!-- Pagination footer (reserved, hidden) -->
-        <div
-          id="ct-pagination"
-          class="ct-pagination d-flex align-items-center justify-content-between px-4 py-3"
-        >
-          <span
-            id="ct-page-info"
-            class="ct-pagination-info text-neutral"
-          ></span>
-          <div class="d-flex gap-2">
             <button
-              id="btn-ct-prev-page"
-              class="ct-pagination-btn btn-brand-outline px-3 py-1"
-              disabled
+              id="btn-open-add-class-type"
+              class="btn btn-primary rounded-3 d-flex align-items-center gap-2 px-3 py-2 shadow-sm fw-semibold"
+              type="button"
             >
-              Prev
+              <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                <circle cx="12" cy="12" r="10" />
+                <line x1="12" y1="8" x2="12" y2="16" />
+                <line x1="8" y1="12" x2="16" y2="12" />
+              </svg>
+              <span>Thêm thể loại mới</span>
             </button>
-            <button
-              id="btn-ct-next-page"
-              class="ct-pagination-btn btn-brand-outline px-3 py-1"
-              disabled
-            >
-              Next
-            </button>
+          </div>
+        </div>
+
+        <!-- Stats Cards Row -->
+        <div class="row g-3 mb-4">
+          <div class="col-12 col-md-4">
+            <div class="card border-0 shadow-sm rounded-4 p-3 bg-white h-100">
+              <div class="d-flex align-items-center justify-content-between">
+                <div>
+                  <p class="text-muted small text-uppercase fw-semibold mb-1">Tổng số thể loại</p>
+                  <h3 id="stat-total" class="fw-bold text-dark mb-0">—</h3>
+                </div>
+                <div class="rounded-3 bg-primary-subtle text-primary p-2 d-flex align-items-center justify-content-center" style="width: 44px; height: 44px;">
+                  <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                    <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20" />
+                    <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z" />
+                  </svg>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-12 col-md-4">
+            <div class="card border-0 shadow-sm rounded-4 p-3 bg-white h-100">
+              <div class="d-flex align-items-center justify-content-between">
+                <div>
+                  <p class="text-muted small text-uppercase fw-semibold mb-1">Đang hoạt động</p>
+                  <h3 id="stat-active" class="fw-bold text-success mb-0">—</h3>
+                </div>
+                <div class="rounded-3 bg-success-subtle text-success p-2 d-flex align-items-center justify-content-center" style="width: 44px; height: 44px;">
+                  <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                    <polyline points="20 6 9 17 4 12" />
+                  </svg>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-12 col-md-4">
+            <div class="card border-0 shadow-sm rounded-4 p-3 bg-white h-100">
+              <div class="d-flex align-items-center justify-content-between">
+                <div>
+                  <p class="text-muted small text-uppercase fw-semibold mb-1">Tạm dừng cung cấp</p>
+                  <h3 id="stat-inactive" class="fw-bold text-warning mb-0">—</h3>
+                </div>
+                <div class="rounded-3 bg-warning-subtle text-warning p-2 d-flex align-items-center justify-content-center" style="width: 44px; height: 44px;">
+                  <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                    <circle cx="12" cy="12" r="10" />
+                    <line x1="12" y1="8" x2="12" y2="12" />
+                    <line x1="12" y1="16" x2="12.01" y2="16" />
+                  </svg>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Alert Area -->
+        <div id="ct-alert" class="mb-4" style="display: none;"></div>
+
+        <!-- Filter Card -->
+        <div class="card border-0 shadow-sm rounded-4 p-3 p-md-4 bg-white mb-4">
+          <div class="row g-3 align-items-center justify-content-between">
+            <div class="col-12 col-md-6 col-lg-4">
+              <div class="d-flex align-items-center gap-2">
+                <label for="ct-filter-status" class="form-label text-nowrap mb-0 small fw-bold text-muted">
+                  Lọc trạng thái:
+                </label>
+                <select id="ct-filter-status" class="form-select bg-light">
+                  <option value="" selected>Tất cả trạng thái</option>
+                  <option value="true">Đang hoạt động (ACTIVE)</option>
+                  <option value="false">Tạm dừng (INACTIVE)</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Class Types Data Table Card -->
+        <div class="card border-0 shadow-sm rounded-4 overflow-hidden bg-white mb-4">
+          <!-- Loading State -->
+          <div id="ct-loading" class="py-5 text-center">
+            <div class="spinner-border spinner-border-sm text-primary me-2" role="status"></div>
+            <span class="text-muted small">Đang tải danh mục thể loại lớp học...</span>
+          </div>
+
+          <!-- Table Container -->
+          <div class="table-responsive" id="ct-table-wrapper" style="display: none;">
+            <table class="table table-hover align-middle mb-0 custom-ct-table" id="ct-table">
+              <thead class="table-light border-bottom">
+                <tr>
+                  <th scope="col" class="ps-4 py-3 text-muted text-uppercase small fw-bold" style="width: 100px;">Mã loại</th>
+                  <th scope="col" class="py-3 text-muted text-uppercase small fw-bold" style="width: 220px;">Tên thể loại</th>
+                  <th scope="col" class="py-3 text-muted text-uppercase small fw-bold">Mô tả chi tiết</th>
+                  <th scope="col" class="py-3 text-muted text-uppercase small fw-bold text-center" style="width: 160px;">Trạng thái</th>
+                  <th scope="col" class="pe-4 py-3 text-muted text-uppercase small fw-bold text-end" style="width: 120px;">Thao tác</th>
+                </tr>
+              </thead>
+              <tbody id="ct-tbody">
+                <!-- Rows injected by class-types.ts -->
+              </tbody>
+            </table>
+
+            <!-- Empty State -->
+            <div id="ct-empty" class="py-5 text-center" style="display: none;">
+              <svg width="48" height="48" fill="none" stroke="#94a3b8" stroke-width="1.5" class="mb-3" viewBox="0 0 24 24">
+                <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20" />
+                <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z" />
+              </svg>
+              <h6 class="fw-bold text-dark mb-1">Chưa có thể loại lớp học nào</h6>
+              <p class="text-muted small mb-0">Nhấn nút "Thêm thể loại mới" phía trên để tạo danh mục đầu tiên.</p>
+            </div>
           </div>
         </div>
       </div>
-      <!-- /card-theme -->
     </main>
   </div>
-  <!-- /main-content-wrapper -->
 </div>
-<!-- /admin-theme wrapper -->
 
-<!-- ══════════════════════════════════════════════════════
-     MODAL — Add / Edit Class Type
-═══════════════════════════════════════════════════════ -->
+<!-- ══════════════════════════════════════════
+     MODAL — THÊM / SỬA THỂ LOẠI LỚP
+═══════════════════════════════════════════ -->
 <div
   class="modal fade"
   id="modal-class-type"
@@ -448,181 +349,116 @@
   aria-labelledby="modal-ct-label"
   aria-hidden="true"
 >
-  <div class="ct-modal-dialog modal-dialog modal-dialog-centered">
-    <div
-      class="ct-modal-content modal-content bg-surface border-theme shadow-theme-lg"
-    >
-      <div class="ct-modal-header modal-header">
-        <div class="d-flex align-items-center gap-2">
-          <span class="ct-modal-header-dot rounded-circle"></span>
-          <h5
-            class="ct-modal-title modal-title fw-bold text-secondary-theme mb-0"
-            id="modal-ct-label"
-          >
-            Add New Class Type
-          </h5>
-        </div>
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content border-0 shadow-lg rounded-4 overflow-hidden">
+      <div class="modal-header border-bottom py-3 px-4 bg-light-subtle">
+        <h5 class="modal-title fw-bold text-dark mb-0" id="modal-ct-label">
+          Thêm thể loại mới
+        </h5>
         <button
           type="button"
-          class="ct-modal-close-btn btn-close"
+          class="btn-close"
           data-bs-dismiss="modal"
           aria-label="Close"
         ></button>
       </div>
 
-      <div class="ct-modal-body modal-body">
-        <p id="modal-ct-subtitle" class="ct-modal-subtitle text-neutral mb-4">
-          Configure modality parameters, target exertion levels, and equipment
-          requirements.
+      <div class="modal-body p-4">
+        <p id="modal-ct-subtitle" class="text-muted small mb-4">
+          Cấu hình tên bộ môn, mô tả lợi ích và kích hoạt hiển thị.
         </p>
 
         <form id="ct-form" novalidate>
           <input type="hidden" id="ct-id-hidden" value="" />
 
-          <!-- Class Name -->
-          <div class="mb-4">
-            <div class="d-flex align-items-center justify-content-between mb-2">
-              <label
-                for="ct-name"
-                class="ct-modal-label form-label fw-bold text-secondary-theme mb-0"
-              >
-                CLASS NAME <span class="text-primary-theme">*</span>
+          <!-- Tên thể loại -->
+          <div class="mb-3">
+            <div class="d-flex align-items-center justify-content-between mb-1">
+              <label for="ct-name" class="form-label small fw-bold text-dark mb-0">
+                Tên thể loại <span class="text-danger">*</span>
               </label>
-              <span id="ct-name-counter" class="ct-modal-counter text-neutral"
-                >0 / 50 chars</span
-              >
+              <span id="ct-name-counter" class="text-muted extra-small">0 / 50 ký tự</span>
             </div>
-            <div class="input-group shadow-theme-sm rounded-theme-md">
-              <span
-                class="ct-modal-input-icon input-group-text bg-surface-alt border-theme"
-              >
-                <svg
-                  width="15"
-                  height="15"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="2"
-                  class="text-neutral"
-                  viewBox="0 0 24 24"
-                >
-                  <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20" />
-                  <path
-                    d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"
-                  />
-                </svg>
-              </span>
-              <input
-                type="text"
-                id="ct-name"
-                name="name"
-                class="ct-modal-input form-control border-theme bg-surface py-2"
-                placeholder="e.g. HIIT Circuit Surge"
-                maxlength="50"
-                required
-                autocomplete="off"
-              />
-            </div>
-            <div id="ct-name-error" class="ct-modal-error mt-1">
+            <input
+              type="text"
+              id="ct-name"
+              name="name"
+              class="form-control bg-light"
+              placeholder="VD: Yoga Vinyasa, HIIT Surge, Kickboxing..."
+              maxlength="50"
+              required
+              autocomplete="off"
+            />
+            <div id="ct-name-error" class="text-danger extra-small mt-1" style="display: none;">
               Tên loại lớp không được để trống.
             </div>
           </div>
 
-          <!-- Description -->
-          <div class="mb-4">
-            <label
-              for="ct-description"
-              class="ct-modal-label form-label fw-bold text-secondary-theme mb-2"
-            >
-              DESCRIPTION <span class="text-primary-theme">*</span>
-            </label>
+          <!-- Mô tả -->
+          <div class="mb-3">
+            <div class="d-flex align-items-center justify-content-between mb-1">
+              <label for="ct-description" class="form-label small fw-bold text-dark mb-0">
+                Mô tả chi tiết <span class="text-danger">*</span>
+              </label>
+              <span id="ct-desc-counter" class="text-muted extra-small">0 / 500 ký tự</span>
+            </div>
             <textarea
               id="ct-description"
               name="description"
-              class="ct-modal-textarea form-control border-theme bg-surface py-2"
-              placeholder="High-intensity interval training blending plyometrics, assault bikes, and barbell..."
+              class="form-control bg-light"
+              rows="4"
+              placeholder="Nhập mô tả về bài tập, mức độ vận động và đối tượng phù hợp..."
               maxlength="500"
               required
             ></textarea>
-            <div class="d-flex justify-content-between mt-1">
-              <div id="ct-description-error" class="ct-modal-error">
-                Mô tả không được để trống.
-              </div>
-              <span
-                id="ct-desc-counter"
-                class="ct-modal-counter text-neutral ms-auto"
-                >0 / 500 chars</span
-              >
+            <div id="ct-description-error" class="text-danger extra-small mt-1" style="display: none;">
+              Mô tả không được để trống.
             </div>
           </div>
 
-          <!-- Status toggle -->
-          <div class="mb-4">
-            <label
-              class="ct-modal-label form-label fw-bold text-secondary-theme mb-3"
-              >STATUS</label
-            >
-            <div class="d-flex align-items-center gap-3">
-              <label
-                class="ct-modal-toggle-wrapper ct-modal-toggle"
-                aria-label="Toggle class type active status"
-              >
+          <!-- Switch hoạt động -->
+          <div class="mb-3 p-3 bg-light rounded-3 border">
+            <div class="d-flex align-items-center justify-content-between">
+              <div>
+                <p id="ct-status-label" class="mb-0 fw-bold text-dark small">Đang hoạt động (ACTIVE)</p>
+                <p id="ct-status-hint" class="mb-0 text-muted extra-small">Thể loại này sẽ hiển thị cho học viên khi đăng ký lớp học.</p>
+              </div>
+              <div class="form-check form-switch ms-3">
                 <input
+                  class="form-check-input"
                   type="checkbox"
+                  role="switch"
                   id="ct-is-active"
                   name="isActive"
                   checked
+                  style="width: 2.5em; height: 1.3em;"
                 />
-                <span class="ct-modal-toggle-slider"></span>
-              </label>
-              <div>
-                <p
-                  id="ct-status-label"
-                  class="ct-modal-status-label mb-0 fw-semibold text-secondary-theme"
-                >
-                  Active (Visible)
-                </p>
-                <p
-                  id="ct-status-hint"
-                  class="ct-modal-status-hint mb-0 text-neutral"
-                >
-                  This class type will be visible to members for booking.
-                </p>
               </div>
             </div>
           </div>
 
-          <div
-            id="ct-form-error"
-            class="ct-modal-form-error text-center py-2 px-3 rounded-theme-md"
-          ></div>
+          <div id="ct-form-error" class="alert alert-danger small py-2 px-3 mt-3" style="display: none;"></div>
         </form>
       </div>
 
-      <div class="ct-modal-footer modal-footer d-flex">
+      <div class="modal-footer border-top py-3 px-4 bg-light-subtle d-flex justify-content-end gap-2">
         <button
           type="button"
-          class="ct-modal-footer-btn btn-brand-outline px-4 py-2"
+          class="btn btn-outline-secondary px-3 rounded-3"
           data-bs-dismiss="modal"
         >
-          Cancel
+          Hủy bỏ
         </button>
         <button
           type="submit"
           form="ct-form"
           id="btn-ct-submit"
-          class="ct-modal-footer-btn btn-brand px-4 py-2"
+          class="btn btn-primary px-4 rounded-3 d-flex align-items-center gap-2 fw-semibold"
         >
-          <svg
-            width="14"
-            height="14"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2.5"
-            viewBox="0 0 24 24"
-          >
+          <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
             <polyline points="20 6 9 17 4 12" />
           </svg>
-          Save Class Type
+          <span>Lưu thể loại</span>
         </button>
       </div>
     </div>

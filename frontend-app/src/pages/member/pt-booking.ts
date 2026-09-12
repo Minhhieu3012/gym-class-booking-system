@@ -361,7 +361,6 @@ async function handleSubmitPTBooking(): Promise<void> {
   `;
 
   try {
-    // TODO(mock-pending-api): chờ BE hoàn thiện PTBookingController — xem api-contract.md mục 10
     // Gọi API bookPT - KHÔNG truyền memberPackageId để Backend tự động xử lý gói tập phù hợp
     await bookingService.bookPT({
       trainerId: selectedTrainerId,

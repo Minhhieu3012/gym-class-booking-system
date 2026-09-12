@@ -8,7 +8,7 @@ import org.springframework.data.domain.Pageable;
 public interface TrainerService {
 
     Page<TrainerResponseDTO> getTrainers(
-//            UserStatus status,
+            UserStatus status,
             String specialization,
             String keyword,
             Pageable pageable

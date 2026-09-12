@@ -52,11 +52,20 @@ export function init(): void {
     submitBtn.textContent = "Đang xử lý...";
 
     try {
-      await authService.login({ username, password });
+      const loginRes = await authService.login({ username, password });
 
-      // Redirect-back support: /login?redirect=/profile
+      // Redirect-back support: /login?redirect=/admin/dashboard
       const params = new URLSearchParams(window.location.search);
-      const redirectTo = params.get("redirect") ?? "/";
+      let redirectTo = params.get("redirect");
+      if (!redirectTo) {
+        if (loginRes.user?.role === "ADMIN") {
+          redirectTo = "/admin/dashboard";
+        } else if (loginRes.user?.role === "TRAINER") {
+          redirectTo = "/trainer/time-slots";
+        } else {
+          redirectTo = "/";
+        }
+      }
       navigate(redirectTo);
     } catch (error: unknown) {
       errorDiv.textContent = authService.extractErrorMessage(error);

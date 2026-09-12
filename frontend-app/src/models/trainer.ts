@@ -19,3 +19,14 @@ export interface TrainerQueryParams {
   status?: string;
   keyword?: string;
 }
+
+export interface RejectTrainerPayload {
+  reason: string;
+}
+
+export interface TrainerApprovalResponse {
+  trainerId: number;
+  status: string;
+  approvedBy?: number;
+  approvedAt?: string;
+}

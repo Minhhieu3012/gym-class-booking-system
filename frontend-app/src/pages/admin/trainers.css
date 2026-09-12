@@ -1,0 +1,133 @@
+/* ============================================================
+   ADMIN TRAINERS APPROVAL - STYLES
+   ============================================================ */
+
+/* Kế thừa và mở rộng layout Desktop-first từ Dashboard */
+@import "./dashboard.css";
+
+/* ══════════════════════════════════════════
+   TOOLBAR BỘ LỌC
+   ═══════════════════════════════════════════ */
+.trainer-toolbar-card {
+  border: 1px solid #e2e8f0 !important;
+  transition: box-shadow 0.2s ease;
+}
+
+.trainer-toolbar-card .form-control,
+.trainer-toolbar-card .form-select {
+  border-color: #cbd5e1;
+  font-size: 0.9rem;
+  padding: 0.55rem 0.85rem;
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+.trainer-toolbar-card .form-control:focus,
+.trainer-toolbar-card .form-select:focus {
+  border-color: #94a3b8;
+  box-shadow: 0 0 0 3px rgba(148, 163, 184, 0.2);
+  background-color: #ffffff !important;
+}
+
+.trainer-toolbar-card .input-group-text {
+  border-color: #cbd5e1;
+}
+
+/* ══════════════════════════════════════════
+   TABLE & ROWS
+   ═══════════════════════════════════════════ */
+.trainer-table-card {
+  border: 1px solid #e2e8f0 !important;
+}
+
+.custom-trainer-table {
+  font-family: inherit;
+}
+
+.custom-trainer-table thead th {
+  background-color: #f8fafc !important;
+  border-bottom: 1px solid #e2e8f0;
+  font-size: 0.78rem;
+  letter-spacing: 0.05em;
+  color: #64748b;
+  font-weight: 700;
+}
+
+.custom-trainer-table td {
+  padding: 1rem 0.75rem;
+  font-size: 0.9rem;
+  border-bottom: 1px solid #f1f5f9;
+}
+
+.trainer-table-row {
+  transition: background-color 0.15s ease;
+}
+
+.trainer-table-row:hover {
+  background-color: #f8fafc !important;
+}
+
+/* Avatar Mini in table */
+.trainer-avatar-mini {
+  width: 36px;
+  height: 36px;
+  background-color: #e2e8f0;
+  color: #334155;
+  font-size: 0.85rem;
+  flex-shrink: 0;
+  border: 1px solid #cbd5e1;
+}
+
+/* ══════════════════════════════════════════
+   ACTION BUTTONS
+   ═══════════════════════════════════════════ */
+.btn-approve-trainer,
+.btn-reject-trainer {
+  font-size: 0.8rem;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.btn-approve-trainer:hover,
+.btn-reject-trainer:hover {
+  transform: translateY(-1px);
+}
+
+.btn-approve-trainer:active,
+.btn-reject-trainer:active {
+  transform: translateY(0);
+}
+
+/* ══════════════════════════════════════════
+   REJECT MODAL STYLING
+   ═══════════════════════════════════════════ */
+#rejectModal .modal-content {
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
+
+#rejectModal textarea {
+  resize: vertical;
+  min-height: 100px;
+  font-size: 0.9rem;
+  border-color: #cbd5e1;
+}
+
+#rejectModal textarea:focus {
+  border-color: #dc2626;
+  box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.15);
+}
+
+/* Pagination */
+.btn-trainer-page {
+  color: #475569;
+  border-radius: 6px;
+  margin: 0 2px;
+  border-color: #e2e8f0;
+  font-size: 0.85rem;
+}
+
+.pagination .page-item.active .btn-trainer-page {
+  background-color: #0f172a;
+  border-color: #0f172a;
+  color: #ffffff;
+}

@@ -1,0 +1,168 @@
+/* ============================================================
+   ADMIN REVIEWS MODERATION - STYLES
+   ============================================================ */
+
+/* Kế thừa layout Desktop-first từ Dashboard */
+@import "./dashboard.css";
+
+/* ══════════════════════════════════════════
+   TOOLBAR BỘ LỌC
+   ═══════════════════════════════════════════ */
+.review-toolbar-card {
+  border: 1px solid #e2e8f0 !important;
+  transition: box-shadow 0.2s ease;
+}
+
+.review-toolbar-card .form-control,
+.review-toolbar-card .form-select {
+  border-color: #cbd5e1;
+  font-size: 0.9rem;
+  padding: 0.55rem 0.85rem;
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+.review-toolbar-card .form-control:focus,
+.review-toolbar-card .form-select:focus {
+  border-color: #94a3b8;
+  box-shadow: 0 0 0 3px rgba(148, 163, 184, 0.2);
+  background-color: #ffffff !important;
+}
+
+.review-toolbar-card .input-group-text {
+  border-color: #cbd5e1;
+}
+
+/* ══════════════════════════════════════════
+   TABLE & ROWS
+   ═══════════════════════════════════════════ */
+.review-table-card {
+  border: 1px solid #e2e8f0 !important;
+}
+
+.custom-review-table {
+  font-family: inherit;
+}
+
+.custom-review-table thead th {
+  background-color: #f8fafc !important;
+  border-bottom: 1px solid #e2e8f0;
+  font-size: 0.78rem;
+  letter-spacing: 0.05em;
+  color: #64748b;
+  font-weight: 700;
+}
+
+.custom-review-table td {
+  padding: 0.95rem 0.75rem;
+  font-size: 0.9rem;
+  border-bottom: 1px solid #f1f5f9;
+}
+
+.review-table-row {
+  transition: background-color 0.15s ease;
+}
+
+.review-table-row:hover {
+  background-color: #f8fafc !important;
+}
+
+/* Avatar Mini in table */
+.review-avatar-mini {
+  width: 36px;
+  height: 36px;
+  background-color: #e2e8f0;
+  color: #334155;
+  font-size: 0.85rem;
+  flex-shrink: 0;
+  border: 1px solid #cbd5e1;
+}
+
+/* ══════════════════════════════════════════
+   COMMENT CELL & TEXT TRUNCATION
+   ═══════════════════════════════════════════ */
+.review-comment-cell {
+  max-width: 320px;
+  line-height: 1.45;
+  color: #334155;
+  font-size: 0.88rem;
+}
+
+.review-comment-cell.text-truncate-2 {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: normal;
+}
+
+/* ══════════════════════════════════════════
+   STAR RATING STYLING (Vàng / Cam rực rỡ)
+   ═══════════════════════════════════════════ */
+.star-rating-container {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+}
+
+.star-rating-container .star-icon {
+  font-size: 1.05rem;
+  line-height: 1;
+}
+
+.star-rating-container .star-filled {
+  color: #f59e0b; /* Amber 500 */
+  filter: drop-shadow(0 1px 2px rgba(245, 158, 11, 0.25));
+}
+
+.star-rating-container .star-empty {
+  color: #cbd5e1; /* Slate 300 */
+}
+
+.star-rating-badge {
+  font-size: 0.75rem;
+  padding: 2px 6px;
+  border-radius: 6px;
+  font-weight: 700;
+}
+
+/* ══════════════════════════════════════════
+   ACTION BUTTONS
+   ═══════════════════════════════════════════ */
+.btn-toggle-review {
+  font-size: 0.8rem;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.btn-toggle-review:hover {
+  transform: translateY(-1px);
+}
+
+.btn-toggle-review:active {
+  transform: translateY(0);
+}
+
+/* ══════════════════════════════════════════
+   CONFIRM MODAL STYLING
+   ═══════════════════════════════════════════ */
+#reviewStatusModal .modal-content {
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
+
+/* Pagination */
+.btn-review-page {
+  color: #475569;
+  border-radius: 6px;
+  margin: 0 2px;
+  border-color: #e2e8f0;
+  font-size: 0.85rem;
+}
+
+.pagination .page-item.active .btn-review-page {
+  background-color: #0f172a;
+  border-color: #0f172a;
+  color: #ffffff;
+}

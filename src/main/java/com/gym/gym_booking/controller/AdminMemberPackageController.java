@@ -61,4 +61,27 @@ public class AdminMemberPackageController {
                 memberPackageService.getMemberPackageById(id)
         );
     }
+
+    @PatchMapping("/{id}/adjust")
+    public ResponseEntity<MemberPackageResponseDTO>
+    adjustMemberPackage(
+            @PathVariable Long id,
+            @RequestBody java.util.Map<String, Object> body
+    ) {
+        Integer sessionsAdjustment = null;
+        if (body != null && body.containsKey("sessionsAdjustment") && body.get("sessionsAdjustment") != null) {
+            sessionsAdjustment = Integer.valueOf(body.get("sessionsAdjustment").toString());
+        }
+
+        java.time.LocalDate newEndDate = null;
+        if (body != null && body.containsKey("newEndDate") && body.get("newEndDate") != null && !body.get("newEndDate").toString().isBlank()) {
+            newEndDate = java.time.LocalDate.parse(body.get("newEndDate").toString());
+        }
+
+        String reason = body != null && body.containsKey("reason") && body.get("reason") != null ? body.get("reason").toString() : "";
+
+        return ResponseEntity.ok(
+                memberPackageService.adjustMemberPackage(id, sessionsAdjustment, newEndDate, reason)
+        );
+    }
 }

@@ -366,10 +366,19 @@ public class PaymentServiceImpl implements PaymentService {
                         transaction.getCompletedAt()
                 )
                 .memberId(
-                        transaction.getMember().getId()
+                        transaction.getMember() != null ? transaction.getMember().getId() : null
+                )
+                .memberName(
+                        transaction.getMember() != null ? transaction.getMember().getFullName() : null
+                )
+                .memberEmail(
+                        transaction.getMember() != null ? transaction.getMember().getEmail() : null
                 )
                 .packageId(
-                        transaction.getPackageEntity().getId()
+                        transaction.getPackageEntity() != null ? transaction.getPackageEntity().getId() : null
+                )
+                .packageName(
+                        transaction.getPackageEntity() != null ? transaction.getPackageEntity().getName() : null
                 )
                 .memberPackageId(
                         transaction.getMemberPackage() != null

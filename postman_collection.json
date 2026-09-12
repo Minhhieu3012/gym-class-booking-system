@@ -45,7 +45,7 @@
             "header": [],
             "body": {
               "mode": "raw",
-              "raw": "{\r\n    \"phone\": \"090000003\",\r\n    \"address\": \"123 GHJ\",\r\n    \"email\": \"trainer@gmail.com\",\r\n    \"password\": \"123456\",\r\n    \"fullName\": \"Trainer\"\r\n}",
+              "raw": "{\n    \"fullName\": \"HLV Nguyen Van B\",\n    \"email\": \"trainer_b@example.com\",\n    \"phone\": \"0909998877\",\n    \"password\": \"Password123@\",\n    \"bio\": \"Chứng chỉ HLV Thể hình quốc tế NASM, 5 năm kinh nghiệm\",\n    \"specialization\": \"Giảm cân, Tăng cơ, Thể hình\",\n    \"experienceYears\": 5,\n    \"hourlyRate\": 350000,\n    \"certificates\": \"NASM-CPT, First Aid CPR/AED\"\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -53,7 +53,7 @@
               }
             },
             "url": {
-              "raw": "http://localhost:8080/auth/register",
+              "raw": "http://localhost:8080/auth/register-trainer",
               "protocol": "http",
               "host": [
                 "localhost"
@@ -61,7 +61,7 @@
               "port": "8080",
               "path": [
                 "auth",
-                "register"
+                "register-trainer"
               ]
             }
           },
@@ -158,7 +158,38 @@
               "name": "Get all users",
               "request": {
                 "method": "GET",
-                "header": []
+                "header": [],
+                "url": {
+                  "raw": "http://localhost:8080/users?page=0&size=10",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8080",
+                  "path": [
+                    "users"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "0"
+                    },
+                    {
+                      "key": "size",
+                      "value": "10"
+                    }
+                  ]
+                },
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJCQGdtYWlsLmNvbSIsInR5cGUiOiJhY2Nlc3MiLCJpYXQiOjE3ODg5NzU4ODksImV4cCI6MTc4ODk3OTQ4OX0.t9cIXmBi7rpgTxrExMehf4GZm1YUWnx_locH1vPCgWv0edmPlISMmSTl2xKDcD6Z",
+                      "type": "string"
+                    }
+                  ]
+                }
               },
               "response": []
             },
@@ -255,7 +286,7 @@
                 "method": "PATCH",
                 "header": [],
                 "url": {
-                  "raw": "http://localhost:8080/admin/trainers/1/approve",
+                  "raw": "http://localhost:8080/admin/trainers/1/reject",
                   "protocol": "http",
                   "host": [
                     "localhost"
@@ -265,8 +296,17 @@
                     "admin",
                     "trainers",
                     "1",
-                    "approve"
+                    "reject"
                   ]
+                },
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n    \"reason\": \"Hồ sơ thiếu chứng chỉ hành nghề liên quan\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
                 }
               },
               "response": []
@@ -292,15 +332,25 @@
                 "method": "POST",
                 "header": [],
                 "url": {
-                  "raw": "http://localhost:8080/rooms",
+                  "raw": "http://localhost:8080/admin/rooms",
                   "protocol": "http",
                   "host": [
                     "localhost"
                   ],
                   "port": "8080",
                   "path": [
+                    "admin",
                     "rooms"
                   ]
+                },
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n    \"name\": \"Phòng Yoga Studio\",\n    \"capacity\": 25\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
                 }
               },
               "response": []
@@ -362,7 +412,7 @@
                 "header": [],
                 "body": {
                   "mode": "raw",
-                  "raw": "{\r\n    \"capacity\": 40,\r\n    \"name\": \"Room 1\"\r\n}",
+                  "raw": "{\n    \"status\": \"ACTIVE\"\n}",
                   "options": {
                     "raw": {
                       "language": "json"
@@ -370,7 +420,7 @@
                   }
                 },
                 "url": {
-                  "raw": "http://localhost:8080/admin/rooms/11",
+                  "raw": "http://localhost:8080/admin/rooms/1/status",
                   "protocol": "http",
                   "host": [
                     "localhost"
@@ -379,7 +429,8 @@
                   "path": [
                     "admin",
                     "rooms",
-                    "11"
+                    "1",
+                    "status"
                   ]
                 }
               },
@@ -394,7 +445,29 @@
               "name": "Get all class types",
               "request": {
                 "method": "GET",
-                "header": []
+                "header": [],
+                "url": {
+                  "raw": "http://localhost:8080/admin/class-types",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8080",
+                  "path": [
+                    "admin",
+                    "class-types"
+                  ]
+                },
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJCQGdtYWlsLmNvbSIsInR5cGUiOiJhY2Nlc3MiLCJpYXQiOjE3ODg5NzU4ODksImV4cCI6MTc4ODk3OTQ4OX0.t9cIXmBi7rpgTxrExMehf4GZm1YUWnx_locH1vPCgWv0edmPlISMmSTl2xKDcD6Z",
+                      "type": "string"
+                    }
+                  ]
+                }
               },
               "response": []
             },
@@ -402,7 +475,30 @@
               "name": "Get class type by id",
               "request": {
                 "method": "GET",
-                "header": []
+                "header": [],
+                "url": {
+                  "raw": "http://localhost:8080/admin/class-types/1",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8080",
+                  "path": [
+                    "admin",
+                    "class-types",
+                    "1"
+                  ]
+                },
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJCQGdtYWlsLmNvbSIsInR5cGUiOiJhY2Nlc3MiLCJpYXQiOjE3ODg5NzU4ODksImV4cCI6MTc4ODk3OTQ4OX0.t9cIXmBi7rpgTxrExMehf4GZm1YUWnx_locH1vPCgWv0edmPlISMmSTl2xKDcD6Z",
+                      "type": "string"
+                    }
+                  ]
+                }
               },
               "response": []
             },
@@ -410,7 +506,35 @@
               "name": "Get class type by status",
               "request": {
                 "method": "GET",
-                "header": []
+                "header": [],
+                "url": {
+                  "raw": "http://localhost:8080/admin/class-types?status=ACTIVE",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8080",
+                  "path": [
+                    "admin",
+                    "class-types"
+                  ],
+                  "query": [
+                    {
+                      "key": "status",
+                      "value": "ACTIVE"
+                    }
+                  ]
+                },
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJCQGdtYWlsLmNvbSIsInR5cGUiOiJhY2Nlc3MiLCJpYXQiOjE3ODg5NzU4ODksImV4cCI6MTc4ODk3OTQ4OX0.t9cIXmBi7rpgTxrExMehf4GZm1YUWnx_locH1vPCgWv0edmPlISMmSTl2xKDcD6Z",
+                      "type": "string"
+                    }
+                  ]
+                }
               },
               "response": []
             },
@@ -464,7 +588,29 @@
               "name": "Get all gym classes",
               "request": {
                 "method": "GET",
-                "header": []
+                "header": [],
+                "url": {
+                  "raw": "http://localhost:8080/admin/classes",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8080",
+                  "path": [
+                    "admin",
+                    "classes"
+                  ]
+                },
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJCQGdtYWlsLmNvbSIsInR5cGUiOiJhY2Nlc3MiLCJpYXQiOjE3ODg5NzU4ODksImV4cCI6MTc4ODk3OTQ4OX0.t9cIXmBi7rpgTxrExMehf4GZm1YUWnx_locH1vPCgWv0edmPlISMmSTl2xKDcD6Z",
+                      "type": "string"
+                    }
+                  ]
+                }
               },
               "response": []
             },
@@ -472,7 +618,30 @@
               "name": "Get gym class by id",
               "request": {
                 "method": "GET",
-                "header": []
+                "header": [],
+                "url": {
+                  "raw": "http://localhost:8080/admin/classes/1",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8080",
+                  "path": [
+                    "admin",
+                    "classes",
+                    "1"
+                  ]
+                },
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJCQGdtYWlsLmNvbSIsInR5cGUiOiJhY2Nlc3MiLCJpYXQiOjE3ODg5NzU4ODksImV4cCI6MTc4ODk3OTQ4OX0.t9cIXmBi7rpgTxrExMehf4GZm1YUWnx_locH1vPCgWv0edmPlISMmSTl2xKDcD6Z",
+                      "type": "string"
+                    }
+                  ]
+                }
               },
               "response": []
             },
@@ -571,8 +740,32 @@
             {
               "name": "Restore gym class",
               "request": {
-                "method": "GET",
-                "header": []
+                "method": "PATCH",
+                "header": [],
+                "url": {
+                  "raw": "http://localhost:8080/admin/classes/1/restore",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8080",
+                  "path": [
+                    "admin",
+                    "classes",
+                    "1",
+                    "restore"
+                  ]
+                },
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJCQGdtYWlsLmNvbSIsInR5cGUiOiJhY2Nlc3MiLCJpYXQiOjE3ODg5NzU4ODksImV4cCI6MTc4ODk3OTQ4OX0.t9cIXmBi7rpgTxrExMehf4GZm1YUWnx_locH1vPCgWv0edmPlISMmSTl2xKDcD6Z",
+                      "type": "string"
+                    }
+                  ]
+                }
               },
               "response": []
             }
@@ -585,7 +778,29 @@
               "name": "Get all packages",
               "request": {
                 "method": "GET",
-                "header": []
+                "header": [],
+                "url": {
+                  "raw": "http://localhost:8080/admin/packages",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8080",
+                  "path": [
+                    "admin",
+                    "packages"
+                  ]
+                },
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJCQGdtYWlsLmNvbSIsInR5cGUiOiJhY2Nlc3MiLCJpYXQiOjE3ODg5NzU4ODksImV4cCI6MTc4ODk3OTQ4OX0.t9cIXmBi7rpgTxrExMehf4GZm1YUWnx_locH1vPCgWv0edmPlISMmSTl2xKDcD6Z",
+                      "type": "string"
+                    }
+                  ]
+                }
               },
               "response": []
             },
@@ -739,7 +954,29 @@
               "name": "Get all member packages",
               "request": {
                 "method": "GET",
-                "header": []
+                "header": [],
+                "url": {
+                  "raw": "http://localhost:8080/admin/member-packages",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8080",
+                  "path": [
+                    "admin",
+                    "member-packages"
+                  ]
+                },
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJCQGdtYWlsLmNvbSIsInR5cGUiOiJhY2Nlc3MiLCJpYXQiOjE3ODg5NzU4ODksImV4cCI6MTc4ODk3OTQ4OX0.t9cIXmBi7rpgTxrExMehf4GZm1YUWnx_locH1vPCgWv0edmPlISMmSTl2xKDcD6Z",
+                      "type": "string"
+                    }
+                  ]
+                }
               },
               "response": []
             },
@@ -747,7 +984,30 @@
               "name": "Get member packages by id",
               "request": {
                 "method": "GET",
-                "header": []
+                "header": [],
+                "url": {
+                  "raw": "http://localhost:8080/admin/member-packages/1",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8080",
+                  "path": [
+                    "admin",
+                    "member-packages",
+                    "1"
+                  ]
+                },
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJCQGdtYWlsLmNvbSIsInR5cGUiOiJhY2Nlc3MiLCJpYXQiOjE3ODg5NzU4ODksImV4cCI6MTc4ODk3OTQ4OX0.t9cIXmBi7rpgTxrExMehf4GZm1YUWnx_locH1vPCgWv0edmPlISMmSTl2xKDcD6Z",
+                      "type": "string"
+                    }
+                  ]
+                }
               },
               "response": []
             },
@@ -755,7 +1015,155 @@
               "name": "Get member packages by status (ACTIVE/EXPIRED)",
               "request": {
                 "method": "GET",
-                "header": []
+                "header": [],
+                "url": {
+                  "raw": "http://localhost:8080/admin/member-packages?status=ACTIVE",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8080",
+                  "path": [
+                    "admin",
+                    "member-packages"
+                  ],
+                  "query": [
+                    {
+                      "key": "status",
+                      "value": "ACTIVE"
+                    }
+                  ]
+                },
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJCQGdtYWlsLmNvbSIsInR5cGUiOiJhY2Nlc3MiLCJpYXQiOjE3ODg5NzU4ODksImV4cCI6MTc4ODk3OTQ4OX0.t9cIXmBi7rpgTxrExMehf4GZm1YUWnx_locH1vPCgWv0edmPlISMmSTl2xKDcD6Z",
+                      "type": "string"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Adjust member package",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJCQGdtYWlsLmNvbSIsInR5cGUiOiJhY2Nlc3MiLCJpYXQiOjE3ODg5NzU4ODksImV4cCI6MTc4ODk3OTQ4OX0.t9cIXmBi7rpgTxrExMehf4GZm1YUWnx_locH1vPCgWv0edmPlISMmSTl2xKDcD6Z",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "PATCH",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n    \"remainingSessions\": 15,\n    \"extensionDays\": 30,\n    \"reason\": \"Bù sự cố bảo trì phòng tập\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "http://localhost:8080/admin/member-packages/1/adjust",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8080",
+                  "path": [
+                    "admin",
+                    "member-packages",
+                    "1",
+                    "adjust"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Get all member packages (v1)",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJCQGdtYWlsLmNvbSIsInR5cGUiOiJhY2Nlc3MiLCJpYXQiOjE3ODg5NzU4ODksImV4cCI6MTc4ODk3OTQ4OX0.t9cIXmBi7rpgTxrExMehf4GZm1YUWnx_locH1vPCgWv0edmPlISMmSTl2xKDcD6Z",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "http://localhost:8080/member-packages?page=0&size=10",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8080",
+                  "path": [
+                    "member-packages"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "0"
+                    },
+                    {
+                      "key": "size",
+                      "value": "10"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Adjust member package (v1)",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJCQGdtYWlsLmNvbSIsInR5cGUiOiJhY2Nlc3MiLCJpYXQiOjE3ODg5NzU4ODksImV4cCI6MTc4ODk3OTQ4OX0.t9cIXmBi7rpgTxrExMehf4GZm1YUWnx_locH1vPCgWv0edmPlISMmSTl2xKDcD6Z",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "PATCH",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n    \"remainingSessions\": 15,\n    \"extensionDays\": 30,\n    \"reason\": \"Bù sự cố bảo trì phòng tập\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "http://localhost:8080/member-packages/1/adjust",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8080",
+                  "path": [
+                    "member-packages",
+                    "1",
+                    "adjust"
+                  ]
+                }
               },
               "response": []
             }
@@ -768,7 +1176,29 @@
               "name": "Get all transactions",
               "request": {
                 "method": "GET",
-                "header": []
+                "header": [],
+                "url": {
+                  "raw": "http://localhost:8080/admin/transactions",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8080",
+                  "path": [
+                    "admin",
+                    "transactions"
+                  ]
+                },
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJCQGdtYWlsLmNvbSIsInR5cGUiOiJhY2Nlc3MiLCJpYXQiOjE3ODg5NzU4ODksImV4cCI6MTc4ODk3OTQ4OX0.t9cIXmBi7rpgTxrExMehf4GZm1YUWnx_locH1vPCgWv0edmPlISMmSTl2xKDcD6Z",
+                      "type": "string"
+                    }
+                  ]
+                }
               },
               "response": []
             },
@@ -776,7 +1206,35 @@
               "name": "Get member's transaction by memberId",
               "request": {
                 "method": "GET",
-                "header": []
+                "header": [],
+                "url": {
+                  "raw": "http://localhost:8080/admin/transactions?memberId=1",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8080",
+                  "path": [
+                    "admin",
+                    "transactions"
+                  ],
+                  "query": [
+                    {
+                      "key": "memberId",
+                      "value": "1"
+                    }
+                  ]
+                },
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJCQGdtYWlsLmNvbSIsInR5cGUiOiJhY2Nlc3MiLCJpYXQiOjE3ODg5NzU4ODksImV4cCI6MTc4ODk3OTQ4OX0.t9cIXmBi7rpgTxrExMehf4GZm1YUWnx_locH1vPCgWv0edmPlISMmSTl2xKDcD6Z",
+                      "type": "string"
+                    }
+                  ]
+                }
               },
               "response": []
             },
@@ -897,6 +1355,224 @@
                 }
               },
               "response": []
+            },
+            {
+              "name": "Get transaction by id",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJCQGdtYWlsLmNvbSIsInR5cGUiOiJhY2Nlc3MiLCJpYXQiOjE3ODg5NzU4ODksImV4cCI6MTc4ODk3OTQ4OX0.t9cIXmBi7rpgTxrExMehf4GZm1YUWnx_locH1vPCgWv0edmPlISMmSTl2xKDcD6Z",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "http://localhost:8080/admin/transactions/1",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8080",
+                  "path": [
+                    "admin",
+                    "transactions",
+                    "1"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Update transaction status",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJCQGdtYWlsLmNvbSIsInR5cGUiOiJhY2Nlc3MiLCJpYXQiOjE3ODg5NzU4ODksImV4cCI6MTc4ODk3OTQ4OX0.t9cIXmBi7rpgTxrExMehf4GZm1YUWnx_locH1vPCgWv0edmPlISMmSTl2xKDcD6Z",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "PATCH",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n    \"status\": \"SUCCESS\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "http://localhost:8080/admin/transactions/1/status",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8080",
+                  "path": [
+                    "admin",
+                    "transactions",
+                    "1",
+                    "status"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Get all transactions (v1)",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJCQGdtYWlsLmNvbSIsInR5cGUiOiJhY2Nlc3MiLCJpYXQiOjE3ODg5NzU4ODksImV4cCI6MTc4ODk3OTQ4OX0.t9cIXmBi7rpgTxrExMehf4GZm1YUWnx_locH1vPCgWv0edmPlISMmSTl2xKDcD6Z",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "http://localhost:8080/transactions?page=0&size=10",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8080",
+                  "path": [
+                    "transactions"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "0"
+                    },
+                    {
+                      "key": "size",
+                      "value": "10"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Update transaction status (v1)",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJCQGdtYWlsLmNvbSIsInR5cGUiOiJhY2Nlc3MiLCJpYXQiOjE3ODg5NzU4ODksImV4cCI6MTc4ODk3OTQ4OX0.t9cIXmBi7rpgTxrExMehf4GZm1YUWnx_locH1vPCgWv0edmPlISMmSTl2xKDcD6Z",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "PATCH",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n    \"status\": \"SUCCESS\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "http://localhost:8080/transactions/1/status",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8080",
+                  "path": [
+                    "transactions",
+                    "1",
+                    "status"
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "Review Moderation",
+          "item": [
+            {
+              "name": "Hide review",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJCQGdtYWlsLmNvbSIsInR5cGUiOiJhY2Nlc3MiLCJpYXQiOjE3ODg5NzU4ODksImV4cCI6MTc4ODk3OTQ4OX0.t9cIXmBi7rpgTxrExMehf4GZm1YUWnx_locH1vPCgWv0edmPlISMmSTl2xKDcD6Z",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "PATCH",
+                "header": [],
+                "url": {
+                  "raw": "http://localhost:8080/reviews/1/hide",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8080",
+                  "path": [
+                    "reviews",
+                    "1",
+                    "hide"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Show review",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJCQGdtYWlsLmNvbSIsInR5cGUiOiJhY2Nlc3MiLCJpYXQiOjE3ODg5NzU4ODksImV4cCI6MTc4ODk3OTQ4OX0.t9cIXmBi7rpgTxrExMehf4GZm1YUWnx_locH1vPCgWv0edmPlISMmSTl2xKDcD6Z",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "PATCH",
+                "header": [],
+                "url": {
+                  "raw": "http://localhost:8080/reviews/1/show",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8080",
+                  "path": [
+                    "reviews",
+                    "1",
+                    "show"
+                  ]
+                }
+              },
+              "response": []
             }
           ]
         }
@@ -912,7 +1588,29 @@
               "name": "Get my profile",
               "request": {
                 "method": "GET",
-                "header": []
+                "header": [],
+                "url": {
+                  "raw": "http://localhost:8080/users/me",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8080",
+                  "path": [
+                    "users",
+                    "me"
+                  ]
+                },
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJCQGdtYWlsLmNvbSIsInR5cGUiOiJhY2Nlc3MiLCJpYXQiOjE3ODg5NzU4ODksImV4cCI6MTc4ODk3OTQ4OX0.t9cIXmBi7rpgTxrExMehf4GZm1YUWnx_locH1vPCgWv0edmPlISMmSTl2xKDcD6Z",
+                      "type": "string"
+                    }
+                  ]
+                }
               },
               "response": []
             },
@@ -994,7 +1692,28 @@
               "name": "Get all trainers (profile)",
               "request": {
                 "method": "GET",
-                "header": []
+                "header": [],
+                "url": {
+                  "raw": "http://localhost:8080/trainers",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8080",
+                  "path": [
+                    "trainers"
+                  ]
+                },
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJCQGdtYWlsLmNvbSIsInR5cGUiOiJhY2Nlc3MiLCJpYXQiOjE3ODg5NzU4ODksImV4cCI6MTc4ODk3OTQ4OX0.t9cIXmBi7rpgTxrExMehf4GZm1YUWnx_locH1vPCgWv0edmPlISMmSTl2xKDcD6Z",
+                      "type": "string"
+                    }
+                  ]
+                }
               },
               "response": []
             },
@@ -1037,6 +1756,175 @@
                 }
               },
               "response": []
+            },
+            {
+              "name": "Time Slots",
+              "item": [
+                {
+                  "name": "Get trainer time slots",
+                  "request": {
+                    "method": "GET",
+                    "header": [],
+                    "url": {
+                      "raw": "http://localhost:8080/trainers/1/time-slots",
+                      "protocol": "http",
+                      "host": [
+                        "localhost"
+                      ],
+                      "port": "8080",
+                      "path": [
+                        "trainers",
+                        "1",
+                        "time-slots"
+                      ]
+                    }
+                  },
+                  "response": []
+                },
+                {
+                  "name": "Create trainer time slot",
+                  "request": {
+                    "auth": {
+                      "type": "bearer",
+                      "bearer": [
+                        {
+                          "key": "token",
+                          "value": "eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJCQGdtYWlsLmNvbSIsInR5cGUiOiJhY2Nlc3MiLCJpYXQiOjE3ODg5NzU4ODksImV4cCI6MTc4ODk3OTQ4OX0.t9cIXmBi7rpgTxrExMehf4GZm1YUWnx_locH1vPCgWv0edmPlISMmSTl2xKDcD6Z",
+                          "type": "string"
+                        }
+                      ]
+                    },
+                    "method": "POST",
+                    "header": [],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n    \"startTime\": \"2026-09-15T08:00:00\",\n    \"endTime\": \"2026-09-15T09:00:00\",\n    \"maxCapacity\": 1\n}",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "http://localhost:8080/trainers/time-slots",
+                      "protocol": "http",
+                      "host": [
+                        "localhost"
+                      ],
+                      "port": "8080",
+                      "path": [
+                        "trainers",
+                        "time-slots"
+                      ]
+                    }
+                  },
+                  "response": []
+                },
+                {
+                  "name": "Update trainer time slot",
+                  "request": {
+                    "auth": {
+                      "type": "bearer",
+                      "bearer": [
+                        {
+                          "key": "token",
+                          "value": "eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJCQGdtYWlsLmNvbSIsInR5cGUiOiJhY2Nlc3MiLCJpYXQiOjE3ODg5NzU4ODksImV4cCI6MTc4ODk3OTQ4OX0.t9cIXmBi7rpgTxrExMehf4GZm1YUWnx_locH1vPCgWv0edmPlISMmSTl2xKDcD6Z",
+                          "type": "string"
+                        }
+                      ]
+                    },
+                    "method": "PATCH",
+                    "header": [],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n    \"startTime\": \"2026-09-15T08:30:00\",\n    \"endTime\": \"2026-09-15T09:30:00\"\n}",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "http://localhost:8080/trainers/time-slots/1",
+                      "protocol": "http",
+                      "host": [
+                        "localhost"
+                      ],
+                      "port": "8080",
+                      "path": [
+                        "trainers",
+                        "time-slots",
+                        "1"
+                      ]
+                    }
+                  },
+                  "response": []
+                },
+                {
+                  "name": "Activate trainer time slot",
+                  "request": {
+                    "auth": {
+                      "type": "bearer",
+                      "bearer": [
+                        {
+                          "key": "token",
+                          "value": "eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJCQGdtYWlsLmNvbSIsInR5cGUiOiJhY2Nlc3MiLCJpYXQiOjE3ODg5NzU4ODksImV4cCI6MTc4ODk3OTQ4OX0.t9cIXmBi7rpgTxrExMehf4GZm1YUWnx_locH1vPCgWv0edmPlISMmSTl2xKDcD6Z",
+                          "type": "string"
+                        }
+                      ]
+                    },
+                    "method": "PATCH",
+                    "header": [],
+                    "url": {
+                      "raw": "http://localhost:8080/trainers/time-slots/1/activate",
+                      "protocol": "http",
+                      "host": [
+                        "localhost"
+                      ],
+                      "port": "8080",
+                      "path": [
+                        "trainers",
+                        "time-slots",
+                        "1",
+                        "activate"
+                      ]
+                    }
+                  },
+                  "response": []
+                },
+                {
+                  "name": "Deactivate trainer time slot",
+                  "request": {
+                    "auth": {
+                      "type": "bearer",
+                      "bearer": [
+                        {
+                          "key": "token",
+                          "value": "eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJCQGdtYWlsLmNvbSIsInR5cGUiOiJhY2Nlc3MiLCJpYXQiOjE3ODg5NzU4ODksImV4cCI6MTc4ODk3OTQ4OX0.t9cIXmBi7rpgTxrExMehf4GZm1YUWnx_locH1vPCgWv0edmPlISMmSTl2xKDcD6Z",
+                          "type": "string"
+                        }
+                      ]
+                    },
+                    "method": "PATCH",
+                    "header": [],
+                    "url": {
+                      "raw": "http://localhost:8080/trainers/time-slots/1/deactivate",
+                      "protocol": "http",
+                      "host": [
+                        "localhost"
+                      ],
+                      "port": "8080",
+                      "path": [
+                        "trainers",
+                        "time-slots",
+                        "1",
+                        "deactivate"
+                      ]
+                    }
+                  },
+                  "response": []
+                }
+              ]
             }
           ]
         },
@@ -1047,7 +1935,28 @@
               "name": "Get all rooms",
               "request": {
                 "method": "GET",
-                "header": []
+                "header": [],
+                "url": {
+                  "raw": "http://localhost:8080/rooms",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8080",
+                  "path": [
+                    "rooms"
+                  ]
+                },
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJCQGdtYWlsLmNvbSIsInR5cGUiOiJhY2Nlc3MiLCJpYXQiOjE3ODg5NzU4ODksImV4cCI6MTc4ODk3OTQ4OX0.t9cIXmBi7rpgTxrExMehf4GZm1YUWnx_locH1vPCgWv0edmPlISMmSTl2xKDcD6Z",
+                      "type": "string"
+                    }
+                  ]
+                }
               },
               "response": []
             },
@@ -1055,7 +1964,29 @@
               "name": "Get by id",
               "request": {
                 "method": "GET",
-                "header": []
+                "header": [],
+                "url": {
+                  "raw": "http://localhost:8080/rooms/1",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8080",
+                  "path": [
+                    "rooms",
+                    "1"
+                  ]
+                },
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJCQGdtYWlsLmNvbSIsInR5cGUiOiJhY2Nlc3MiLCJpYXQiOjE3ODg5NzU4ODksImV4cCI6MTc4ODk3OTQ4OX0.t9cIXmBi7rpgTxrExMehf4GZm1YUWnx_locH1vPCgWv0edmPlISMmSTl2xKDcD6Z",
+                      "type": "string"
+                    }
+                  ]
+                }
               },
               "response": []
             }
@@ -1068,7 +1999,28 @@
               "name": "Get all class types",
               "request": {
                 "method": "GET",
-                "header": []
+                "header": [],
+                "url": {
+                  "raw": "http://localhost:8080/class-types",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8080",
+                  "path": [
+                    "class-types"
+                  ]
+                },
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJCQGdtYWlsLmNvbSIsInR5cGUiOiJhY2Nlc3MiLCJpYXQiOjE3ODg5NzU4ODksImV4cCI6MTc4ODk3OTQ4OX0.t9cIXmBi7rpgTxrExMehf4GZm1YUWnx_locH1vPCgWv0edmPlISMmSTl2xKDcD6Z",
+                      "type": "string"
+                    }
+                  ]
+                }
               },
               "response": []
             },
@@ -1076,7 +2028,29 @@
               "name": "Get class type by id",
               "request": {
                 "method": "GET",
-                "header": []
+                "header": [],
+                "url": {
+                  "raw": "http://localhost:8080/class-types/1",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8080",
+                  "path": [
+                    "class-types",
+                    "1"
+                  ]
+                },
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJCQGdtYWlsLmNvbSIsInR5cGUiOiJhY2Nlc3MiLCJpYXQiOjE3ODg5NzU4ODksImV4cCI6MTc4ODk3OTQ4OX0.t9cIXmBi7rpgTxrExMehf4GZm1YUWnx_locH1vPCgWv0edmPlISMmSTl2xKDcD6Z",
+                      "type": "string"
+                    }
+                  ]
+                }
               },
               "response": []
             }
@@ -1089,7 +2063,28 @@
               "name": "Get all gym classes",
               "request": {
                 "method": "GET",
-                "header": []
+                "header": [],
+                "url": {
+                  "raw": "http://localhost:8080/classes",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8080",
+                  "path": [
+                    "classes"
+                  ]
+                },
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJCQGdtYWlsLmNvbSIsInR5cGUiOiJhY2Nlc3MiLCJpYXQiOjE3ODg5NzU4ODksImV4cCI6MTc4ODk3OTQ4OX0.t9cIXmBi7rpgTxrExMehf4GZm1YUWnx_locH1vPCgWv0edmPlISMmSTl2xKDcD6Z",
+                      "type": "string"
+                    }
+                  ]
+                }
               },
               "response": []
             },
@@ -1097,7 +2092,29 @@
               "name": "Get gym class by id",
               "request": {
                 "method": "GET",
-                "header": []
+                "header": [],
+                "url": {
+                  "raw": "http://localhost:8080/classes/1",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8080",
+                  "path": [
+                    "classes",
+                    "1"
+                  ]
+                },
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJCQGdtYWlsLmNvbSIsInR5cGUiOiJhY2Nlc3MiLCJpYXQiOjE3ODg5NzU4ODksImV4cCI6MTc4ODk3OTQ4OX0.t9cIXmBi7rpgTxrExMehf4GZm1YUWnx_locH1vPCgWv0edmPlISMmSTl2xKDcD6Z",
+                      "type": "string"
+                    }
+                  ]
+                }
               },
               "response": []
             }
@@ -1110,7 +2127,28 @@
               "name": "Get all packages",
               "request": {
                 "method": "GET",
-                "header": []
+                "header": [],
+                "url": {
+                  "raw": "http://localhost:8080/packages",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8080",
+                  "path": [
+                    "packages"
+                  ]
+                },
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJCQGdtYWlsLmNvbSIsInR5cGUiOiJhY2Nlc3MiLCJpYXQiOjE3ODg5NzU4ODksImV4cCI6MTc4ODk3OTQ4OX0.t9cIXmBi7rpgTxrExMehf4GZm1YUWnx_locH1vPCgWv0edmPlISMmSTl2xKDcD6Z",
+                      "type": "string"
+                    }
+                  ]
+                }
               },
               "response": []
             },
@@ -1118,7 +2156,29 @@
               "name": "Get package by id",
               "request": {
                 "method": "GET",
-                "header": []
+                "header": [],
+                "url": {
+                  "raw": "http://localhost:8080/packages/1",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8080",
+                  "path": [
+                    "packages",
+                    "1"
+                  ]
+                },
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJCQGdtYWlsLmNvbSIsInR5cGUiOiJhY2Nlc3MiLCJpYXQiOjE3ODg5NzU4ODksImV4cCI6MTc4ODk3OTQ4OX0.t9cIXmBi7rpgTxrExMehf4GZm1YUWnx_locH1vPCgWv0edmPlISMmSTl2xKDcD6Z",
+                      "type": "string"
+                    }
+                  ]
+                }
               },
               "response": []
             }
@@ -1131,7 +2191,29 @@
               "name": "Get my member packages",
               "request": {
                 "method": "GET",
-                "header": []
+                "header": [],
+                "url": {
+                  "raw": "http://localhost:8080/member-packages/me",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8080",
+                  "path": [
+                    "member-packages",
+                    "me"
+                  ]
+                },
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJCQGdtYWlsLmNvbSIsInR5cGUiOiJhY2Nlc3MiLCJpYXQiOjE3ODg5NzU4ODksImV4cCI6MTc4ODk3OTQ4OX0.t9cIXmBi7rpgTxrExMehf4GZm1YUWnx_locH1vPCgWv0edmPlISMmSTl2xKDcD6Z",
+                      "type": "string"
+                    }
+                  ]
+                }
               },
               "response": []
             },
@@ -1201,6 +2283,37 @@
                 }
               },
               "response": []
+            },
+            {
+              "name": "Get my member package by id",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJCQGdtYWlsLmNvbSIsInR5cGUiOiJhY2Nlc3MiLCJpYXQiOjE3ODg5NzU4ODksImV4cCI6MTc4ODk3OTQ4OX0.t9cIXmBi7rpgTxrExMehf4GZm1YUWnx_locH1vPCgWv0edmPlISMmSTl2xKDcD6Z",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "http://localhost:8080/member-packages/me/1",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8080",
+                  "path": [
+                    "member-packages",
+                    "me",
+                    "1"
+                  ]
+                }
+              },
+              "response": []
             }
           ]
         },
@@ -1211,7 +2324,29 @@
               "name": "Get all my transactions",
               "request": {
                 "method": "GET",
-                "header": []
+                "header": [],
+                "url": {
+                  "raw": "http://localhost:8080/transactions/me",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8080",
+                  "path": [
+                    "transactions",
+                    "me"
+                  ]
+                },
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJCQGdtYWlsLmNvbSIsInR5cGUiOiJhY2Nlc3MiLCJpYXQiOjE3ODg5NzU4ODksImV4cCI6MTc4ODk3OTQ4OX0.t9cIXmBi7rpgTxrExMehf4GZm1YUWnx_locH1vPCgWv0edmPlISMmSTl2xKDcD6Z",
+                      "type": "string"
+                    }
+                  ]
+                }
               },
               "response": []
             },
@@ -1219,7 +2354,30 @@
               "name": "Get my transaction by id",
               "request": {
                 "method": "GET",
-                "header": []
+                "header": [],
+                "url": {
+                  "raw": "http://localhost:8080/transactions/me/1",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8080",
+                  "path": [
+                    "transactions",
+                    "me",
+                    "1"
+                  ]
+                },
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJCQGdtYWlsLmNvbSIsInR5cGUiOiJhY2Nlc3MiLCJpYXQiOjE3ODg5NzU4ODksImV4cCI6MTc4ODk3OTQ4OX0.t9cIXmBi7rpgTxrExMehf4GZm1YUWnx_locH1vPCgWv0edmPlISMmSTl2xKDcD6Z",
+                      "type": "string"
+                    }
+                  ]
+                }
               },
               "response": []
             },
@@ -1456,6 +2614,39 @@
           "name": "Reviews",
           "item": [
             {
+              "name": "Get all reviews",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "http://localhost:8080/reviews?rating=5&page=0&size=10",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8080",
+                  "path": [
+                    "reviews"
+                  ],
+                  "query": [
+                    {
+                      "key": "rating",
+                      "value": "5"
+                    },
+                    {
+                      "key": "page",
+                      "value": "0"
+                    },
+                    {
+                      "key": "size",
+                      "value": "10"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
               "name": "TC 2.2 - Create Review for Class Booking",
               "request": {
                 "auth": {
@@ -1680,6 +2871,36 @@
                 "description": "TC 3.3: Đánh dấu toàn bộ thông báo là đã đọc khi click Mark all as read."
               },
               "response": []
+            },
+            {
+              "name": "Reset notifications",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJCQGdtYWlsLmNvbSIsInR5cGUiOiJhY2Nlc3MiLCJpYXQiOjE3ODg5NzU4ODksImV4cCI6MTc4ODk3OTQ4OX0.t9cIXmBi7rpgTxrExMehf4GZm1YUWnx_locH1vPCgWv0edmPlISMmSTl2xKDcD6Z",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "header": [],
+                "url": {
+                  "raw": "http://localhost:8080/notifications/reset",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8080",
+                  "path": [
+                    "notifications",
+                    "reset"
+                  ]
+                }
+              },
+              "response": []
             }
           ]
         },
@@ -1771,6 +2992,154 @@
                   ]
                 },
                 "description": "TC 4.2: Trainer lưu ghi chú tiến độ sức khỏe cho hội viên. Kỳ vọng trả về 201 Created."
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "Chat",
+          "item": [
+            {
+              "name": "Get conversations",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJCQGdtYWlsLmNvbSIsInR5cGUiOiJhY2Nlc3MiLCJpYXQiOjE3ODg5NzU4ODksImV4cCI6MTc4ODk3OTQ4OX0.t9cIXmBi7rpgTxrExMehf4GZm1YUWnx_locH1vPCgWv0edmPlISMmSTl2xKDcD6Z",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "http://localhost:8080/chat/conversations",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8080",
+                  "path": [
+                    "chat",
+                    "conversations"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Get conversation messages",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJCQGdtYWlsLmNvbSIsInR5cGUiOiJhY2Nlc3MiLCJpYXQiOjE3ODg5NzU4ODksImV4cCI6MTc4ODk3OTQ4OX0.t9cIXmBi7rpgTxrExMehf4GZm1YUWnx_locH1vPCgWv0edmPlISMmSTl2xKDcD6Z",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "http://localhost:8080/chat/conversations/2/messages?page=0&size=20",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8080",
+                  "path": [
+                    "chat",
+                    "conversations",
+                    "2",
+                    "messages"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "0"
+                    },
+                    {
+                      "key": "size",
+                      "value": "20"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Send message",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJCQGdtYWlsLmNvbSIsInR5cGUiOiJhY2Nlc3MiLCJpYXQiOjE3ODg5NzU4ODksImV4cCI6MTc4ODk3OTQ4OX0.t9cIXmBi7rpgTxrExMehf4GZm1YUWnx_locH1vPCgWv0edmPlISMmSTl2xKDcD6Z",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n    \"receiverId\": 2,\n    \"content\": \"Chào HLV, hôm nay em muốn tập bài Squat và Deadlift ạ!\",\n    \"imageUrl\": null\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "http://localhost:8080/chat/messages",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8080",
+                  "path": [
+                    "chat",
+                    "messages"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Mark message as read",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJCQGdtYWlsLmNvbSIsInR5cGUiOiJhY2Nlc3MiLCJpYXQiOjE3ODg5NzU4ODksImV4cCI6MTc4ODk3OTQ4OX0.t9cIXmBi7rpgTxrExMehf4GZm1YUWnx_locH1vPCgWv0edmPlISMmSTl2xKDcD6Z",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "PATCH",
+                "header": [],
+                "url": {
+                  "raw": "http://localhost:8080/chat/messages/1/read",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8080",
+                  "path": [
+                    "chat",
+                    "messages",
+                    "1",
+                    "read"
+                  ]
+                }
               },
               "response": []
             }

@@ -35,133 +35,6 @@ const messageHistoryMap: Record<number, ChatMessageDTO[]> = {};
 const DEFAULT_AVATAR =
   "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&auto=format&fit=crop&q=80";
 
-// ==================== DỮ LIỆU MẪU CAO CẤP (FALLBACK / DEMO DATA) ====================
-// TODO(mock-pending-api): chờ BE hoàn thiện ChatController — xem api-contract.md mục 15
-
-function getDemoConversations(isTrainerRole: boolean): ConversationItem[] {
-  const now = Date.now();
-  if (isTrainerRole) {
-    return [
-      {
-        userId: 101,
-        fullName: "Nguyễn Văn Hùng",
-        avatarUrl:
-          "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=120&auto=format&fit=crop&q=80",
-        role: "MEMBER",
-        lastMessage: "Chào huấn luyện viên, hôm nay mình muốn tập trung vào bài Deadlift và Squat ạ!",
-        unreadCount: 1,
-        lastMessageAt: new Date(now - 5 * 60 * 1000).toISOString(),
-      },
-      {
-        userId: 102,
-        fullName: "Trần Thị Mai",
-        avatarUrl:
-          "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=120&auto=format&fit=crop&q=80",
-        role: "MEMBER",
-        lastMessage: "Em vừa nộp nhật ký dinh dưỡng rồi anh nhé 🥗",
-        unreadCount: 0,
-        lastMessageAt: new Date(now - 45 * 60 * 1000).toISOString(),
-      },
-      {
-        userId: 103,
-        fullName: "Lê Quốc Bảo",
-        avatarUrl:
-          "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=120&auto=format&fit=crop&q=80",
-        role: "MEMBER",
-        lastMessage: "Thầy xem giúp em bài tập ngực hôm qua form chuẩn chưa?",
-        unreadCount: 0,
-        lastMessageAt: new Date(now - 3 * 3600 * 1000).toISOString(),
-      },
-      {
-        userId: 104,
-        fullName: "Phạm Thảo Vy",
-        avatarUrl:
-          "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=120&auto=format&fit=crop&q=80",
-        role: "MEMBER",
-        lastMessage: "Tuần sau em xin dời lịch tập sang thứ 4 được không ạ?",
-        unreadCount: 2,
-        lastMessageAt: new Date(now - 24 * 3600 * 1000).toISOString(),
-      },
-    ];
-  } else {
-    return [
-      {
-        userId: 201,
-        fullName: "HLV Minh Tuấn",
-        avatarUrl:
-          "https://images.unsplash.com/photo-1568602471122-7832951cc4c5?w=120&auto=format&fit=crop&q=80",
-        role: "TRAINER",
-        lastMessage: "Chào bạn! Hôm nay bạn có dự định tập các bài Cardio hay cơ lưng xô không?",
-        unreadCount: 1,
-        lastMessageAt: new Date(now - 5 * 60 * 1000).toISOString(),
-      },
-      {
-        userId: 202,
-        fullName: "HLV Sarah Đỗ",
-        avatarUrl:
-          "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=120&auto=format&fit=crop&q=80",
-        role: "TRAINER",
-        lastMessage: "Bạn nhớ khởi động kỹ 10 phút trước khi vào lớp nhé 🧘",
-        unreadCount: 0,
-        lastMessageAt: new Date(now - 2 * 3600 * 1000).toISOString(),
-      },
-      {
-        userId: 203,
-        fullName: "HLV David Nguyễn",
-        avatarUrl:
-          "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=120&auto=format&fit=crop&q=80",
-        role: "TRAINER",
-        lastMessage: "Thực đơn dinh dưỡng tuần này mình đã cập nhật trong app rồi.",
-        unreadCount: 0,
-        lastMessageAt: new Date(now - 12 * 3600 * 1000).toISOString(),
-      },
-    ];
-  }
-}
-
-function getInitialDemoMessages(partnerId: number, myId: number): ChatMessageDTO[] {
-  const now = Date.now();
-  const msgs: ChatMessageDTO[] = [];
-  const sampleTopics: [string, string][] = [
-    ["Chào bạn! Hôm nay bạn có dự định tập các bài Cardio hay cơ lưng xô không?", "Chào HLV, hôm nay em muốn tập trung vào bài Deadlift và Squat ạ!"],
-    ["Rất tốt! Bạn nhớ khởi động kỹ khớp háng và cổ chân 10 phút nhé.", "Dạ em vừa khởi động xong rồi, chuẩn bị vào set khởi động ạ."],
-    ["Set 1: Mức tạ 40kg, 12 reps, tập trung cảm nhận cơ mông và đùi sau.", "Em đã xong set 1 rất nhẹ nhàng ạ!"],
-    ["Tăng lên 60kg cho set 2 nhé, nhớ gồng chặt core và thở đều.", "Dạ em đã hoàn thành set 2, cảm giác cơ phát lực rất tốt."],
-    ["Set 3: 70kg, 8 reps, chú ý giữ thẳng lưng không để võng nhé.", "Dạ em vừa xong set 3, hơi đuối một chút nhưng form vẫn chuẩn."],
-    ["Tuyệt vời! Nghỉ 90 giây rồi uống một ngụm nước nhỏ.", "Dạ em đang nghỉ và bù điện giải đây ạ."],
-    ["Tiếp theo chuyển sang Squat nhé: 4 sets x 10 reps.", "Squat hôm nay em tập với thanh Barbell tự do đúng không anh?"],
-    ["Đúng rồi em, xuống sâu song song với sàn và mở gối theo hướng mũi chân.", "Dạ vâng, em bắt đầu set Squat đầu tiên đây ạ."],
-    ["Set 1 Squat thế nào rồi em?", "Em xong rồi ạ, đùi trước cảm nhận căng rất đã!"],
-    ["Rất chuẩn! Hoàn thành nốt các set còn lại rồi giãn cơ tĩnh nhé.", "Em đã hoàn thành toàn bộ buổi tập hôm nay rồi ạ! Cảm ơn HLV! 💪"]
-  ];
-
-  let idCounter = 1;
-  sampleTopics.forEach((pair, idx) => {
-    // Partner message (incoming)
-    msgs.push({
-      id: idCounter++,
-      senderId: partnerId,
-      receiverId: myId,
-      content: pair[0],
-      imageUrl: idx === 1 ? "https://images.unsplash.com/photo-1517838277536-f5f99be501cd?w=600&auto=format&fit=crop&q=80" : null,
-      sentAt: new Date(now - (sampleTopics.length - idx) * 4 * 60 * 1000).toISOString(),
-      readAt: new Date(now - (sampleTopics.length - idx) * 4 * 60 * 1000 + 30000).toISOString(),
-    });
-    // My message (outgoing)
-    msgs.push({
-      id: idCounter++,
-      senderId: myId,
-      receiverId: partnerId,
-      content: pair[1],
-      imageUrl: null,
-      sentAt: new Date(now - (sampleTopics.length - idx) * 4 * 60 * 1000 + 60000).toISOString(),
-      readAt: new Date(now - (sampleTopics.length - idx) * 4 * 60 * 1000 + 90000).toISOString(),
-    });
-  });
-
-  return msgs;
-}
-
 // ==================== HELPER FUNCTIONS ====================
 
 function isTrainerRoute(): boolean {
@@ -509,17 +382,17 @@ export async function selectConversation(userId: number): Promise<void> {
 
   // Kiểm tra nếu đã có tin nhắn trong cache store
   if (!messageHistoryMap[userId]) {
-    messageHistoryMap[userId] = getInitialDemoMessages(userId, currentUserId || 1);
+    messageHistoryMap[userId] = [];
   }
 
-  // Thử tải tin nhắn từ backend
+  // Tải tin nhắn thực tế từ backend API
   try {
     const res = await chatService.getMessages(userId, 0, 50);
-    if (res && res.content && res.content.length > 0) {
+    if (res && res.content) {
       messageHistoryMap[userId] = res.content;
     }
   } catch (err) {
-    // Backend offline / 404: Dùng tin nhắn trong messageHistoryMap
+    console.warn("Could not fetch messages for user:", userId, err);
   }
 
   const messages = messageHistoryMap[userId] || [];
@@ -819,26 +692,35 @@ export async function init(): Promise<void> {
     // WebSocket chưa sẵn sàng, kích hoạt fallback mode
   }
 
-  // Tải danh sách hội thoại từ API, nếu lỗi thì dùng Demo Data cao cấp
+  // Tải danh sách hội thoại thực tế từ API Database
   try {
     const data = await chatService.getConversations();
-    if (data && data.length > 0) {
-      conversations = data;
-    } else {
-      conversations = getDemoConversations(isTrainer);
-    }
+    conversations = Array.isArray(data) ? data : [];
   } catch (error) {
-    conversations = getDemoConversations(isTrainer);
+    console.warn("Could not fetch conversations:", error);
+    conversations = [];
   }
 
   // Render danh sách hội thoại
   renderConversations(conversations);
 
-  // Trên Desktop/Tablet (>= 768px): Tự động chọn cuộc hội thoại đầu tiên
+  // Trên Desktop/Tablet (>= 768px): Tự động chọn cuộc hội thoại đầu tiên nếu có
   // Trên Mobile (< 768px): Giữ danh sách liên hệ chiếm toàn màn hình, chỉ mở chat khi người dùng chọn liên hệ
   if (conversations.length > 0) {
     if (typeof window !== "undefined" && window.innerWidth >= 768) {
       await selectConversation(conversations[0].userId);
+    }
+  } else {
+    // Nếu chưa có cuộc hội thoại nào, hiển thị empty state
+    const messageArea = document.getElementById("message-area");
+    if (messageArea) {
+      messageArea.innerHTML = `
+        <div class="chat-placeholder my-auto text-center text-muted py-5">
+          <i class="bi bi-chat-heart fs-1 text-secondary mb-2 d-block"></i>
+          <h3 class="h6 text-light fw-bold">Chưa có cuộc trò chuyện nào</h3>
+          <p class="small text-muted mb-0">Hãy kết nối và nhắn tin cùng Huấn luyện viên hoặc Hội viên!</p>
+        </div>
+      `;
     }
   }
 

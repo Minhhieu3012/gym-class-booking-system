@@ -1,4 +1,4 @@
-﻿// Generic — PageResponse<T>
+// Generic — PageResponse<T>
 export interface PageResponse<T> {
   content: T[];
   totalElements: number;
@@ -117,3 +117,14 @@ export interface UpdatePackageRequest {
 }
 
 // PATCH /packages/{id}/deactivate
+
+// Analytics Overview API
+// GET /admin/analytics/overview
+export interface AnalyticsOverview {
+  totalMembers: number;
+  totalTrainers: number;
+  totalClassesConducted: number;
+  totalMockRevenue: number;
+  attendanceRate: number;
+  activeBookingsCount: number;
+}

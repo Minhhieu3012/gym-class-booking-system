@@ -1,6 +1,7 @@
 import template from "./rooms.html?raw";
 import { roomService } from "../../services/admin-core.service";
 import { authService } from "../../services/auth.service";
+import { getStoredUser, STORAGE_KEYS } from "../../core/api";
 import "./rooms.css";
 import type { RoomResponse, RoomStatus } from "../../models/admin";
 
@@ -85,8 +86,7 @@ export async function init(): Promise<void> {
     "#room-capacity-error",
   );
 
-  
-  function showAlert(
+    function showAlert(
     msg: string,
     type: "success" | "danger" = "success",
   ): void {
@@ -94,16 +94,12 @@ export async function init(): Promise<void> {
     const isSuccess = type === "success";
     alertEl.style.display = "block";
     alertEl.innerHTML = `
-      <div class="d-flex align-items-center gap-2 px-4 py-3 rounded-theme-md"
-           style="background-color: ${isSuccess ? "var(--color-tertiary-light)" : "var(--color-primary-light)"}; border: 1px solid ${isSuccess ? "var(--color-tertiary)" : "var(--color-primary)"};">
-        <svg width="16" height="16" fill="none" stroke="${isSuccess ? "var(--color-tertiary)" : "var(--color-primary)"}" stroke-width="2.5" viewBox="0 0 24 24">
-          ${
-            isSuccess
-              ? '<polyline points="20 6 9 17 4 12"/>'
-              : '<circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>'
-          }
+      <div class="alert alert-${isSuccess ? "success" : "danger"} alert-dismissible fade show rounded-3 shadow-sm d-flex align-items-center gap-2 mb-0" role="alert">
+        <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          ${isSuccess ? '<polyline points="20 6 9 17 4 12"/>' : '<circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>'}
         </svg>
-        <span style="font-size: 0.85rem; font-weight: 600; color: ${isSuccess ? "var(--color-tertiary)" : "var(--color-primary)"};">${msg}</span>
+        <span class="fw-medium">${msg}</span>
+        <button type="button" class="btn-close ms-auto" data-bs-dismiss="alert" aria-label="Close"></button>
       </div>`;
     setTimeout(() => {
       if (alertEl) alertEl.style.display = "none";
@@ -122,9 +118,7 @@ export async function init(): Promise<void> {
 
   function buildStatusBadge(status: RoomStatus): string {
     const isActive = status === "ACTIVE";
-    return `<span class="badge-theme ${isActive ? "badge-active" : "badge-inactive"}" style="font-size: 0.68rem; letter-spacing: 0.05em;">
-      ${isActive ? "● ACTIVE" : "○ INACTIVE"}
-    </span>`;
+    return `<span class="badge ${isActive ? "bg-success-subtle text-success border border-success-subtle" : "bg-secondary-subtle text-secondary border border-secondary-subtle"} rounded-pill small fw-semibold px-2 py-1">${isActive ? "ACTIVE" : "INACTIVE"}</span>`;
   }
 
   function buildRow(room: RoomResponse): string {
@@ -132,22 +126,22 @@ export async function init(): Promise<void> {
     const isActive = room.status === "ACTIVE";
     return `
       <tr data-room-id="${room.id}">
-        <td class="px-4 py-3 text-neutral" style="font-size: 0.8rem; font-weight: 600; white-space: nowrap;">
-          <span class="badge-theme bg-surface-alt border-theme text-neutral" style="font-size: 0.68rem; border-radius: var(--radius-sm) !important; padding: 0.2em 0.55em;">${idStr}</span>
+        <td class="ps-4 py-3">
+          <span class="badge bg-light text-dark border font-monospace px-2 py-1 rounded-3">${idStr}</span>
         </td>
-        <td class="px-3 py-3" style="min-width: 180px;">
-          <p class="mb-0 fw-semibold text-secondary-theme" style="font-size: 0.88rem;">${escapeHtml(room.name)}</p>
+        <td class="py-3">
+          <span class="fw-bold text-dark">${escapeHtml(room.name)}</span>
         </td>
-        <td class="px-3 py-3 text-neutral" style="font-size: 0.85rem; min-width: 140px;">
+        <td class="py-3 text-muted small">
           ${escapeHtml(room.location)}
         </td>
-        <td class="px-3 py-3 text-center">
-          <span class="fw-bold text-secondary-theme" style="font-size: 0.9rem;">${room.capacity}</span>
-          <span class="text-neutral" style="font-size: 0.72rem;"> pax</span>
+        <td class="py-3 text-center">
+          <span class="fw-bold text-dark">${room.capacity}</span>
+          <span class="text-muted small"> người</span>
         </td>
-        <td class="px-3 py-3 text-center">
+        <td class="py-3 text-center">
           <div class="d-flex flex-column align-items-center gap-1">
-            <label class="room-toggle" title="Toggle status" aria-label="Toggle room status">
+            <label class="room-toggle" title="Chuyển trạng thái" aria-label="Chuyển trạng thái phòng">
               <input
                 type="checkbox"
                 class="room-status-toggle"
@@ -160,18 +154,18 @@ export async function init(): Promise<void> {
             ${buildStatusBadge(room.status)}
           </div>
         </td>
-        <td class="px-4 py-3 text-end">
+        <td class="pe-4 py-3 text-end">
           <button
-            class="btn-edit-room"
+            class="btn btn-sm btn-outline-primary rounded-3 d-inline-flex align-items-center gap-1 btn-edit-room"
             data-id="${room.id}"
             type="button"
-            aria-label="Edit room ${escapeHtml(room.name)}"
+            aria-label="Sửa phòng ${escapeHtml(room.name)}"
           >
-            <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+            <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
               <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/>
               <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/>
             </svg>
-            Edit
+            <span>Sửa</span>
           </button>
         </td>
       </tr>`;
@@ -186,7 +180,7 @@ export async function init(): Promise<void> {
       .replace(/'/g, "&#039;");
   }
 
-    function renderTable(rooms: RoomResponse[]): void {
+  function renderTable(rooms: RoomResponse[]): void {
     if (!tbody || !tableWrapper || !emptyEl) return;
 
     tableWrapper.style.display = "block";
@@ -202,7 +196,7 @@ export async function init(): Promise<void> {
     }
   }
 
-    async function loadRooms(status?: RoomStatus | ""): Promise<void> {
+  async function loadRooms(status?: RoomStatus | ""): Promise<void> {
     if (loadingEl) loadingEl.style.display = "block";
     if (tableWrapper) tableWrapper.style.display = "none";
 
@@ -219,7 +213,7 @@ export async function init(): Promise<void> {
     }
   }
 
-    function attachToggleListeners(): void {
+  function attachToggleListeners(): void {
     document
       .querySelectorAll<HTMLInputElement>(".room-status-toggle")
       .forEach((toggle) => {
@@ -242,16 +236,19 @@ export async function init(): Promise<void> {
             // Update dataset and badge
             toggle.dataset.current = newStatus;
             const row = toggle.closest("tr");
-            const badgeEl = row?.querySelector<HTMLSpanElement>(".badge-theme");
-            if (badgeEl) {
-              const isNowActive = newStatus === "ACTIVE";
-              badgeEl.className = `badge-theme ${isNowActive ? "badge-active" : "badge-inactive"}`;
-              badgeEl.textContent = isNowActive ? "● ACTIVE" : "○ INACTIVE";
+            const badgeContainer = row?.querySelector("td:nth-child(5) .d-flex");
+            if (badgeContainer) {
+              const oldBadge = badgeContainer.querySelector(".badge");
+              if (oldBadge) {
+                const isNowActive = newStatus === "ACTIVE";
+                oldBadge.className = `badge ${isNowActive ? "bg-success-subtle text-success border border-success-subtle" : "bg-secondary-subtle text-secondary border border-secondary-subtle"} rounded-pill small fw-semibold px-2 py-1`;
+                oldBadge.textContent = isNowActive ? "ACTIVE" : "INACTIVE";
+              }
             }
 
             // Refresh stats
             setStats(allRooms);
-            showAlert(`Room status updated to ${newStatus}.`, "success");
+            showAlert(`Trạng thái phòng đã được cập nhật sang ${newStatus}.`, "success");
           } catch (error: unknown) {
             // Revert toggle visual
             toggle.checked = !toggle.checked;
@@ -459,5 +456,70 @@ export async function init(): Promise<void> {
     renderTable(filtered);
   });
 
-    await loadRooms();
+  highlightActiveNav();
+  setupAdminProfile();
+  setupLogoutAction();
+
+  await loadRooms();
+}
+
+/**
+ * Hiển thị thông tin Admin trên Header và Sidebar
+ */
+function setupAdminProfile(): void {
+  const user = getStoredUser();
+  const displayName = user?.fullName || user?.email || user?.phone || "Admin";
+
+  const headerName = document.querySelector<HTMLElement>("#admin-name");
+  if (headerName) {
+    headerName.textContent = displayName;
+  }
+
+  const sidebarName = document.querySelector<HTMLElement>("#sidebar-admin-name");
+  if (sidebarName) {
+    sidebarName.textContent = displayName;
+  }
+}
+
+/**
+ * Xử lý đăng xuất
+ */
+function setupLogoutAction(): void {
+  const logoutBtn = document.querySelector<HTMLElement>("#btn-logout");
+  if (!logoutBtn) return;
+
+  logoutBtn.addEventListener("click", async (e: Event) => {
+    e.preventDefault();
+    try {
+      if (authService && typeof authService.logout === "function") {
+        await authService.logout();
+      }
+    } catch (err) {
+      console.warn("Lỗi khi gọi API logout:", err);
+    } finally {
+      localStorage.removeItem(STORAGE_KEYS.ACCESS_TOKEN);
+      localStorage.removeItem(STORAGE_KEYS.REFRESH_TOKEN);
+      localStorage.removeItem(STORAGE_KEYS.USER);
+      window.location.href = "/auth/login.html";
+    }
+  });
+}
+
+/**
+ * Làm nổi bật menu active trên Sidebar
+ */
+function highlightActiveNav(): void {
+  const currentPath = window.location.pathname;
+  const navLinks = document.querySelectorAll<HTMLAnchorElement>(".admin-nav-link");
+
+  navLinks.forEach((link) => {
+    const href = link.getAttribute("href");
+    if (href === currentPath || (currentPath === "/admin/rooms" && href === "/admin/rooms")) {
+      link.classList.add("active", "text-white");
+      link.classList.remove("text-secondary-emphasis");
+    } else {
+      link.classList.remove("active", "text-white");
+      link.classList.add("text-secondary-emphasis");
+    }
+  });
 }
