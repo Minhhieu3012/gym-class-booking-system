@@ -37,4 +37,12 @@ public interface MemberPackageRepository
             MemberPackageStatus status,
             LocalDate date
     );
+    List<MemberPackage>
+    findByMemberIdAndStatusAndSessionsRemainingGreaterThanAndStartDateLessThanEqualAndEndDateGreaterThanEqualOrderByEndDateAsc(
+            Long memberId,
+            MemberPackageStatus status,
+            Integer sessionsRemaining,
+            LocalDate startDate,
+            LocalDate endDate
+    );
 }
