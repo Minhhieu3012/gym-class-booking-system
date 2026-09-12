@@ -38,11 +38,14 @@
 }
 
 .attendance-row-completed {
-  background-color: rgba(16, 185, 129, 0.04) !important;
+  background-color: rgba(16, 185, 129, 0.06) !important;
+  opacity: 0.55 !important;
+  filter: grayscale(0.2);
+  transition: all 0.3s ease;
 }
 
-.attendance-row-completed td {
-  opacity: 0.85;
+.attendance-row-completed * {
+  cursor: not-allowed !important;
 }
 
 .radio-attendance-group .btn-check:checked + .btn-outline-success {

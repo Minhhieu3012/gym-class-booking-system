@@ -156,7 +156,21 @@ const routes: Route[] = [
     init: TrainerAttendancePage.init,
   },
   {
+    path: "/trainer/attendance.html",
+    requiresAuth: true,
+    roles: ["TRAINER", "ADMIN"],
+    view: TrainerAttendancePage.render,
+    init: TrainerAttendancePage.init,
+  },
+  {
     path: "/trainer/progress-notes",
+    requiresAuth: true,
+    roles: ["TRAINER", "ADMIN"],
+    view: TrainerProgressNotesPage.render,
+    init: TrainerProgressNotesPage.init,
+  },
+  {
+    path: "/trainer/progress-notes.html",
     requiresAuth: true,
     roles: ["TRAINER", "ADMIN"],
     view: TrainerProgressNotesPage.render,
