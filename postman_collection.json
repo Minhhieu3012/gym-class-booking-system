@@ -1262,6 +1262,195 @@
               "response": []
             }
           ]
+        },
+        {
+          "name": "Attendance",
+          "item": [
+            {
+              "name": "TC 1.1 - Mark Attendance PRESENT (Class Booking)",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{trainer_token}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "PATCH",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"attendanceStatus\": \"PRESENT\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "http://localhost:8080/class-bookings/101/attendance",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8080",
+                  "path": [
+                    "class-bookings",
+                    "101",
+                    "attendance"
+                  ]
+                },
+                "description": "TC 1.1: Trainer điểm danh Có mặt (PRESENT) cho Class Booking. Kỳ vọng trả về 200 OK."
+              },
+              "response": []
+            },
+            {
+              "name": "TC 1.1 - Mark Attendance PRESENT (PT Booking)",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{trainer_token}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "PATCH",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"attendanceStatus\": \"PRESENT\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "http://localhost:8080/pt-bookings/201/attendance",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8080",
+                  "path": [
+                    "pt-bookings",
+                    "201",
+                    "attendance"
+                  ]
+                },
+                "description": "TC 1.1: Trainer điểm danh Có mặt (PRESENT) cho PT Booking. Kỳ vọng trả về 200 OK."
+              },
+              "response": []
+            },
+            {
+              "name": "TC 1.2 - Mark Attendance ABSENT (Class Booking)",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{trainer_token}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "PATCH",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"attendanceStatus\": \"ABSENT\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "http://localhost:8080/class-bookings/101/attendance",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8080",
+                  "path": [
+                    "class-bookings",
+                    "101",
+                    "attendance"
+                  ]
+                },
+                "description": "TC 1.2: Trainer điểm danh Vắng mặt (ABSENT) cho Class Booking. Kỳ vọng trả về 200 OK."
+              },
+              "response": []
+            },
+            {
+              "name": "TC 1.2 - Mark Attendance ABSENT (PT Booking)",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{trainer_token}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "PATCH",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"attendanceStatus\": \"ABSENT\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "http://localhost:8080/pt-bookings/201/attendance",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8080",
+                  "path": [
+                    "pt-bookings",
+                    "201",
+                    "attendance"
+                  ]
+                },
+                "description": "TC 1.2: Trainer điểm danh Vắng mặt (ABSENT) cho PT Booking. Kỳ vọng trả về 200 OK."
+              },
+              "response": []
+            }
+          ]
         }
       ]
     }
