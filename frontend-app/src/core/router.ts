@@ -61,6 +61,18 @@ const routes: Route[] = [
     init: LoginPage.init,
   },
   {
+    path: "/auth/login.html",
+    requiresAuth: false,
+    view: LoginPage.render,
+    init: LoginPage.init,
+  },
+  {
+    path: "/auth/login",
+    requiresAuth: false,
+    view: LoginPage.render,
+    init: LoginPage.init,
+  },
+  {
     path: "/register",
     requiresAuth: false,
     view: RegisterPage.render,

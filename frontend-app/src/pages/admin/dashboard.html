@@ -1,435 +1,470 @@
-<div class="dash-layout-wrapper d-flex min-vh-100">
-  <aside
-    class="dash-sidebar bg-surface-alt border-theme d-flex flex-column flex-shrink-0"
-  >
-    <div class="p-4 d-flex align-items-center gap-2">
-      <div
-        class="dash-logo-icon-wrapper rounded-theme-md bg-surface border-theme d-flex align-items-center justify-content-center"
-      >
-        <svg
-          width="18"
-          height="18"
-          fill="none"
-          stroke="var(--color-tertiary)"
-          stroke-width="2.5"
-          viewBox="0 0 24 24"
-        >
+<div class="admin-layout-wrapper d-flex min-vh-100">
+  <!-- ══════════════════════════════════════════
+       SIDEBAR (Fixed Desktop-first, Dark Theme)
+  ═══════════════════════════════════════════ -->
+  <aside id="admin-sidebar" class="admin-sidebar d-flex flex-column flex-shrink-0">
+    <!-- Brand Header -->
+    <div class="sidebar-brand d-flex align-items-center gap-3 px-4 py-3 border-bottom border-dark-subtle">
+      <div class="brand-logo-badge rounded-3 d-flex align-items-center justify-content-center">
+        <svg width="22" height="22" fill="none" stroke="#a3e635" stroke-width="2.5" viewBox="0 0 24 24">
           <polyline points="22 12 18 12 15 21 9 3 6 12 2 12" />
         </svg>
       </div>
-      <span class="dash-logo-title fw-bold text-secondary-theme"
-        >PULSE GYM</span
-      >
+      <div class="d-flex flex-column">
+        <span class="brand-title fw-bold text-white tracking-wide">PULSE GYM</span>
+        <span class="brand-subtitle text-secondary-emphasis small">ADMIN PORTAL</span>
+      </div>
     </div>
 
-    <div class="dash-sidebar-nav-label px-3 mb-2 text-neutral fw-bold">
-      Command Center
+    <!-- Navigation Label -->
+    <div class="sidebar-nav-label px-4 pt-4 pb-2 text-uppercase fw-semibold text-muted small">
+      Quản lý hệ thống
     </div>
 
-    <nav class="nav flex-column px-2 gap-1 flex-grow-1">
+    <!-- Navigation Links -->
+    <nav class="nav nav-pills flex-column px-3 gap-1 flex-grow-1">
+      <!-- 1. Dashboard -->
       <a
         href="/admin/dashboard"
         data-link
-        class="dash-nav-link admin-nav-link nav-link d-flex align-items-center gap-3 px-3 py-2 rounded-theme-md text-neutral"
+        class="admin-nav-link nav-link active d-flex align-items-center gap-3 px-3 py-2 rounded-3 text-white"
+        id="nav-dashboard"
       >
-        <svg
-          width="18"
-          height="18"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="2"
-          viewBox="0 0 24 24"
-        >
-          <rect x="3" y="3" width="7" height="9" />
-          <rect x="14" y="3" width="7" height="5" />
-          <rect x="14" y="12" width="7" height="9" />
-          <rect x="3" y="16" width="7" height="5" />
+        <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <rect x="3" y="3" width="7" height="9" rx="1" />
+          <rect x="14" y="3" width="7" height="5" rx="1" />
+          <rect x="14" y="12" width="7" height="9" rx="1" />
+          <rect x="3" y="16" width="7" height="5" rx="1" />
         </svg>
-        Dashboard
+        <span>Dashboard</span>
       </a>
+
+      <!-- 2. Users -->
       <a
-        href="/admin/rooms"
+        href="/admin/users"
         data-link
-        class="dash-nav-link admin-nav-link nav-link d-flex align-items-center gap-3 px-3 py-2 rounded-theme-md text-neutral"
+        class="admin-nav-link nav-link d-flex align-items-center gap-3 px-3 py-2 rounded-3 text-secondary-emphasis"
+        id="nav-users"
       >
-        <svg
-          width="18"
-          height="18"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="2"
-          viewBox="0 0 24 24"
-        >
-          <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
-          <polyline points="9 22 9 12 15 12 15 22" />
+        <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+          <circle cx="9" cy="7" r="4" />
+          <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
+          <path d="M16 3.13a4 4 0 0 1 0 7.75" />
         </svg>
-        Rooms
+        <span>Users</span>
       </a>
+
+      <!-- 3. Trainers -->
       <a
-        href="/admin/class-types"
+        href="/admin/trainers"
         data-link
-        class="dash-nav-link admin-nav-link nav-link d-flex align-items-center gap-3 px-3 py-2 rounded-theme-md text-neutral"
+        class="admin-nav-link nav-link d-flex align-items-center gap-3 px-3 py-2 rounded-3 text-secondary-emphasis"
+        id="nav-trainers"
       >
-        <svg
-          width="18"
-          height="18"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="2"
-          viewBox="0 0 24 24"
-        >
-          <path
-            d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"
-          />
-          <polyline points="14 2 14 8 20 8" />
-          <line x1="16" y1="13" x2="8" y2="13" />
-          <line x1="16" y1="17" x2="8" y2="17" />
-          <polyline points="10 9 9 9 8 9" />
+        <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <path d="M6 9l6 6 6-6" />
+          <circle cx="12" cy="12" r="10" />
+          <path d="M12 8v8" />
         </svg>
-        Class Types
+        <span>Trainers</span>
       </a>
+
+      <!-- 4. Classes -->
+      <a
+        href="/admin/classes"
+        data-link
+        class="admin-nav-link nav-link d-flex align-items-center gap-3 px-3 py-2 rounded-3 text-secondary-emphasis"
+        id="nav-classes"
+      >
+        <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
+          <line x1="16" y1="2" x2="16" y2="6" />
+          <line x1="8" y1="2" x2="8" y2="6" />
+          <line x1="3" y1="10" x2="21" y2="10" />
+        </svg>
+        <span>Classes</span>
+      </a>
+
+      <!-- 5. Packages -->
       <a
         href="/admin/packages"
         data-link
-        class="dash-nav-link admin-nav-link nav-link d-flex align-items-center gap-3 px-3 py-2 rounded-theme-md text-neutral"
+        class="admin-nav-link nav-link d-flex align-items-center gap-3 px-3 py-2 rounded-3 text-secondary-emphasis"
+        id="nav-packages"
       >
-        <svg
-          width="18"
-          height="18"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="2"
-          viewBox="0 0 24 24"
-        >
+        <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
           <rect x="2" y="7" width="20" height="14" rx="2" ry="2" />
           <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16" />
         </svg>
-        Packages
+        <span>Packages</span>
+      </a>
+
+      <!-- 6. Rooms -->
+      <a
+        href="/admin/rooms"
+        data-link
+        class="admin-nav-link nav-link d-flex align-items-center gap-3 px-3 py-2 rounded-3 text-secondary-emphasis"
+        id="nav-rooms"
+      >
+        <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+          <polyline points="9 22 9 12 15 12 15 22" />
+        </svg>
+        <span>Rooms</span>
+      </a>
+
+      <!-- 7. Reviews -->
+      <a
+        href="/admin/reviews"
+        data-link
+        class="admin-nav-link nav-link d-flex align-items-center gap-3 px-3 py-2 rounded-3 text-secondary-emphasis"
+        id="nav-reviews"
+      >
+        <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+        </svg>
+        <span>Reviews</span>
+      </a>
+
+      <!-- 8. Transactions -->
+      <a
+        href="/admin/transactions"
+        data-link
+        class="admin-nav-link nav-link d-flex align-items-center gap-3 px-3 py-2 rounded-3 text-secondary-emphasis"
+        id="nav-transactions"
+      >
+        <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <rect x="1" y="4" width="22" height="16" rx="2" ry="2" />
+          <line x1="1" y1="10" x2="23" y2="10" />
+        </svg>
+        <span>Transactions</span>
       </a>
     </nav>
+
+    <!-- Sidebar Footer / Admin Info Mini Card -->
+    <div class="sidebar-footer p-3 border-top border-dark-subtle mt-auto">
+      <div class="d-flex align-items-center gap-2 px-2 py-1">
+        <div class="admin-avatar-sm rounded-circle d-flex align-items-center justify-content-center fw-bold">
+          A
+        </div>
+        <div class="overflow-hidden">
+          <div class="text-white small fw-semibold text-truncate" id="sidebar-admin-name">Admin</div>
+          <div class="text-muted small text-truncate">System Administrator</div>
+        </div>
+      </div>
+    </div>
   </aside>
 
-  <!-- CONTENT AREA -->
-  <main class="flex-grow-1 d-flex flex-column h-100 overflow-auto">
-    <header
-      class="dash-header bg-surface border-theme px-4 py-3 d-flex align-items-center justify-content-between sticky-top"
-    >
+  <!-- ══════════════════════════════════════════
+       MAIN CONTENT WRAPPER (Independent Scroll)
+  ═══════════════════════════════════════════ -->
+  <div class="admin-main d-flex flex-column flex-grow-1">
+    <!-- Top Header -->
+    <header class="admin-header bg-white border-bottom px-4 py-3 d-flex align-items-center justify-content-between sticky-top">
+      <!-- Breadcrumbs / Section Title -->
       <div class="d-flex align-items-center gap-2">
-        <span class="dash-header-breadcrumb text-neutral fw-semibold"
-          >Command Center</span
-        >
-        <svg
-          width="14"
-          height="14"
-          fill="none"
-          stroke="var(--color-neutral)"
-          stroke-width="2"
-          viewBox="0 0 24 24"
-        >
+        <span class="text-muted small text-uppercase fw-semibold">Command Center</span>
+        <svg width="14" height="14" fill="none" stroke="#64748b" stroke-width="2" viewBox="0 0 24 24">
           <polyline points="9 18 15 12 9 6" />
         </svg>
-        <span class="dash-header-breadcrumb text-secondary fw-bold"
-          >Analytics Overview</span
-        >
+        <span class="fw-bold text-dark small text-uppercase">Analytics Overview</span>
       </div>
+
+      <!-- Header Right: Admin User Name & Logout Button -->
       <div class="d-flex align-items-center gap-3">
+        <!-- Admin Profile Info -->
+        <div class="d-flex align-items-center gap-2 py-1 px-2 rounded-3 bg-light border">
+          <div class="header-avatar rounded-circle d-flex align-items-center justify-content-center fw-bold text-white bg-dark">
+            A
+          </div>
+          <span id="admin-name" class="fw-semibold text-dark small px-1">Admin</span>
+        </div>
+
+        <!-- Logout Button -->
         <button
-          class="dash-header-btn-last30 btn btn-sm border-theme bg-surface-alt text-neutral d-flex align-items-center gap-2"
+          type="button"
+          id="btn-logout"
+          class="btn btn-outline-danger btn-sm d-flex align-items-center gap-2 px-3 py-2 rounded-3"
+          title="Đăng xuất khỏi hệ thống"
         >
-          <svg
-            width="14"
-            height="14"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-            viewBox="0 0 24 24"
-          >
-            <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
-            <line x1="16" y1="2" x2="16" y2="6" />
-            <line x1="8" y1="2" x2="8" y2="6" />
-            <line x1="3" y1="10" x2="21" y2="10" />
+          <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
+            <polyline points="16 17 21 12 16 7" />
+            <line x1="21" y1="12" x2="9" y2="12" />
           </svg>
-          Last 30 Days
-        </button>
-        <button
-          class="btn-brand btn-sm d-flex align-items-center gap-2 px-3 py-2"
-        >
-          <svg
-            width="14"
-            height="14"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-            viewBox="0 0 24 24"
-          >
-            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
-            <polyline points="7 10 12 15 17 10" />
-            <line x1="12" y1="15" x2="12" y2="3" />
-          </svg>
-          Export Report
+          <span class="fw-medium">Đăng xuất</span>
         </button>
       </div>
     </header>
 
-    <div class="dash-content-container p-4 p-md-5 w-100 mx-auto">
-      <div class="mb-4 d-flex flex-column gap-1">
-        <h1 class="dash-page-title fw-bold text-secondary-theme m-0">
-          Performance & Operations Overview
-        </h1>
-        <div
-          class="dash-page-title-badge badge-theme badge-active d-inline-flex align-items-center gap-2 mt-2"
-        >
-          ● Live Sync Active
-        </div>
-      </div>
-
-      <div class="row g-4 mb-4">
-        <div class="col-12 col-md-4">
-          <div
-            class="dash-stat-card card-theme bg-surface-alt border-theme p-4 h-100 d-flex flex-column"
-          >
-            <div class="d-flex align-items-start justify-content-between mb-3">
-              <span class="dash-stat-label text-neutral fw-bold"
-                >Total Members</span
-              >
-              <div
-                class="dash-stat-icon-wrapper rounded-theme-md bg-surface border-theme d-flex align-items-center justify-content-center"
-              >
-                <svg
-                  width="16"
-                  height="16"
-                  fill="none"
-                  stroke="var(--color-tertiary)"
-                  stroke-width="2"
-                  viewBox="0 0 24 24"
-                >
-                  <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
-                  <circle cx="9" cy="7" r="4" />
-                  <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
-                  <path d="M16 3.13a4 4 0 0 1 0 7.75" />
-                </svg>
-              </div>
-            </div>
-            <div class="dash-stat-value fw-bold text-secondary-theme mb-2">
-              3,842
-            </div>
-            <div class="d-flex align-items-center gap-2 mt-auto">
-              <span
-                class="dash-stat-trend dash-stat-trend--up badge-theme bg-surface border-theme"
-              >
-                <svg
-                  width="12"
-                  height="12"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="2.5"
-                  viewBox="0 0 24 24"
-                  class="me-1"
-                >
-                  <line x1="12" y1="19" x2="12" y2="5" />
-                  <polyline points="5 12 12 5 19 12" />
-                </svg>
-                +12.4%
-              </span>
-              <span class="dash-stat-desc text-neutral">284 new signups</span>
-            </div>
-          </div>
-        </div>
-
-        <div class="col-12 col-md-4">
-          <div
-            class="dash-stat-card card-theme bg-surface-alt border-theme p-4 h-100 d-flex flex-column"
-          >
-            <div class="d-flex align-items-start justify-content-between mb-3">
-              <span class="dash-stat-label text-neutral fw-bold"
-                >Monthly Revenue</span
-              >
-              <div
-                class="dash-stat-icon-wrapper rounded-theme-md bg-surface border-theme d-flex align-items-center justify-content-center"
-              >
-                <svg
-                  width="16"
-                  height="16"
-                  fill="none"
-                  stroke="var(--color-tertiary)"
-                  stroke-width="2"
-                  viewBox="0 0 24 24"
-                >
-                  <line x1="12" y1="1" x2="12" y2="23" />
-                  <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
-                </svg>
-              </div>
-            </div>
-            <div class="dash-stat-value fw-bold text-secondary-theme mb-2">
-              $148,920
-            </div>
-            <div class="d-flex align-items-center gap-2 mt-auto">
-              <span
-                class="dash-stat-trend dash-stat-trend--up badge-theme bg-surface border-theme"
-              >
-                <svg
-                  width="12"
-                  height="12"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="2.5"
-                  viewBox="0 0 24 24"
-                  class="me-1"
-                >
-                  <line x1="12" y1="19" x2="12" y2="5" />
-                  <polyline points="5 12 12 5 19 12" />
-                </svg>
-                +8.2%
-              </span>
-              <span class="dash-stat-desc text-neutral">$12.4k pending</span>
-            </div>
-          </div>
-        </div>
-
-        <div class="col-12 col-md-4">
-          <div
-            class="dash-stat-card card-theme bg-surface-alt border-theme p-4 h-100 d-flex flex-column"
-          >
-            <div class="d-flex align-items-start justify-content-between mb-3">
-              <span class="dash-stat-label text-neutral fw-bold"
-                >Active Classes</span
-              >
-              <div
-                class="dash-stat-icon-wrapper rounded-theme-md bg-surface border-theme d-flex align-items-center justify-content-center"
-              >
-                <svg
-                  width="16"
-                  height="16"
-                  fill="none"
-                  stroke="var(--color-secondary)"
-                  stroke-width="2"
-                  viewBox="0 0 24 24"
-                >
-                  <polyline points="22 12 18 12 15 21 9 3 6 12 2 12" />
-                </svg>
-              </div>
-            </div>
-            <div
-              class="dash-stat-value fw-bold text-secondary-theme mb-2 d-flex align-items-baseline gap-1"
-            >
-              164
-              <span class="dash-stat-value-unit text-neutral fw-semibold"
-                >/ week</span
-              >
-            </div>
-            <div class="d-flex align-items-center gap-2 mt-auto">
-              <span
-                class="dash-stat-trend badge-theme bg-surface border-theme text-secondary"
-              >
-                +5 added
-              </span>
-              <span class="dash-stat-desc text-neutral"
-                >94.2% trainer utilization</span
-              >
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="row g-4">
-        <div class="col-12 col-lg-8">
-          <div
-            class="dash-chart-card card-theme bg-surface-alt border-theme p-4 h-100"
-          >
-            <div class="d-flex justify-content-between align-items-start mb-4">
-              <div>
-                <h3 class="dash-chart-title fw-bold text-secondary-theme m-0">
-                  Revenue Stream Velocity
-                </h3>
-                <p class="dash-chart-desc text-neutral m-0">
-                  Aggregated recurring memberships vs. one-time PT add-ons
-                </p>
-              </div>
-              <div class="badge-theme bg-surface border-theme text-neutral">
-                30-Day Trajectory
-              </div>
-            </div>
-            <div
-              class="dash-chart-placeholder w-100 h-100 d-flex align-items-center justify-content-center border-theme rounded-theme-sm bg-surface"
-            >
-              <span class="text-neutral fw-semibold"
-                >[ Chart Visualization Placeholder ]</span
-              >
-            </div>
-          </div>
-        </div>
-        <div class="col-12 col-lg-4">
-          <div
-            class="dash-list-card card-theme bg-surface-alt border-theme p-4 h-100"
-          >
-            <h3 class="dash-list-title fw-bold text-secondary-theme m-0 mb-1">
-              Top Booked Classes
-            </h3>
-            <p class="dash-list-desc text-neutral mb-4">
-              Capacity load by studio program
+    <!-- Main Content Area -->
+    <main class="admin-content-body flex-grow-1 p-4 p-xl-5">
+      <div class="container-fluid p-0">
+        <!-- Title & Status Banner -->
+        <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center gap-3 mb-4">
+          <div>
+            <h1 class="page-main-title fw-bold text-dark mb-1">
+              Thống kê & Tổng quan Vận hành
+            </h1>
+            <p class="text-muted mb-0">
+              Tổng hợp dữ liệu thành viên, lớp học, huấn luyện viên và hiệu suất tài chính thực tế.
             </p>
-            <div class="d-flex flex-column gap-3">
-              <div class="d-flex align-items-center justify-content-between">
-                <div class="d-flex align-items-center gap-3">
-                  <span
-                    class="dash-list-badge dash-list-badge--top badge-theme bg-surface border-theme"
-                    >01</span
-                  >
-                  <div>
-                    <div
-                      class="dash-list-item-title fw-bold text-secondary-theme"
-                    >
-                      HIIT Circuit Surge
-                    </div>
-                    <div class="dash-list-item-desc text-neutral">
-                      Trainer: Alex Rivera
-                    </div>
+          </div>
+          <div class="d-flex align-items-center gap-2">
+            <span class="badge bg-success-subtle text-success border border-success-subtle px-3 py-2 d-inline-flex align-items-center gap-2 rounded-pill">
+              <span class="live-dot bg-success rounded-circle"></span>
+              Live Sync Active
+            </span>
+          </div>
+        </div>
+
+        <!-- ══════════════════════════════════════════
+             GRID 6 KPI CARDS (Bootstrap Cards)
+        ═══════════════════════════════════════════ -->
+        <div class="row row-cols-1 row-cols-md-2 row-cols-xl-3 g-4 mb-4" id="kpi-cards-grid">
+          <!-- CARD 1: Total Members -->
+          <div class="col">
+            <div class="card kpi-card h-100 border-0 shadow-sm rounded-4 p-3 bg-white">
+              <div class="card-body p-2 d-flex flex-column justify-content-between">
+                <div class="d-flex align-items-center justify-content-between mb-3">
+                  <span class="kpi-label text-uppercase fw-bold small text-muted">Tổng số Hội viên</span>
+                  <div class="kpi-icon-badge bg-primary-subtle text-primary rounded-3 d-flex align-items-center justify-content-center">
+                    <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                      <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+                      <circle cx="9" cy="7" r="4" />
+                      <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
+                      <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+                    </svg>
                   </div>
                 </div>
-                <div class="text-end">
-                  <div
-                    class="dash-list-item-value fw-bold text-secondary-theme"
-                  >
-                    482 bks
-                  </div>
-                  <div
-                    class="dash-list-item-status dash-list-item-status--full"
-                  >
-                    98% Full
-                  </div>
+                <div class="d-flex align-items-baseline gap-2 mb-2">
+                  <h2 class="kpi-value fw-bold text-dark mb-0" id="total-members">--</h2>
+                </div>
+                <div class="d-flex align-items-center justify-content-between pt-2 border-top border-light-subtle">
+                  <span class="text-muted small">Hội viên đăng ký hệ thống</span>
+                  <span class="badge bg-primary-subtle text-primary rounded-pill small">Members</span>
                 </div>
               </div>
-              <hr class="m-0 border-theme" />
-              <div class="d-flex align-items-center justify-content-between">
-                <div class="d-flex align-items-center gap-3">
-                  <span
-                    class="dash-list-badge badge-theme bg-surface border-theme text-secondary"
-                    >02</span
-                  >
-                  <div>
-                    <div
-                      class="dash-list-item-title fw-bold text-secondary-theme"
-                    >
-                      Power Vinyasa Flow
-                    </div>
-                    <div class="dash-list-item-desc text-neutral">
-                      Trainer: Maya Lin
-                    </div>
+            </div>
+          </div>
+
+          <!-- CARD 2: Total Trainers -->
+          <div class="col">
+            <div class="card kpi-card h-100 border-0 shadow-sm rounded-4 p-3 bg-white">
+              <div class="card-body p-2 d-flex flex-column justify-content-between">
+                <div class="d-flex align-items-center justify-content-between mb-3">
+                  <span class="kpi-label text-uppercase fw-bold small text-muted">Huấn luyện viên</span>
+                  <div class="kpi-icon-badge bg-success-subtle text-success rounded-3 d-flex align-items-center justify-content-center">
+                    <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                      <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+                    </svg>
                   </div>
                 </div>
-                <div class="text-end">
-                  <div
-                    class="dash-list-item-value fw-bold text-secondary-theme"
-                  >
-                    390 bks
+                <div class="d-flex align-items-baseline gap-2 mb-2">
+                  <h2 class="kpi-value fw-bold text-dark mb-0" id="total-trainers">--</h2>
+                </div>
+                <div class="d-flex align-items-center justify-content-between pt-2 border-top border-light-subtle">
+                  <span class="text-muted small">HLV đang hoạt động</span>
+                  <span class="badge bg-success-subtle text-success rounded-pill small">Active PTs</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- CARD 3: Total Classes Conducted -->
+          <div class="col">
+            <div class="card kpi-card h-100 border-0 shadow-sm rounded-4 p-3 bg-white">
+              <div class="card-body p-2 d-flex flex-column justify-content-between">
+                <div class="d-flex align-items-center justify-content-between mb-3">
+                  <span class="kpi-label text-uppercase fw-bold small text-muted">Lớp học đã diễn ra</span>
+                  <div class="kpi-icon-badge bg-info-subtle text-info rounded-3 d-flex align-items-center justify-content-center">
+                    <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                      <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
+                      <line x1="16" y1="2" x2="16" y2="6" />
+                      <line x1="8" y1="2" x2="8" y2="6" />
+                      <line x1="3" y1="10" x2="21" y2="10" />
+                      <polyline points="9 16 12 19 19 12" />
+                    </svg>
                   </div>
-                  <div class="dash-list-item-status text-info">91% Full</div>
+                </div>
+                <div class="d-flex align-items-baseline gap-2 mb-2">
+                  <h2 class="kpi-value fw-bold text-dark mb-0" id="total-classes-conducted">--</h2>
+                  <span class="kpi-alias d-none" id="total-classes">--</span>
+                </div>
+                <div class="d-flex align-items-center justify-content-between pt-2 border-top border-light-subtle">
+                  <span class="text-muted small">Buổi tập nhóm hoàn thành</span>
+                  <span class="badge bg-info-subtle text-info rounded-pill small">Conducted</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- CARD 4: Total Mock Revenue -->
+          <div class="col">
+            <div class="card kpi-card h-100 border-0 shadow-sm rounded-4 p-3 bg-white">
+              <div class="card-body p-2 d-flex flex-column justify-content-between">
+                <div class="d-flex align-items-center justify-content-between mb-3">
+                  <span class="kpi-label text-uppercase fw-bold small text-muted">Tổng doanh thu (Mock)</span>
+                  <div class="kpi-icon-badge bg-warning-subtle text-warning rounded-3 d-flex align-items-center justify-content-center">
+                    <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                      <line x1="12" y1="1" x2="12" y2="23" />
+                      <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
+                    </svg>
+                  </div>
+                </div>
+                <div class="d-flex align-items-baseline gap-2 mb-2">
+                  <h2 class="kpi-value fw-bold text-success mb-0" id="total-revenue">--</h2>
+                  <span class="kpi-alias d-none" id="total-mock-revenue">--</span>
+                </div>
+                <div class="d-flex align-items-center justify-content-between pt-2 border-top border-light-subtle">
+                  <span class="text-muted small">Doanh thu tích lũy gói & PT</span>
+                  <span class="badge bg-warning-subtle text-warning rounded-pill small">VND</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- CARD 5: Attendance Rate -->
+          <div class="col">
+            <div class="card kpi-card h-100 border-0 shadow-sm rounded-4 p-3 bg-white">
+              <div class="card-body p-2 d-flex flex-column justify-content-between">
+                <div class="d-flex align-items-center justify-content-between mb-3">
+                  <span class="kpi-label text-uppercase fw-bold small text-muted">Tỷ lệ điểm danh</span>
+                  <div class="kpi-icon-badge bg-danger-subtle text-danger rounded-3 d-flex align-items-center justify-content-center">
+                    <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                      <circle cx="12" cy="12" r="10" />
+                      <polyline points="12 6 12 12 16 14" />
+                    </svg>
+                  </div>
+                </div>
+                <div class="d-flex align-items-baseline gap-2 mb-2">
+                  <h2 class="kpi-value fw-bold text-dark mb-0" id="attendance-rate">--</h2>
+                </div>
+                <div class="d-flex align-items-center justify-content-between pt-2 border-top border-light-subtle">
+                  <span class="text-muted small">Tỷ lệ tham gia thực tế</span>
+                  <span class="badge bg-danger-subtle text-danger rounded-pill small">Rate %</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- CARD 6: Active Bookings Count -->
+          <div class="col">
+            <div class="card kpi-card h-100 border-0 shadow-sm rounded-4 p-3 bg-white">
+              <div class="card-body p-2 d-flex flex-column justify-content-between">
+                <div class="d-flex align-items-center justify-content-between mb-3">
+                  <span class="kpi-label text-uppercase fw-bold small text-muted">Đặt lịch đang kích hoạt</span>
+                  <div class="kpi-icon-badge bg-dark-subtle text-dark rounded-3 d-flex align-items-center justify-content-center">
+                    <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                      <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z" />
+                    </svg>
+                  </div>
+                </div>
+                <div class="d-flex align-items-baseline gap-2 mb-2">
+                  <h2 class="kpi-value fw-bold text-dark mb-0" id="active-bookings-count">--</h2>
+                  <span class="kpi-alias d-none" id="active-bookings">--</span>
+                </div>
+                <div class="d-flex align-items-center justify-content-between pt-2 border-top border-light-subtle">
+                  <span class="text-muted small">Lớp học & PT đang giữ chỗ</span>
+                  <span class="badge bg-dark-subtle text-dark rounded-pill small">Active</span>
                 </div>
               </div>
             </div>
           </div>
         </div>
+
+        <!-- ══════════════════════════════════════════
+             SUBORDINATE SECTION: Quick Operations & Trends
+        ═══════════════════════════════════════════ -->
+        <div class="row g-4">
+          <!-- Trends / Revenue Summary Card -->
+          <div class="col-12 col-xl-8">
+            <div class="card border-0 shadow-sm rounded-4 p-4 bg-white h-100">
+              <div class="d-flex justify-content-between align-items-start mb-4">
+                <div>
+                  <h4 class="fw-bold text-dark mb-1">Hiệu suất Đặt lịch & Doanh thu</h4>
+                  <p class="text-muted small mb-0">Biểu đồ ước lượng phân bố tăng trưởng hàng tháng</p>
+                </div>
+                <span class="badge bg-light text-dark border px-3 py-2 rounded-pill small">30 Ngày gần nhất</span>
+              </div>
+              
+              <div class="analytics-chart-box rounded-3 border border-dashed d-flex flex-column align-items-center justify-content-center p-5 text-center">
+                <div class="analytics-chart-icon-box mb-3 rounded-circle bg-light d-flex align-items-center justify-content-center">
+                  <svg width="32" height="32" fill="none" stroke="#64748b" stroke-width="2" viewBox="0 0 24 24">
+                    <line x1="18" y1="20" x2="18" y2="10" />
+                    <line x1="12" y1="20" x2="12" y2="4" />
+                    <line x1="6" y1="20" x2="6" y2="14" />
+                  </svg>
+                </div>
+                <h6 class="fw-bold text-dark mb-1">Dữ liệu Analytics đã sẵn sàng kết nối API</h6>
+                <p class="text-muted small mb-0">Hệ thống tự động đồng bộ số liệu qua API <code>/admin/analytics/overview</code>.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Quick Navigation Shortcuts -->
+          <div class="col-12 col-xl-4">
+            <div class="card border-0 shadow-sm rounded-4 p-4 bg-white h-100">
+              <h4 class="fw-bold text-dark mb-1">Lối tắt Quản trị</h4>
+              <p class="text-muted small mb-3">Truy cập nhanh các phân hệ chức năng</p>
+              
+              <div class="list-group list-group-flush gap-2">
+                <a href="/admin/packages" data-link class="list-group-item list-group-item-action d-flex align-items-center justify-content-between rounded-3 border p-3">
+                  <div class="d-flex align-items-center gap-3">
+                    <div class="shortcut-icon-box bg-primary-subtle text-primary rounded-3 d-flex align-items-center justify-content-center">
+                      <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <rect x="2" y="7" width="20" height="14" rx="2" ry="2" />
+                      </svg>
+                    </div>
+                    <div>
+                      <div class="fw-semibold text-dark small">Gói tập & Hội viên</div>
+                      <div class="text-muted extra-small">Quản lý định giá & quyền lợi</div>
+                    </div>
+                  </div>
+                  <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                    <polyline points="9 18 15 12 9 6" />
+                  </svg>
+                </a>
+
+                <a href="/admin/rooms" data-link class="list-group-item list-group-item-action d-flex align-items-center justify-content-between rounded-3 border p-3">
+                  <div class="d-flex align-items-center gap-3">
+                    <div class="shortcut-icon-box bg-success-subtle text-success rounded-3 d-flex align-items-center justify-content-center">
+                      <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+                      </svg>
+                    </div>
+                    <div>
+                      <div class="fw-semibold text-dark small">Phòng tập & Studio</div>
+                      <div class="text-muted extra-small">Cơ sở vật chất & sức chứa</div>
+                    </div>
+                  </div>
+                  <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                    <polyline points="9 18 15 12 9 6" />
+                  </svg>
+                </a>
+
+                <a href="/admin/classes" data-link class="list-group-item list-group-item-action d-flex align-items-center justify-content-between rounded-3 border p-3">
+                  <div class="d-flex align-items-center gap-3">
+                    <div class="shortcut-icon-box bg-warning-subtle text-warning rounded-3 d-flex align-items-center justify-content-center">
+                      <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
+                      </svg>
+                    </div>
+                    <div>
+                      <div class="fw-semibold text-dark small">Lịch trình Lớp học</div>
+                      <div class="text-muted extra-small">Thời khóa biểu & HLV đứng lớp</div>
+                    </div>
+                  </div>
+                  <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                    <polyline points="9 18 15 12 9 6" />
+                  </svg>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
-    </div>
-  </main>
+    </main>
+  </div>
 </div>

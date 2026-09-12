@@ -1,4 +1,4 @@
-import { apiClient } from "../core/api";
+import { apiClient, axiosInstance } from "../core/api";
 import type {
   PageResponse,
   RoomQueryParams,
@@ -14,7 +14,23 @@ import type {
   PackageResponse,
   CreatePackageRequest,
   UpdatePackageRequest,
+  AnalyticsOverview,
 } from "../models/admin";
+
+export type { AnalyticsOverview };
+
+// ---- Analytics APIs ----
+export async function getAnalyticsOverview(): Promise<AnalyticsOverview> {
+  const { data } = await apiClient.get<AnalyticsOverview>(
+    "/admin/analytics/overview",
+  );
+  return data;
+}
+
+export const analyticsService = {
+  getOverview: getAnalyticsOverview,
+  getAnalyticsOverview,
+};
 
 // ---- Room APIs  ----
 export const roomService = {
@@ -141,3 +157,16 @@ export const packageService = {
     return this.update(id, { isActive: true });
   },
 };
+
+// ---- Admin Core Service Bundle ----
+export const AdminCoreService = {
+  getAnalyticsOverview,
+  analyticsService,
+  roomService,
+  classTypeService,
+  packageService,
+  axios: axiosInstance,
+};
+
+export const adminCoreService = AdminCoreService;
+export default AdminCoreService;
