@@ -69,7 +69,9 @@ public class SecurityConfig {
                                 "/pt-bookings",
                                 "/pt-bookings/**",
                                 "/reviews",
-                                "/reviews/**"
+                                "/reviews/**",
+                                "/notifications",
+                                "/notifications/**"
                         ).permitAll()
 
                         .anyRequest().authenticated()

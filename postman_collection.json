@@ -1544,6 +1544,144 @@
               "response": []
             }
           ]
+        },
+        {
+          "name": "Notifications",
+          "item": [
+            {
+              "name": "TC 3.1 - Get Unread Notification Count",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{member_token}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "http://localhost:8080/notifications/me/unread-count",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8080",
+                  "path": [
+                    "notifications",
+                    "me",
+                    "unread-count"
+                  ]
+                },
+                "description": "TC 3.1: Lấy số lượng thông báo chưa đọc của user hiện tại. Trả về count để render badge đỏ trên icon Quả chuông."
+              },
+              "response": []
+            },
+            {
+              "name": "TC 3.2 - Get My Notifications",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{member_token}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "http://localhost:8080/notifications/me?size=10",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8080",
+                  "path": [
+                    "notifications",
+                    "me"
+                  ],
+                  "query": [
+                    {
+                      "key": "size",
+                      "value": "10"
+                    }
+                  ]
+                },
+                "description": "TC 3.2: Lấy danh sách 10 thông báo mới nhất khi click icon quả chuông."
+              },
+              "response": []
+            },
+            {
+              "name": "TC 3.2 - Mark Specific Notification as Read",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{member_token}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "PATCH",
+                "header": [],
+                "url": {
+                  "raw": "http://localhost:8080/notifications/1/read",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8080",
+                  "path": [
+                    "notifications",
+                    "1",
+                    "read"
+                  ]
+                },
+                "description": "TC 3.2: Đánh dấu 1 thông báo cụ thể là đã đọc khi click vào thông báo đó."
+              },
+              "response": []
+            },
+            {
+              "name": "TC 3.3 - Mark All Notifications as Read",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{member_token}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "PATCH",
+                "header": [],
+                "url": {
+                  "raw": "http://localhost:8080/notifications/me/read-all",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8080",
+                  "path": [
+                    "notifications",
+                    "me",
+                    "read-all"
+                  ]
+                },
+                "description": "TC 3.3: Đánh dấu toàn bộ thông báo là đã đọc khi click Mark all as read."
+              },
+              "response": []
+            }
+          ]
         }
       ]
     }
