@@ -72,24 +72,6 @@ const routes: Route[] = [
     init: RegisterTrainerPage.init,
   },
   {
-    path: "/forgot-password",
-    requiresAuth: false,
-    view: () => `
-      <section class="container py-5 text-center">
-        <h1>Quên mật khẩu</h1>
-        <p class="text-neutral">TODO: import render() từ pages/auth/forgot-password.ts</p>
-      </section>`,
-  },
-  {
-    path: "/reset-password",
-    requiresAuth: false,
-    view: () => `
-      <section class="container py-5 text-center">
-        <h1>Đặt lại mật khẩu</h1>
-        <p class="text-neutral">TODO: import render() từ pages/auth/reset-password.ts</p>
-      </section>`,
-  },
-  {
     path: "/profile",
     requiresAuth: true,
     view: ProfilePage.render,
@@ -103,7 +85,6 @@ const routes: Route[] = [
   },
   {
     path: "/member/packages",
-    // requiresAuth: false,
     requiresAuth: true,
     roles: ["MEMBER", "ADMIN"],
     view: MemberPackagesPage.render,
@@ -111,7 +92,6 @@ const routes: Route[] = [
   },
   {
     path: "/member/classes",
-    // requiresAuth: false,
     requiresAuth: true,
     roles: ["MEMBER", "ADMIN"],
     view: MemberClassesPage.render,
@@ -119,7 +99,6 @@ const routes: Route[] = [
   },
   {
     path: "/member/pt-booking",
-    // requiresAuth: false,
     requiresAuth: true,
     roles: ["MEMBER", "ADMIN"],
     view: MemberPTBookingPage.render,
@@ -148,7 +127,6 @@ const routes: Route[] = [
   },
   {
     path: "/trainer/pt-requests",
-    // requiresAuth: false,
     requiresAuth: true,
     roles: ["TRAINER", "ADMIN"],
     view: TrainerPTRequestsPage.render,
@@ -205,7 +183,6 @@ const routes: Route[] = [
   },
   {
     path: "/admin/dashboard",
-    // requiresAuth: false,
     requiresAuth: true,
     roles: ["ADMIN"],
     view: DashboardPage.render,
@@ -213,7 +190,6 @@ const routes: Route[] = [
   },
   {
     path: "/admin/rooms",
-    // requiresAuth: false,
     requiresAuth: true,
     roles: ["ADMIN"],
     view: RoomsPage.render,
@@ -221,7 +197,6 @@ const routes: Route[] = [
   },
   {
     path: "/admin/class-types",
-    // requiresAuth: false,
     requiresAuth: true,
     roles: ["ADMIN"],
     view: ClassTypesPage.render,
@@ -229,7 +204,6 @@ const routes: Route[] = [
   },
   {
     path: "/admin/packages",
-    // requiresAuth: false,
     requiresAuth: true,
     roles: ["ADMIN"],
     view: PackagesPage.render,

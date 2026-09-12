@@ -1,6 +1,6 @@
 import template from "./my-bookings.html?raw";
 import "./my-bookings.css";
-import { bookingService, BookingService } from "../../services/booking.service";
+import { bookingService } from "../../services/booking.service";
 import interactionService from "../../services/interaction.service";
 import { initNotification } from "../../components/notification-popover";
 import type { ClassBooking, PTBooking } from "../../models/booking";
@@ -22,110 +22,6 @@ declare const bootstrap: {
 let currentReviewBookingId: number | null = null;
 let currentReviewBookingType: "class" | "pt" | null = null;
 let currentReviewButton: HTMLButtonElement | null = null;
-
-// Mock data phong phú cho hội viên kiểm thử đủ trạng thái CONFIRMED, CANCELLED, COMPLETED
-const DEFAULT_MOCK_CLASS_BOOKINGS: ClassBooking[] = [
-  {
-    id: 101,
-    status: "CONFIRMED",
-    bookedAt: "2026-09-10T08:00:00",
-    gymClassId: 1,
-    gymClass: {
-      id: 1,
-      title: "Yoga Flow Thư Giãn & Cân Bằng",
-      classTypeName: "Yoga",
-      trainerName: "HLV Đặng Minh Tuấn",
-      roomName: "Studio 1 (Tầng 2)",
-      startTime: "2026-09-15T08:00:00",
-      endTime: "2026-09-15T09:30:00",
-    } as any,
-  } as any,
-  {
-    id: 102,
-    status: "CANCELLED",
-    bookedAt: "2026-09-08T09:00:00",
-    cancellationReason: "Bận việc gia đình đột xuất",
-    gymClassId: 2,
-    gymClass: {
-      id: 2,
-      title: "HIIT Cardio Đốt Mỡ Chuyên Sâu",
-      classTypeName: "Cardio",
-      trainerName: "HLV Nguyễn Văn An",
-      roomName: "Studio 2 (Tầng 3)",
-      startTime: "2026-09-09T18:00:00",
-      endTime: "2026-09-09T19:00:00",
-    } as any,
-  } as any,
-  {
-    id: 103,
-    status: "COMPLETED",
-    bookedAt: "2026-09-05T07:00:00",
-    gymClassId: 3,
-    gymClass: {
-      id: 3,
-      title: "Pilates Nắn Chỉnh & Cải Thiện Vóc Dáng",
-      classTypeName: "Pilates",
-      trainerName: "HLV Lê Hoàng Cường",
-      roomName: "Studio 1 (Tầng 2)",
-      startTime: "2026-09-06T07:00:00",
-      endTime: "2026-09-06T08:30:00",
-    } as any,
-  } as any,
-  {
-    id: 104,
-    status: "COMPLETED",
-    bookedAt: "2026-09-01T17:00:00",
-    gymClassId: 4,
-    gymClass: {
-      id: 4,
-      title: "Zumba Dance Sôi Động Đốt Calo",
-      classTypeName: "Zumba",
-      trainerName: "HLV Trần Thị Mai",
-      roomName: "Studio 3 (Tầng 2)",
-      startTime: "2026-09-02T17:30:00",
-      endTime: "2026-09-02T18:30:00",
-    } as any,
-  } as any,
-];
-
-const DEFAULT_MOCK_PT_BOOKINGS: PTBooking[] = [
-  {
-    id: 201,
-    status: "CONFIRMED",
-    trainerId: 1,
-    trainerName: "Lê Hoàng Cường",
-    sessionNote: "Tăng cơ giảm mỡ giai đoạn 1",
-    healthNote: "Không có tiền sử bệnh tim mạch",
-    timeSlot: {
-      startTime: "2026-09-16T14:00:00",
-      endTime: "2026-09-16T15:00:00",
-    } as any,
-  } as any,
-  {
-    id: 202,
-    status: "CANCELLED",
-    trainerId: 2,
-    trainerName: "Trần Văn Nam",
-    rejectReason: "HLV bận lịch thi đấu thể hình cấp quốc gia",
-    sessionNote: "Tập lưng xô chuyên sâu",
-    timeSlot: {
-      startTime: "2026-09-07T10:00:00",
-      endTime: "2026-09-07T11:00:00",
-    } as any,
-  } as any,
-  {
-    id: 203,
-    status: "COMPLETED",
-    trainerId: 1,
-    trainerName: "Lê Hoàng Cường",
-    sessionNote: "Kiểm tra thể lực & Dãn cơ toàn thân",
-    healthNote: "Hơi mỏi khớp gối nhẹ",
-    timeSlot: {
-      startTime: "2026-09-04T09:00:00",
-      endTime: "2026-09-04T10:00:00",
-    } as any,
-  } as any,
-];
 
 /**
  * Định dạng thời gian và ngày tháng
@@ -377,11 +273,12 @@ async function handleSubmitReview(): Promise<void> {
     currentReviewBookingId = null;
     currentReviewBookingType = null;
     currentReviewButton = null;
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error("Lỗi khi gửi đánh giá:", error);
+    const err = error as { response?: { data?: { message?: string } }; message?: string };
     const msg =
-      error?.response?.data?.message ||
-      error?.message ||
+      err?.response?.data?.message ||
+      err?.message ||
       "Không thể gửi đánh giá. Vui lòng thử lại sau!";
     alert(`Lỗi: ${msg}`);
     showToast(msg, false);
@@ -411,18 +308,18 @@ export async function loadMyClassBookings(): Promise<void> {
   `;
 
   try {
-    let bookings: ClassBooking[] = [];
-    try {
-      const response = await bookingService.getMyClassBookings();
-      bookings = Array.isArray(response)
-        ? response
-        : (response?.content ?? []);
-    } catch (apiErr) {
-      console.warn("Backend getMyClassBookings chưa sẵn sàng, dùng dữ liệu mẫu kiểm thử:", apiErr);
-    }
+    const response = await bookingService.getMyClassBookings();
+    const bookings: ClassBooking[] = Array.isArray(response)
+      ? response
+      : (response?.content ?? []);
 
     if (bookings.length === 0) {
-      bookings = DEFAULT_MOCK_CLASS_BOOKINGS;
+      container.innerHTML = `
+        <div class="text-center py-5">
+          <p class="text-neutral mb-0">Bạn chưa có lịch đặt lớp học nào.</p>
+        </div>
+      `;
+      return;
     }
 
     container.innerHTML = bookings
@@ -544,18 +441,18 @@ export async function loadMyPTBookings(): Promise<void> {
   `;
 
   try {
-    let bookings: PTBooking[] = [];
-    try {
-      const response = await bookingService.getMyPTBookings();
-      bookings = Array.isArray(response)
-        ? response
-        : (response?.content ?? []);
-    } catch (apiErr) {
-      console.warn("Backend getMyPTBookings chưa sẵn sàng, dùng dữ liệu mẫu kiểm thử:", apiErr);
-    }
+    const response = await bookingService.getMyPTBookings();
+    const bookings: PTBooking[] = Array.isArray(response)
+      ? response
+      : (response?.content ?? []);
 
     if (bookings.length === 0) {
-      bookings = DEFAULT_MOCK_PT_BOOKINGS;
+      container.innerHTML = `
+        <div class="text-center py-5">
+          <p class="text-neutral mb-0">Bạn chưa có lịch đặt PT nào.</p>
+        </div>
+      `;
+      return;
     }
 
     container.innerHTML = bookings
@@ -860,4 +757,4 @@ export async function init(): Promise<void> {
 }
 
 // Re-export để thuận tiện
-export { BookingService };
+export { bookingService };

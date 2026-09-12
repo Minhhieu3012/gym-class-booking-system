@@ -107,7 +107,7 @@ function renderNotificationDropdown(
         hasNotifications
           ? notifications
               .map((item) => {
-                const isRead = item.read ?? (item as any).isRead ?? false;
+                const isRead = item.read ?? item.isRead ?? false;
                 // Item chưa đọc sẽ in đậm (fw-bold), đã đọc thì làm mờ (text-muted opacity-75)
                 const itemClass = isRead
                   ? "text-muted opacity-75"
@@ -260,7 +260,7 @@ export function initNotification(): void {
       const res = await interactionService.getMyNotifications({ size: 10 });
       const notifications: NotificationItem[] = Array.isArray(res)
         ? res
-        : (res?.content ?? (res as any)?.data ?? []);
+        : (res?.content ?? []);
 
       // Render danh sách vào #notification-dropdown
       renderNotificationDropdown(dropdown, notifications, bellBtn);

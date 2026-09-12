@@ -201,11 +201,12 @@ async function handleSaveProgressNote(): Promise<void> {
     if (noteContent) {
       noteContent.value = "";
     }
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error("Lỗi khi lưu ghi chú tiến độ:", error);
+    const err = error as { response?: { data?: { message?: string } }; message?: string };
     const msg =
-      error?.response?.data?.message ||
-      error?.message ||
+      err?.response?.data?.message ||
+      err?.message ||
       "Không thể lưu ghi chú tiến độ. Vui lòng thử lại!";
     alert(`Lỗi: ${msg}`);
     showToast(msg, false);

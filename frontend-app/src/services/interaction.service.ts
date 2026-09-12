@@ -24,14 +24,29 @@ export interface CreateProgressNoteRequest {
   content: string;
 }
 
+export interface UserSummary {
+  id: number;
+  fullName?: string;
+  email?: string;
+  avatarUrl?: string;
+}
+
+export interface AttendanceResponse {
+  bookingId: number;
+  bookingType: string;
+  attendanceStatus: string;
+  message: string;
+}
+
 export interface NotificationItem {
   id: number;
   content: string;
   type: string;
   read: boolean;
+  isRead?: boolean;
   createdAt: string;
   readAt?: string;
-  user?: any;
+  user?: UserSummary;
 }
 
 export interface ReviewItem {
@@ -40,9 +55,9 @@ export interface ReviewItem {
   comment: string;
   createdAt: string;
   hidden: boolean;
-  member?: any;
-  classBooking?: any;
-  ptBooking?: any;
+  member?: UserSummary;
+  classBooking?: { id: number };
+  ptBooking?: { id: number };
 }
 
 export interface ProgressNoteItem {
@@ -50,14 +65,20 @@ export interface ProgressNoteItem {
   content: string;
   createdAt: string;
   updatedAt: string;
-  member?: any;
-  trainer?: any;
+  member?: UserSummary;
+  trainer?: UserSummary;
+  message?: string;
 }
 
 export interface UnreadCountResponse {
   count?: number;
   unreadCount?: number;
-  [key: string]: any;
+  data?: number;
+}
+
+export interface ActionMessageResponse {
+  message?: string;
+  [key: string]: unknown;
 }
 
 // ==========================================
@@ -73,8 +94,8 @@ export class InteractionService {
   async markClassAttendance(
     bookingId: number,
     attendanceStatus: string,
-  ): Promise<any> {
-    const { data } = await api.patch(
+  ): Promise<AttendanceResponse> {
+    const { data } = await api.patch<AttendanceResponse>(
       `/class-bookings/${bookingId}/attendance`,
       { attendanceStatus },
     );
@@ -89,8 +110,8 @@ export class InteractionService {
   async markPTAttendance(
     bookingId: number,
     attendanceStatus: string,
-  ): Promise<any> {
-    const { data } = await api.patch(
+  ): Promise<AttendanceResponse> {
+    const { data } = await api.patch<AttendanceResponse>(
       `/pt-bookings/${bookingId}/attendance`,
       { attendanceStatus },
     );
@@ -102,13 +123,8 @@ export class InteractionService {
    * POST /reviews
    * Payload: { classBookingId?, ptBookingId?, rating, comment }
    */
-  async createReview(data: {
-    classBookingId?: number;
-    ptBookingId?: number;
-    rating: number;
-    comment: string;
-  }): Promise<ReviewItem | any> {
-    const { data: responseData } = await api.post<ReviewItem | any>(
+  async createReview(data: CreateReviewRequest): Promise<ReviewItem> {
+    const { data: responseData } = await api.post<ReviewItem>(
       "/reviews",
       data,
     );
@@ -120,13 +136,10 @@ export class InteractionService {
    * GET /notifications/me
    * Query params: { page?, size?, isRead?, type? }
    */
-  async getMyNotifications(params?: {
-    page?: number;
-    size?: number;
-    isRead?: boolean;
-    type?: string;
-  }): Promise<PageResponse<NotificationItem> | any> {
-    const { data } = await api.get<PageResponse<NotificationItem> | any>(
+  async getMyNotifications(
+    params?: NotificationQueryParams,
+  ): Promise<PageResponse<NotificationItem>> {
+    const { data } = await api.get<PageResponse<NotificationItem>>(
       "/notifications/me",
       { params },
     );
@@ -137,8 +150,8 @@ export class InteractionService {
    * Lấy số lượng thông báo chưa đọc của người dùng hiện tại
    * GET /notifications/me/unread-count
    */
-  async getUnreadNotificationCount(): Promise<UnreadCountResponse | number | any> {
-    const { data } = await api.get<UnreadCountResponse | number | any>(
+  async getUnreadNotificationCount(): Promise<UnreadCountResponse> {
+    const { data } = await api.get<UnreadCountResponse>(
       "/notifications/me/unread-count",
     );
     return data;
@@ -148,8 +161,10 @@ export class InteractionService {
    * Đánh dấu một thông báo là đã đọc
    * PATCH /notifications/${id}/read
    */
-  async markNotificationAsRead(id: number): Promise<any> {
-    const { data } = await api.patch(`/notifications/${id}/read`);
+  async markNotificationAsRead(id: number): Promise<ActionMessageResponse> {
+    const { data } = await api.patch<ActionMessageResponse>(
+      `/notifications/${id}/read`,
+    );
     return data;
   }
 
@@ -157,8 +172,10 @@ export class InteractionService {
    * Đánh dấu toàn bộ thông báo của người dùng hiện tại là đã đọc
    * PATCH /notifications/me/read-all
    */
-  async markAllNotificationsAsRead(): Promise<any> {
-    const { data } = await api.patch("/notifications/me/read-all");
+  async markAllNotificationsAsRead(): Promise<ActionMessageResponse> {
+    const { data } = await api.patch<ActionMessageResponse>(
+      "/notifications/me/read-all",
+    );
     return data;
   }
 
@@ -167,11 +184,10 @@ export class InteractionService {
    * POST /progress-notes
    * Payload: { memberId, content }
    */
-  async createProgressNote(data: {
-    memberId: number;
-    content: string;
-  }): Promise<ProgressNoteItem | any> {
-    const { data: responseData } = await api.post<ProgressNoteItem | any>(
+  async createProgressNote(
+    data: CreateProgressNoteRequest,
+  ): Promise<ProgressNoteItem> {
+    const { data: responseData } = await api.post<ProgressNoteItem>(
       "/progress-notes",
       data,
     );

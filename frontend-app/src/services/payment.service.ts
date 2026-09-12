@@ -4,6 +4,7 @@ import type {
   Package,
   MemberPackage,
   BuyPackageRequest,
+  TransactionResponse,
   PackageQueryParams,
   MemberPackageQueryParams,
 } from "../models/package";
@@ -40,8 +41,8 @@ export class PaymentService {
    * Mua gói tập mới cho hội viên hiện tại (Tạo giao dịch)
    * POST /transactions
    */
-  async buyPackage(data: BuyPackageRequest): Promise<any> {
-    const { data: responseData } = await apiClient.post<any>(
+  async buyPackage(data: BuyPackageRequest): Promise<TransactionResponse> {
+    const { data: responseData } = await apiClient.post<TransactionResponse>(
       "/transactions",
       data,
     );

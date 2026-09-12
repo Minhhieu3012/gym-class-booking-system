@@ -1,5 +1,6 @@
 import template from "./attendance.html?raw";
 import "./attendance.css";
+import { bookingService } from "../../services/booking.service";
 import interactionService from "../../services/interaction.service";
 import { initNotification } from "../../components/notification-popover";
 
@@ -20,70 +21,6 @@ export interface AttendanceBookingItem {
   attendanceStatus?: "PRESENT" | "ABSENT" | "NOT_MARKED" | string;
   isMarked?: boolean;
 }
-
-// Mock data tĩnh danh sách hội viên cần điểm danh cho Trainer
-const MOCK_ATTENDANCE_BOOKINGS: AttendanceBookingItem[] = [
-  {
-    id: 101,
-    type: "class",
-    memberName: "Nguyễn Văn An",
-    memberEmail: "an.nguyen@example.com",
-    memberPhone: "0901 234 567",
-    sessionTitle: "Yoga Flow Buổi Sáng",
-    time: "07:00 - 08:30",
-    roomOrLocation: "Phòng Studio 1",
-    attendanceStatus: "NOT_MARKED",
-    isMarked: false,
-  },
-  {
-    id: 102,
-    type: "class",
-    memberName: "Trần Thị Mai",
-    memberEmail: "mai.tran@example.com",
-    memberPhone: "0912 345 678",
-    sessionTitle: "Yoga Flow Buổi Sáng",
-    time: "07:00 - 08:30",
-    roomOrLocation: "Phòng Studio 1",
-    attendanceStatus: "NOT_MARKED",
-    isMarked: false,
-  },
-  {
-    id: 201,
-    type: "pt",
-    memberName: "Lê Hoàng Cường",
-    memberEmail: "cuong.le@example.com",
-    memberPhone: "0988 765 432",
-    sessionTitle: "Huấn luyện 1-1: Tăng cơ & Giảm mỡ",
-    time: "09:00 - 10:00",
-    roomOrLocation: "Khu vực tạ tự do (Free Weights)",
-    attendanceStatus: "NOT_MARKED",
-    isMarked: false,
-  },
-  {
-    id: 103,
-    type: "class",
-    memberName: "Phạm Minh Đức",
-    memberEmail: "duc.pham@example.com",
-    memberPhone: "0933 888 999",
-    sessionTitle: "HIIT Cardio Đốt Mỡ Nhanh",
-    time: "10:30 - 11:30",
-    roomOrLocation: "Phòng Studio 2",
-    attendanceStatus: "PRESENT",
-    isMarked: true,
-  },
-  {
-    id: 202,
-    type: "pt",
-    memberName: "Võ Thảo Linh",
-    memberEmail: "linh.vo@example.com",
-    memberPhone: "0977 123 456",
-    sessionTitle: "Huấn luyện 1-1: Phục hồi & Dãn cơ chuyên sâu",
-    time: "14:00 - 15:00",
-    roomOrLocation: "Khu vực dãn cơ & Thảm",
-    attendanceStatus: "NOT_MARKED",
-    isMarked: false,
-  },
-];
 
 /**
  * Xử lý chuỗi chống XSS
@@ -323,13 +260,17 @@ async function handleSaveAttendance(row: HTMLElement, saveBtn: HTMLButtonElement
 
     // Vô hiệu hóa hàng đó và làm mờ để ngăn điểm danh lại
     disableRow(row, attendanceStatus);
-  } catch (error: any) {
-    console.warn("Lỗi gọi API Backend (hoặc Backend offline), kích hoạt chế độ fallback hoàn tất điểm danh:", error);
-    
-    // Vẫn hiển thị thành công và disable hàng để Trainer kiểm thử luồng giao diện
-    alert("Điểm danh thành công");
-    showToast("Điểm danh thành công", true);
-    disableRow(row, attendanceStatus);
+  } catch (error: unknown) {
+    console.error("Lỗi khi lưu điểm danh:", error);
+    const err = error as { response?: { data?: { message?: string } }; message?: string };
+    const msg =
+      err?.response?.data?.message ||
+      err?.message ||
+      "Điểm danh thất bại. Vui lòng thử lại sau!";
+    alert(`Lỗi: ${msg}`);
+    showToast(msg, false);
+    saveBtn.disabled = false;
+    saveBtn.textContent = "Lưu điểm danh";
   }
 }
 
@@ -369,12 +310,44 @@ export async function init(): Promise<void> {
   initNotification();
   attachEvents();
 
-  // (Giả định) Gọi API lấy danh sách booking của buổi học hoặc dùng mock data tĩnh
   try {
-    // Render danh sách hội viên cần điểm danh
-    renderAttendanceTable(MOCK_ATTENDANCE_BOOKINGS);
+    const ptResponse = await bookingService.getPTRequestsForTrainer();
+    const ptList = Array.isArray(ptResponse) ? ptResponse : (ptResponse?.content ?? []);
+
+    const bookings: AttendanceBookingItem[] = ptList.map((pt) => {
+      const startTime = pt.timeSlot?.startTime || pt.trainerTimeSlot?.startTime;
+      const endTime = pt.timeSlot?.endTime || pt.trainerTimeSlot?.endTime;
+      let timeFormatted = "Theo thỏa thuận";
+      if (startTime) {
+        const start = new Date(startTime);
+        const sH = String(start.getHours()).padStart(2, "0");
+        const sM = String(start.getMinutes()).padStart(2, "0");
+        let ePart = "";
+        if (endTime) {
+          const end = new Date(endTime);
+          ePart = ` - ${String(end.getHours()).padStart(2, "0")}:${String(end.getMinutes()).padStart(2, "0")}`;
+        }
+        timeFormatted = `${sH}:${sM}${ePart}`;
+      }
+
+      return {
+        id: pt.id,
+        type: "pt" as const,
+        memberName: pt.memberName || `Hội viên #${pt.memberId}`,
+        memberEmail: pt.memberEmail,
+        memberPhone: pt.memberPhone,
+        sessionTitle: pt.sessionNote || "Buổi tập cá nhân 1-1",
+        time: timeFormatted,
+        roomOrLocation: pt.location || "Khu vực tập luyện PT",
+        attendanceStatus: pt.attendanceStatus || "NOT_MARKED",
+        isMarked: pt.attendanceStatus === "PRESENT" || pt.attendanceStatus === "ABSENT",
+      };
+    });
+
+    renderAttendanceTable(bookings);
   } catch (error) {
     console.error("Lỗi khi tải danh sách điểm danh:", error);
-    showToast("Không thể tải danh sách điểm danh.", false);
+    showToast("Không thể tải danh sách điểm danh từ hệ thống.", false);
+    renderAttendanceTable([]);
   }
 }
