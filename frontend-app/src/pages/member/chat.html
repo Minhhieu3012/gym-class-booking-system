@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Trò chuyện với Huấn Luyện Viên - Pulse Gym</title>
+  <title>Trò chuyện & Hỗ trợ Huấn Luyện - Pulse Gym</title>
 
   <!-- Google Fonts: Space Grotesk & Plus Jakarta Sans -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -34,66 +34,74 @@
   <div id="chat-app-container" class="chat-container container-fluid p-0">
     <div class="row g-0 h-100 flex-nowrap">
       
-      <!-- CỘT TRÁI: DANH SÁCH HỘI THOẠI (CONVERSATION LIST - col-md-4) -->
-      <aside class="col-12 col-md-4 conversation-pane d-flex flex-column border-end border-theme">
+      <!-- ============================================================
+           CỘT TRÁI: DANH SÁCH HỘI THOẠI (CONVERSATION LIST - col-md-4)
+           ============================================================ -->
+      <aside class="col-12 col-md-4 col-xl-3 conversation-pane d-flex flex-column border-end border-theme">
         <!-- Header danh sách -->
-        <header class="conversation-header p-3 d-flex align-items-center justify-content-between border-bottom border-theme">
+        <header class="conversation-header px-3 py-2 d-flex align-items-center justify-content-between border-bottom border-theme">
           <div class="d-flex align-items-center gap-2">
-            <span class="brand-icon"><i class="bi bi-chat-square-dots-fill text-danger fs-5"></i></span>
-            <h1 class="h5 fw-bold mb-0 text-light">Tin nhắn</h1>
+            <a href="/profile" data-link class="btn btn-icon text-light p-2 me-1" title="Quay lại Hồ sơ" aria-label="Quay lại Hồ sơ">
+              <i class="bi bi-arrow-left fs-5"></i>
+            </a>
+            <div class="brand-badge d-flex align-items-center gap-2">
+              <div class="brand-icon-wrapper">
+                <i class="bi bi-lightning-charge-fill text-danger"></i>
+              </div>
+              <div>
+                <h1 class="h6 fw-bold mb-0 text-light brand-title">Tin nhắn</h1>
+                <small class="text-secondary small-caption" id="chat-role-label">Gym Chat Realtime</small>
+              </div>
+            </div>
           </div>
-          <div class="chat-status-indicator d-flex align-items-center gap-1" title="Trạng thái kết nối">
-            <span class="status-dot online"></span>
-            <span class="status-text text-muted small d-none d-sm-inline">Trực tuyến</span>
+          <div class="chat-status-pill d-flex align-items-center gap-2 px-2 py-1 rounded-pill" title="Trạng thái hệ thống">
+            <span class="status-pulse-dot"></span>
+            <span class="status-text small fw-medium" id="connection-status-text">Trực tuyến</span>
           </div>
         </header>
 
-        <!-- Ô tìm kiếm -->
-        <div class="conversation-search p-3 border-bottom border-theme">
-          <div class="input-group search-box">
-            <span class="input-group-text bg-transparent border-end-0 text-muted">
+        <!-- Thanh tìm kiếm & bộ lọc -->
+        <div class="conversation-search-wrapper p-3 border-bottom border-theme">
+          <div class="input-group search-box position-relative">
+            <span class="input-group-text bg-transparent border-0 text-muted ps-3">
               <i class="bi bi-search"></i>
             </span>
             <input
               type="text"
               id="search-input"
-              class="form-control border-start-0 ps-0"
-              placeholder="Tìm kiếm cuộc trò chuyện..."
+              class="form-control border-0 ps-2"
+              placeholder="Tìm kiếm theo tên..."
               aria-label="Tìm kiếm cuộc trò chuyện"
             />
+            <button id="btn-clear-search" class="btn btn-sm text-muted pe-3 d-none" type="button" aria-label="Xóa tìm kiếm">
+              <i class="bi bi-x-circle-fill"></i>
+            </button>
+          </div>
+
+          <!-- Quick Filter Chips -->
+          <div class="filter-chips d-flex gap-2 mt-2 pt-1 overflow-x-auto">
+            <button class="btn btn-filter active" data-filter="all">Tất cả</button>
+            <button class="btn btn-filter" data-filter="unread">Chưa đọc</button>
+            <button class="btn btn-filter" data-filter="recent">Gần đây</button>
           </div>
         </div>
 
-        <!-- Thẻ chứa danh sách hội thoại -->
+        <!-- Danh sách hội thoại (Render động bởi TypeScript) -->
         <div id="conversation-list" class="conversation-list flex-grow-1 overflow-y-auto" role="list">
-          <!-- Hiển thị mẫu danh sách hội thoại / Sẽ được TypeScript render động -->
-          <div class="conversation-item active d-flex align-items-center gap-3 p-3 border-bottom border-theme">
-            <div class="avatar-container position-relative">
-              <img
-                src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&auto=format&fit=crop&q=80"
-                alt="Trainer Sarah"
-                class="rounded-circle avatar-img"
-              />
-              <span class="status-dot online position-absolute bottom-0 end-0"></span>
-            </div>
-            <div class="conversation-info flex-grow-1 overflow-hidden">
-              <div class="d-flex justify-content-between align-items-center mb-1">
-                <h2 class="h6 fw-semibold mb-0 text-light text-truncate">HLV Minh Tuấn</h2>
-                <span class="message-time small text-muted">10:45</span>
-              </div>
-              <div class="d-flex justify-content-between align-items-center">
-                <p class="last-message small text-muted mb-0 text-truncate">Hẹn bạn buổi tập chiều nay lúc 17:00 nhé!</p>
-                <span class="badge rounded-pill bg-danger unread-badge ms-2">2</span>
-              </div>
-            </div>
+          <!-- Loading skeleton mặc định trước khi load dữ liệu -->
+          <div class="p-3 text-center text-muted">
+            <div class="spinner-border text-danger spinner-border-sm mb-2" role="status"></div>
+            <p class="small mb-0">Đang tải danh sách...</p>
           </div>
         </div>
       </aside>
 
-      <!-- CỘT PHẢI: CỬA SỔ CHAT (CHAT BOX - col-md-8) -->
-      <main id="chat-window" class="col-12 col-md-8 chat-pane d-flex flex-column">
+      <!-- ============================================================
+           CỘT PHẢI: CỬA SỔ CHAT (CHAT BOX - col-md-8)
+           ============================================================ -->
+      <main id="chat-window" class="col-12 col-md-8 col-xl-9 chat-pane d-flex flex-column">
         <!-- Header Chat Box -->
-        <header class="chat-header p-3 d-flex align-items-center justify-content-between border-bottom border-theme">
+        <header class="chat-header px-3 py-2 d-flex align-items-center justify-content-between border-bottom border-theme">
           <div class="d-flex align-items-center gap-3 overflow-hidden">
             <!-- Nút Quay lại hiển thị trên mobile -->
             <button
@@ -106,26 +114,38 @@
             </button>
 
             <!-- Thông tin người đang chat -->
-            <div class="d-flex align-items-center gap-2">
+            <div class="d-flex align-items-center gap-3">
               <div class="avatar-container position-relative">
                 <img
                   id="chat-header-avatar"
                   src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&auto=format&fit=crop&q=80"
-                  alt="HLV Minh Tuấn"
-                  class="rounded-circle avatar-img"
+                  alt="Avatar người dùng"
+                  class="rounded-circle avatar-img shadow-sm"
                 />
-                <span class="status-dot online position-absolute bottom-0 end-0"></span>
+                <span class="status-pulse-dot position-absolute bottom-0 end-0"></span>
               </div>
               <div class="chat-header-user">
-                <h2 id="chat-header-name" class="h6 fw-bold mb-0 text-light text-truncate">HLV Minh Tuấn</h2>
-                <small id="chat-header-status" class="text-success fw-medium">Đang hoạt động</small>
+                <div class="d-flex align-items-center gap-2">
+                  <h2 id="chat-header-name" class="h6 fw-bold mb-0 text-light text-truncate">HLV Minh Tuấn</h2>
+                  <span id="chat-header-badge" class="badge bg-danger-subtle text-danger border border-danger-subtle d-none d-sm-inline-block">HLV Thể Hình</span>
+                </div>
+                <div class="d-flex align-items-center gap-1 mt-0">
+                  <span class="online-indicator"></span>
+                  <small id="chat-header-status" class="text-success fw-medium">Đang hoạt động</small>
+                </div>
               </div>
             </div>
           </div>
 
           <!-- Tiện ích trên Header -->
-          <div class="chat-header-actions d-flex align-items-center gap-2">
-            <button class="btn btn-icon text-muted" type="button" title="Thông tin HLV" aria-label="Thông tin">
+          <div class="chat-header-actions d-flex align-items-center gap-1">
+            <button id="btn-call-mock" class="btn btn-icon text-muted" type="button" title="Gọi thoại" aria-label="Gọi thoại">
+              <i class="bi bi-telephone fs-5"></i>
+            </button>
+            <button id="btn-video-mock" class="btn btn-icon text-muted" type="button" title="Gọi video" aria-label="Gọi video">
+              <i class="bi bi-camera-video fs-5"></i>
+            </button>
+            <button id="btn-chat-info" class="btn btn-icon text-muted" type="button" title="Thông tin người dùng" aria-label="Thông tin">
               <i class="bi bi-info-circle fs-5"></i>
             </button>
           </div>
@@ -137,76 +157,61 @@
           class="message-area flex-grow-1 overflow-y-auto p-3 p-md-4 d-flex flex-column gap-3"
           aria-live="polite"
         >
-          <!-- Ngày phân cách tin nhắn -->
-          <div class="chat-date-divider text-center my-2">
-            <span class="badge bg-secondary-subtle text-muted px-3 py-1">Hôm nay</span>
-          </div>
-
-          <!-- Tin nhắn của Trainer (Người nhận - Bên trái) -->
-          <div class="chat-bubble-wrapper bubble-incoming d-flex align-items-end gap-2">
-            <img
-              src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&auto=format&fit=crop&q=80"
-              alt="Trainer"
-              class="rounded-circle avatar-mini"
-            />
-            <div class="bubble-content">
-              <div class="bubble-body">
-                Chào bạn! Hôm nay bạn có dự định tập các bài Cardio hay cơ lưng xô không?
-              </div>
-              <span class="bubble-time small text-muted">10:40</span>
-            </div>
-          </div>
-
-          <!-- Tin nhắn của Member (Người gửi - Bên phải) -->
-          <div class="chat-bubble-wrapper bubble-outgoing d-flex align-items-end justify-content-end gap-2">
-            <div class="bubble-content text-end">
-              <div class="bubble-body">
-                Chào huấn luyện viên, hôm nay mình muốn tập trung vào bài Deadlift và Squat ạ!
-              </div>
-              <span class="bubble-time small text-muted">10:42 <i class="bi bi-check2-all text-info"></i></span>
-            </div>
-          </div>
-
-          <!-- Tin nhắn của Trainer có kèm ảnh (Bên trái) -->
-          <div class="chat-bubble-wrapper bubble-incoming d-flex align-items-end gap-2">
-            <img
-              src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&auto=format&fit=crop&q=80"
-              alt="Trainer"
-              class="rounded-circle avatar-mini"
-            />
-            <div class="bubble-content">
-              <div class="bubble-body">
-                <p class="mb-2">Bạn xem kỹ lại tư thế đặt chân trong ảnh mẫu này nhé:</p>
-                <div class="bubble-image-container">
-                  <img
-                    src="https://images.unsplash.com/photo-1517838277536-f5f99be501cd?w=400&auto=format&fit=crop&q=80"
-                    alt="Tư thế tập"
-                    class="chat-bubble-image rounded"
-                  />
-                </div>
-              </div>
-              <span class="bubble-time small text-muted">10:45</span>
-            </div>
-          </div>
+          <!-- Được render động từ TypeScript -->
         </section>
 
         <!-- Khung xem trước ảnh trước khi gửi -->
-        <div id="image-preview-container" class="image-preview-container px-3 pt-2 d-none">
+        <div id="image-preview-container" class="image-preview-container px-3 pt-2 pb-1 d-none">
           <div class="preview-box position-relative d-inline-block">
-            <img id="preview-img" src="" alt="Xem trước ảnh" class="rounded border border-secondary" />
+            <img id="preview-img" src="" alt="Xem trước ảnh" class="rounded border border-secondary shadow-sm" />
             <button
               id="btn-remove-preview"
               type="button"
-              class="btn btn-sm btn-danger rounded-circle position-absolute top-0 end-0 translate-middle"
+              class="btn btn-sm btn-danger rounded-circle position-absolute top-0 end-0 translate-middle shadow"
               aria-label="Xóa ảnh xem trước"
             >
               <i class="bi bi-x"></i>
             </button>
           </div>
+          <span class="small text-muted ms-2 align-middle">Hình ảnh đã sẵn sàng để gửi</span>
+        </div>
+
+        <!-- Quick Prompts / Gợi ý tin nhắn tập luyện nhanh -->
+        <div class="quick-prompts-bar px-3 py-1 border-top border-theme overflow-x-auto d-flex gap-2">
+          <button type="button" class="btn btn-chip" data-prompt="Chào HLV, hôm nay mình muốn tập Deadlift và Squat ạ! 💪">
+            🏋️ Deadlift & Squat
+          </button>
+          <button type="button" class="btn btn-chip" data-prompt="Hẹn bạn buổi tập lúc 17:00 chiều nay nhé! ⏰">
+            ⏰ Hẹn tập 17:00
+          </button>
+          <button type="button" class="btn btn-chip" data-prompt="Thực đơn dinh dưỡng hôm nay mình nên bổ sung thêm gì? 🥗">
+            🥗 Tư vấn dinh dưỡng
+          </button>
+          <button type="button" class="btn btn-chip" data-prompt="Bạn xem giúp mình tư thế này đã đúng form chưa nhé! 📸">
+            📸 Kiểm tra form
+          </button>
+        </div>
+
+        <!-- Emoji Popover Menu -->
+        <div id="emoji-picker-popover" class="emoji-picker-popover d-none shadow-lg">
+          <div class="emoji-grid">
+            <button type="button" class="emoji-btn" data-emoji="💪">💪</button>
+            <button type="button" class="emoji-btn" data-emoji="🏋️‍♂️">🏋️‍♂️</button>
+            <button type="button" class="emoji-btn" data-emoji="🔥">🔥</button>
+            <button type="button" class="emoji-btn" data-emoji="🥗">🥗</button>
+            <button type="button" class="emoji-btn" data-emoji="👍">👍</button>
+            <button type="button" class="emoji-btn" data-emoji="👏">👏</button>
+            <button type="button" class="emoji-btn" data-emoji="💯">💯</button>
+            <button type="button" class="emoji-btn" data-emoji="🎯">🎯</button>
+            <button type="button" class="emoji-btn" data-emoji="⏱️">⏱️</button>
+            <button type="button" class="emoji-btn" data-emoji="❤️">❤️</button>
+            <button type="button" class="emoji-btn" data-emoji="🏃‍♂️">🏃‍♂️</button>
+            <button type="button" class="emoji-btn" data-emoji="🥑">🥑</button>
+          </div>
         </div>
 
         <!-- Vùng nhập liệu (Chat Input Area) -->
-        <footer class="chat-footer p-3 border-top border-theme">
+        <footer class="chat-footer p-3 border-top border-theme position-relative">
           <form id="chat-form" class="d-flex align-items-center gap-2" onsubmit="return false;">
             <!-- File input ẩn để chọn ảnh gửi -->
             <input
@@ -220,20 +225,31 @@
             <button
               type="button"
               id="btn-attach"
-              class="btn btn-icon btn-attach text-muted"
+              class="btn btn-icon btn-action-circle"
               title="Đính kèm hình ảnh"
               aria-label="Đính kèm ảnh"
             >
               <i class="bi bi-image fs-5"></i>
             </button>
 
+            <!-- Nút chọn emoji -->
+            <button
+              type="button"
+              id="btn-emoji"
+              class="btn btn-icon btn-action-circle"
+              title="Chèn biểu tượng cảm xúc"
+              aria-label="Emoji"
+            >
+              <i class="bi bi-emoji-smile fs-5"></i>
+            </button>
+
             <!-- Ô nhập tin nhắn văn bản -->
-            <div class="input-wrapper flex-grow-1">
+            <div class="input-wrapper flex-grow-1 position-relative">
               <input
                 type="text"
                 id="chat-input"
                 class="form-control chat-input"
-                placeholder="Nhập tin nhắn..."
+                placeholder="Nhập tin nhắn trao đổi tập luyện..."
                 autocomplete="off"
                 aria-label="Nhập nội dung tin nhắn"
               />
@@ -243,7 +259,7 @@
             <button
               type="submit"
               id="btn-send"
-              class="btn btn-send btn-danger d-flex align-items-center justify-content-center gap-1 px-3"
+              class="btn btn-send btn-danger d-flex align-items-center justify-content-center gap-2 px-3 py-2"
               aria-label="Gửi tin nhắn"
             >
               <span class="d-none d-sm-inline fw-semibold">Gửi</span>
@@ -253,6 +269,17 @@
         </footer>
       </main>
 
+    </div>
+  </div>
+
+  <!-- Lightbox Modal phóng to ảnh -->
+  <div id="image-lightbox" class="image-lightbox d-none">
+    <div class="lightbox-overlay"></div>
+    <div class="lightbox-content">
+      <button id="btn-close-lightbox" class="btn btn-icon btn-close-lightbox" title="Đóng">
+        <i class="bi bi-x-lg fs-4"></i>
+      </button>
+      <img id="lightbox-img" src="" alt="Ảnh phóng to" class="rounded shadow-lg" />
     </div>
   </div>
 

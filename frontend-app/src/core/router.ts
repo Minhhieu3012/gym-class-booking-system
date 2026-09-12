@@ -18,6 +18,7 @@ import * as MemberPackagesPage from "../pages/member/packages";
 import * as MemberClassesPage from "../pages/member/class-list";
 import * as MemberPTBookingPage from "../pages/member/pt-booking";
 import * as MemberMyBookingsPage from "../pages/member/my-bookings";
+import * as ChatPage from "../pages/member/chat";
 import * as TrainerPTRequestsPage from "../pages/trainer/pt-requests";
 import * as TrainerTimeSlotsPage from "../pages/trainer/time-slots";
 import * as TrainerAttendancePage from "../pages/trainer/attendance";
@@ -126,6 +127,20 @@ const routes: Route[] = [
     init: MemberMyBookingsPage.init,
   },
   {
+    path: "/member/chat",
+    requiresAuth: true,
+    roles: ["MEMBER", "ADMIN"],
+    view: ChatPage.render,
+    init: ChatPage.init,
+  },
+  {
+    path: "/member/chat.html",
+    requiresAuth: true,
+    roles: ["MEMBER", "ADMIN"],
+    view: ChatPage.render,
+    init: ChatPage.init,
+  },
+  {
     path: "/trainer/pt-requests",
     requiresAuth: true,
     roles: ["TRAINER", "ADMIN"],
@@ -182,6 +197,20 @@ const routes: Route[] = [
     init: TrainerProgressNotesPage.init,
   },
   {
+    path: "/trainer/chat",
+    requiresAuth: true,
+    roles: ["TRAINER", "ADMIN"],
+    view: ChatPage.render,
+    init: ChatPage.init,
+  },
+  {
+    path: "/trainer/chat.html",
+    requiresAuth: true,
+    roles: ["TRAINER", "ADMIN"],
+    view: ChatPage.render,
+    init: ChatPage.init,
+  },
+  {
     path: "/admin/dashboard",
     requiresAuth: true,
     roles: ["ADMIN"],
@@ -221,12 +250,18 @@ function view404(): string {
     </section>`;
 }
 
-// Theme Switcher — gắn / gỡ class .admin-theme trên <body>
+// Theme Switcher — gắn / gỡ class .admin-theme và .gym-chat-app trên <body>
 function applyTheme(path: string): void {
   if (path.startsWith("/admin")) {
     document.body.classList.add("admin-theme");
   } else {
     document.body.classList.remove("admin-theme");
+  }
+
+  if (path.includes("/chat")) {
+    document.body.classList.add("gym-chat-app");
+  } else {
+    document.body.classList.remove("gym-chat-app");
   }
 }
 
@@ -278,6 +313,21 @@ async function handleRoute(): Promise<void> {
 
   // --- Render ---
   appRoot.innerHTML = await route.view();
+
+  // --- Dynamic Scripts: Kích hoạt thẻ script nhúng trong HTML (nếu có) ---
+  const scripts = appRoot.querySelectorAll<HTMLScriptElement>("script");
+  scripts.forEach((oldScript) => {
+    const newScript = document.createElement("script");
+    Array.from(oldScript.attributes).forEach((attr) =>
+      newScript.setAttribute(attr.name, attr.value),
+    );
+    if (oldScript.src) {
+      newScript.src = oldScript.src;
+    } else {
+      newScript.textContent = oldScript.textContent;
+    }
+    oldScript.parentNode?.replaceChild(newScript, oldScript);
+  });
 
   // --- Init (gắn event, khởi tạo component sau khi DOM sẵn) ---
   if (route.init) {
