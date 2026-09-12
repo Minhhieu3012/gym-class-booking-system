@@ -311,6 +311,7 @@ export async function init(): Promise<void> {
   attachEvents();
 
   try {
+    // TODO(mock-pending-api): chờ BE hoàn thiện PTBookingController — xem api-contract.md mục 10
     const ptResponse = await bookingService.getPTRequestsForTrainer();
     const ptList = Array.isArray(ptResponse) ? ptResponse : (ptResponse?.content ?? []);
 

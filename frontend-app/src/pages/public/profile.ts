@@ -114,6 +114,7 @@ export function init(): void {
     avatarLabelBtn.setAttribute("disabled", "true");
 
     try {
+      // TODO(mock-pending-api): chờ BE hoàn thiện UploadController — xem api-contract.md mục 21
       const { imageUrl } = await userService.uploadAvatar(file);
       if (avatarImg) avatarImg.src = imageUrl;
       await userService.updateProfile({ avatarUrl: imageUrl });

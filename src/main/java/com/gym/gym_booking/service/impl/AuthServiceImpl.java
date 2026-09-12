@@ -74,64 +74,6 @@ public class AuthServiceImpl implements AuthService {
         return UserMapper.toResponse(savedUser);
     }
 
-//    @Override
-//    @Transactional
-//    public UserResponseDTO registerTrainer(
-//            RegisterTrainerRequestDTO request
-//    ) {
-//
-//        if (userRepository.existsByEmail(request.getEmail())) {
-//            throw new RuntimeException("Email already exists");
-//        }
-//
-//        if (userRepository.existsByPhone(request.getPhone())) {
-//            throw new RuntimeException("Phone already exists");
-//        }
-//
-//        // Create User
-//
-//        User user = new User();
-//
-//        user.setEmail(request.getEmail().trim());
-//        user.setPhone(request.getPhone().trim());
-//        user.setPassword(
-//                passwordEncoder.encode(request.getPassword())
-//        );
-//        user.setFullName(request.getFullName().trim());
-//        user.setAddress(
-//                request.getAddress() != null
-//                        ? request.getAddress().trim()
-//                        : null
-//        );
-//
-//        user.setRole(UserRole.TRAINER);
-//
-//        // Trainer must be approved by Admin
-//        user.setStatus(UserStatus.PENDING);
-//
-//        User savedUser = userRepository.save(user);
-//
-//        // Create Trainer Profile
-//        TrainerProfile trainerProfile = new TrainerProfile();
-//
-//        trainerProfile.setUser(savedUser);
-//        trainerProfile.setSpecialization(
-//                request.getSpecialization().trim()
-//        );
-//        trainerProfile.setExperienceYear(
-//                request.getExperienceYears()
-//        );
-//        trainerProfile.setHourlyFee(
-//                request.getHourlyFee()
-//        );
-//        trainerProfile.setBio(
-//                request.getBio()
-//        );
-//
-//        trainerProfileRepository.save(trainerProfile);
-//
-//        return UserMapper.toResponse(savedUser);
-//    }
     @Override
     @Transactional
     public UserResponseDTO registerTrainer(

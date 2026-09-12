@@ -1,6 +1,6 @@
 import template from "./pt-requests.html?raw";
 import "./pt-requests.css";
-import { bookingService, BookingService } from "../../services/booking.service";
+import { bookingService } from "../../services/booking.service";
 import type { PTBooking } from "../../models/booking";
 
 // Khai báo kiểu Bootstrap toàn cục
@@ -122,6 +122,7 @@ export async function loadPTRequests(): Promise<void> {
   `;
 
   try {
+    // TODO(mock-pending-api): chờ BE hoàn thiện PTBookingController — xem api-contract.md mục 10
     const response = await bookingService.getPTRequestsForTrainer();
     const allRequests: PTBooking[] = Array.isArray(response)
       ? response
@@ -269,6 +270,7 @@ async function handleConfirmPTRequest(btn: HTMLButtonElement): Promise<void> {
   `;
 
   try {
+    // TODO(mock-pending-api): chờ BE hoàn thiện PTBookingController — xem api-contract.md mục 10
     await bookingService.confirmPTBooking(id);
     showToast(`Đã chấp nhận buổi tập với ${memberName} thành công!`, true);
 
@@ -336,6 +338,7 @@ async function handleRejectPTRequest(btn: HTMLButtonElement): Promise<void> {
   `;
 
   try {
+    // TODO(mock-pending-api): chờ BE hoàn thiện PTBookingController — xem api-contract.md mục 10
     await bookingService.rejectPTBooking(id, { rejectReason: reasonTrimmed });
     showToast(`Đã từ chối yêu cầu của ${memberName}!`, true);
 
@@ -424,4 +427,4 @@ export async function init(): Promise<void> {
 }
 
 // Re-export để thuận tiện
-export { BookingService };
+export { bookingService };

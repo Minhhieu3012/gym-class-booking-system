@@ -1,6 +1,6 @@
 import template from "./class-list.html?raw";
 import "./class-list.css";
-import { bookingService, BookingService } from "../../services/booking.service";
+import { bookingService } from "../../services/booking.service";
 import { classTypeService } from "../../services/admin-core.service";
 import type { GymClass, ClassQueryParams } from "../../models/booking";
 import type { ClassTypeResponse } from "../../models/admin";
@@ -377,6 +377,7 @@ async function handleBookClassClick(btn: HTMLButtonElement): Promise<void> {
   `;
 
   try {
+    // TODO(mock-pending-api): chờ BE hoàn thiện ClassBookingController — xem api-contract.md mục 9
     // Gọi API bookClass - KHÔNG truyền memberPackageId để Backend tự động chọn gói tối ưu
     await bookingService.bookClass({ gymClassId });
 
@@ -476,4 +477,4 @@ export async function init(): Promise<void> {
 }
 
 // Re-export để thuận tiện
-export { BookingService };
+export { bookingService };

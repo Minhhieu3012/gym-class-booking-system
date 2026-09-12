@@ -65,7 +65,6 @@ public class TrainerServiceImpl implements TrainerService {
     @Override
     @Transactional(readOnly = true)
     public Page<TrainerResponseDTO> getTrainers(
-//            UserStatus status,
             String specialization,
             String keyword,
             Pageable pageable

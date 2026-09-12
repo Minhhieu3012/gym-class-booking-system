@@ -22,6 +22,7 @@ export async function uploadFile(file: File): Promise<UploadResponse> {
   const formData = new FormData();
   formData.append("file", file);
 
+  // TODO(mock-pending-api): chờ BE hoàn thiện UploadController — xem api-contract.md mục 21
   const { data } = await axiosInstance.post<UploadResponse>("/upload", formData, {
     headers: {
       "Content-Type": "multipart/form-data",

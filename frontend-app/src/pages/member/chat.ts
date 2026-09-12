@@ -36,6 +36,7 @@ const DEFAULT_AVATAR =
   "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&auto=format&fit=crop&q=80";
 
 // ==================== DỮ LIỆU MẪU CAO CẤP (FALLBACK / DEMO DATA) ====================
+// TODO(mock-pending-api): chờ BE hoàn thiện ChatController — xem api-contract.md mục 15
 
 function getDemoConversations(isTrainerRole: boolean): ConversationItem[] {
   const now = Date.now();
@@ -519,7 +520,6 @@ export async function selectConversation(userId: number): Promise<void> {
     }
   } catch (err) {
     // Backend offline / 404: Dùng tin nhắn trong messageHistoryMap
-    console.debug("[Chat] Sử dụng lịch sử tin nhắn nội bộ cho user:", userId);
   }
 
   const messages = messageHistoryMap[userId] || [];
@@ -784,12 +784,12 @@ function onMessageReceived(msg: ChatMessageDTO): void {
   }
 }
 
-function onErrorReceived(err: ChatErrorDTO): void {
-  console.debug("[Chat Error Received]", err);
+function onErrorReceived(_err: ChatErrorDTO): void {
+  // Lỗi từ WebSocket chat server
 }
 
-function onAckReceived(ack: any): void {
-  console.debug("[Chat Ack Received]", ack);
+function onAckReceived(_ack: any): void {
+  // Xác nhận tin nhắn từ WebSocket server
 }
 
 // ==================== KHỞI TẠO (INIT) ====================
@@ -816,7 +816,7 @@ export async function init(): Promise<void> {
     );
     chatService.connect();
   } catch (err) {
-    console.debug("[WebSocket] Kết nối chưa sẵn sàng, kích hoạt fallback mode.");
+    // WebSocket chưa sẵn sàng, kích hoạt fallback mode
   }
 
   // Tải danh sách hội thoại từ API, nếu lỗi thì dùng Demo Data cao cấp

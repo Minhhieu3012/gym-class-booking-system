@@ -60,6 +60,7 @@ function updateNotificationBadge(bellBtn: HTMLElement, count: number): void {
  */
 async function loadUnreadCount(bellBtn: HTMLElement): Promise<number> {
   try {
+    // TODO(mock-pending-api): chờ BE hoàn thiện NotificationController — xem api-contract.md mục 17
     const res = await interactionService.getUnreadNotificationCount();
     let count = 0;
     if (typeof res === "number") {
@@ -256,6 +257,7 @@ export function initNotification(): void {
     `;
 
     try {
+      // TODO(mock-pending-api): chờ BE hoàn thiện NotificationController — xem api-contract.md mục 17
       // Gọi API lấy tối đa 10 thông báo mới nhất
       const res = await interactionService.getMyNotifications({ size: 10 });
       const notifications: NotificationItem[] = Array.isArray(res)

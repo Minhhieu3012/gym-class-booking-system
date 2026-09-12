@@ -208,7 +208,7 @@ function renderSlotsList(slots: TrainerTimeSlot[]): void {
 }
 
 /**
- * Tải danh sách time slots từ Backend / Mock API
+ * Tải danh sách time slots từ Backend API
  * GET /trainers/{trainerId}/time-slots
  */
 export async function loadTimeSlots(): Promise<void> {

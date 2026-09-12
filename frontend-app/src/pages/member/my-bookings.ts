@@ -238,6 +238,7 @@ async function handleSubmitReview(): Promise<void> {
       submitBtn.textContent = "Đang gửi...";
     }
 
+    // TODO(mock-pending-api): chờ BE hoàn thiện ReviewController — xem api-contract.md mục 14
     await interactionService.createReview(payload);
 
     // Đóng Modal
@@ -308,6 +309,7 @@ export async function loadMyClassBookings(): Promise<void> {
   `;
 
   try {
+    // TODO(mock-pending-api): chờ BE hoàn thiện ClassBookingController — xem api-contract.md mục 9
     const response = await bookingService.getMyClassBookings();
     const bookings: ClassBooking[] = Array.isArray(response)
       ? response
@@ -441,6 +443,7 @@ export async function loadMyPTBookings(): Promise<void> {
   `;
 
   try {
+    // TODO(mock-pending-api): chờ BE hoàn thiện PTBookingController — xem api-contract.md mục 10
     const response = await bookingService.getMyPTBookings();
     const bookings: PTBooking[] = Array.isArray(response)
       ? response
@@ -592,6 +595,7 @@ async function handleCancelClassBooking(btn: HTMLButtonElement): Promise<void> {
   `;
 
   try {
+    // TODO(mock-pending-api): chờ BE hoàn thiện ClassBookingController — xem api-contract.md mục 9
     await bookingService.cancelClassBooking(bookingId, {
       cancelReason: reasonTrimmed,
     });
@@ -641,6 +645,7 @@ async function handleCancelPTBooking(btn: HTMLButtonElement): Promise<void> {
   `;
 
   try {
+    // TODO(mock-pending-api): chờ BE hoàn thiện PTBookingController — xem api-contract.md mục 10
     await bookingService.cancelPTBooking(bookingId, {
       cancelReason: reasonTrimmed,
     });
