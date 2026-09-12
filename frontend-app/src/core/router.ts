@@ -16,6 +16,7 @@ import * as PackagesPage from "../pages/admin/packages";
 import * as DashboardPage from "../pages/admin/dashboard";
 import * as UsersPage from "../pages/admin/users";
 import * as TrainersPage from "../pages/admin/trainers";
+import * as ReviewsPage from "../pages/admin/reviews";
 import * as MemberPackagesPage from "../pages/member/packages";
 import * as MemberClassesPage from "../pages/member/class-list";
 import * as MemberPTBookingPage from "../pages/member/pt-booking";
@@ -244,6 +245,20 @@ const routes: Route[] = [
     roles: ["ADMIN"],
     view: TrainersPage.render,
     init: TrainersPage.init,
+  },
+  {
+    path: "/admin/reviews",
+    requiresAuth: true,
+    roles: ["ADMIN"],
+    view: ReviewsPage.render,
+    init: ReviewsPage.init,
+  },
+  {
+    path: "/admin/reviews.html",
+    requiresAuth: true,
+    roles: ["ADMIN"],
+    view: ReviewsPage.render,
+    init: ReviewsPage.init,
   },
   {
     path: "/admin/rooms",

@@ -158,6 +158,13 @@ export const packageService = {
   },
 };
 
+// ---- Review APIs ----
+import { reviewService } from "./review.service";
+export const getAllReviews = reviewService.getAllReviews.bind(reviewService);
+export const hideReview = reviewService.hideReview.bind(reviewService);
+export const showReview = reviewService.showReview.bind(reviewService);
+export { reviewService };
+
 // ---- Admin Core Service Bundle ----
 export const AdminCoreService = {
   getAnalyticsOverview,
@@ -165,6 +172,10 @@ export const AdminCoreService = {
   roomService,
   classTypeService,
   packageService,
+  reviewService,
+  getAllReviews,
+  hideReview,
+  showReview,
   axios: axiosInstance,
 };
 
