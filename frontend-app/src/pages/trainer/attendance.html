@@ -1,0 +1,102 @@
+<main class="trainer-attendance-page bg-surface-alt min-vh-100 pb-5">
+  <!-- ── NAVBAR ── -->
+  <nav class="attendance-navbar w-100 d-flex justify-content-between align-items-center px-3 px-md-4 py-3 bg-surface border-bottom border-theme sticky-top">
+    <div class="d-flex align-items-center gap-3">
+      <a href="/profile" data-link class="btn-back text-secondary-theme d-flex align-items-center justify-content-center" aria-label="Quay lại">
+        <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M19 12H5M12 19l-7-7 7-7" />
+        </svg>
+      </a>
+      <div>
+        <div class="d-flex align-items-center gap-2">
+          <span class="logo-lightning">⚡</span>
+          <span class="brand-title fw-bold text-secondary-theme">PULSE GYM</span>
+        </div>
+        <p class="page-subtitle text-neutral mb-0">HUẤN LUYỆN VIÊN · ĐIỂM DANH HỘI VIÊN</p>
+      </div>
+    </div>
+    <div class="d-flex align-items-center gap-3">
+      <!-- Notification Dropdown -->
+      <div class="dropdown position-relative">
+        <button id="notification-bell" class="btn p-0 border-0 bg-transparent text-secondary-theme position-relative d-flex align-items-center justify-content-center" aria-label="Notifications" type="button">
+          <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9" />
+            <path d="M13.73 21a2 2 0 0 1-3.46 0" />
+          </svg>
+        </button>
+        <div id="notification-dropdown" class="dropdown-menu dropdown-menu-end shadow-lg p-0" style="min-width: 320px; max-width: 380px; z-index: 1050; right: 0; left: auto;">
+        </div>
+      </div>
+      <span class="badge-theme badge-active px-3 py-1">TRAINER PORTAL</span>
+    </div>
+  </nav>
+
+  <!-- ── TOAST THÔNG BÁO ── -->
+  <div class="toast-container position-fixed top-0 end-0 p-3" style="z-index: 1090;">
+    <div id="attendance-toast" class="toast align-items-center border-0 shadow-lg text-white bg-success" role="alert" aria-live="assertive" aria-atomic="true">
+      <div class="d-flex">
+        <div class="toast-body d-flex align-items-center gap-2 py-3 px-3">
+          <span id="attendance-toast-icon">
+            <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+            </svg>
+          </span>
+          <span id="attendance-toast-message" class="fw-semibold">Thao tác thành công!</span>
+        </div>
+        <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── CONTENT CONTAINER ── -->
+  <div class="container py-4 px-3 px-md-4">
+    <!-- HERO HEADER -->
+    <div class="trainer-hero card-theme p-4 p-md-5 mb-4 position-relative overflow-hidden">
+      <div class="row align-items-center">
+        <div class="col-12 col-md-8">
+          <span class="badge-theme badge-active px-3 py-1 mb-2">QUẢN LÝ CHUYÊN CẦN</span>
+          <h1 class="hero-title fw-bold text-secondary-theme mb-2">Điểm Danh Hội Viên</h1>
+          <p class="hero-desc text-neutral mb-0">
+            Theo dõi và xác nhận sự có mặt của học viên trong các lớp nhóm và lịch huấn luyện 1-1. Đảm bảo chất lượng đào tạo và quyền lợi cho hội viên!
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- BẢNG DANH SÁCH HỘI VIÊN ĐIỂM DANH -->
+    <div class="card card-theme bg-surface border-theme shadow-sm">
+      <div class="card-header bg-surface border-theme py-3 px-4 d-flex flex-wrap justify-content-between align-items-center gap-2">
+        <div>
+          <h2 class="fs-5 fw-bold text-secondary-theme mb-0">Danh sách cần điểm danh</h2>
+          <small class="text-neutral">Chọn trạng thái 'Có mặt' hoặc 'Vắng mặt' và bấm 'Lưu điểm danh' cho từng hội viên</small>
+        </div>
+        <div class="d-flex align-items-center gap-2">
+          <span class="badge bg-primary rounded-pill px-3 py-2" id="attendance-summary-badge">0 học viên</span>
+        </div>
+      </div>
+
+      <div class="table-responsive">
+        <table class="table table-hover align-middle mb-0" id="attendance-table">
+          <thead class="table-light border-theme">
+            <tr>
+              <th scope="col" class="text-secondary-theme ps-4" style="width: 100px;">MÃ #</th>
+              <th scope="col" class="text-secondary-theme" style="width: 120px;">Loại hình</th>
+              <th scope="col" class="text-secondary-theme">Hội viên</th>
+              <th scope="col" class="text-secondary-theme">Buổi tập & Khung giờ</th>
+              <th scope="col" class="text-secondary-theme text-center" style="width: 250px;">Trạng thái điểm danh</th>
+              <th scope="col" class="text-secondary-theme text-end pe-4" style="width: 170px;">Thao tác</th>
+            </tr>
+          </thead>
+          <tbody id="attendance-table-body">
+            <tr>
+              <td colspan="6" class="text-center py-5 text-muted">
+                <div class="spinner-border spinner-border-sm text-primary me-2" role="status"></div>
+                <span>Đang tải danh sách buổi tập cần điểm danh...</span>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</main>

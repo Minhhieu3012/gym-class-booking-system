@@ -1,6 +1,6 @@
 import template from "./packages.html?raw";
 import "./packages.css";
-import { paymentService, PaymentService } from "../../services/payment.service";
+import { paymentService } from "../../services/payment.service";
 import type { Package, MemberPackage } from "../../models/package";
 
 // Khai báo kiểu Bootstrap toàn cục
@@ -388,4 +388,4 @@ export async function init(): Promise<void> {
 }
 
 // Re-export để tương thích với các module khác
-export { PaymentService };
+export { paymentService };

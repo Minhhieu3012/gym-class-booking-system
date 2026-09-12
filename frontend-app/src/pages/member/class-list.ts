@@ -136,7 +136,7 @@ export async function loadClassTypes(): Promise<void> {
       selectEl.appendChild(option);
     });
   } catch (error) {
-    console.warn("Không thể tải danh sách loại lớp:", error);
+    console.error("Không thể tải danh sách loại lớp:", error);
   }
 }
 

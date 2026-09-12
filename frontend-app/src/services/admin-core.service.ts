@@ -107,7 +107,7 @@ export const packageService = {
     return data;
   },
   async create(payload: CreatePackageRequest): Promise<PackageResponse> {
-    const body: any = {
+    const body: CreatePackageRequest & { active?: boolean } = {
       ...payload,
       active: payload.isActive ?? true,
     };
@@ -121,7 +121,7 @@ export const packageService = {
     id: number,
     payload: UpdatePackageRequest,
   ): Promise<PackageResponse> {
-    const body: any = { ...payload };
+    const body: UpdatePackageRequest & { active?: boolean } = { ...payload };
     if (payload.isActive !== undefined) {
       body.active = payload.isActive;
     }

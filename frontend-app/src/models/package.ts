@@ -37,6 +37,20 @@ export interface BuyPackageRequest {
   paymentMethod: PaymentMethod | string;
 }
 
+// Transaction Response
+export interface TransactionResponse {
+  id: number;
+  amount: number;
+  status: string;
+  transactionCode: string;
+  paymentMethod: PaymentMethod | string;
+  createdAt: string;
+  completedAt?: string;
+  memberId?: number;
+  packageId?: number;
+  memberPackageId?: number;
+}
+
 // Query Parameters
 export interface PackageQueryParams {
   page?: number;

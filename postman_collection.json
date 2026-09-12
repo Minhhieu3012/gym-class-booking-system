@@ -1262,6 +1262,519 @@
               "response": []
             }
           ]
+        },
+        {
+          "name": "Attendance",
+          "item": [
+            {
+              "name": "TC 1.1 - Mark Attendance PRESENT (Class Booking)",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{trainer_token}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "PATCH",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"attendanceStatus\": \"PRESENT\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "http://localhost:8080/class-bookings/101/attendance",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8080",
+                  "path": [
+                    "class-bookings",
+                    "101",
+                    "attendance"
+                  ]
+                },
+                "description": "TC 1.1: Trainer điểm danh Có mặt (PRESENT) cho Class Booking. Kỳ vọng trả về 200 OK."
+              },
+              "response": []
+            },
+            {
+              "name": "TC 1.1 - Mark Attendance PRESENT (PT Booking)",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{trainer_token}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "PATCH",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"attendanceStatus\": \"PRESENT\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "http://localhost:8080/pt-bookings/201/attendance",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8080",
+                  "path": [
+                    "pt-bookings",
+                    "201",
+                    "attendance"
+                  ]
+                },
+                "description": "TC 1.1: Trainer điểm danh Có mặt (PRESENT) cho PT Booking. Kỳ vọng trả về 200 OK."
+              },
+              "response": []
+            },
+            {
+              "name": "TC 1.2 - Mark Attendance ABSENT (Class Booking)",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{trainer_token}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "PATCH",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"attendanceStatus\": \"ABSENT\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "http://localhost:8080/class-bookings/101/attendance",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8080",
+                  "path": [
+                    "class-bookings",
+                    "101",
+                    "attendance"
+                  ]
+                },
+                "description": "TC 1.2: Trainer điểm danh Vắng mặt (ABSENT) cho Class Booking. Kỳ vọng trả về 200 OK."
+              },
+              "response": []
+            },
+            {
+              "name": "TC 1.2 - Mark Attendance ABSENT (PT Booking)",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{trainer_token}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "PATCH",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"attendanceStatus\": \"ABSENT\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "http://localhost:8080/pt-bookings/201/attendance",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8080",
+                  "path": [
+                    "pt-bookings",
+                    "201",
+                    "attendance"
+                  ]
+                },
+                "description": "TC 1.2: Trainer điểm danh Vắng mặt (ABSENT) cho PT Booking. Kỳ vọng trả về 200 OK."
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "Reviews",
+          "item": [
+            {
+              "name": "TC 2.2 - Create Review for Class Booking",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{member_token}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"classBookingId\": 103,\r\n    \"rating\": 5,\r\n    \"comment\": \"HLV rất nhiệt tình\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "http://localhost:8080/reviews",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8080",
+                  "path": [
+                    "reviews"
+                  ]
+                },
+                "description": "TC 2.2: Member gửi đánh giá 5 sao cho Class Booking đã hoàn thành. Kỳ vọng trả về 201 Created."
+              },
+              "response": []
+            },
+            {
+              "name": "TC 2.2 - Create Review for PT Booking",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{member_token}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"ptBookingId\": 203,\r\n    \"rating\": 5,\r\n    \"comment\": \"HLV rất nhiệt tình\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "http://localhost:8080/reviews",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8080",
+                  "path": [
+                    "reviews"
+                  ]
+                },
+                "description": "TC 2.2: Member gửi đánh giá 5 sao cho PT Booking đã hoàn thành. Kỳ vọng trả về 201 Created."
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "Notifications",
+          "item": [
+            {
+              "name": "TC 3.1 - Get Unread Notification Count",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{member_token}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "http://localhost:8080/notifications/me/unread-count",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8080",
+                  "path": [
+                    "notifications",
+                    "me",
+                    "unread-count"
+                  ]
+                },
+                "description": "TC 3.1: Lấy số lượng thông báo chưa đọc của user hiện tại. Trả về count để render badge đỏ trên icon Quả chuông."
+              },
+              "response": []
+            },
+            {
+              "name": "TC 3.2 - Get My Notifications",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{member_token}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "http://localhost:8080/notifications/me?size=10",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8080",
+                  "path": [
+                    "notifications",
+                    "me"
+                  ],
+                  "query": [
+                    {
+                      "key": "size",
+                      "value": "10"
+                    }
+                  ]
+                },
+                "description": "TC 3.2: Lấy danh sách 10 thông báo mới nhất khi click icon quả chuông."
+              },
+              "response": []
+            },
+            {
+              "name": "TC 3.2 - Mark Specific Notification as Read",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{member_token}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "PATCH",
+                "header": [],
+                "url": {
+                  "raw": "http://localhost:8080/notifications/1/read",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8080",
+                  "path": [
+                    "notifications",
+                    "1",
+                    "read"
+                  ]
+                },
+                "description": "TC 3.2: Đánh dấu 1 thông báo cụ thể là đã đọc khi click vào thông báo đó."
+              },
+              "response": []
+            },
+            {
+              "name": "TC 3.3 - Mark All Notifications as Read",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{member_token}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "PATCH",
+                "header": [],
+                "url": {
+                  "raw": "http://localhost:8080/notifications/me/read-all",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8080",
+                  "path": [
+                    "notifications",
+                    "me",
+                    "read-all"
+                  ]
+                },
+                "description": "TC 3.3: Đánh dấu toàn bộ thông báo là đã đọc khi click Mark all as read."
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "Progress Notes",
+          "item": [
+            {
+              "name": "TC 4.1 - Validate Empty Note (400 Bad Request)",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{trainer_token}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"memberId\": null,\r\n    \"content\": \"\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "http://localhost:8080/progress-notes",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8080",
+                  "path": [
+                    "progress-notes"
+                  ]
+                },
+                "description": "TC 4.1: Bỏ trống Member ID hoặc Content khi gọi API. Kỳ vọng trả về mã 400 Bad Request."
+              },
+              "response": []
+            },
+            {
+              "name": "TC 4.2 - Create Progress Note",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{trainer_token}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"memberId\": 1,\r\n    \"content\": \"Hội viên đã tăng mức tạ lên 10kg, chú ý khớp gối\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "http://localhost:8080/progress-notes",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8080",
+                  "path": [
+                    "progress-notes"
+                  ]
+                },
+                "description": "TC 4.2: Trainer lưu ghi chú tiến độ sức khỏe cho hội viên. Kỳ vọng trả về 201 Created."
+              },
+              "response": []
+            }
+          ]
         }
       ]
     }
