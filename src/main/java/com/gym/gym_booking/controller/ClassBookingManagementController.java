@@ -1,6 +1,6 @@
 package com.gym.gym_booking.controller;
 
-import com.gym.gym_booking.dto.class_booking.ClassBookingCreateRequestDTO;
+import com.gym.gym_booking.dto.class_booking.AttendanceUpdateRequestDTO;
 import com.gym.gym_booking.dto.class_booking.ClassBookingResponseDTO;
 import com.gym.gym_booking.enums.ClassBookingStatus;
 import com.gym.gym_booking.service.ClassBookingService;
@@ -9,38 +9,28 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/class-bookings")
-@PreAuthorize("hasRole('MEMBER')")
-public class ClassBookingController {
+public class ClassBookingManagementController {
 
     private final ClassBookingService classBookingService;
 
-    public ClassBookingController(
+    public ClassBookingManagementController(
             ClassBookingService classBookingService
     ) {
         this.classBookingService = classBookingService;
     }
 
-    // MEMBER - Create booking
-    @PostMapping
-    public ResponseEntity<ClassBookingResponseDTO> createBooking(
-            @Valid @RequestBody ClassBookingCreateRequestDTO request
-    ) {
+    // TRAINER / ADMIN - Get bookings of a class
+    @GetMapping("/classes/{gymClassId}")
+    @PreAuthorize("hasAnyRole('TRAINER', 'ADMIN')")
+    public ResponseEntity<Page<ClassBookingResponseDTO>> getClassBookings(
+            @PathVariable Long gymClassId,
 
-        return ResponseEntity
-                .status(HttpStatus.CREATED)
-                .body(classBookingService.createBooking(request));
-    }
-
-    // MEMBER - Get my bookings
-    @GetMapping("/me")
-    public ResponseEntity<Page<ClassBookingResponseDTO>> getMyBookings(
             @RequestParam(required = false)
             ClassBookingStatus status,
 
@@ -53,37 +43,39 @@ public class ClassBookingController {
     ) {
 
         return ResponseEntity.ok(
-                classBookingService.getMyBookings(
+                classBookingService.getClassBookings(
+                        gymClassId,
                         status,
                         pageable
                 )
         );
     }
 
-    // MEMBER - Get my booking detail
-    @GetMapping("/me/{id}")
-    public ResponseEntity<ClassBookingResponseDTO> getMyBookingById(
+    // TRAINER / ADMIN - Get booking detail
+    @GetMapping("/{id}")
+    @PreAuthorize("hasAnyRole('TRAINER', 'ADMIN')")
+    public ResponseEntity<ClassBookingResponseDTO> getBookingById(
             @PathVariable Long id
     ) {
 
         return ResponseEntity.ok(
-                classBookingService.getMyBookingById(id)
+                classBookingService.getBookingById(id)
         );
     }
 
-    // MEMBER - Cancel booking
-    @PatchMapping("/{id}/cancel")
-    public ResponseEntity<ClassBookingResponseDTO> cancelBooking(
+    // TRAINER / ADMIN - Update attendance
+    @PatchMapping("/{id}/attendance")
+    @PreAuthorize("hasAnyRole('TRAINER', 'ADMIN')")
+    public ResponseEntity<ClassBookingResponseDTO> updateAttendance(
             @PathVariable Long id,
 
-            @RequestParam(required = false)
-            String reason
+            @Valid @RequestBody AttendanceUpdateRequestDTO request
     ) {
 
         return ResponseEntity.ok(
-                classBookingService.cancelBooking(
+                classBookingService.updateAttendance(
                         id,
-                        reason
+                        request
                 )
         );
     }
