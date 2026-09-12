@@ -56,22 +56,6 @@ public class MemberPackageServiceImpl
                         new RuntimeException("User not found"));
     }
 
-    // =====================================================
-    // UPDATE STATUS
-    // =====================================================
-
-//    private void updateStatus(MemberPackage memberPackage) {
-//
-//        if (memberPackage.getStatus()
-//                == MemberPackageStatus.ACTIVE
-//                && LocalDate.now()
-//                .isAfter(memberPackage.getEndDate())) {
-//
-//            memberPackage.setStatus(
-//                    MemberPackageStatus.EXPIRED
-//            );
-//        }
-//    }
 
     // =====================================================
     // MAPPER
@@ -142,8 +126,6 @@ public class MemberPackageServiceImpl
                             );
         }
 
-//        packages.forEach(this::updateStatus);
-
         return packages.map(this::toResponse);
     }
 
@@ -177,8 +159,6 @@ public class MemberPackageServiceImpl
                                 new RuntimeException(
                                         "Member package not found"
                                 ));
-
-//        updateStatus(memberPackage);
 
         return toResponse(memberPackage);
     }
@@ -238,8 +218,6 @@ public class MemberPackageServiceImpl
                             .findAll(pageable);
         }
 
-//        packages.forEach(this::updateStatus);
-
         return packages.map(this::toResponse);
     }
 
@@ -262,8 +240,6 @@ public class MemberPackageServiceImpl
                                 new RuntimeException(
                                         "Member package not found"
                                 ));
-
-//        updateStatus(memberPackage);
 
         return toResponse(memberPackage);
     }

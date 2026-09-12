@@ -25,6 +25,12 @@
       integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
       crossorigin="anonymous"
     />
+    <!-- Polyfill global for SockJS browser compatibility -->
+    <script>
+      if (typeof window.global === "undefined") {
+        window.global = window;
+      }
+    </script>
   </head>
   <body>
     <!-- SPA root -->

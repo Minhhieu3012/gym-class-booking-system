@@ -6,6 +6,7 @@ export function render(): string {
 }
 
 export function init(): void {
+  // TODO(mock-pending-api): chờ BE hoàn thiện AnalyticsController — xem api-contract.md mục 23
   // Highlight active sidebar link
   const currentPath = window.location.pathname;
   const navLinks =

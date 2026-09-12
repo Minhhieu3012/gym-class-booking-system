@@ -170,6 +170,7 @@ async function handleSaveProgressNote(): Promise<void> {
       `;
     }
 
+    // TODO(mock-pending-api): chờ BE hoàn thiện ProgressNoteController — xem api-contract.md mục 16
     await interactionService.createProgressNote({ memberId, content });
 
     // Hiển thị thông báo thành công

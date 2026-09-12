@@ -1,6 +1,7 @@
 import { userService } from "../../services/user.service";
 import { authService } from "../../services/auth.service";
 import { initNotification } from "../../components/notification-popover";
+import { getStoredUser } from "../../core/api";
 import template from "./profile.html?raw";
 import "./profile.css";
 
@@ -14,6 +15,11 @@ export function render(): string {
 
 export function init(): void {
   initNotification();
+  const chatLink = document.querySelector<HTMLAnchorElement>("#nav-chat-link");
+  if (chatLink) {
+    const user = getStoredUser();
+    chatLink.href = user?.role === "TRAINER" ? "/trainer/chat" : "/member/chat";
+  }
   const avatarImg = document.querySelector<HTMLImageElement>("#profile-avatar");
   const avatarInput = document.querySelector<HTMLInputElement>(
     "#profile-avatar-input",
@@ -108,6 +114,7 @@ export function init(): void {
     avatarLabelBtn.setAttribute("disabled", "true");
 
     try {
+      // TODO(mock-pending-api): chờ BE hoàn thiện UploadController — xem api-contract.md mục 21
       const { imageUrl } = await userService.uploadAvatar(file);
       if (avatarImg) avatarImg.src = imageUrl;
       await userService.updateProfile({ avatarUrl: imageUrl });

@@ -33,6 +33,8 @@ export const apiClient = axios.create({
   },
 });
 
+export const axiosInstance = apiClient;
+
 // Request interceptor — tự động gắn Authorization header
 apiClient.interceptors.request.use(
   (config: InternalAxiosRequestConfig) => {

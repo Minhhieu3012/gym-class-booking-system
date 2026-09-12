@@ -73,8 +73,12 @@ public class SecurityConfig {
                                 "/notifications",
                                 "/notifications/**",
                                 "/progress-notes",
-                                "/progress-notes/**"
+                                "/progress-notes/**",
+                                "/ws",
+                                "/ws/**"
                         ).permitAll()
+
+                        .requestMatchers("/chat/**").authenticated()
 
                         .anyRequest().authenticated()
                 )
