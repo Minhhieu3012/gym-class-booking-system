@@ -1,6 +1,7 @@
 import { UserService, type UserResponseDTO, type UserQueryParams } from "../../services/user.service";
+import { paymentService } from "../../services/payment.service";
 import { authService } from "../../services/auth.service";
-import { getStoredUser, STORAGE_KEYS } from "../../core/api";
+import { getStoredUser, STORAGE_KEYS, apiClient } from "../../core/api";
 import template from "./users.html?raw";
 import "./users.css";
 
@@ -15,6 +16,10 @@ let currentStatusUserId: number | null = null;
 let currentStatusUserName: string = "";
 let currentStatusUserEmail: string = "";
 let currentTargetStatus: string = "LOCKED";
+
+// State điều chỉnh gói tập
+let currentAdjustUserName: string = "";
+
 let usersState: UserResponseDTO[] = [];
 let filtersState: UserQueryParams = {
   keyword: "",
@@ -183,6 +188,106 @@ function closeUserStatusModal(): void {
 }
 
 /**
+ * Mở modal Điều chỉnh Lượt tập & Gói tập cho Member
+ */
+async function openAdjustPackageModal(userId: number, userName: string): Promise<void> {
+  currentAdjustUserName = userName;
+
+  const memberNameEl = document.getElementById("adjustModalMemberName");
+  const memberInfoEl = document.getElementById("adjustModalMemberInfo");
+  const pkgSelect = document.getElementById("adjust-package-select") as HTMLSelectElement | null;
+  const pkgInfo = document.getElementById("adjust-package-info");
+  const manualBox = document.getElementById("adjust-package-manual-box");
+  const sessionsInput = document.getElementById("adjust-sessions-input") as HTMLInputElement | null;
+  const endDateInput = document.getElementById("adjust-end-date-input") as HTMLInputElement | null;
+  const reasonInput = document.getElementById("adjust-reason-input") as HTMLTextAreaElement | null;
+
+  if (memberNameEl) memberNameEl.textContent = userName;
+  if (memberInfoEl) memberInfoEl.textContent = `Hội viên ID: #${userId}`;
+  if (sessionsInput) sessionsInput.value = "";
+  if (endDateInput) endDateInput.value = "";
+  if (reasonInput) reasonInput.value = "";
+
+  if (pkgSelect) {
+    pkgSelect.innerHTML = `<option value="" disabled selected>Đang tải danh sách gói tập...</option>`;
+  }
+
+  const modalEl = document.getElementById("adjustPackageModal");
+  if (modalEl) {
+    const modalInstance = (window as any).bootstrap?.Modal?.getOrCreateInstance(modalEl);
+    if (modalInstance) {
+      modalInstance.show();
+    } else {
+      modalEl.classList.add("show");
+      modalEl.style.display = "block";
+    }
+  }
+
+  // Fetch Member Packages for this member
+  try {
+    const res = await apiClient.get("/admin/member-packages", {
+      params: { memberId: userId },
+    });
+
+    let packages: any[] = [];
+    if (res && res.data) {
+      if (Array.isArray(res.data)) {
+        packages = res.data;
+      } else if (Array.isArray(res.data.content)) {
+        packages = res.data.content;
+      }
+    }
+
+    if (pkgSelect) {
+      if (packages.length > 0) {
+        pkgSelect.innerHTML = packages
+          .map(
+            (p: any, idx: number) => `
+            <option value="${p.id}" ${idx === 0 ? "selected" : ""}>
+              #${p.id} - ${p.packageName || "Gói tập"} (Còn: ${p.sessionsRemaining ?? 0} buổi, Hạn: ${p.endDate || "--"}) [${p.status || "ACTIVE"}]
+            </option>`,
+          )
+          .join("");
+        if (manualBox) manualBox.style.display = "none";
+        if (pkgInfo) {
+          pkgInfo.textContent = `Hội viên có ${packages.length} gói tập trong hệ thống.`;
+        }
+      } else {
+        pkgSelect.innerHTML = `<option value="" disabled selected>Hội viên chưa có gói tập nào</option>`;
+        if (manualBox) manualBox.style.display = "block";
+        if (pkgInfo) {
+          pkgInfo.textContent = "Không tìm thấy gói tập tự động. Bạn có thể nhập ID gói tập bên dưới.";
+        }
+      }
+    }
+  } catch (err) {
+    console.warn("Không thể tải gói tập tự động cho hội viên:", err);
+    if (pkgSelect) {
+      pkgSelect.innerHTML = `<option value="" disabled selected>Không thể tải danh sách gói tập</option>`;
+    }
+    if (manualBox) manualBox.style.display = "block";
+  }
+}
+
+/**
+ * Đóng modal điều chỉnh gói tập
+ */
+function closeAdjustPackageModal(): void {
+  const modalEl = document.getElementById("adjustPackageModal");
+  if (modalEl) {
+    const modalInstance = (window as any).bootstrap?.Modal?.getInstance(modalEl);
+    if (modalInstance) {
+      modalInstance.hide();
+    } else {
+      modalEl.classList.remove("show");
+      modalEl.style.display = "none";
+    }
+  }
+  currentAdjustUserName = "";
+}
+
+
+/**
  * Hiển thị Badge cho Trạng thái tài khoản
  * - ACTIVE: xanh lá
  * - LOCKED: đỏ
@@ -270,6 +375,26 @@ function renderTable(): void {
       const isCurrentAdmin = currentUser && currentUser.id === user.id;
       const isActive = user.status === "ACTIVE";
 
+      // Nút Cộng/Trừ lượt tập (Dành riêng cho MEMBER)
+      let adjustBtnHtml = "";
+      if (user.role === "MEMBER") {
+        adjustBtnHtml = `
+          <button
+            type="button"
+            class="btn btn-sm btn-outline-primary btn-adjust-package d-inline-flex align-items-center gap-1 rounded-3 px-2 py-1 fw-medium"
+            data-id="${user.id}"
+            data-name="${(user.fullName || user.email).replace(/"/g, '&quot;')}"
+            title="Cộng / Trừ lượt tập thủ công cho hội viên này"
+          >
+            <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" style="pointer-events: none;">
+              <circle cx="12" cy="12" r="10" />
+              <line x1="12" y1="8" x2="12" y2="16" />
+              <line x1="8" y1="12" x2="16" y2="12" />
+            </svg>
+            <span style="pointer-events: none;">Lượt tập</span>
+          </button>`;
+      }
+
       // Nút Khóa (màu đỏ) nếu ACTIVE, Mở khóa (màu xanh) nếu LOCKED hoặc khác
       let actionBtnHtml = "";
       if (isCurrentAdmin) {
@@ -340,7 +465,10 @@ function renderTable(): void {
             ${renderStatusBadge(user.status)}
           </td>
           <td class="text-end pe-4">
-            ${actionBtnHtml}
+            <div class="d-flex align-items-center justify-content-end gap-1">
+              ${adjustBtnHtml}
+              ${actionBtnHtml}
+            </div>
           </td>
         </tr>`;
     })
@@ -450,9 +578,19 @@ export async function loadUsers(): Promise<void> {
  * Gắn các sự kiện cho bộ lọc, tìm kiếm và nút thao tác
  */
 function setupEventListeners(): void {
-  // 1. Delegated Click Listener cho nút Khóa / Mở khóa -> Mở Modal
+  // 1. Delegated Click Listener cho nút Khóa / Mở khóa & Điều chỉnh lượt tập
   const tbody = document.querySelector<HTMLTableSectionElement>("#user-table-body");
   tbody?.addEventListener("click", async (event: MouseEvent) => {
+    // A. Nút Điều chỉnh lượt tập gói tập (MEMBER)
+    const adjustBtn = (event.target as HTMLElement).closest<HTMLButtonElement>(".btn-adjust-package");
+    if (adjustBtn) {
+      const userId = Number(adjustBtn.dataset.id);
+      const userName = adjustBtn.dataset.name || "Hội viên";
+      openAdjustPackageModal(userId, userName);
+      return;
+    }
+
+    // B. Nút Khóa / Mở khóa tài khoản
     const btn = (event.target as HTMLElement).closest<HTMLButtonElement>(".btn-toggle-status");
     if (!btn) return;
 
@@ -492,6 +630,77 @@ function setupEventListeners(): void {
     } finally {
       confirmStatusBtn.disabled = false;
       confirmStatusBtn.innerHTML = originalText;
+    }
+  });
+
+  // 1c. Xử lý nút tăng giảm nhanh buổi tập trong Adjust Modal
+  document.querySelectorAll<HTMLButtonElement>(".btn-session-preset").forEach((btn) => {
+    btn.addEventListener("click", (e) => {
+      e.preventDefault();
+      const val = Number(btn.dataset.val || 0);
+      const input = document.getElementById("adjust-sessions-input") as HTMLInputElement | null;
+      if (input) {
+        const cur = Number(input.value) || 0;
+        input.value = String(cur + val);
+      }
+    });
+  });
+
+  // 1d. Xử lý Submit Form Điều chỉnh lượt tập thủ công
+  const adjustForm = document.getElementById("adjustPackageForm") as HTMLFormElement | null;
+  adjustForm?.addEventListener("submit", async (e: SubmitEvent) => {
+    e.preventDefault();
+
+    const selectEl = document.getElementById("adjust-package-select") as HTMLSelectElement | null;
+    const manualInput = document.getElementById("adjust-package-id-input") as HTMLInputElement | null;
+    const sessionsInput = document.getElementById("adjust-sessions-input") as HTMLInputElement | null;
+    const endDateInput = document.getElementById("adjust-end-date-input") as HTMLInputElement | null;
+    const reasonInput = document.getElementById("adjust-reason-input") as HTMLTextAreaElement | null;
+    const submitBtn = document.getElementById("btn-confirm-adjust-package") as HTMLButtonElement | null;
+
+    let packageId = selectEl && selectEl.value ? Number(selectEl.value) : null;
+    if (!packageId && manualInput && manualInput.value) {
+      packageId = Number(manualInput.value);
+    }
+
+    if (!packageId) {
+      showUserToast("Vui lòng chọn hoặc nhập ID gói tập cần điều chỉnh!", "danger");
+      return;
+    }
+
+    const reason = reasonInput ? reasonInput.value.trim() : "";
+    if (!reason) {
+      showUserToast("Vui lòng nhập lý do điều chỉnh gói tập!", "danger");
+      return;
+    }
+
+    const sessionsAdjustment = sessionsInput && sessionsInput.value !== "" ? Number(sessionsInput.value) : undefined;
+    const newEndDate = endDateInput && endDateInput.value ? endDateInput.value : undefined;
+
+    const originalBtnHtml = submitBtn ? submitBtn.innerHTML : "";
+    try {
+      if (submitBtn) {
+        submitBtn.disabled = true;
+        submitBtn.innerHTML = `<span class="spinner-border spinner-border-sm me-1" role="status"></span> Đang xử lý...`;
+      }
+
+      await paymentService.adjustMemberPackage(packageId, {
+        sessionsAdjustment,
+        newEndDate,
+        reason,
+      });
+
+      showUserToast(`Đã cập nhật lượt tập cho hội viên "${currentAdjustUserName}" thành công!`, "success");
+      closeAdjustPackageModal();
+      await loadUsers();
+    } catch (err) {
+      console.error("Lỗi khi điều chỉnh lượt tập:", err);
+      showUserToast("Điều chỉnh lượt tập thất bại. Vui lòng kiểm tra lại thông tin!", "danger");
+    } finally {
+      if (submitBtn) {
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = originalBtnHtml;
+      }
     }
   });
 

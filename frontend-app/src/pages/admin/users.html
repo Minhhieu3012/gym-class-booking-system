@@ -294,7 +294,7 @@
                   <th scope="col" class="py-3 text-muted text-uppercase small fw-bold">Số điện thoại</th>
                   <th scope="col" class="py-3 text-muted text-uppercase small fw-bold">Vai trò</th>
                   <th scope="col" class="py-3 text-muted text-uppercase small fw-bold">Trạng thái</th>
-                  <th scope="col" class="text-end pe-4 py-3 text-muted text-uppercase small fw-bold" style="width: 140px;">Thao tác</th>
+                  <th scope="col" class="text-end pe-4 py-3 text-muted text-uppercase small fw-bold" style="width: 220px;">Thao tác</th>
                 </tr>
               </thead>
               <tbody id="user-table-body">
@@ -362,6 +362,132 @@
           <span>Xác nhận</span>
         </button>
       </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════
+     ADJUST MEMBER PACKAGE MODAL (Cộng/Trừ lượt tập)
+═══════════════════════════════════════════ -->
+<div class="modal fade" id="adjustPackageModal" tabindex="-1" aria-labelledby="adjustPackageModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content rounded-4 border-0 shadow-lg">
+      <div class="modal-header border-bottom px-4 py-3 bg-light-subtle">
+        <h5 class="modal-title fw-bold d-flex align-items-center gap-2 text-primary" id="adjustPackageModalLabel">
+          <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <circle cx="12" cy="12" r="10" />
+            <line x1="12" y1="8" x2="12" y2="16" />
+            <line x1="8" y1="12" x2="16" y2="12" />
+          </svg>
+          <span>Điều chỉnh Lượt tập & Gói tập</span>
+        </h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+
+      <form id="adjustPackageForm">
+        <div class="modal-body p-4">
+          <!-- Member Info Banner -->
+          <div class="d-flex align-items-center gap-3 p-3 rounded-3 mb-3 border bg-primary-subtle border-primary-subtle">
+            <div class="rounded-circle bg-white text-primary p-2 d-flex align-items-center justify-content-center shadow-xs">
+              <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+                <circle cx="12" cy="7" r="4" />
+              </svg>
+            </div>
+            <div>
+              <div class="fw-bold text-dark" id="adjustModalMemberName">Hội viên</div>
+              <div class="small text-muted" id="adjustModalMemberInfo">Mã hội viên: #...</div>
+            </div>
+          </div>
+
+          <!-- Select Package Dropdown -->
+          <div class="mb-3">
+            <label for="adjust-package-select" class="form-label small fw-bold text-dark">
+              Chọn Gói tập cần điều chỉnh <span class="text-danger">*</span>
+            </label>
+            <select id="adjust-package-select" class="form-select rounded-3">
+              <option value="" disabled selected>Đang tìm gói tập của hội viên...</option>
+            </select>
+            <div class="form-text extra-small" id="adjust-package-info">
+              Hệ thống sẽ tự động liệt kê các gói tập mà hội viên này đã sở hữu.
+            </div>
+          </div>
+
+          <!-- Direct Package ID input (optional fallback) -->
+          <div class="mb-3" id="adjust-package-manual-box" style="display: none;">
+            <label for="adjust-package-id-input" class="form-label small fw-bold text-dark">
+              ID Gói tập hội viên (MemberPackage ID)
+            </label>
+            <input
+              type="number"
+              id="adjust-package-id-input"
+              class="form-control rounded-3"
+              placeholder="Nhập ID gói tập hội viên..."
+            />
+          </div>
+
+          <!-- Sessions Adjustment Input -->
+          <div class="mb-3">
+            <label for="adjust-sessions-input" class="form-label small fw-bold text-dark">
+              Số lượt tập điều chỉnh (sessionsAdjustment)
+            </label>
+            <div class="input-group mb-2">
+              <span class="input-group-text bg-light text-muted">+/-</span>
+              <input
+                type="number"
+                id="adjust-sessions-input"
+                class="form-control rounded-end-3"
+                placeholder="Ví dụ: 5 để cộng thêm, -2 để trừ bớt..."
+                step="1"
+              />
+            </div>
+            <!-- Quick Preset Buttons -->
+            <div class="d-flex gap-1">
+              <button type="button" class="btn btn-sm btn-light border extra-small px-2 py-1 btn-session-preset" data-val="1">+1 buổi</button>
+              <button type="button" class="btn btn-sm btn-light border extra-small px-2 py-1 btn-session-preset" data-val="5">+5 buổi</button>
+              <button type="button" class="btn btn-sm btn-light border extra-small px-2 py-1 btn-session-preset" data-val="10">+10 buổi</button>
+              <button type="button" class="btn btn-sm btn-light border extra-small px-2 py-1 btn-session-preset" data-val="-1">-1 buổi</button>
+              <button type="button" class="btn btn-sm btn-light border extra-small px-2 py-1 btn-session-preset" data-val="-5">-5 buổi</button>
+            </div>
+          </div>
+
+          <!-- New End Date Input -->
+          <div class="mb-3">
+            <label for="adjust-end-date-input" class="form-label small fw-bold text-dark">
+              Gia hạn ngày kết thúc mới (newEndDate)
+            </label>
+            <input
+              type="date"
+              id="adjust-end-date-input"
+              class="form-control rounded-3"
+            />
+            <div class="form-text extra-small">Bỏ trống nếu giữ nguyên thời hạn hiện tại của gói.</div>
+          </div>
+
+          <!-- Reason Textarea -->
+          <div class="mb-2">
+            <label for="adjust-reason-input" class="form-label small fw-bold text-dark">
+              Lý do điều chỉnh (reason) <span class="text-danger">*</span>
+            </label>
+            <textarea
+              id="adjust-reason-input"
+              class="form-control rounded-3"
+              rows="3"
+              placeholder="Nhập lý do điều chỉnh (VD: Bồi hoàn buổi tập bị hủy kỹ thuật, gia hạn voucher...)"
+              required
+            ></textarea>
+          </div>
+        </div>
+
+        <div class="modal-footer border-top bg-light rounded-bottom-4 px-4 py-3 d-flex justify-content-end gap-2">
+          <button type="button" class="btn btn-light border px-4 rounded-3 text-muted" data-bs-dismiss="modal">
+            Hủy
+          </button>
+          <button type="submit" id="btn-confirm-adjust-package" class="btn btn-primary px-4 rounded-3 fw-semibold d-flex align-items-center gap-2 shadow-sm">
+            <span>Xác nhận Điều chỉnh</span>
+          </button>
+        </div>
+      </form>
     </div>
   </div>
 </div>

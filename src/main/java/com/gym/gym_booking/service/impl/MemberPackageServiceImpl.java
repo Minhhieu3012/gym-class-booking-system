@@ -267,4 +267,37 @@ public class MemberPackageServiceImpl
             memberPackageRepository.saveAll(expiredPackages);
         }
     }
+
+    @Override
+    @Transactional
+    public MemberPackageResponseDTO adjustMemberPackage(
+            Long id,
+            Integer sessionsAdjustment,
+            LocalDate newEndDate,
+            String reason
+    ) {
+        MemberPackage memberPackage = memberPackageRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Gói tập hội viên không tồn tại với ID: " + id));
+
+        if (sessionsAdjustment != null) {
+            int current = memberPackage.getSessionsRemaining() != null ? memberPackage.getSessionsRemaining() : 0;
+            int updated = Math.max(0, current + sessionsAdjustment);
+            memberPackage.setSessionsRemaining(updated);
+        }
+
+        if (newEndDate != null) {
+            memberPackage.setEndDate(newEndDate);
+        }
+
+        // Cập nhật trạng thái
+        boolean hasSessions = memberPackage.getSessionsRemaining() != null && memberPackage.getSessionsRemaining() > 0;
+        if (memberPackage.getEndDate() != null && !memberPackage.getEndDate().isBefore(LocalDate.now()) && hasSessions) {
+            memberPackage.setStatus(MemberPackageStatus.ACTIVE);
+        } else if (memberPackage.getEndDate() != null && memberPackage.getEndDate().isBefore(LocalDate.now())) {
+            memberPackage.setStatus(MemberPackageStatus.EXPIRED);
+        }
+
+        MemberPackage saved = memberPackageRepository.save(memberPackage);
+        return toResponse(saved);
+    }
 }

@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/transactions")
-@PreAuthorize("hasRole('MEMBER')")
 public class TransactionController {
 
     private final PaymentService paymentService;
@@ -28,6 +27,7 @@ public class TransactionController {
     }
 
     @PostMapping
+    @PreAuthorize("hasRole('MEMBER')")
     public ResponseEntity<TransactionResponseDTO>
     createTransaction(
             @Valid @RequestBody
@@ -42,6 +42,7 @@ public class TransactionController {
     }
 
     @GetMapping("/me")
+    @PreAuthorize("hasRole('MEMBER')")
     public ResponseEntity<Page<TransactionResponseDTO>>
     getMyTransactions(
             @RequestParam(required = false)
@@ -64,6 +65,7 @@ public class TransactionController {
     }
 
     @GetMapping("/me/{id}")
+    @PreAuthorize("hasRole('MEMBER')")
     public ResponseEntity<TransactionResponseDTO>
     getMyTransactionById(
             @PathVariable Long id
@@ -71,6 +73,50 @@ public class TransactionController {
 
         return ResponseEntity.ok(
                 paymentService.getMyTransactionById(id)
+        );
+    }
+
+    @GetMapping
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<Page<TransactionResponseDTO>>
+    getTransactions(
+            @RequestParam(required = false)
+            Long memberId,
+
+            @RequestParam(required = false)
+            TransactionStatus status,
+
+            @PageableDefault(
+                    size = 10,
+                    sort = "id",
+                    direction = Sort.Direction.DESC
+            )
+            Pageable pageable
+    ) {
+        return ResponseEntity.ok(
+                paymentService.getAllTransactions(memberId, status, pageable)
+        );
+    }
+
+    @PatchMapping("/{id}/status")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<TransactionResponseDTO>
+    updateTransactionStatus(
+            @PathVariable Long id,
+            @RequestBody(required = false)
+            java.util.Map<String, Object> body,
+            @RequestParam(required = false)
+            TransactionStatus status
+    ) {
+        TransactionStatus newStatus = status;
+        if (newStatus == null && body != null && body.containsKey("status") && body.get("status") != null) {
+            newStatus = TransactionStatus.valueOf(body.get("status").toString().toUpperCase());
+        }
+        if (newStatus == null) {
+            throw new IllegalArgumentException("Trạng thái không được để trống");
+        }
+        return ResponseEntity.ok(
+                paymentService.mockPayment(id, newStatus)
         );
     }
 }

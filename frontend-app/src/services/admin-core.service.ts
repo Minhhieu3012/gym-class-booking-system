@@ -165,6 +165,13 @@ export const hideReview = reviewService.hideReview.bind(reviewService);
 export const showReview = reviewService.showReview.bind(reviewService);
 export { reviewService };
 
+// ---- Payment & Transaction APIs ----
+import { paymentService } from "./payment.service";
+export const getTransactions = paymentService.getTransactions.bind(paymentService);
+export const updateTransactionStatus = paymentService.updateTransactionStatus.bind(paymentService);
+export const adjustMemberPackage = paymentService.adjustMemberPackage.bind(paymentService);
+export { paymentService };
+
 // ---- Admin Core Service Bundle ----
 export const AdminCoreService = {
   getAnalyticsOverview,
@@ -176,6 +183,10 @@ export const AdminCoreService = {
   getAllReviews,
   hideReview,
   showReview,
+  paymentService,
+  getTransactions,
+  updateTransactionStatus,
+  adjustMemberPackage,
   axios: axiosInstance,
 };
 

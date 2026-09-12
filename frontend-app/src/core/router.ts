@@ -1,5 +1,5 @@
 // SPA Router — History API, Auth Guard, Theme Switcher
-import { isAuthenticated, hasRole } from "./api";
+import { isAuthenticated, hasRole, getStoredUser } from "./api";
 import type { UserRole } from "../models/auth";
 
 import * as LoginPage from "../pages/auth/login";
@@ -17,6 +17,7 @@ import * as DashboardPage from "../pages/admin/dashboard";
 import * as UsersPage from "../pages/admin/users";
 import * as TrainersPage from "../pages/admin/trainers";
 import * as ReviewsPage from "../pages/admin/reviews";
+import * as TransactionsPage from "../pages/admin/transactions";
 import * as MemberPackagesPage from "../pages/member/packages";
 import * as MemberClassesPage from "../pages/member/class-list";
 import * as MemberPTBookingPage from "../pages/member/pt-booking";
@@ -281,6 +282,20 @@ const routes: Route[] = [
     view: PackagesPage.render,
     init: PackagesPage.init,
   },
+  {
+    path: "/admin/transactions",
+    requiresAuth: true,
+    roles: ["ADMIN"],
+    view: TransactionsPage.render,
+    init: TransactionsPage.init,
+  },
+  {
+    path: "/admin/transactions.html",
+    requiresAuth: true,
+    roles: ["ADMIN"],
+    view: TransactionsPage.render,
+    init: TransactionsPage.init,
+  },
 ];
 
 // 404 view
@@ -291,6 +306,23 @@ function view404(): string {
       <p class="fs-5 text-neutral mb-4">Không tìm thấy trang bạn yêu cầu.</p>
       <a href="/" data-link class="btn-brand">Về trang chủ</a>
     </section>`;
+}
+
+/**
+ * Router Guard chuyên biệt cho các trang Admin:
+ * Kiểm tra nếu window.location.pathname chứa '/admin/':
+ * Lấy thông tin user từ localStorage. Nếu không có user hoặc user.role !== 'ADMIN',
+ * lập tức chuyển hướng về /auth/login.html bằng window.location.href.
+ */
+export function checkAdminRouteGuard(pathname: string = window.location.pathname): boolean {
+  if (pathname.includes("/admin/")) {
+    const user = getStoredUser();
+    if (!user || user.role !== "ADMIN") {
+      window.location.href = "/auth/login.html";
+      return false;
+    }
+  }
+  return true;
 }
 
 // Theme Switcher — gắn / gỡ class .admin-theme và .gym-chat-app trên <body>
@@ -310,6 +342,9 @@ function applyTheme(path: string): void {
 
 // navigate — thay đổi URL không reload trang
 export function navigate(path: string): void {
+  if (!checkAdminRouteGuard(path)) {
+    return;
+  }
   window.history.pushState({}, "", path);
   handleRoute();
 }
@@ -317,6 +352,12 @@ export function navigate(path: string): void {
 // Core route matching & rendering
 async function handleRoute(): Promise<void> {
   const pathname = window.location.pathname;
+
+  // --- Chặn ngay các trang /admin/ nếu không phải ADMIN ---
+  if (!checkAdminRouteGuard(pathname)) {
+    return;
+  }
+
   const appRoot = document.querySelector<HTMLDivElement>("#app");
   if (!appRoot) return;
 
@@ -383,5 +424,14 @@ async function handleRoute(): Promise<void> {
 
 export function initRouter(): void {
   window.addEventListener("popstate", handleRoute);
+  if (!checkAdminRouteGuard()) {
+    return;
+  }
   handleRoute();
 }
+
+// Kiểm tra ngay khi khởi động
+if (typeof window !== "undefined") {
+  checkAdminRouteGuard();
+}
+
