@@ -1682,6 +1682,99 @@
               "response": []
             }
           ]
+        },
+        {
+          "name": "Progress Notes",
+          "item": [
+            {
+              "name": "TC 4.1 - Validate Empty Note (400 Bad Request)",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{trainer_token}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"memberId\": null,\r\n    \"content\": \"\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "http://localhost:8080/progress-notes",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8080",
+                  "path": [
+                    "progress-notes"
+                  ]
+                },
+                "description": "TC 4.1: Bỏ trống Member ID hoặc Content khi gọi API. Kỳ vọng trả về mã 400 Bad Request."
+              },
+              "response": []
+            },
+            {
+              "name": "TC 4.2 - Create Progress Note",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{trainer_token}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"memberId\": 1,\r\n    \"content\": \"Hội viên đã tăng mức tạ lên 10kg, chú ý khớp gối\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "http://localhost:8080/progress-notes",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8080",
+                  "path": [
+                    "progress-notes"
+                  ]
+                },
+                "description": "TC 4.2: Trainer lưu ghi chú tiến độ sức khỏe cho hội viên. Kỳ vọng trả về 201 Created."
+              },
+              "response": []
+            }
+          ]
         }
       ]
     }
