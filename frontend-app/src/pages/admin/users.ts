@@ -11,6 +11,10 @@ export function render(): string {
 // ══════════════════════════════════════════
 // STATE QUẢN LÝ NGƯỜI DÙNG & BỘ LỌC
 // ══════════════════════════════════════════
+let currentStatusUserId: number | null = null;
+let currentStatusUserName: string = "";
+let currentStatusUserEmail: string = "";
+let currentTargetStatus: string = "LOCKED";
 let usersState: UserResponseDTO[] = [];
 let filtersState: UserQueryParams = {
   keyword: "",
@@ -22,6 +26,161 @@ let filtersState: UserQueryParams = {
 let totalElements: number = 0;
 let totalPages: number = 1;
 let debounceTimer: ReturnType<typeof setTimeout> | null = null;
+
+/**
+ * Hiển thị Toast thông báo trên góc màn hình
+ */
+function showUserToast(message: string, type: "success" | "danger" = "success"): void {
+  let container = document.getElementById("user-toast-container");
+  if (!container) {
+    container = document.createElement("div");
+    container.id = "user-toast-container";
+    container.className = "toast-container position-fixed top-0 end-0 p-3";
+    container.style.zIndex = "1090";
+    document.body.appendChild(container);
+  }
+
+  const toastEl = document.createElement("div");
+  toastEl.className = `toast align-items-center text-bg-${type} border-0 show shadow-lg rounded-3`;
+  toastEl.setAttribute("role", "alert");
+  toastEl.setAttribute("aria-live", "assertive");
+  toastEl.setAttribute("aria-atomic", "true");
+  toastEl.innerHTML = `
+    <div class="d-flex">
+      <div class="toast-body fw-semibold py-2 px-3">
+        ${message}
+      </div>
+      <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+    </div>`;
+
+  container.appendChild(toastEl);
+  setTimeout(() => {
+    toastEl.classList.remove("show");
+    setTimeout(() => toastEl.remove(), 300);
+  }, 3500);
+}
+
+/**
+ * Mở modal xác nhận thay đổi trạng thái người dùng (Khóa / Mở khóa)
+ */
+function openUserStatusModal(userId: number, userName: string, userEmail: string, targetStatus: string): void {
+  currentStatusUserId = userId;
+  currentStatusUserName = userName;
+  currentStatusUserEmail = userEmail;
+  currentTargetStatus = targetStatus;
+
+  const isLocking = targetStatus === "LOCKED";
+
+  const titleEl = document.getElementById("userStatusModalTitle");
+  const iconEl = document.getElementById("userStatusModalIcon");
+  const badgeIconEl = document.getElementById("userStatusModalBadgeIcon");
+  const nameEl = document.getElementById("userStatusModalUserName");
+  const emailEl = document.getElementById("userStatusModalUserEmail");
+  const msgEl = document.getElementById("userStatusConfirmMessage");
+  const subMsgEl = document.getElementById("userStatusSubMessage");
+  const confirmBtn = document.getElementById("btn-confirm-user-status") as HTMLButtonElement | null;
+  const infoBox = document.getElementById("userStatusModalInfoBox");
+
+  if (titleEl) {
+    titleEl.textContent = isLocking ? "Xác nhận Khóa tài khoản" : "Xác nhận Mở khóa tài khoản";
+    titleEl.className = isLocking ? "fw-bold text-danger" : "fw-bold text-success";
+  }
+
+  if (nameEl) nameEl.textContent = userName;
+  if (emailEl) emailEl.textContent = `${userEmail} (ID: #${userId})`;
+
+  if (isLocking) {
+    if (iconEl) {
+      iconEl.innerHTML = `
+        <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" class="text-danger">
+          <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
+          <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+        </svg>`;
+    }
+    if (badgeIconEl) {
+      badgeIconEl.innerHTML = `
+        <div class="rounded-circle bg-danger-subtle text-danger p-2 d-flex align-items-center justify-content-center">
+          <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
+            <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+          </svg>
+        </div>`;
+    }
+    if (infoBox) {
+      infoBox.className = "d-flex align-items-center gap-3 p-3 rounded-3 mb-3 border bg-danger-subtle border-danger-subtle";
+    }
+    if (msgEl) {
+      msgEl.innerHTML = `Bạn có chắc chắn muốn <strong>KHÓA</strong> tài khoản của <strong>${userName}</strong> không?`;
+    }
+    if (subMsgEl) {
+      subMsgEl.textContent = "Người dùng này sẽ bị chặn đăng nhập vào hệ thống ngay sau khi tài khoản bị khóa.";
+    }
+    if (confirmBtn) {
+      confirmBtn.className = "btn btn-danger px-4 rounded-3 fw-semibold d-flex align-items-center gap-2 shadow-sm";
+      confirmBtn.innerHTML = `<span>Xác nhận Khóa</span>`;
+    }
+  } else {
+    if (iconEl) {
+      iconEl.innerHTML = `
+        <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" class="text-success">
+          <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
+          <path d="M7 11V7a5 5 0 0 1 9.9-1" />
+        </svg>`;
+    }
+    if (badgeIconEl) {
+      badgeIconEl.innerHTML = `
+        <div class="rounded-circle bg-success-subtle text-success p-2 d-flex align-items-center justify-content-center">
+          <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
+            <path d="M7 11V7a5 5 0 0 1 9.9-1" />
+          </svg>
+        </div>`;
+    }
+    if (infoBox) {
+      infoBox.className = "d-flex align-items-center gap-3 p-3 rounded-3 mb-3 border bg-success-subtle border-success-subtle";
+    }
+    if (msgEl) {
+      msgEl.innerHTML = `Bạn có chắc chắn muốn <strong>MỞ KHÓA</strong> cho tài khoản của <strong>${userName}</strong> không?`;
+    }
+    if (subMsgEl) {
+      subMsgEl.textContent = "Người dùng sẽ có thể đăng nhập và sử dụng dịch vụ trở lại bình thường.";
+    }
+    if (confirmBtn) {
+      confirmBtn.className = "btn btn-success px-4 rounded-3 fw-semibold d-flex align-items-center gap-2 shadow-sm";
+      confirmBtn.innerHTML = `<span>Xác nhận Mở khóa</span>`;
+    }
+  }
+
+  const modalEl = document.getElementById("userStatusModal");
+  if (modalEl) {
+    const modalInstance = (window as any).bootstrap?.Modal?.getOrCreateInstance(modalEl);
+    if (modalInstance) {
+      modalInstance.show();
+    } else {
+      modalEl.classList.add("show");
+      modalEl.style.display = "block";
+    }
+  }
+}
+
+/**
+ * Đóng modal xác nhận thay đổi trạng thái người dùng
+ */
+function closeUserStatusModal(): void {
+  const modalEl = document.getElementById("userStatusModal");
+  if (modalEl) {
+    const modalInstance = (window as any).bootstrap?.Modal?.getInstance(modalEl);
+    if (modalInstance) {
+      modalInstance.hide();
+    } else {
+      modalEl.classList.remove("show");
+      modalEl.style.display = "none";
+    }
+  }
+  currentStatusUserId = null;
+  currentStatusUserName = "";
+  currentStatusUserEmail = "";
+}
 
 /**
  * Hiển thị Badge cho Trạng thái tài khoản
@@ -129,11 +288,11 @@ function renderTable(): void {
             data-target-status="LOCKED"
             title="Khóa tài khoản này"
           >
-            <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" style="pointer-events: none;">
               <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
               <path d="M7 11V7a5 5 0 0 1 10 0v4" />
             </svg>
-            <span>Khóa</span>
+            <span style="pointer-events: none;">Khóa</span>
           </button>`;
       } else {
         actionBtnHtml = `
@@ -146,11 +305,11 @@ function renderTable(): void {
             data-target-status="ACTIVE"
             title="Mở khóa tài khoản này"
           >
-            <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" style="pointer-events: none;">
               <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
               <path d="M7 11V7a5 5 0 0 1 9.9-1" />
             </svg>
-            <span>Mở khóa</span>
+            <span style="pointer-events: none;">Mở khóa</span>
           </button>`;
       }
 
@@ -291,7 +450,7 @@ export async function loadUsers(): Promise<void> {
  * Gắn các sự kiện cho bộ lọc, tìm kiếm và nút thao tác
  */
 function setupEventListeners(): void {
-  // 1. Delegated Click Listener cho nút Khóa / Mở khóa
+  // 1. Delegated Click Listener cho nút Khóa / Mở khóa -> Mở Modal
   const tbody = document.querySelector<HTMLTableSectionElement>("#user-table-body");
   tbody?.addEventListener("click", async (event: MouseEvent) => {
     const btn = (event.target as HTMLElement).closest<HTMLButtonElement>(".btn-toggle-status");
@@ -301,30 +460,38 @@ function setupEventListeners(): void {
     const userName = btn.dataset.name || "người dùng";
     const userEmail = btn.dataset.email || "";
     const nextStatus = btn.dataset.targetStatus || "LOCKED";
-    const isLocking = nextStatus === "LOCKED";
 
-    const confirmMessage = isLocking
-      ? `Bạn có chắc chắn muốn KHÓA tài khoản của "${userName}" (${userEmail})?\nNgười dùng này sẽ không thể đăng nhập sau khi bị khóa.`
-      : `Bạn có chắc chắn muốn MỞ KHÓA cho tài khoản "${userName}" (${userEmail})?\nNgười dùng sẽ có thể đăng nhập trở lại bình thường.`;
+    openUserStatusModal(userId, userName, userEmail, nextStatus);
+  });
 
-    if (!window.confirm(confirmMessage)) {
-      return;
-    }
+  // 1b. Xử lý nút xác nhận trong Modal thay đổi trạng thái
+  const confirmStatusBtn = document.querySelector<HTMLButtonElement>("#btn-confirm-user-status");
+  confirmStatusBtn?.addEventListener("click", async () => {
+    if (!currentStatusUserId) return;
 
-    const originalHtml = btn.innerHTML;
+    const originalText = confirmStatusBtn.innerHTML;
+    const isLocking = currentTargetStatus === "LOCKED";
     try {
-      btn.disabled = true;
-      btn.innerHTML = `
+      confirmStatusBtn.disabled = true;
+      confirmStatusBtn.innerHTML = `
         <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
         <span>Đang xử lý...</span>`;
 
-      await UserService.updateUserStatus(userId, nextStatus);
+      await UserService.updateUserStatus(currentStatusUserId, currentTargetStatus);
+      closeUserStatusModal();
+      showUserToast(
+        isLocking
+          ? `Đã khóa tài khoản "${currentStatusUserName}" (${currentStatusUserEmail}) thành công!`
+          : `Đã mở khóa tài khoản "${currentStatusUserName}" (${currentStatusUserEmail}) thành công!`,
+        "success",
+      );
       await loadUsers();
     } catch (error) {
       console.error("Lỗi khi cập nhật trạng thái người dùng:", error);
-      alert("Cập nhật trạng thái người dùng thất bại! Vui lòng thử lại.");
-      btn.disabled = false;
-      btn.innerHTML = originalHtml;
+      showUserToast("Cập nhật trạng thái người dùng thất bại! Vui lòng thử lại.", "danger");
+    } finally {
+      confirmStatusBtn.disabled = false;
+      confirmStatusBtn.innerHTML = originalText;
     }
   });
 

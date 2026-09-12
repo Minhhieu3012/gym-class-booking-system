@@ -15,6 +15,7 @@ import * as ClassTypesPage from "../pages/admin/class-types";
 import * as PackagesPage from "../pages/admin/packages";
 import * as DashboardPage from "../pages/admin/dashboard";
 import * as UsersPage from "../pages/admin/users";
+import * as TrainersPage from "../pages/admin/trainers";
 import * as MemberPackagesPage from "../pages/member/packages";
 import * as MemberClassesPage from "../pages/member/class-list";
 import * as MemberPTBookingPage from "../pages/member/pt-booking";
@@ -236,6 +237,13 @@ const routes: Route[] = [
     roles: ["ADMIN"],
     view: UsersPage.render,
     init: UsersPage.init,
+  },
+  {
+    path: "/admin/trainers",
+    requiresAuth: true,
+    roles: ["ADMIN"],
+    view: TrainersPage.render,
+    init: TrainersPage.init,
   },
   {
     path: "/admin/rooms",

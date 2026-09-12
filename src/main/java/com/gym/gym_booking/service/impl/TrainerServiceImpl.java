@@ -55,16 +55,20 @@ public class TrainerServiceImpl implements TrainerService {
         return new TrainerResponseDTO(
                 user.getId(),
                 user.getFullName(),
+                user.getEmail(),
+                user.getPhone(),
                 trainer.getSpecialization(),
                 trainer.getExperienceYear(),
                 trainer.getHourlyFee(),
-                trainer.getBio()
+                trainer.getBio(),
+                user.getStatus() != null ? user.getStatus().name() : null
         );
     }
 
     @Override
     @Transactional(readOnly = true)
     public Page<TrainerResponseDTO> getTrainers(
+            UserStatus status,
             String specialization,
             String keyword,
             Pageable pageable
@@ -88,7 +92,7 @@ public class TrainerServiceImpl implements TrainerService {
 
         return trainerProfileRepository
                 .searchTrainers(
-                        UserStatus.ACTIVE,
+                        status,
                         specialization,
                         keyword,
                         pageable
