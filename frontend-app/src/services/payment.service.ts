@@ -67,7 +67,7 @@ export class PaymentService {
       }
     }
     const { data } = await apiClient.get<PageResponse<TransactionResponse>>(
-      "/transactions",
+      "/admin/transactions",
       { params: cleanParams },
     );
     return data;

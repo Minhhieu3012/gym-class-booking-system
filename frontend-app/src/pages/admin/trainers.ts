@@ -18,7 +18,7 @@ let currentApproveId: number | null = null;
 let currentApproveTrainerName: string = "";
 let trainersState: Trainer[] = [];
 let filtersState: TrainerQueryParams = {
-  status: "PENDING",
+  status: "ALL",
   keyword: "",
   specialization: "",
   page: 0,

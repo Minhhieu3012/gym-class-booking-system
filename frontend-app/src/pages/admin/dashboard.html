@@ -515,7 +515,7 @@
                 >
                   <span
                     class="kpi-label text-uppercase fw-bold small text-muted"
-                    >Tổng doanh thu (Mock)</span
+                    >Tổng doanh thu</span
                   >
                   <div
                     class="kpi-icon-badge bg-warning-subtle text-warning rounded-3 d-flex align-items-center justify-content-center"
@@ -678,48 +678,44 @@
           <div class="col-12 col-xl-8">
             <div class="card border-0 shadow-sm rounded-4 p-4 bg-white h-100">
               <div
-                class="d-flex justify-content-between align-items-start mb-4"
+                class="d-flex justify-content-between align-items-start mb-3"
               >
                 <div>
                   <h4 class="fw-bold text-dark mb-1">
-                    Hiệu suất Đặt lịch & Doanh thu
+                    Giao dịch Thực tế Gần đây
                   </h4>
                   <p class="text-muted small mb-0">
-                    Biểu đồ ước lượng phân bố tăng trưởng hàng tháng
+                    Dữ liệu giao dịch được đồng bộ trực tiếp từ cơ sở dữ liệu hệ thống
                   </p>
                 </div>
-                <span
-                  class="badge bg-light text-dark border px-3 py-2 rounded-pill small"
-                  >30 Ngày gần nhất</span
+                <a
+                  href="/admin/transactions"
+                  data-link
+                  class="btn btn-sm btn-outline-danger rounded-pill px-3 fw-semibold text-decoration-none"
+                  >Xem tất cả &rarr;</a
                 >
               </div>
 
-              <div
-                class="analytics-chart-box rounded-3 border border-dashed d-flex flex-column align-items-center justify-content-center p-5 text-center"
-              >
-                <div
-                  class="analytics-chart-icon-box mb-3 rounded-circle bg-light d-flex align-items-center justify-content-center"
-                >
-                  <svg
-                    width="32"
-                    height="32"
-                    fill="none"
-                    stroke="#64748b"
-                    stroke-width="2"
-                    viewBox="0 0 24 24"
-                  >
-                    <line x1="18" y1="20" x2="18" y2="10" />
-                    <line x1="12" y1="20" x2="12" y2="4" />
-                    <line x1="6" y1="20" x2="6" y2="14" />
-                  </svg>
-                </div>
-                <h6 class="fw-bold text-dark mb-1">
-                  Dữ liệu Analytics đã sẵn sàng kết nối API
-                </h6>
-                <p class="text-muted small mb-0">
-                  Hệ thống tự động đồng bộ số liệu qua API
-                  <code>/admin/analytics/overview</code>.
-                </p>
+              <div class="table-responsive">
+                <table class="table table-hover align-middle mb-0 small">
+                  <thead class="table-light">
+                    <tr>
+                      <th class="ps-3 py-2 text-muted fw-bold">MÃ GD</th>
+                      <th class="py-2 text-muted fw-bold">HỘI VIÊN</th>
+                      <th class="py-2 text-muted fw-bold">GÓI TẬP</th>
+                      <th class="py-2 text-muted fw-bold text-end">SỐ TIỀN</th>
+                      <th class="py-2 text-muted fw-bold text-center">TRẠNG THÁI</th>
+                    </tr>
+                  </thead>
+                  <tbody id="dashboard-recent-tx-tbody">
+                    <tr>
+                      <td colspan="5" class="text-center py-4 text-muted">
+                        <div class="spinner-border spinner-border-sm text-danger me-2" role="status"></div>
+                        Đang đồng bộ giao dịch từ database...
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
               </div>
             </div>
           </div>
