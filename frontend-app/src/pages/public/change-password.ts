@@ -28,7 +28,21 @@ function wireTogglePw(btnId: string, inputId: string, iconId: string): void {
 }
 
 export function init(): void {
-    wireTogglePw("toggle-current-pw", "current-password", "eye-current");
+  (async () => {
+    try {
+      const profile = await userService.getMyProfile();
+      const navGreeting = document.querySelector<HTMLElement>("#nav-greeting");
+      const navAvatar = document.querySelector<HTMLElement>("#nav-avatar");
+      if (navGreeting) navGreeting.textContent = `Hey ${profile.fullName.split(" ")[0]}`;
+      if (navAvatar) {
+        navAvatar.innerHTML = `<img src="${profile.avatarUrl || '/src/assets/img/avatar-user-default.jpg'}" alt="${profile.fullName}" class="w-100 h-100 object-fit-cover rounded-circle" />`;
+      }
+    } catch {
+      // ignore if guest or error
+    }
+  })();
+
+  wireTogglePw("toggle-current-pw", "current-password", "eye-current");
   wireTogglePw("toggle-new-pw", "new-password", "eye-new");
   wireTogglePw("toggle-confirm-pw", "confirm-password", "eye-confirm");
 

@@ -155,7 +155,6 @@ export async function loadTrainers(): Promise<void> {
 
     container.innerHTML = trainers
       .map((t) => {
-        const initial = (t.fullName || "T").charAt(0).toUpperCase();
         const spec = t.specialization || "Thể hình & Thể lực";
         const exp = t.experienceYears ? `${t.experienceYears} năm kinh nghiệm` : "HLV Chuyên nghiệp";
         const bio = t.bio || "Tận tâm đồng hành, xây dựng lộ trình tập luyện khoa học và phù hợp với từng cá nhân.";
@@ -175,11 +174,7 @@ export async function loadTrainers(): Promise<void> {
 
               <div class="d-flex align-items-center gap-3 mb-2">
                 <div class="trainer-avatar-box">
-                  ${
-                    t.avatarUrl
-                      ? `<img src="${escapeHtml(t.avatarUrl)}" alt="${escapeHtml(t.fullName)}" />`
-                      : initial
-                  }
+                  <img src="${escapeHtml(t.avatarUrl || '/src/assets/img/avatar-user-default.jpg')}" alt="${escapeHtml(t.fullName)}" />
                 </div>
                 <div>
                   <h3 class="trainer-name mb-1">${escapeHtml(t.fullName)}</h3>

@@ -24,7 +24,7 @@
         >
       </a>
       <p
-        class="page-subtitle text-neutral mb-0 d-none d-md-block ms-2 ps-2 border-start border-secondary"
+        class="page-subtitle text-neutral mb-0 d-none d-md-block ms-2 ps-2 border-start border-secondary-subtle"
         id="profile-role-badge"
       >
         HUẤN LUYỆN VIÊN
@@ -202,7 +202,11 @@
           id="nav-avatar"
           class="profile-nav-avatar rounded-circle d-flex align-items-center justify-content-center fw-bold overflow-hidden"
         >
-          ?
+          <img
+            src="/src/assets/img/avatar-user-default.jpg"
+            alt="Avatar"
+            class="w-100 h-100 object-fit-cover rounded-circle"
+          />
         </div>
         <span class="d-none d-md-inline ms-1 fs-8 fw-semibold" id="nav-greeting"
           >Hey —</span
@@ -290,32 +294,6 @@
             luyện và thiết lập bảo mật GYM HUB.
           </p>
         </div>
-        <div class="d-flex align-items-center gap-2">
-          <a
-            href="/trainer/time-slots.html"
-            data-link
-            id="profile-back-link"
-            class="btn-trainer-back d-inline-flex align-items-center gap-2 px-3 py-2 text-decoration-none"
-            aria-label="Quay lại"
-          >
-            <svg
-              width="18"
-              height="18"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2.2"
-              viewBox="0 0 24 24"
-              aria-hidden="true"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                d="M19 12H5M12 19l-7-7 7-7"
-              />
-            </svg>
-            <span class="fw-semibold">Quay lại</span>
-          </a>
-        </div>
       </div>
     </div>
 
@@ -331,7 +309,7 @@
             <div class="profile-avatar-wrapper">
               <img
                 id="profile-avatar"
-                src=""
+                src="/src/assets/img/avatar-user-default.jpg"
                 alt="Avatar"
                 class="profile-avatar-img rounded-circle"
               />
@@ -368,7 +346,7 @@
 
           <h2
             id="profile-name-display"
-            class="profile-name-title fw-bold text-white mb-1"
+            class="profile-name-title fw-bold text-secondary-theme mb-1"
           ></h2>
 
           <div
@@ -494,7 +472,9 @@
                 </svg>
               </div>
               <div>
-                <h2 class="profile-section-title fw-bold text-white mb-0">
+                <h2
+                  class="profile-section-title fw-bold text-secondary-theme mb-0"
+                >
                   Athlete Legal Details
                 </h2>
                 <small class="text-secondary fs-8"
@@ -742,7 +722,9 @@
                 </svg>
               </div>
               <div>
-                <h3 class="h6 fw-bold text-white mb-1">Bảo mật tài khoản</h3>
+                <h3 class="h6 fw-bold text-secondary-theme mb-1">
+                  Bảo mật tài khoản
+                </h3>
                 <p class="text-secondary small mb-0">
                   Định kỳ cập nhật mật khẩu để bảo vệ an toàn cho tài khoản cá
                   nhân.

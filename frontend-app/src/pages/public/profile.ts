@@ -5,8 +5,7 @@ import { getStoredUser } from "../../core/api";
 import template from "./profile.html?raw";
 import "./profile.css";
 
-const PLACEHOLDER_AVATAR =
-  "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='96' height='96' viewBox='0 0 24 24' fill='none' stroke='%236C757D' stroke-width='1.5'%3E%3Cpath d='M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2'/%3E%3Ccircle cx='12' cy='7' r='4'/%3E%3C/svg%3E";
+const PLACEHOLDER_AVATAR = "/src/assets/img/avatar-user-default.jpg";
 
 export function render(): string {
   return template;
@@ -180,8 +179,10 @@ export function init(): void {
       // Nav bar
       if (navGreeting)
         navGreeting.textContent = `Hey ${profile.fullName.split(" ")[0]}`;
-      if (navAvatar)
-        navAvatar.textContent = profile.fullName.charAt(0).toUpperCase();
+      if (navAvatar) {
+        const avatarSrc = profile.avatarUrl || PLACEHOLDER_AVATAR;
+        navAvatar.innerHTML = `<img src="${avatarSrc}" alt="${profile.fullName}" class="w-100 h-100 object-fit-cover rounded-circle" />`;
+      }
       if (profileIdBadge)
         profileIdBadge.textContent = `● ID #PL-${String(profile.id).padStart(4, "0")} · ACTIVE`;
 
@@ -226,7 +227,10 @@ export function init(): void {
 
     try {
       const { imageUrl } = await userService.uploadAvatar(file);
-      if (avatarImg) avatarImg.src = imageUrl;
+      if (avatarImg) avatarImg.src = imageUrl || PLACEHOLDER_AVATAR;
+      if (navAvatar) {
+        navAvatar.innerHTML = `<img src="${imageUrl || PLACEHOLDER_AVATAR}" alt="${originalData?.fullName || "Avatar"}" class="w-100 h-100 object-fit-cover rounded-circle" />`;
+      }
       await userService.updateProfile({ avatarUrl: imageUrl });
     } catch (error: unknown) {
       console.error("Lỗi khi cập nhật avatar:", error);
