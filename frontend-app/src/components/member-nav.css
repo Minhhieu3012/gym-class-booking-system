@@ -1,22 +1,25 @@
 /* ============================================================
-   Member Shared Mobile-First Bottom Navigation Styles
-   Sporty & Premium Dark Theme (#0f172a) with Neon Crimson/Orange Accents
+   Member Shared Mobile-First Bottom Navigation & Top Navbar Styles
+   Sporty & Premium Dark/Light Harmonized Theme with Neon Crimson Accents
    ============================================================ */
 
-/* Fixed Bottom Navigation - Clean & Modern Light Theme */
+/* ── Fixed Bottom Navigation (Mobile Viewport) ── */
 .member-bottom-nav {
   position: fixed;
   bottom: 0;
   left: 0;
   right: 0;
-  height: 66px;
-  background: rgba(255, 255, 255, 0.96);
+  height: 68px;
+  height: calc(68px + env(safe-area-inset-bottom, 0px));
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+  background: rgba(255, 255, 255, 0.97);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
   border-top: 1px solid var(--color-border, #dee2e6);
-  box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.06), 0 -1px 3px rgba(0, 0, 0, 0.03);
+  box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.07), 0 -1px 3px rgba(0, 0, 0, 0.03);
   z-index: 1045;
-  padding: 0 0.5rem;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
   transition: transform 0.3s ease;
 }
 
@@ -25,7 +28,7 @@
   align-items: center;
   justify-content: space-around;
   height: 100%;
-  max-width: 580px;
+  max-width: 640px;
   margin: 0 auto;
   width: 100%;
 }
@@ -37,9 +40,10 @@
   align-items: center;
   justify-content: center;
   height: 100%;
+  min-height: 48px;
   color: #64748b;
   text-decoration: none !important;
-  padding: 0.3rem 0.2rem;
+  padding: 0.35rem 0.2rem;
   transition: all 0.22s cubic-bezier(0.4, 0, 0.2, 1);
   position: relative;
   background: transparent;
@@ -49,7 +53,7 @@
 }
 
 .member-nav-icon {
-  font-size: 1.25rem;
+  font-size: 1.45rem;
   line-height: 1;
   margin-bottom: 3px;
   display: flex;
@@ -111,19 +115,169 @@
   content: "";
   position: absolute;
   bottom: 4px;
-  width: 20px;
+  width: 22px;
   height: 3px;
   border-radius: 9999px;
   background: var(--color-primary, #dc3545);
   box-shadow: 0 0 8px rgba(220, 53, 69, 0.6);
 }
 
-/* Safe bottom padding for pages with bottom nav */
-.member-page-body-padding,
-.member-classes-page,
-.member-pt-booking-page,
-.member-packages-page,
-.member-my-bookings-page,
-.profile-page-root {
-  padding-bottom: 85px !important;
+/* ============================================================
+   Media Queries: Mobile vs Tablet/Desktop Breakpoint (768px)
+   ============================================================ */
+
+/* Mobile Viewport (max-width: 767.98px) */
+@media (max-width: 767.98px) {
+  /* Ensure bottom padding on <main> protects content from bottom nav overlap */
+  main.member-page-body-padding,
+  main.member-classes-page,
+  main.member-pt-booking-page,
+  main.member-packages-page,
+  main.member-my-bookings-page,
+  main.profile-page-root,
+  .member-packages-page,
+  .member-classes-page,
+  .member-pt-booking-page,
+  .member-my-bookings-page,
+  .profile-page-root {
+    padding-bottom: 76px !important;
+    margin-bottom: 0 !important;
+  }
+
+  /* Completely hide desktop navbar links on mobile */
+  .member-desktop-nav {
+    display: none !important;
+  }
+
+  /* Ensure bottom navigation is visible */
+  .member-bottom-nav {
+    display: flex !important;
+  }
 }
+
+/* Ultra-compact Mobile (max-width: 360px) */
+@media (max-width: 360px) {
+  .member-nav-icon {
+    font-size: 1.55rem;
+    margin-bottom: 0;
+  }
+  .member-nav-label {
+    display: none;
+  }
+  .member-nav-item {
+    padding: 0.2rem 0.1rem;
+  }
+}
+
+/* Compact Mobile (361px to 400px) */
+@media (min-width: 361px) and (max-width: 400px) {
+  .member-nav-icon {
+    font-size: 1.38rem;
+    margin-bottom: 2px;
+  }
+  .member-nav-label {
+    font-size: 0.62rem;
+  }
+}
+
+/* Tablet & Desktop Viewport (min-width: 768px) */
+@media (min-width: 768px) {
+  /* Hide mobile bottom navigation on tablet & desktop */
+  .member-bottom-nav {
+    display: none !important;
+  }
+
+  /* Reset main padding and remove bottom margin */
+  main.member-page-body-padding,
+  main.member-classes-page,
+  main.member-pt-booking-page,
+  main.member-packages-page,
+  main.member-my-bookings-page,
+  main.profile-page-root,
+  .member-packages-page,
+  .member-classes-page,
+  .member-pt-booking-page,
+  .member-my-bookings-page,
+  .profile-page-root {
+    padding-bottom: 2.5rem !important;
+    margin-bottom: 0 !important;
+  }
+
+  /* Display desktop navbar links */
+  .member-desktop-nav {
+    display: flex !important;
+  }
+}
+
+/* ============================================================
+   Member Desktop Top Navigation Links
+   ============================================================ */
+.member-desktop-nav {
+  display: none;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.member-top-nav-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.45rem 0.95rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--color-secondary, #334155);
+  text-decoration: none !important;
+  border-radius: 10px;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  white-space: nowrap;
+}
+
+.member-top-nav-link i,
+.member-top-nav-link svg {
+  font-size: 1.1rem;
+  line-height: 1;
+  color: #64748b;
+  transition: color 0.2s ease, transform 0.2s ease;
+}
+
+.member-top-nav-link:hover {
+  color: var(--color-primary, #dc3545);
+  background-color: rgba(220, 53, 69, 0.08);
+}
+
+.member-top-nav-link:hover i,
+.member-top-nav-link:hover svg {
+  color: var(--color-primary, #dc3545);
+  transform: translateY(-1px);
+}
+
+.member-top-nav-link.active {
+  color: #ffffff !important;
+  background: var(--color-primary, #dc3545) !important;
+  font-weight: 700;
+  box-shadow: 0 4px 12px rgba(220, 53, 69, 0.25);
+}
+
+.member-top-nav-link.active i,
+.member-top-nav-link.active svg {
+  color: #ffffff !important;
+}
+
+/* ============================================================
+   Modal Dialog Standard Responsive Rules for Member
+   ============================================================ */
+@media (max-width: 575.98px) {
+  .modal-fullscreen-sm-down {
+    width: 100vw !important;
+    max-width: none !important;
+    height: 100% !important;
+    margin: 0 !important;
+  }
+  .modal-fullscreen-sm-down .modal-content {
+    height: 100% !important;
+    border: 0 !important;
+    border-radius: 0 !important;
+  }
+}
+
+

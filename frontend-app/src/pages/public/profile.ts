@@ -75,8 +75,8 @@ export function init(): void {
       trainerNav.classList.remove("d-lg-flex");
     }
     if (memberNav) {
-      memberNav.classList.add("d-none");
-      memberNav.classList.remove("d-lg-flex");
+      memberNav.classList.remove("d-none");
+      memberNav.classList.add("d-md-flex");
     }
 
     // Ẩn thanh bottom nav của Trainer, hiện thanh bottom nav của Member
@@ -115,7 +115,7 @@ export function init(): void {
     }
     if (memberNav) {
       memberNav.classList.add("d-none");
-      memberNav.classList.remove("d-lg-flex");
+      memberNav.classList.remove("d-md-flex");
     }
   } else {
     if (trainerNav) {
