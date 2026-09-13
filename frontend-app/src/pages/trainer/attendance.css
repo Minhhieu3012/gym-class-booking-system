@@ -1,6 +1,7 @@
 /* ============================================================
    Trainer Attendance Page Styles — Sporty & Premium Redesign
    ============================================================ */
+@import "./trainer-nav.css";
 
 .trainer-attendance-page {
   font-family: var(--font-primary, system-ui, -apple-system, sans-serif);

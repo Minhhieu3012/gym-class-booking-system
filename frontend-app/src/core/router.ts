@@ -115,6 +115,27 @@ const routes: Route[] = [
     init: MemberClassesPage.init,
   },
   {
+    path: "/member/classes.html",
+    requiresAuth: true,
+    roles: ["MEMBER", "ADMIN"],
+    view: MemberClassesPage.render,
+    init: MemberClassesPage.init,
+  },
+  {
+    path: "/member/class-list",
+    requiresAuth: true,
+    roles: ["MEMBER", "ADMIN"],
+    view: MemberClassesPage.render,
+    init: MemberClassesPage.init,
+  },
+  {
+    path: "/member/class-list.html",
+    requiresAuth: true,
+    roles: ["MEMBER", "ADMIN"],
+    view: MemberClassesPage.render,
+    init: MemberClassesPage.init,
+  },
+  {
     path: "/member/pt-booking",
     requiresAuth: true,
     roles: ["MEMBER", "ADMIN"],
@@ -145,84 +166,119 @@ const routes: Route[] = [
   {
     path: "/member/chat",
     requiresAuth: true,
-    roles: ["MEMBER", "ADMIN"],
+    roles: ["MEMBER", "ADMIN", "TRAINER"],
     view: ChatPage.render,
     init: ChatPage.init,
   },
   {
     path: "/member/chat.html",
     requiresAuth: true,
-    roles: ["MEMBER", "ADMIN"],
+    roles: ["MEMBER", "ADMIN", "TRAINER"],
     view: ChatPage.render,
     init: ChatPage.init,
   },
   {
     path: "/trainer/pt-requests",
     requiresAuth: true,
-    roles: ["TRAINER", "ADMIN"],
+    roles: ["TRAINER"],
     view: TrainerPTRequestsPage.render,
     init: TrainerPTRequestsPage.init,
   },
   {
+    path: "/trainer/pt-requests.html",
+    requiresAuth: true,
+    roles: ["TRAINER"],
+    view: TrainerPTRequestsPage.render,
+    init: TrainerPTRequestsPage.init,
+  },
+  {
+    path: "/trainer",
+    requiresAuth: true,
+    roles: ["TRAINER"],
+    view: TrainerTimeSlotsPage.render,
+    init: TrainerTimeSlotsPage.init,
+  },
+  {
+    path: "/trainer/dashboard",
+    requiresAuth: true,
+    roles: ["TRAINER"],
+    view: TrainerTimeSlotsPage.render,
+    init: TrainerTimeSlotsPage.init,
+  },
+  {
+    path: "/trainer/dashboard.html",
+    requiresAuth: true,
+    roles: ["TRAINER"],
+    view: TrainerTimeSlotsPage.render,
+    init: TrainerTimeSlotsPage.init,
+  },
+  {
     path: "/trainer/time-slots",
     requiresAuth: true,
-    roles: ["TRAINER", "ADMIN"],
+    roles: ["TRAINER"],
+    view: TrainerTimeSlotsPage.render,
+    init: TrainerTimeSlotsPage.init,
+  },
+  {
+    path: "/trainer/time-slots.html",
+    requiresAuth: true,
+    roles: ["TRAINER"],
     view: TrainerTimeSlotsPage.render,
     init: TrainerTimeSlotsPage.init,
   },
   {
     path: "/trainer/attendance",
     requiresAuth: true,
-    roles: ["TRAINER", "ADMIN"],
+    roles: ["TRAINER"],
     view: TrainerAttendancePage.render,
     init: TrainerAttendancePage.init,
   },
   {
     path: "/trainer/attendance.html",
     requiresAuth: true,
-    roles: ["TRAINER", "ADMIN"],
+    roles: ["TRAINER"],
     view: TrainerAttendancePage.render,
     init: TrainerAttendancePage.init,
   },
   {
     path: "/attendance.html",
     requiresAuth: true,
-    roles: ["TRAINER", "ADMIN"],
+    roles: ["TRAINER"],
     view: TrainerAttendancePage.render,
     init: TrainerAttendancePage.init,
   },
   {
     path: "/trainer/progress-notes",
     requiresAuth: true,
-    roles: ["TRAINER", "ADMIN"],
+    roles: ["TRAINER"],
     view: TrainerProgressNotesPage.render,
     init: TrainerProgressNotesPage.init,
   },
   {
     path: "/trainer/progress-notes.html",
     requiresAuth: true,
-    roles: ["TRAINER", "ADMIN"],
+    roles: ["TRAINER"],
     view: TrainerProgressNotesPage.render,
     init: TrainerProgressNotesPage.init,
   },
   {
     path: "/progress-notes.html",
     requiresAuth: true,
-    roles: ["TRAINER", "ADMIN"],
+    roles: ["TRAINER"],
     view: TrainerProgressNotesPage.render,
     init: TrainerProgressNotesPage.init,
   },
   {
     path: "/trainer/chat",
     requiresAuth: true,
-    roles: ["TRAINER", "ADMIN"],
+    roles: ["TRAINER"],
     view: ChatPage.render,
     init: ChatPage.init,
   },
   {
     path: "/trainer/chat.html",
     requiresAuth: true,
-    roles: ["TRAINER", "ADMIN"],
+    roles: ["TRAINER"],
     view: ChatPage.render,
     init: ChatPage.init,
   },
@@ -374,6 +430,27 @@ export function checkAdminRouteGuard(pathname: string = window.location.pathname
   return true;
 }
 
+/**
+ * Router Guard chuyên biệt cho các trang Trainer:
+ * Kiểm tra nếu window.location.pathname chứa '/trainer/' hoặc các trang liên quan trainer:
+ * Lấy thông tin user từ localStorage. Nếu không có user hoặc user.role !== 'TRAINER',
+ * lập tức chuyển hướng về /auth/login.html bằng window.location.href.
+ */
+export function checkTrainerRouteGuard(pathname: string = window.location.pathname): boolean {
+  if (
+    pathname.includes("/trainer/") ||
+    pathname === "/attendance.html" ||
+    pathname === "/progress-notes.html"
+  ) {
+    const user = getStoredUser();
+    if (!user || user.role !== "TRAINER") {
+      window.location.href = "/auth/login.html";
+      return false;
+    }
+  }
+  return true;
+}
+
 // Theme Switcher — gắn / gỡ class .admin-theme và .gym-chat-app trên <body>
 function applyTheme(path: string): void {
   if (path.startsWith("/admin")) {
@@ -391,7 +468,7 @@ function applyTheme(path: string): void {
 
 // navigate — thay đổi URL không reload trang
 export function navigate(path: string): void {
-  if (!checkAdminRouteGuard(path)) {
+  if (!checkAdminRouteGuard(path) || !checkTrainerRouteGuard(path)) {
     return;
   }
   window.history.pushState({}, "", path);
@@ -404,6 +481,11 @@ async function handleRoute(): Promise<void> {
 
   // --- Chặn ngay các trang /admin/ nếu không phải ADMIN ---
   if (!checkAdminRouteGuard(pathname)) {
+    return;
+  }
+
+  // --- Chặn ngay các trang /trainer/ nếu không phải TRAINER ---
+  if (!checkTrainerRouteGuard(pathname)) {
     return;
   }
 
@@ -473,7 +555,7 @@ async function handleRoute(): Promise<void> {
 
 export function initRouter(): void {
   window.addEventListener("popstate", handleRoute);
-  if (!checkAdminRouteGuard()) {
+  if (!checkAdminRouteGuard() || !checkTrainerRouteGuard()) {
     return;
   }
   handleRoute();
@@ -482,5 +564,6 @@ export function initRouter(): void {
 // Kiểm tra ngay khi khởi động
 if (typeof window !== "undefined") {
   checkAdminRouteGuard();
+  checkTrainerRouteGuard();
 }
 

@@ -1,45 +1,72 @@
-<main class="trainer-attendance-page bg-surface-alt min-vh-100 pb-5">
-  <!-- ── NAVBAR ── -->
-  <nav class="attendance-navbar w-100 d-flex justify-content-between align-items-center px-3 px-md-4 py-3 bg-surface border-bottom border-theme sticky-top" aria-label="Trainer Navigation">
+<div class="trainer-attendance-page bg-surface-alt min-vh-100 pb-4">
+  <!-- ── TOP NAVBAR (Desktop & Tablet) ── -->
+  <nav class="trainer-top-navbar w-100 d-flex justify-content-between align-items-center px-3 px-md-4 py-2 py-md-3 sticky-top" aria-label="Trainer Top Navigation">
     <div class="d-flex align-items-center gap-3">
-      <a href="/profile" data-link class="btn-back text-secondary-theme d-flex align-items-center justify-content-center" aria-label="Quay lại hồ sơ cá nhân">
+      <a href="/trainer/time-slots.html" data-link class="btn-back text-secondary-theme d-flex align-items-center justify-content-center" aria-label="Quay lại Lịch dạy" title="Quay lại Lịch dạy (Trang chủ Trainer)">
         <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24" aria-hidden="true">
           <path stroke-linecap="round" stroke-linejoin="round" d="M19 12H5M12 19l-7-7 7-7" />
         </svg>
       </a>
       <div>
         <div class="d-flex align-items-center gap-2">
-          <span class="logo-lightning" aria-hidden="true">⚡</span>
-          <span class="brand-title fw-bold text-secondary-theme">PULSE GYM</span>
+          <span class="trainer-brand-lightning" aria-hidden="true">⚡</span>
+          <span class="trainer-brand-name">PULSE GYM</span>
+          <span class="trainer-portal-tag d-none d-sm-inline-block">TRAINER PORTAL</span>
         </div>
-        <p class="page-subtitle text-neutral mb-0">HUẤN LUYỆN VIÊN · ĐIỂM DANH HỘI VIÊN</p>
+        <p class="page-subtitle text-neutral mb-0 d-none d-sm-block">HUẤN LUYỆN VIÊN CHUYÊN NGHIỆP</p>
       </div>
     </div>
-    
-    <div class="d-flex align-items-center gap-2 gap-md-3">
-      <!-- Quick Portal Links -->
-      <a href="/trainer/time-slots" data-link class="trainer-nav-pill d-none d-md-inline-flex align-items-center gap-1">
-        <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
+
+    <!-- Desktop Navigation Links -->
+    <div class="trainer-desktop-nav d-none d-lg-flex">
+      <a href="/trainer/time-slots.html" data-link class="trainer-top-nav-link" aria-label="Khung giờ dạy">
+        <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24" aria-hidden="true">
           <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
           <line x1="16" y1="2" x2="16" y2="6" />
           <line x1="8" y1="2" x2="8" y2="6" />
           <line x1="3" y1="10" x2="21" y2="10" />
         </svg>
-        <span>Lịch rảnh</span>
+        <span>Lịch dạy</span>
       </a>
 
-      <a href="/trainer/pt-requests" data-link class="trainer-nav-pill d-none d-md-inline-flex align-items-center gap-1">
-        <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
+      <a href="/trainer/pt-requests.html" data-link class="trainer-top-nav-link" aria-label="Yêu cầu PT">
+        <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24" aria-hidden="true">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
         </svg>
         <span>Yêu cầu PT</span>
       </a>
 
-      <a href="/trainer/progress-notes" data-link class="trainer-nav-pill d-none d-md-inline-flex align-items-center gap-1">
-        <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
+      <a href="/trainer/attendance.html" data-link class="trainer-top-nav-link active" aria-label="Điểm danh học viên">
+        <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24" aria-hidden="true">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
+        </svg>
+        <span>Điểm danh</span>
+      </a>
+
+      <a href="/trainer/progress-notes.html" data-link class="trainer-top-nav-link" aria-label="Ghi chú tiến độ">
+        <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24" aria-hidden="true">
           <path stroke-linecap="round" stroke-linejoin="round" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
         </svg>
         <span>Ghi chú</span>
+      </a>
+
+      <a href="/member/chat.html" data-link class="trainer-top-nav-link" aria-label="Tin nhắn trao đổi">
+        <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z" />
+        </svg>
+        <span>Nhắn tin</span>
+      </a>
+    </div>
+
+    <!-- Right Controls: Profile, Notification & Logout -->
+    <div class="d-flex align-items-center gap-2 gap-md-3">
+      <!-- Profile Button -->
+      <a href="/profile" data-link class="btn-trainer-profile" title="Hồ sơ cá nhân" aria-label="Xem hồ sơ huấn luyện viên">
+        <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+          <circle cx="12" cy="7" r="4"/>
+        </svg>
+        <span class="d-none d-md-inline ms-1 fs-8 fw-semibold">Hồ sơ</span>
       </a>
 
       <!-- Notification Dropdown -->
@@ -54,7 +81,19 @@
         </div>
       </div>
 
-      <span class="badge-theme badge-active px-3 py-1">TRAINER PORTAL</span>
+      <!-- Logout Button -->
+      <button 
+        type="button" 
+        id="btn-trainer-logout" 
+        class="btn-trainer-logout d-none d-sm-inline-flex" 
+        data-action="logout" 
+        aria-label="Đăng xuất khỏi tài khoản Huấn luyện viên"
+      >
+        <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24" aria-hidden="true">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+        </svg>
+        <span>Đăng xuất</span>
+      </button>
     </div>
   </nav>
 
@@ -63,8 +102,8 @@
     <div id="attendance-toast" class="toast align-items-center border-0 shadow-lg text-white bg-success" role="alert" aria-live="assertive" aria-atomic="true">
       <div class="d-flex">
         <div class="toast-body d-flex align-items-center gap-2 py-3 px-3">
-          <span id="attendance-toast-icon">
-            <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" aria-hidden="true">
+          <span id="attendance-toast-icon" aria-hidden="true">
+            <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
             </svg>
           </span>
@@ -75,33 +114,31 @@
     </div>
   </div>
 
-  <!-- ── CONTENT CONTAINER ── -->
-  <div class="container py-4 px-3 px-md-4">
-    <!-- HERO HEADER -->
-    <section class="trainer-hero card-theme p-4 p-md-5 mb-4 position-relative overflow-hidden" aria-labelledby="attendance-hero-title">
-      <div class="hero-decor-orb" aria-hidden="true"></div>
-      <div class="row align-items-center position-relative" style="z-index: 2;">
-        <div class="col-12 col-md-8">
-          <span class="badge trainer-hero-badge px-3 py-1 mb-2 rounded-pill d-inline-flex align-items-center gap-1">
-            <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" aria-hidden="true">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-            </svg>
-            QUẢN LÝ CHUYÊN CẦN &amp; ĐIỂM DANH
-          </span>
-          <h1 id="attendance-hero-title" class="hero-title fw-bold mb-2">Điểm Danh Hội Viên</h1>
-          <p class="hero-desc mb-0">
-            Theo dõi và xác nhận sự có mặt của học viên trong các lớp nhóm và lịch huấn luyện 1-1. Đảm bảo chất lượng đào tạo và quyền lợi cho hội viên!
-          </p>
+  <!-- ── CONTENT CONTAINER (Bọc bằng thẻ main container pb-5 mb-5 chống che khuất) ── -->
+  <main class="container pb-5 mb-5 pt-3 pt-md-4">
+    <!-- SPORTY PAGE HEADER -->
+    <header class="trainer-page-header">
+      <div class="trainer-header-accent" aria-hidden="true"></div>
+      <div class="position-relative" style="z-index: 2;">
+        <div class="trainer-header-tag">
+          <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
+          <span>PULSE TRAINER · ĐIỂM DANH HỘI VIÊN</span>
         </div>
+        <h1 class="trainer-header-title">Quản Lý Chuyên Cần &amp; Điểm Danh</h1>
+        <p class="trainer-header-desc">
+          Theo dõi và xác nhận chính xác sự có mặt của học viên trong các lớp nhóm và lịch huấn luyện 1-1. Đảm bảo chất lượng đào tạo và quyền lợi tối đa cho hội viên!
+        </p>
       </div>
-    </section>
+    </header>
 
     <!-- BẢNG DANH SÁCH HỘI VIÊN ĐIỂM DANH -->
     <section class="card attendance-card-wrapper shadow-sm border-0" aria-label="Danh sách học viên cần điểm danh">
       <div class="card-header attendance-card-header py-3 px-4 d-flex flex-wrap justify-content-between align-items-center gap-2">
         <div>
-          <h2 class="fs-5 fw-bold text-secondary-theme mb-1">Danh sách cần điểm danh</h2>
-          <small class="text-neutral">Chọn trạng thái 'Có mặt' hoặc 'Vắng mặt' và bấm 'Lưu điểm danh' cho từng hội viên</small>
+          <h2 class="fs-5 fw-bold text-secondary-theme mb-1">Danh sách buổi tập cần điểm danh</h2>
+          <small class="text-neutral">Chọn trạng thái 'Có mặt' hoặc 'Vắng mặt' và bấm 'Lưu điểm danh' cho từng học viên</small>
         </div>
         <div class="d-flex align-items-center gap-2">
           <span class="badge rounded-pill px-3 py-2" id="attendance-summary-badge" aria-live="polite">0 học viên</span>
@@ -133,5 +170,55 @@
         </table>
       </div>
     </section>
-  </div>
-</main>
+  </main>
+
+  <!-- ── BOTTOM NAVIGATION BAR (Mobile-First Fixed Bottom) ── -->
+  <nav class="trainer-bottom-nav d-flex d-lg-none fixed-bottom" aria-label="Trainer Mobile Navigation">
+    <div class="trainer-bottom-nav-inner">
+      <a href="/trainer/time-slots.html" data-link class="trainer-bottom-nav-item" aria-label="Lịch dạy">
+        <svg fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24" aria-hidden="true">
+          <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
+          <line x1="16" y1="2" x2="16" y2="6" />
+          <line x1="8" y1="2" x2="8" y2="6" />
+          <line x1="3" y1="10" x2="21" y2="10" />
+        </svg>
+        <span>Lịch dạy</span>
+      </a>
+
+      <a href="/trainer/pt-requests.html" data-link class="trainer-bottom-nav-item" aria-label="Yêu cầu PT">
+        <svg fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24" aria-hidden="true">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+        </svg>
+        <span>Yêu cầu</span>
+      </a>
+
+      <a href="/trainer/attendance.html" data-link class="trainer-bottom-nav-item active" aria-label="Điểm danh">
+        <svg fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24" aria-hidden="true">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
+        </svg>
+        <span>Điểm danh</span>
+      </a>
+
+      <a href="/trainer/progress-notes.html" data-link class="trainer-bottom-nav-item" aria-label="Ghi chú">
+        <svg fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24" aria-hidden="true">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+        </svg>
+        <span>Ghi chú</span>
+      </a>
+
+      <a href="/member/chat.html" data-link class="trainer-bottom-nav-item" aria-label="Tin nhắn">
+        <svg fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z" />
+        </svg>
+        <span>Nhắn tin</span>
+      </a>
+
+      <button type="button" class="trainer-bottom-nav-item item-logout btn-trainer-logout" id="btn-trainer-bottom-logout" data-action="logout" aria-label="Đăng xuất">
+        <svg fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24" aria-hidden="true">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+        </svg>
+        <span>Đăng xuất</span>
+      </button>
+    </div>
+  </nav>
+</div>

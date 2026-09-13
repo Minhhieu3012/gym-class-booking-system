@@ -15,10 +15,25 @@ export function render(): string {
 
 export function init(): void {
   initNotification();
+  const user = getStoredUser();
+
   const chatLink = document.querySelector<HTMLAnchorElement>("#nav-chat-link");
   if (chatLink) {
-    const user = getStoredUser();
-    chatLink.href = user?.role === "TRAINER" ? "/trainer/chat" : "/member/chat";
+    chatLink.href = user?.role === "TRAINER" ? "/trainer/chat.html" : "/member/chat.html";
+  }
+
+  const backLink = document.querySelector<HTMLAnchorElement>("#profile-back-link");
+  if (backLink) {
+    if (user?.role === "TRAINER") {
+      backLink.href = "/trainer/time-slots.html";
+      backLink.setAttribute("title", "Quay lại Lịch dạy Huấn Luyện Viên");
+    } else if (user?.role === "ADMIN") {
+      backLink.href = "/admin/dashboard.html";
+      backLink.setAttribute("title", "Quay lại Dashboard Admin");
+    } else {
+      backLink.href = "/member/class-list.html";
+      backLink.setAttribute("title", "Quay lại Lịch lớp học");
+    }
   }
   const avatarImg = document.querySelector<HTMLImageElement>("#profile-avatar");
   const avatarInput = document.querySelector<HTMLInputElement>(

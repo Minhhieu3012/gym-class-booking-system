@@ -54,14 +54,16 @@ export function init(): void {
     try {
       const loginRes = await authService.login({ username, password });
 
-      // Redirect-back support: /login?redirect=/admin/dashboard
+      // Redirect-back support: /login?redirect=/admin/dashboard.html
       const params = new URLSearchParams(window.location.search);
       let redirectTo = params.get("redirect");
       if (!redirectTo) {
         if (loginRes.user?.role === "ADMIN") {
-          redirectTo = "/admin/dashboard";
+          redirectTo = "/admin/dashboard.html";
         } else if (loginRes.user?.role === "TRAINER") {
-          redirectTo = "/trainer/time-slots";
+          redirectTo = "/trainer/time-slots.html";
+        } else if (loginRes.user?.role === "MEMBER") {
+          redirectTo = "/member/class-list.html";
         } else {
           redirectTo = "/";
         }

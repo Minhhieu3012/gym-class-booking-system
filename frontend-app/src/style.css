@@ -1,4 +1,6 @@
-﻿:root {
+@import "./pages/trainer/trainer-nav.css";
+
+:root {
   --font-primary: "Space Grotesk", sans-serif;
 
   --color-primary: #dc3545;

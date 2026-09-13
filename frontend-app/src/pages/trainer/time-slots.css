@@ -3,6 +3,7 @@
    Sporty & Premium Athletic Aesthetic (Vanilla CSS + Bootstrap 5)
    WCAG 2.1 Compliant, Smooth Transitions, Refined Geometry
    ============================================================ */
+@import "./trainer-nav.css";
 
 .trainer-time-slots-page {
   font-family: var(--font-primary, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif);

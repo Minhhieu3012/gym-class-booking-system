@@ -1,6 +1,7 @@
 /* ============================================================
    Trainer PT Requests Management Page Styles — Sporty & Premium Redesign
    ============================================================ */
+@import "./trainer-nav.css";
 
 .trainer-pt-requests-page {
   font-family: var(--font-primary, system-ui, -apple-system, sans-serif);
