@@ -280,8 +280,8 @@ function renderTable(): void {
               <line x1="2" y1="10" x2="22" y2="10" />
             </svg>
           </div>
-          <div class="fw-semibold text-dark mb-1">Không tìm thấy giao dịch nào</div>
-          <div class="small text-muted">Vui lòng điều chỉnh lại từ khóa tìm kiếm hoặc bộ lọc trạng thái.</div>
+          <div class="fw-semibold text-dark mb-1">Không có dữ liệu</div>
+          <div class="small text-muted">Không tìm thấy giao dịch nào phù hợp.</div>
         </td>
       </tr>`;
     renderPagination();
@@ -547,9 +547,11 @@ function setupEventListeners(): void {
 
       closeTransactionConfirmModal();
       await loadTransactions();
-    } catch (err) {
+    } catch (err: any) {
       console.error("Lỗi khi cập nhật trạng thái giao dịch:", err);
-      showTransactionToast("Cập nhật giao dịch thất bại. Vui lòng kiểm tra lại!", "danger");
+      const errMsg = err?.response?.data?.message || err?.message || "Cập nhật giao dịch thất bại. Vui lòng kiểm tra lại!";
+      showTransactionToast(errMsg, "danger");
+      alert(errMsg);
     } finally {
       confirmBtn.disabled = false;
       confirmBtn.innerHTML = originalText;
@@ -640,10 +642,9 @@ function setupLogoutAction(): void {
         await authService.logout();
       }
     } catch (err) {
-      console.warn("Lỗi khi gọi API logout:", err);
+      console.error("Lỗi khi gọi API logout:", err);
     } finally {
       localStorage.removeItem(STORAGE_KEYS.ACCESS_TOKEN);
-      localStorage.removeItem(STORAGE_KEYS.REFRESH_TOKEN);
       localStorage.removeItem(STORAGE_KEYS.USER);
       window.location.href = "/auth/login.html";
     }

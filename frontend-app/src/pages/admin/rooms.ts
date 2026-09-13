@@ -18,7 +18,6 @@ let allRooms: RoomResponse[] = [];
 function getModal(): InstanceType<typeof bootstrap.Modal> | null {
   const el = document.querySelector<HTMLElement>("#modal-room");
   if (!el || typeof bootstrap === "undefined") return null;
-  // bootstrap.Modal.getInstance returns existing instance or null
   return (
     (
       bootstrap.Modal as unknown as {
@@ -86,7 +85,7 @@ export async function init(): Promise<void> {
     "#room-capacity-error",
   );
 
-    function showAlert(
+  function showAlert(
     msg: string,
     type: "success" | "danger" = "success",
   ): void {
@@ -185,8 +184,14 @@ export async function init(): Promise<void> {
 
     tableWrapper.style.display = "block";
 
-    if (rooms.length === 0) {
-      tbody.innerHTML = "";
+    if (!rooms || rooms.length === 0) {
+      tbody.innerHTML = `
+        <tr>
+          <td colspan="6" class="text-center py-5 text-muted">
+            <div class="fw-semibold text-dark mb-1">Không có dữ liệu</div>
+            <div class="small text-muted">Không tìm thấy phòng tập nào.</div>
+          </td>
+        </tr>`;
       emptyEl.style.display = "block";
     } else {
       emptyEl.style.display = "none";
@@ -207,7 +212,9 @@ export async function init(): Promise<void> {
       setStats(allRooms);
       renderTable(allRooms);
     } catch (error: unknown) {
-      showAlert(authService.extractErrorMessage(error), "danger");
+      const msg = authService.extractErrorMessage(error);
+      showAlert(msg, "danger");
+      console.error("Lỗi khi tải danh sách phòng:", error);
     } finally {
       if (loadingEl) loadingEl.style.display = "none";
     }
@@ -252,7 +259,10 @@ export async function init(): Promise<void> {
           } catch (error: unknown) {
             // Revert toggle visual
             toggle.checked = !toggle.checked;
-            showAlert(authService.extractErrorMessage(error), "danger");
+            const msg = authService.extractErrorMessage(error);
+            showAlert(msg, "danger");
+            alert(msg);
+            console.error("Lỗi khi đổi trạng thái phòng:", error);
           } finally {
             toggle.disabled = false;
           }
@@ -260,7 +270,7 @@ export async function init(): Promise<void> {
       });
   }
 
-    function attachEditListeners(): void {
+  function attachEditListeners(): void {
     document
       .querySelectorAll<HTMLButtonElement>(".btn-edit-room")
       .forEach((btn) => {
@@ -273,7 +283,7 @@ export async function init(): Promise<void> {
       });
   }
 
-    function clearFormErrors(): void {
+  function clearFormErrors(): void {
     if (nameError) nameError.style.display = "none";
     if (locationError) locationError.style.display = "none";
     if (capacityError) capacityError.style.display = "none";
@@ -339,7 +349,7 @@ export async function init(): Promise<void> {
     getModal()?.show();
   }
 
-    btnCapMinus?.addEventListener("click", () => {
+  btnCapMinus?.addEventListener("click", () => {
     if (!capacityInput) return;
     const val = parseInt(capacityInput.value, 10) || 1;
     if (val > 1) capacityInput.value = String(val - 1);
@@ -351,14 +361,14 @@ export async function init(): Promise<void> {
     if (val < 500) capacityInput.value = String(val + 1);
   });
 
-    nameInput?.addEventListener("input", () => {
+  nameInput?.addEventListener("input", () => {
     if (nameCounter)
       nameCounter.textContent = `${nameInput.value.length} / 60 chars`;
   });
 
-    btnOpenAdd?.addEventListener("click", openAddModal);
+  btnOpenAdd?.addEventListener("click", openAddModal);
 
-    roomForm?.addEventListener("submit", async (e: Event) => {
+  roomForm?.addEventListener("submit", async (e: Event) => {
     e.preventDefault();
     clearFormErrors();
 
@@ -401,7 +411,7 @@ export async function init(): Promise<void> {
 
     try {
       if (editingId) {
-                const updated = await roomService.update(editingId, {
+        const updated = await roomService.update(editingId, {
           name,
           location,
           capacity,
@@ -413,7 +423,7 @@ export async function init(): Promise<void> {
         }
         showAlert(`Room "${updated.name}" updated successfully.`, "success");
       } else {
-                const created = await roomService.create({
+        const created = await roomService.create({
           name,
           location,
           capacity,
@@ -439,6 +449,8 @@ export async function init(): Promise<void> {
         formError.textContent = msg;
         formError.style.display = "block";
       }
+      alert(msg);
+      console.error("Lỗi khi lưu phòng:", error);
     } finally {
       if (submitBtn) {
         submitBtn.disabled = false;
@@ -450,7 +462,7 @@ export async function init(): Promise<void> {
     }
   });
 
-    filterSelect?.addEventListener("change", () => {
+  filterSelect?.addEventListener("change", () => {
     const val = filterSelect.value as RoomStatus | "";
     const filtered = val ? allRooms.filter((r) => r.status === val) : allRooms;
     renderTable(filtered);
@@ -495,10 +507,9 @@ function setupLogoutAction(): void {
         await authService.logout();
       }
     } catch (err) {
-      console.warn("Lỗi khi gọi API logout:", err);
+      console.error("Lỗi khi gọi API logout:", err);
     } finally {
       localStorage.removeItem(STORAGE_KEYS.ACCESS_TOKEN);
-      localStorage.removeItem(STORAGE_KEYS.REFRESH_TOKEN);
       localStorage.removeItem(STORAGE_KEYS.USER);
       window.location.href = "/auth/login.html";
     }

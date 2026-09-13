@@ -208,7 +208,7 @@ function renderTable(): void {
               <line x1="12" y1="16" x2="12.01" y2="16" />
             </svg>
           </div>
-          <div class="fw-semibold text-dark mb-1">Không có hồ sơ nào phù hợp</div>
+          <div class="fw-semibold text-dark mb-1">Không có dữ liệu</div>
           <div class="small text-muted">Hiện tại không có huấn luyện viên nào theo điều kiện tìm kiếm.</div>
         </td>
       </tr>`;
@@ -445,9 +445,11 @@ function setupEventListeners(): void {
       closeApproveModal();
       showTrainerToast(`Đã phê duyệt hồ sơ HLV "${currentApproveTrainerName}" thành công!`, "success");
       await loadPendingTrainers();
-    } catch (err) {
+    } catch (err: any) {
       console.error("Lỗi khi duyệt hồ sơ trainer:", err);
-      showTrainerToast("Phê duyệt hồ sơ thất bại. Vui lòng thử lại sau!", "danger");
+      const errMsg = err?.response?.data?.message || err?.message || "Phê duyệt hồ sơ thất bại. Vui lòng thử lại sau!";
+      showTrainerToast(errMsg, "danger");
+      alert(errMsg);
     } finally {
       confirmApproveBtn.disabled = false;
       confirmApproveBtn.innerHTML = originalText;
@@ -481,9 +483,11 @@ function setupEventListeners(): void {
       closeRejectModal();
       showTrainerToast(`Đã từ chối hồ sơ của HLV "${currentRejectTrainerName}" thành công!`, "success");
       await loadPendingTrainers();
-    } catch (err) {
+    } catch (err: any) {
       console.error("Lỗi khi từ chối hồ sơ trainer:", err);
-      showTrainerToast("Từ chối hồ sơ thất bại. Vui lòng thử lại sau!", "danger");
+      const errMsg = err?.response?.data?.message || err?.message || "Từ chối hồ sơ thất bại. Vui lòng thử lại sau!";
+      showTrainerToast(errMsg, "danger");
+      alert(errMsg);
     } finally {
       confirmRejectBtn.disabled = false;
       confirmRejectBtn.innerHTML = originalText;
@@ -583,10 +587,9 @@ function setupLogoutAction(): void {
         await authService.logout();
       }
     } catch (err) {
-      console.warn("Lỗi khi gọi API logout:", err);
+      console.error("Lỗi khi gọi API logout:", err);
     } finally {
       localStorage.removeItem(STORAGE_KEYS.ACCESS_TOKEN);
-      localStorage.removeItem(STORAGE_KEYS.REFRESH_TOKEN);
       localStorage.removeItem(STORAGE_KEYS.USER);
       window.location.href = "/auth/login.html";
     }

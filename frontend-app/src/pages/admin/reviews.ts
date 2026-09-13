@@ -284,8 +284,8 @@ function renderTable(): void {
               <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
             </svg>
           </div>
-          <div class="fw-semibold text-dark mb-1">Không tìm thấy đánh giá nào</div>
-          <div class="small text-muted">Vui lòng điều chỉnh lại bộ lọc số sao hoặc trạng thái.</div>
+          <div class="fw-semibold text-dark mb-1">Không có dữ liệu</div>
+          <div class="small text-muted">Không tìm thấy đánh giá nào phù hợp.</div>
         </td>
       </tr>`;
     renderPagination();
@@ -518,9 +518,11 @@ function setupEventListeners(): void {
 
       closeReviewStatusModal();
       await loadReviews();
-    } catch (err) {
+    } catch (err: any) {
       console.error("Lỗi khi cập nhật trạng thái review:", err);
-      showReviewToast("Cập nhật trạng thái đánh giá thất bại. Vui lòng thử lại sau!", "danger");
+      const errMsg = err?.response?.data?.message || err?.message || "Cập nhật trạng thái đánh giá thất bại. Vui lòng thử lại sau!";
+      showReviewToast(errMsg, "danger");
+      alert(errMsg);
     } finally {
       confirmBtn.disabled = false;
       confirmBtn.innerHTML = originalText;
@@ -630,10 +632,9 @@ function setupLogoutAction(): void {
         await authService.logout();
       }
     } catch (err) {
-      console.warn("Lỗi khi gọi API logout:", err);
+      console.error("Lỗi khi gọi API logout:", err);
     } finally {
       localStorage.removeItem(STORAGE_KEYS.ACCESS_TOKEN);
-      localStorage.removeItem(STORAGE_KEYS.REFRESH_TOKEN);
       localStorage.removeItem(STORAGE_KEYS.USER);
       window.location.href = "/auth/login.html";
     }

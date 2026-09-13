@@ -261,7 +261,7 @@ async function openAdjustPackageModal(userId: number, userName: string): Promise
       }
     }
   } catch (err) {
-    console.warn("Không thể tải gói tập tự động cho hội viên:", err);
+    console.error("Không thể tải gói tập tự động cho hội viên:", err);
     if (pkgSelect) {
       pkgSelect.innerHTML = `<option value="" disabled selected>Không thể tải danh sách gói tập</option>`;
     }
@@ -360,8 +360,8 @@ function renderTable(): void {
               <line x1="21" y1="21" x2="16.65" y2="16.65" />
             </svg>
           </div>
-          <div class="fw-semibold text-dark mb-1">Không tìm thấy người dùng nào</div>
-          <div class="small text-muted">Vui lòng thử điều chỉnh lại bộ lọc tìm kiếm.</div>
+          <div class="fw-semibold text-dark mb-1">Không có dữ liệu</div>
+          <div class="small text-muted">Không tìm thấy người dùng nào phù hợp.</div>
         </td>
       </tr>`;
     renderPagination();
@@ -624,9 +624,11 @@ function setupEventListeners(): void {
         "success",
       );
       await loadUsers();
-    } catch (error) {
+    } catch (error: any) {
       console.error("Lỗi khi cập nhật trạng thái người dùng:", error);
-      showUserToast("Cập nhật trạng thái người dùng thất bại! Vui lòng thử lại.", "danger");
+      const errMsg = error?.response?.data?.message || error?.message || "Cập nhật trạng thái người dùng thất bại! Vui lòng thử lại.";
+      showUserToast(errMsg, "danger");
+      alert(errMsg);
     } finally {
       confirmStatusBtn.disabled = false;
       confirmStatusBtn.innerHTML = originalText;
@@ -693,9 +695,11 @@ function setupEventListeners(): void {
       showUserToast(`Đã cập nhật lượt tập cho hội viên "${currentAdjustUserName}" thành công!`, "success");
       closeAdjustPackageModal();
       await loadUsers();
-    } catch (err) {
+    } catch (err: any) {
       console.error("Lỗi khi điều chỉnh lượt tập:", err);
-      showUserToast("Điều chỉnh lượt tập thất bại. Vui lòng kiểm tra lại thông tin!", "danger");
+      const errMsg = err?.response?.data?.message || err?.message || "Điều chỉnh lượt tập thất bại. Vui lòng kiểm tra lại thông tin!";
+      showUserToast(errMsg, "danger");
+      alert(errMsg);
     } finally {
       if (submitBtn) {
         submitBtn.disabled = false;
@@ -796,10 +800,9 @@ function setupLogoutAction(): void {
         await authService.logout();
       }
     } catch (err) {
-      console.warn("Lỗi khi gọi API logout:", err);
+      console.error("Lỗi khi gọi API logout:", err);
     } finally {
       localStorage.removeItem(STORAGE_KEYS.ACCESS_TOKEN);
-      localStorage.removeItem(STORAGE_KEYS.REFRESH_TOKEN);
       localStorage.removeItem(STORAGE_KEYS.USER);
       window.location.href = "/auth/login.html";
     }

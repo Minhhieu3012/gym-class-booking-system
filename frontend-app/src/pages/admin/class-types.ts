@@ -177,8 +177,14 @@ export async function init(): Promise<void> {
 
     tableWrapper.style.display = "block";
 
-    if (items.length === 0) {
-      tbody.innerHTML = "";
+    if (!items || items.length === 0) {
+      tbody.innerHTML = `
+        <tr>
+          <td colspan="5" class="text-center py-5 text-muted">
+            <div class="fw-semibold text-dark mb-1">Không có dữ liệu</div>
+            <div class="small text-muted">Không tìm thấy thể loại lớp học nào.</div>
+          </td>
+        </tr>`;
       emptyEl.style.display = "block";
     } else {
       emptyEl.style.display = "none";
@@ -427,6 +433,7 @@ export async function init(): Promise<void> {
         formError.textContent = msg;
         formError.style.display = "block";
       }
+      alert(msg);
     } finally {
       if (submitBtn) {
         submitBtn.disabled = false;
@@ -488,10 +495,9 @@ function setupLogoutAction(): void {
         await authService.logout();
       }
     } catch (err) {
-      console.warn("Lỗi khi gọi API logout:", err);
+      console.error("Lỗi khi gọi API logout:", err);
     } finally {
       localStorage.removeItem(STORAGE_KEYS.ACCESS_TOKEN);
-      localStorage.removeItem(STORAGE_KEYS.REFRESH_TOKEN);
       localStorage.removeItem(STORAGE_KEYS.USER);
       window.location.href = "/auth/login.html";
     }
