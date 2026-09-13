@@ -1,61 +1,302 @@
 /* ============================================================
-   Trainer Attendance Page Styles
+   Trainer Attendance Page Styles — Sporty & Premium Redesign
    ============================================================ */
 
 .trainer-attendance-page {
   font-family: var(--font-primary, system-ui, -apple-system, sans-serif);
+  background-color: var(--color-surface-alt, #f8f9fa);
 }
 
+/* ── NAVBAR ── */
 .attendance-navbar {
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  z-index: 1000;
+  background: rgba(255, 255, 255, 0.96) !important;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08) !important;
+  z-index: 1020;
 }
 
 .btn-back {
-  width: 38px;
-  height: 38px;
-  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
   border: 1px solid var(--color-border, #e5e7eb);
   background: var(--color-surface, #ffffff);
-  transition: all 0.2s ease;
+  color: var(--color-secondary, #212529);
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .btn-back:hover {
-  background: var(--color-surface-alt, #f3f4f6);
+  background: var(--color-surface-alt, #f1f5f9);
+  color: var(--color-primary, #dc3545);
+  border-color: var(--color-primary, #dc3545);
   transform: translateX(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
 }
 
 .brand-title {
-  font-size: 1.125rem;
+  font-size: 1.15rem;
   letter-spacing: -0.02em;
+  font-weight: 800;
 }
 
 .page-subtitle {
-  font-size: 0.7rem;
-  font-weight: 600;
+  font-size: 0.68rem;
+  font-weight: 700;
   letter-spacing: 0.08em;
+  color: var(--color-neutral, #64748b);
 }
 
+.trainer-nav-pill {
+  font-size: 0.8rem;
+  font-weight: 600;
+  padding: 0.4rem 0.85rem;
+  border-radius: 999px;
+  text-decoration: none;
+  transition: all 0.2s ease;
+  border: 1px solid var(--color-border, #dee2e6);
+  background: var(--color-surface, #ffffff);
+  color: var(--color-secondary, #212529);
+}
+
+.trainer-nav-pill:hover,
+.trainer-nav-pill.active {
+  background: var(--color-secondary, #212529);
+  color: #ffffff;
+  border-color: var(--color-secondary, #212529);
+  transform: translateY(-1px);
+}
+
+/* ── HERO BANNER ── */
+.trainer-hero {
+  background: linear-gradient(135deg, #ffffff 0%, #f0fdf4 50%, #f8fafc 100%);
+  border: 1px solid rgba(16, 185, 129, 0.25) !important;
+  border-radius: 20px !important;
+  box-shadow: 0 10px 30px -10px rgba(16, 185, 129, 0.12), 0 4px 6px -2px rgba(0, 0, 0, 0.03) !important;
+}
+
+.trainer-hero-badge {
+  background: rgba(16, 185, 129, 0.12);
+  color: #065f46;
+  border: 1px solid rgba(16, 185, 129, 0.25);
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.hero-title {
+  font-size: clamp(1.5rem, 3.5vw, 2.15rem);
+  letter-spacing: -0.03em;
+  color: #0f172a;
+}
+
+.hero-desc {
+  max-width: 620px;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: #475569 !important;
+}
+
+.hero-decor-orb {
+  position: absolute;
+  top: -60px;
+  right: -60px;
+  width: 220px;
+  height: 220px;
+  background: radial-gradient(circle, rgba(16, 185, 129, 0.18) 0%, rgba(255, 255, 255, 0) 70%);
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+/* ── ATTENDANCE CARD & TABLE ── */
+.attendance-card-wrapper {
+  background: #ffffff;
+  border: 1px solid rgba(0, 0, 0, 0.08) !important;
+  border-radius: 20px !important;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05) !important;
+  overflow: hidden;
+}
+
+.attendance-card-header {
+  background: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.07) !important;
+}
+
+#attendance-summary-badge {
+  background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%) !important;
+  color: #38bdf8 !important;
+  border: 1px solid rgba(56, 189, 248, 0.25);
+  font-weight: 700;
+  font-size: 0.82rem;
+  letter-spacing: 0.02em;
+  box-shadow: 0 2px 8px rgba(15, 23, 42, 0.15);
+}
+
+/* Table styling */
+#attendance-table {
+  border-collapse: separate;
+  border-spacing: 0;
+  width: 100%;
+}
+
+#attendance-table thead th {
+  background: #f8fafc;
+  color: #475569;
+  font-size: 0.72rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  padding: 1rem 1rem;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+  white-space: nowrap;
+}
+
+#attendance-table tbody tr {
+  transition: all 0.2s ease;
+  background-color: #ffffff;
+}
+
+#attendance-table tbody tr:nth-child(even):not(.attendance-row-completed) {
+  background-color: #fafbfc;
+}
+
+#attendance-table tbody tr:hover:not(.attendance-row-completed) {
+  background-color: #f1f5f9 !important;
+  box-shadow: inset 3px 0 0 #0d6efd;
+}
+
+#attendance-table td {
+  padding: 1rem 1rem;
+  vertical-align: middle;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+/* Badges for session types in table */
+.attendance-type-badge-class {
+  background-color: #e0f2fe !important;
+  color: #0369a1 !important;
+  border: 1px solid rgba(3, 105, 161, 0.2);
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+
+.attendance-type-badge-pt {
+  background-color: #ede9fe !important;
+  color: #6d28d9 !important;
+  border: 1px solid rgba(109, 40, 217, 0.2);
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+
+/* ── ATTENDANCE RADIO BUTTONS ── */
+.radio-attendance-group {
+  display: inline-flex;
+  background: #f1f5f9;
+  padding: 3px;
+  border-radius: 999px;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  gap: 2px;
+}
+
+.radio-attendance-group label.btn {
+  font-size: 0.78rem;
+  font-weight: 700;
+  border-radius: 999px !important;
+  border: none !important;
+  padding: 0.4rem 0.85rem;
+  color: #475569;
+  background: transparent;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.radio-attendance-group label.btn:hover {
+  color: #0f172a;
+  background: rgba(255, 255, 255, 0.6);
+}
+
+.radio-attendance-group .btn-check:checked + label.btn-outline-success {
+  background: #10b981 !important;
+  color: #ffffff !important;
+  box-shadow: 0 3px 10px rgba(16, 185, 129, 0.35);
+  transform: scale(1.02);
+}
+
+.radio-attendance-group .btn-check:checked + label.btn-outline-danger {
+  background: #ef4444 !important;
+  color: #ffffff !important;
+  box-shadow: 0 3px 10px rgba(239, 68, 68, 0.35);
+  transform: scale(1.02);
+}
+
+.radio-attendance-group .btn-check:focus-visible + label.btn {
+  outline: 2px solid #0d6efd;
+  outline-offset: 2px;
+}
+
+/* ── ACTION BUTTON: LƯU ĐIỂM DANH ── */
+.btn-save-attendance {
+  border-radius: 10px !important;
+  font-size: 0.82rem !important;
+  font-weight: 700 !important;
+  padding: 0.48rem 1.15rem !important;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  box-shadow: 0 2px 6px rgba(13, 110, 253, 0.2);
+}
+
+.btn-save-attendance.btn-primary {
+  background: linear-gradient(135deg, #0d6efd 0%, #0b5ed7 100%) !important;
+  border: 1px solid #0b5ed7 !important;
+  color: #ffffff !important;
+}
+
+.btn-save-attendance.btn-primary:hover {
+  background: linear-gradient(135deg, #0b5ed7 0%, #0a58ca 100%) !important;
+  transform: translateY(-1px);
+  box-shadow: 0 6px 16px rgba(13, 110, 253, 0.35) !important;
+}
+
+.btn-save-attendance.btn-secondary {
+  background: #e2e8f0 !important;
+  color: #64748b !important;
+  border: 1px solid #cbd5e1 !important;
+  box-shadow: none !important;
+}
+
+/* ── COMPLETED ROW ── */
 .attendance-row-completed {
-  background-color: rgba(16, 185, 129, 0.06) !important;
-  opacity: 0.55 !important;
-  filter: grayscale(0.2);
+  background-color: rgba(240, 253, 244, 0.85) !important;
+  opacity: 0.72 !important;
   transition: all 0.3s ease;
+  border-left: 3px solid #10b981;
+}
+
+.attendance-row-completed:hover {
+  background-color: rgba(240, 253, 244, 0.95) !important;
+  opacity: 0.9 !important;
 }
 
 .attendance-row-completed * {
-  cursor: not-allowed !important;
+  cursor: default !important;
 }
 
-.radio-attendance-group .btn-check:checked + .btn-outline-success {
-  background-color: #198754;
-  color: #fff;
-  border-color: #198754;
+/* ── TOAST ── */
+#attendance-toast {
+  border-radius: 14px;
+  min-width: 320px;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.15) !important;
 }
 
-.radio-attendance-group .btn-check:checked + .btn-outline-danger {
-  background-color: #dc3545;
-  color: #fff;
-  border-color: #dc3545;
+@media (max-width: 768px) {
+  .trainer-hero {
+    padding: 1.5rem !important;
+  }
+  
+  #attendance-table thead th,
+  #attendance-table td {
+    padding: 0.75rem 0.5rem;
+  }
 }

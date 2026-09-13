@@ -1,21 +1,59 @@
 <main class="trainer-pt-requests-page bg-surface-alt min-vh-100 pb-5">
   <!-- ── NAVBAR ── -->
-  <nav class="pt-requests-navbar w-100 d-flex justify-content-between align-items-center px-3 px-md-4 py-3 bg-surface border-bottom border-theme sticky-top">
+  <nav class="pt-requests-navbar w-100 d-flex justify-content-between align-items-center px-3 px-md-4 py-3 bg-surface border-bottom border-theme sticky-top" aria-label="Trainer Navigation">
     <div class="d-flex align-items-center gap-3">
-      <a href="/profile" data-link class="btn-back text-secondary-theme d-flex align-items-center justify-content-center" aria-label="Quay lại">
-        <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
+      <a href="/profile" data-link class="btn-back text-secondary-theme d-flex align-items-center justify-content-center" aria-label="Quay lại hồ sơ cá nhân">
+        <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24" aria-hidden="true">
           <path stroke-linecap="round" stroke-linejoin="round" d="M19 12H5M12 19l-7-7 7-7" />
         </svg>
       </a>
       <div>
         <div class="d-flex align-items-center gap-2">
-          <span class="logo-lightning">⚡</span>
+          <span class="logo-lightning" aria-hidden="true">⚡</span>
           <span class="brand-title fw-bold text-secondary-theme">PULSE GYM</span>
         </div>
         <p class="page-subtitle text-neutral mb-0">HUẤN LUYỆN VIÊN · DUYỆT YÊU CẦU ĐẶT LỊCH 1-1</p>
       </div>
     </div>
-    <div class="d-flex align-items-center gap-2">
+
+    <div class="d-flex align-items-center gap-2 gap-md-3">
+      <!-- Quick Portal Links -->
+      <a href="/trainer/attendance" data-link class="trainer-nav-pill d-none d-md-inline-flex align-items-center gap-1">
+        <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
+        </svg>
+        <span>Điểm danh</span>
+      </a>
+
+      <a href="/trainer/time-slots" data-link class="trainer-nav-pill d-none d-md-inline-flex align-items-center gap-1">
+        <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
+          <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
+          <line x1="16" y1="2" x2="16" y2="6" />
+          <line x1="8" y1="2" x2="8" y2="6" />
+          <line x1="3" y1="10" x2="21" y2="10" />
+        </svg>
+        <span>Lịch rảnh</span>
+      </a>
+
+      <a href="/trainer/progress-notes" data-link class="trainer-nav-pill d-none d-md-inline-flex align-items-center gap-1">
+        <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+        </svg>
+        <span>Ghi chú</span>
+      </a>
+
+      <!-- Notification Dropdown -->
+      <div class="dropdown position-relative">
+        <button id="notification-bell" class="btn p-0 border-0 bg-transparent text-secondary-theme position-relative d-flex align-items-center justify-content-center" aria-label="Xem thông báo hệ thống" type="button">
+          <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9" />
+            <path d="M13.73 21a2 2 0 0 1-3.46 0" />
+          </svg>
+        </button>
+        <div id="notification-dropdown" class="dropdown-menu dropdown-menu-end shadow-lg p-0" style="min-width: 320px; max-width: 380px; z-index: 1050; right: 0; left: auto;">
+        </div>
+      </div>
+
       <span class="badge-theme badge-active px-3 py-1">TRAINER PORTAL</span>
     </div>
   </nav>
@@ -26,13 +64,13 @@
       <div class="d-flex">
         <div class="toast-body d-flex align-items-center gap-2 py-3 px-3">
           <span id="trainer-toast-icon">
-            <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+            <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" aria-hidden="true">
               <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
             </svg>
           </span>
           <span id="trainer-toast-message" class="fw-semibold">Thao tác thành công!</span>
         </div>
-        <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+        <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Đóng thông báo"></button>
       </div>
     </div>
   </div>
@@ -40,27 +78,34 @@
   <!-- ── CONTENT CONTAINER ── -->
   <div class="container py-4 px-3 px-md-4">
     <!-- HERO HEADER -->
-    <div class="trainer-hero card-theme p-4 p-md-5 mb-4 position-relative overflow-hidden">
-      <div class="row align-items-center">
+    <section class="trainer-hero card-theme p-4 p-md-5 mb-4 position-relative overflow-hidden" aria-labelledby="pt-requests-hero-title">
+      <div class="hero-decor-orb-requests" aria-hidden="true"></div>
+      <div class="row align-items-center position-relative" style="z-index: 2;">
         <div class="col-12 col-md-8">
-          <span class="badge-theme badge-pending px-3 py-1 mb-2">DANH SÁCH CHỜ DUYỆT</span>
-          <h1 class="hero-title fw-bold text-secondary-theme mb-2">Yêu Cầu Huấn Luyện 1-1</h1>
+          <span class="badge trainer-hero-badge-requests px-3 py-1 mb-2 rounded-pill d-inline-flex align-items-center gap-1">
+            <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" aria-hidden="true">
+              <circle cx="12" cy="12" r="10" />
+              <polyline points="12 6 12 12 16 14" />
+            </svg>
+            YÊU CẦU HUẤN LUYỆN 1 KÈM 1
+          </span>
+          <h1 id="pt-requests-hero-title" class="hero-title fw-bold mb-2">Yêu Cầu Huấn Luyện 1-1</h1>
           <p class="hero-desc text-neutral mb-0">
             Xem xét và phản hồi các yêu cầu đặt lịch tập từ học viên. Xác nhận lịch sớm để hội viên chuẩn bị thể lực tốt nhất!
           </p>
         </div>
       </div>
-    </div>
+    </section>
 
     <!-- DANH SÁCH REQUESTS -->
-    <section class="requests-section">
+    <section class="requests-section" aria-label="Danh sách yêu cầu chờ duyệt">
       <div class="d-flex justify-content-between align-items-center mb-3">
         <h2 class="section-title fs-5 fw-bold text-secondary-theme mb-0 d-flex align-items-center gap-2">
           <span>Yêu cầu đang chờ</span>
-          <span id="pending-count-badge" class="badge bg-warning text-dark rounded-pill fs-7">0</span>
+          <span id="pending-count-badge" class="badge rounded-pill fs-7" aria-live="polite">0</span>
         </h2>
-        <button type="button" id="btn-refresh-pt-requests" class="btn-brand-outline py-1 px-3 d-flex align-items-center gap-1 fs-7">
-          <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+        <button type="button" id="btn-refresh-pt-requests" class="btn btn-outline-secondary py-1 px-3 d-flex align-items-center gap-1 fs-7" aria-label="Tải lại danh sách yêu cầu PT">
+          <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
             <path stroke-linecap="round" stroke-linejoin="round" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
           </svg>
           <span>Tải lại</span>
@@ -70,7 +115,9 @@
       <!-- Container các thẻ PT Request -->
       <div id="trainer-requests-container" class="d-flex flex-column gap-3">
         <div class="text-center py-5">
-          <div class="spinner-border text-danger" role="status"></div>
+          <div class="spinner-border text-danger" role="status">
+            <span class="visually-hidden">Đang tải...</span>
+          </div>
           <p class="text-neutral mt-2 mb-0">Đang tải danh sách yêu cầu PT...</p>
         </div>
       </div>

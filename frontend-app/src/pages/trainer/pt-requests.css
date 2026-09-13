@@ -1,184 +1,297 @@
 /* ============================================================
-   Trainer PT Requests Management Page Styles
-   Mobile-first, Card View for Approval Actions
+   Trainer PT Requests Management Page Styles — Sporty & Premium Redesign
    ============================================================ */
 
 .trainer-pt-requests-page {
-  font-family: var(--font-primary);
+  font-family: var(--font-primary, system-ui, -apple-system, sans-serif);
+  background-color: var(--color-surface-alt, #f8f9fa);
 }
 
-/* Navbar */
+/* ── NAVBAR ── */
 .pt-requests-navbar {
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  background-color: rgba(255, 255, 255, 0.95);
-  z-index: 1000;
+  background: rgba(255, 255, 255, 0.96) !important;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08) !important;
+  z-index: 1020;
 }
 
 .btn-back {
-  width: 38px;
-  height: 38px;
-  border-radius: 50%;
-  border: 1px solid var(--color-border);
-  background: var(--color-surface);
-  transition: all var(--transition-fast);
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+  border: 1px solid var(--color-border, #e5e7eb);
+  background: var(--color-surface, #ffffff);
+  color: var(--color-secondary, #212529);
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .btn-back:hover {
-  background: var(--color-surface-alt);
-  color: var(--color-primary);
-  border-color: var(--color-primary);
+  background: var(--color-surface-alt, #f1f5f9);
+  color: var(--color-primary, #dc3545);
+  border-color: var(--color-primary, #dc3545);
   transform: translateX(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
 }
 
 .brand-title {
-  font-size: var(--text-lg);
+  font-size: 1.15rem;
   letter-spacing: -0.02em;
+  font-weight: 800;
 }
 
 .page-subtitle {
-  font-size: 0.7rem;
-  letter-spacing: 0.08em;
+  font-size: 0.68rem;
   font-weight: 700;
+  letter-spacing: 0.08em;
+  color: var(--color-neutral, #64748b);
 }
 
-.logo-lightning {
-  font-size: 1.2rem;
+.trainer-nav-pill {
+  font-size: 0.8rem;
+  font-weight: 600;
+  padding: 0.4rem 0.85rem;
+  border-radius: 999px;
+  text-decoration: none;
+  transition: all 0.2s ease;
+  border: 1px solid var(--color-border, #dee2e6);
+  background: var(--color-surface, #ffffff);
+  color: var(--color-secondary, #212529);
 }
 
-/* Hero */
+.trainer-nav-pill:hover,
+.trainer-nav-pill.active {
+  background: var(--color-secondary, #212529);
+  color: #ffffff;
+  border-color: var(--color-secondary, #212529);
+  transform: translateY(-1px);
+}
+
+/* ── HERO BANNER ── */
 .trainer-hero {
-  background: linear-gradient(135deg, #ffffff 0%, #fffbf0 100%);
-  border: 1px solid rgba(255, 193, 7, 0.25);
-  border-radius: var(--radius-xl);
+  background: linear-gradient(135deg, #ffffff 0%, #fffbeb 50%, #f8fafc 100%);
+  border: 1px solid rgba(245, 158, 11, 0.25) !important;
+  border-radius: 20px !important;
+  box-shadow: 0 10px 30px -10px rgba(245, 158, 11, 0.12), 0 4px 6px -2px rgba(0, 0, 0, 0.03) !important;
 }
 
-.hero-title {
-  font-size: clamp(1.4rem, 3.5vw, 2rem);
-  letter-spacing: -0.02em;
+.trainer-hero-badge-requests {
+  background: rgba(245, 158, 11, 0.12);
+  color: #92400e;
+  border: 1px solid rgba(245, 158, 11, 0.25);
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
 }
 
-.hero-desc {
-  max-width: 600px;
-  font-size: var(--text-base);
+.hero-decor-orb-requests {
+  position: absolute;
+  top: -60px;
+  right: -60px;
+  width: 220px;
+  height: 220px;
+  background: radial-gradient(circle, rgba(245, 158, 11, 0.16) 0%, rgba(255, 255, 255, 0) 70%);
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+/* Section Header & Refresh */
+#btn-refresh-pt-requests {
+  border-radius: 999px;
+  font-weight: 600;
+  padding: 0.4rem 0.95rem;
+  transition: all 0.2s ease;
+}
+
+#btn-refresh-pt-requests:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+#pending-count-badge {
+  background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%) !important;
+  color: #ffffff !important;
+  font-weight: 800;
+  padding: 0.35rem 0.7rem;
+  box-shadow: 0 2px 8px rgba(245, 158, 11, 0.3);
 }
 
 /* ============================================================
-   PT Request Card
+   PT Request Card Design
    ============================================================ */
 .trainer-request-card {
-  background: var(--color-surface);
-  border: 1px solid var(--color-border);
-  border-left: 5px solid #ffc107;
-  border-radius: var(--radius-lg);
-  padding: 1.5rem;
-  transition: all var(--transition-normal);
+  background: #ffffff;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-left: 5px solid #f59e0b;
+  border-radius: 18px;
+  padding: 1.5rem 1.65rem;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
   position: relative;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04);
 }
 
 .trainer-request-card:hover {
-  box-shadow: var(--shadow-md);
-  border-color: rgba(255, 193, 7, 0.5);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.08);
+  border-color: rgba(245, 158, 11, 0.4);
   transform: translateY(-2px);
 }
 
 .member-avatar-box {
-  width: 44px;
-  height: 44px;
-  border-radius: 50%;
-  background: var(--color-tertiary-light);
-  color: var(--color-tertiary);
+  width: 50px;
+  height: 50px;
+  border-radius: 16px;
+  background: linear-gradient(135deg, #0ea5e9 0%, #0284c7 100%);
+  color: #ffffff;
   font-weight: 800;
-  font-size: 1.15rem;
+  font-size: 1.25rem;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
+  box-shadow: 0 4px 12px rgba(14, 165, 233, 0.25);
+  border: 2px solid #ffffff;
 }
 
 .member-name {
-  font-size: 1.2rem;
-  font-weight: 700;
-  color: var(--color-secondary);
+  font-size: 1.18rem;
+  font-weight: 800;
+  color: #0f172a;
+  letter-spacing: -0.01em;
+}
+
+.trainer-request-card .badge.bg-warning {
+  background: #fef3c7 !important;
+  color: #92400e !important;
+  border: 1px solid rgba(245, 158, 11, 0.3) !important;
+  font-weight: 700 !important;
+  padding: 0.3rem 0.65rem !important;
+  letter-spacing: 0.03em;
 }
 
 .request-meta-pill {
   display: inline-flex;
   align-items: center;
-  gap: 0.35rem;
-  font-size: var(--text-sm);
-  background: var(--color-surface-alt);
-  padding: 0.35rem 0.75rem;
-  border-radius: var(--radius-sm);
-  border: 1px solid var(--color-border);
-  color: var(--color-secondary);
+  gap: 0.4rem;
+  font-size: 0.85rem;
+  background: #f8fafc;
+  padding: 0.45rem 0.9rem;
+  border-radius: 10px;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  color: #334155;
+  font-weight: 500;
 }
 
 .request-note-box {
-  background: var(--color-surface-alt);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-md);
-  padding: 0.85rem 1rem;
+  background: #f8fafc;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  border-radius: 12px;
+  padding: 0.9rem 1rem;
+  transition: all 0.2s ease;
+}
+
+.request-note-box:hover {
+  background: #ffffff;
+  border-color: rgba(0, 0, 0, 0.12);
 }
 
 .request-note-title {
-  font-size: var(--text-xs);
-  font-weight: 700;
+  font-size: 0.68rem;
+  font-weight: 800;
   text-transform: uppercase;
-  letter-spacing: 0.04em;
-  color: var(--color-neutral);
-  margin-bottom: 0.25rem;
+  letter-spacing: 0.06em;
+  color: #64748b;
+  margin-bottom: 0.3rem;
 }
 
 .request-note-content {
-  font-size: var(--text-sm);
-  color: var(--color-secondary);
-  line-height: 1.45;
+  font-size: 0.88rem;
+  color: #1e293b;
+  line-height: 1.5;
   margin-bottom: 0;
+  font-weight: 500;
 }
 
 /* Action Buttons */
-.btn-confirm-pt,
+.btn-confirm-pt {
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%) !important;
+  border: 1px solid #059669 !important;
+  color: #ffffff !important;
+  font-size: 0.88rem !important;
+  font-weight: 700 !important;
+  padding: 0.6rem 1.35rem !important;
+  border-radius: 12px !important;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  box-shadow: 0 4px 12px rgba(16, 185, 129, 0.25) !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 0.4rem !important;
+}
+
+.btn-confirm-pt:hover:not(:disabled) {
+  background: linear-gradient(135deg, #059669 0%, #047857 100%) !important;
+  transform: translateY(-1px) !important;
+  box-shadow: 0 6px 18px rgba(16, 185, 129, 0.35) !important;
+}
+
 .btn-reject-pt {
-  font-size: var(--text-sm);
-  font-weight: 700;
-  padding: 0.55rem 1.25rem;
-  border-radius: var(--radius-md);
-  transition: all var(--transition-fast);
+  background: #ffffff !important;
+  border: 1.5px solid #ef4444 !important;
+  color: #dc2626 !important;
+  font-size: 0.88rem !important;
+  font-weight: 700 !important;
+  padding: 0.6rem 1.35rem !important;
+  border-radius: 12px !important;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 0.4rem !important;
 }
 
-.btn-confirm-pt:hover {
-  transform: translateY(-1px);
-  box-shadow: 0 4px 10px rgba(25, 135, 84, 0.3);
-}
-
-.btn-reject-pt:hover {
-  transform: translateY(-1px);
-  box-shadow: 0 4px 10px rgba(220, 53, 69, 0.2);
+.btn-reject-pt:hover:not(:disabled) {
+  background: #fef2f2 !important;
+  color: #b91c1c !important;
+  border-color: #b91c1c !important;
+  transform: translateY(-1px) !important;
+  box-shadow: 0 4px 14px rgba(220, 53, 69, 0.18) !important;
 }
 
 /* Empty State */
 .empty-requests-card {
   background: #ffffff;
-  border: 2px dashed var(--color-border);
-  border-radius: var(--radius-xl);
+  border: 2px dashed #cbd5e1;
+  border-radius: 20px;
   padding: 3.5rem 1.5rem;
   text-align: center;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.02);
 }
 
 .empty-icon-wrap {
   width: 72px;
   height: 72px;
-  border-radius: 50%;
-  background: #fff8e1;
-  color: #f57f17;
+  border-radius: 20px;
+  background: #fef3c7;
+  color: #d97706;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   margin-bottom: 1.25rem;
+  box-shadow: 0 4px 16px rgba(245, 158, 11, 0.15);
 }
 
 /* Toast */
 #trainer-toast {
+  border-radius: 14px;
   min-width: 320px;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.15) !important;
+}
+
+@media (max-width: 768px) {
+  .trainer-hero {
+    padding: 1.5rem !important;
+  }
+
+  .trainer-request-card {
+    padding: 1.25rem 1rem;
+  }
 }
