@@ -1,33 +1,33 @@
 /* ==========================================================================
-   Gym Class Booking & Trainer Chat - Real-time Chat Styling (Luxury Fitness Dark)
+   Gym Class Booking & Trainer Chat - Real-time Chat Styling (Gym Hub Light Theme)
    ========================================================================== */
 
 @import "../trainer/trainer-nav.css";
 
 :root {
-  --chat-bg-main: #0b0f17;
-  --chat-bg-pane: #111723;
-  --chat-bg-surface: #172030;
-  --chat-bg-surface-hover: #1f2b40;
-  --chat-bg-active: rgba(239, 68, 68, 0.12);
-  --chat-border: rgba(255, 255, 255, 0.07);
-  --chat-border-hover: rgba(255, 255, 255, 0.15);
-  --chat-border-glow: rgba(239, 68, 68, 0.4);
+  --chat-bg-main: #f8f9fa;
+  --chat-bg-pane: #ffffff;
+  --chat-bg-surface: #f1f5f9;
+  --chat-bg-surface-hover: #e2e8f0;
+  --chat-bg-active: rgba(220, 53, 69, 0.08);
+  --chat-border: #e2e8f0;
+  --chat-border-hover: #cbd5e1;
+  --chat-border-glow: rgba(220, 53, 69, 0.35);
 
-  --chat-text-primary: #f8fafc;
-  --chat-text-secondary: #94a3b8;
-  --chat-text-muted: #64748b;
+  --chat-text-primary: #1e293b;
+  --chat-text-secondary: #64748b;
+  --chat-text-muted: #94a3b8;
 
-  --chat-accent-red: #ef4444;
-  --chat-accent-red-hover: #dc2626;
-  --chat-accent-gradient: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
-  --chat-accent-glow: 0 4px 20px rgba(239, 68, 68, 0.35);
+  --chat-accent-red: #dc3545;
+  --chat-accent-red-hover: #bb2d3b;
+  --chat-accent-gradient: linear-gradient(135deg, #dc3545 0%, #bb2d3b 100%);
+  --chat-accent-glow: 0 4px 16px rgba(220, 53, 69, 0.25);
   --chat-online: #10b981;
 
   /* Bong bóng tin nhắn */
-  --bubble-incoming-bg: linear-gradient(145deg, #1b2333 0%, #141b27 100%);
-  --bubble-incoming-text: #f1f5f9;
-  --bubble-outgoing-bg: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+  --bubble-incoming-bg: #ffffff;
+  --bubble-incoming-text: #1e293b;
+  --bubble-outgoing-bg: linear-gradient(135deg, #dc3545 0%, #bb2d3b 100%);
   --bubble-outgoing-text: #ffffff;
 }
 
@@ -48,8 +48,8 @@ body.gym-chat-app {
   height: calc(100dvh - 65px);
   display: flex;
   flex-direction: column;
-  background: radial-gradient(circle at 85% 15%, rgba(239, 68, 68, 0.04) 0%, transparent 45%),
-              radial-gradient(circle at 15% 85%, rgba(59, 130, 246, 0.03) 0%, transparent 45%),
+  background: radial-gradient(circle at 85% 15%, rgba(220, 53, 69, 0.03) 0%, transparent 45%),
+              radial-gradient(circle at 15% 85%, rgba(59, 130, 246, 0.02) 0%, transparent 45%),
               var(--chat-bg-main);
   overflow: hidden;
 }
@@ -58,19 +58,20 @@ body.gym-chat-app {
   width: 36px;
   height: 36px;
   border-radius: 10px;
-  background: rgba(255, 255, 255, 0.08);
-  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: #ffffff;
+  border: 1px solid var(--chat-border);
   display: inline-flex;
   align-items: center;
   justify-content: center;
   transition: all 0.2s ease;
-  color: #e2e8f0;
+  color: var(--chat-text-secondary);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
 }
 
 #chat-sidebar-back-btn:hover {
-  background: rgba(225, 29, 72, 0.25);
-  border-color: rgba(225, 29, 72, 0.5);
-  color: #ffffff;
+  background: rgba(220, 53, 69, 0.08);
+  border-color: var(--chat-accent-red);
+  color: var(--chat-accent-red);
   transform: translateX(-2px);
 }
 
@@ -84,15 +85,24 @@ body.gym-chat-app {
 
 .conversation-pane {
   height: 100%;
+  max-height: 100%;
   background-color: var(--chat-bg-pane);
   transition: transform 0.25s ease;
   z-index: 10;
+  border-right: 1px solid var(--chat-border);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
 }
 
 .chat-pane {
   height: 100%;
+  max-height: 100%;
   background-color: var(--chat-bg-main);
   position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
 }
 
 /* Màn hình nhỏ (Mobile < 768px): Hiển thị 1 cột tại một thời điểm */
@@ -137,14 +147,15 @@ body.gym-chat-app {
 .conversation-header {
   background-color: var(--chat-bg-pane);
   min-height: 68px;
+  flex-shrink: 0;
 }
 
 .brand-icon-wrapper {
   width: 36px;
   height: 36px;
   border-radius: 10px;
-  background: rgba(239, 68, 68, 0.12);
-  border: 1px solid rgba(239, 68, 68, 0.25);
+  background: rgba(220, 53, 69, 0.08);
+  border: 1px solid rgba(220, 53, 69, 0.2);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -153,19 +164,21 @@ body.gym-chat-app {
 
 .brand-title {
   letter-spacing: -0.2px;
+  color: var(--chat-text-primary);
 }
 
 .small-caption {
   font-size: 0.72rem;
   letter-spacing: 0.3px;
   text-transform: uppercase;
+  color: var(--chat-text-secondary);
 }
 
 /* Chỉ báo trạng thái kết nối */
 .chat-status-pill {
   background: rgba(16, 185, 129, 0.1);
   border: 1px solid rgba(16, 185, 129, 0.25);
-  color: #34d399;
+  color: #059669;
 }
 
 .status-pulse-dot {
@@ -199,6 +212,7 @@ body.gym-chat-app {
 
 .conversation-search-wrapper {
   background-color: var(--chat-bg-pane);
+  flex-shrink: 0;
 }
 
 .search-box {
@@ -210,8 +224,8 @@ body.gym-chat-app {
 
 .search-box:focus-within {
   border-color: var(--chat-accent-red);
-  box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.2);
-  background-color: var(--chat-bg-surface-hover);
+  box-shadow: 0 0 0 3px rgba(220, 53, 69, 0.15);
+  background-color: #ffffff;
 }
 
 .search-box .form-control {
@@ -235,7 +249,7 @@ body.gym-chat-app {
   font-size: 0.775rem;
   font-weight: 600;
   border-radius: 20px;
-  background: rgba(255, 255, 255, 0.04);
+  background: #ffffff;
   color: var(--chat-text-secondary);
   border: 1px solid var(--chat-border);
   white-space: nowrap;
@@ -243,15 +257,15 @@ body.gym-chat-app {
 }
 
 .btn-filter:hover {
-  background: rgba(255, 255, 255, 0.08);
+  background: var(--chat-bg-surface);
   color: var(--chat-text-primary);
   border-color: var(--chat-border-hover);
 }
 
 .btn-filter.active {
-  background: rgba(239, 68, 68, 0.15);
-  color: #ff6b81;
-  border-color: rgba(239, 68, 68, 0.4);
+  background: rgba(220, 53, 69, 0.08);
+  color: var(--chat-accent-red);
+  border-color: rgba(220, 53, 69, 0.35);
 }
 
 /* --------------------------------------------------------------------------
@@ -261,6 +275,9 @@ body.gym-chat-app {
 .conversation-list {
   background-color: var(--chat-bg-pane);
   padding: 0.5rem 0.6rem;
+  flex: 1 1 0%;
+  min-height: 0;
+  overflow-y: auto;
 }
 
 .conversation-item {
@@ -282,9 +299,9 @@ body.gym-chat-app {
 }
 
 .conversation-item.active {
-  background: linear-gradient(90deg, rgba(239, 68, 68, 0.14) 0%, rgba(239, 68, 68, 0.03) 100%);
-  border: 1px solid rgba(239, 68, 68, 0.25);
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
+  background: linear-gradient(90deg, rgba(220, 53, 69, 0.08) 0%, rgba(220, 53, 69, 0.02) 100%);
+  border: 1px solid rgba(220, 53, 69, 0.2);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
 }
 
 .conversation-item.active::before {
@@ -296,7 +313,11 @@ body.gym-chat-app {
   width: 4px;
   background: var(--chat-accent-gradient);
   border-radius: 0 4px 4px 0;
-  box-shadow: 0 0 10px rgba(239, 68, 68, 0.6);
+  box-shadow: 0 0 8px rgba(220, 53, 69, 0.4);
+}
+
+.conversation-item .fw-bold {
+  color: var(--chat-text-primary);
 }
 
 .avatar-container {
@@ -309,7 +330,7 @@ body.gym-chat-app {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  border: 2px solid rgba(255, 255, 255, 0.12);
+  border: 2px solid var(--chat-border);
   transition: border-color 0.2s ease;
 }
 
@@ -322,7 +343,7 @@ body.gym-chat-app {
   height: 36px;
   object-fit: cover;
   flex-shrink: 0;
-  border: 2px solid rgba(255, 255, 255, 0.1);
+  border: 2px solid var(--chat-border);
 }
 
 .unread-badge {
@@ -331,15 +352,16 @@ body.gym-chat-app {
   padding: 0.25em 0.65em;
   background: var(--chat-accent-gradient) !important;
   box-shadow: var(--chat-accent-glow);
+  color: #ffffff;
 }
 
 .last-message {
   line-height: 1.4;
-  color: var(--chat-text-muted);
+  color: var(--chat-text-secondary);
 }
 
 .conversation-item:hover .last-message {
-  color: var(--chat-text-secondary);
+  color: var(--chat-text-primary);
 }
 
 /* --------------------------------------------------------------------------
@@ -349,7 +371,12 @@ body.gym-chat-app {
 .chat-header {
   background-color: var(--chat-bg-pane);
   min-height: 68px;
-  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--chat-border);
+  flex-shrink: 0;
+}
+
+.chat-header-user h2 {
+  color: var(--chat-text-primary);
 }
 
 .online-indicator {
@@ -385,12 +412,14 @@ body.gym-chat-app {
 
 .message-area {
   background-color: var(--chat-bg-main);
-  background-image: radial-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 0);
+  background-image: radial-gradient(rgba(0, 0, 0, 0.03) 1px, transparent 0);
   background-size: 24px 24px;
   overflow-y: auto;
-  flex-grow: 1;
+  overflow-x: hidden;
+  flex: 1 1 0%;
+  min-height: 0;
   scrollbar-width: thin;
-  scrollbar-color: var(--chat-bg-surface) transparent;
+  scrollbar-color: var(--chat-border) transparent;
 }
 
 .message-area::-webkit-scrollbar {
@@ -398,19 +427,23 @@ body.gym-chat-app {
 }
 
 .message-area::-webkit-scrollbar-thumb {
-  background-color: var(--chat-bg-surface);
+  background-color: var(--chat-border);
   border-radius: 4px;
 }
 
 .chat-date-divider span {
   font-size: 0.75rem;
   letter-spacing: 0.5px;
-  background: rgba(255, 255, 255, 0.05) !important;
+  background: #ffffff !important;
   color: var(--chat-text-secondary) !important;
   border: 1px solid var(--chat-border);
-  backdrop-filter: blur(8px);
   border-radius: 20px;
   padding: 0.35rem 1rem !important;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.03);
+}
+
+.chat-placeholder h3 {
+  color: var(--chat-text-primary) !important;
 }
 
 /* --------------------------------------------------------------------------
@@ -448,7 +481,6 @@ body.gym-chat-app {
   font-size: 0.93rem;
   line-height: 1.55;
   word-break: break-word;
-  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25);
   letter-spacing: 0.1px;
 }
 
@@ -457,7 +489,8 @@ body.gym-chat-app {
   background: var(--bubble-incoming-bg);
   color: var(--bubble-incoming-text);
   border-radius: 20px 20px 20px 4px;
-  border: 1px solid rgba(255, 255, 255, 0.09);
+  border: 1px solid var(--chat-border);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
 }
 
 /* Tin nhắn của Mình (Bên phải - Outgoing) */
@@ -499,14 +532,14 @@ body.gym-chat-app {
   object-fit: cover;
   border-radius: 12px;
   cursor: pointer;
-  border: 1px solid rgba(255, 255, 255, 0.12);
+  border: 1px solid var(--chat-border);
   transition: transform 0.25s ease, filter 0.25s ease;
   display: block;
 }
 
 .chat-bubble-image:hover {
   transform: scale(1.03);
-  filter: brightness(1.08);
+  filter: brightness(1.04);
 }
 
 /* Typing indicator */
@@ -515,10 +548,11 @@ body.gym-chat-app {
   align-items: center;
   gap: 8px;
   padding: 0.5rem 0.9rem;
-  background: rgba(255, 255, 255, 0.04);
+  background: #ffffff;
   border: 1px solid var(--chat-border);
   border-radius: 20px;
   width: fit-content;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
 }
 
 .typing-dots {
@@ -548,7 +582,11 @@ body.gym-chat-app {
 
 .quick-prompts-bar {
   background-color: var(--chat-bg-pane);
+  border-top: 1px solid var(--chat-border);
   scrollbar-width: none;
+  flex-shrink: 0;
+  min-height: 48px;
+  z-index: 5;
 }
 
 .quick-prompts-bar::-webkit-scrollbar {
@@ -560,7 +598,7 @@ body.gym-chat-app {
   font-size: 0.785rem;
   font-weight: 500;
   border-radius: 18px;
-  background: rgba(255, 255, 255, 0.04);
+  background: var(--chat-bg-surface);
   color: var(--chat-text-secondary);
   border: 1px solid var(--chat-border);
   white-space: nowrap;
@@ -568,9 +606,9 @@ body.gym-chat-app {
 }
 
 .btn-chip:hover {
-  background: rgba(239, 68, 68, 0.12);
-  color: #ff8597;
-  border-color: rgba(239, 68, 68, 0.35);
+  background: rgba(220, 53, 69, 0.08);
+  color: var(--chat-accent-red);
+  border-color: rgba(220, 53, 69, 0.3);
   transform: translateY(-1px);
 }
 
@@ -582,13 +620,12 @@ body.gym-chat-app {
   position: absolute;
   bottom: 80px;
   left: 20px;
-  background: #192233;
-  border: 1px solid rgba(255, 255, 255, 0.15);
+  background: #ffffff;
+  border: 1px solid var(--chat-border);
   border-radius: 16px;
   padding: 10px;
   z-index: 100;
-  backdrop-filter: blur(16px);
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
 }
 
 .emoji-grid {
@@ -609,7 +646,7 @@ body.gym-chat-app {
 
 .emoji-btn:hover {
   transform: scale(1.2);
-  background: rgba(255, 255, 255, 0.08);
+  background: var(--chat-bg-surface);
 }
 
 /* --------------------------------------------------------------------------
@@ -619,6 +656,7 @@ body.gym-chat-app {
 .image-preview-container {
   background-color: var(--chat-bg-pane);
   border-top: 1px solid var(--chat-border);
+  flex-shrink: 0;
 }
 
 .preview-box img {
@@ -629,7 +667,9 @@ body.gym-chat-app {
 
 .chat-footer {
   background-color: var(--chat-bg-pane);
-  backdrop-filter: blur(16px);
+  border-top: 1px solid var(--chat-border);
+  flex-shrink: 0;
+  z-index: 10;
 }
 
 .btn-action-circle {
@@ -637,14 +677,14 @@ body.gym-chat-app {
   height: 42px;
   border-radius: 50%;
   flex-shrink: 0;
-  background: rgba(255, 255, 255, 0.04);
+  background: var(--chat-bg-surface);
   border: 1px solid var(--chat-border);
   color: var(--chat-text-secondary);
   transition: all 0.2s ease;
 }
 
 .btn-action-circle:hover {
-  background: rgba(255, 255, 255, 0.09);
+  background: var(--chat-bg-surface-hover);
   color: var(--chat-text-primary);
   border-color: var(--chat-border-hover);
 }
@@ -664,9 +704,9 @@ body.gym-chat-app {
 }
 
 .chat-input:focus {
-  background-color: var(--chat-bg-surface-hover);
+  background-color: #ffffff;
   border-color: var(--chat-accent-red);
-  box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.25);
+  box-shadow: 0 0 0 3px rgba(220, 53, 69, 0.15);
   color: var(--chat-text-primary);
 }
 
@@ -679,12 +719,14 @@ body.gym-chat-app {
   font-weight: 600;
   box-shadow: var(--chat-accent-glow);
   transition: all 0.2s ease;
+  color: #ffffff;
 }
 
 .btn-send:hover:not(:disabled) {
   transform: translateY(-2px);
-  box-shadow: 0 6px 24px rgba(239, 68, 68, 0.45);
-  background: linear-gradient(135deg, #f43f5e 0%, #e11d48 100%);
+  box-shadow: 0 6px 20px rgba(220, 53, 69, 0.35);
+  background: linear-gradient(135deg, #bb2d3b 0%, #a52834 100%);
+  color: #ffffff;
 }
 
 .btn-send:active:not(:disabled) {
@@ -742,5 +784,5 @@ body.gym-chat-app {
 }
 
 .btn-close-lightbox:hover {
-  background: rgba(239, 68, 68, 0.8);
+  background: rgba(220, 53, 69, 0.8);
 }
