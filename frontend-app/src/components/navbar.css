@@ -1,0 +1,430 @@
+/* =========================================================
+   SHARED NAVBAR
+========================================================= */
+
+.profile-navbar {
+  position: sticky;
+
+  top: 0;
+
+  z-index: 1100;
+
+  width: 100%;
+
+  box-sizing: border-box;
+
+  border-bottom: 1px solid var(--color-border);
+
+  overflow: visible;
+}
+
+
+.profile-navbar > div {
+  min-width: 0;
+}
+
+
+/* =========================================================
+   LEFT SIDE
+========================================================= */
+
+.navbar-left {
+  min-width: 0;
+}
+
+
+.profile-navbar-logo-icon {
+  font-size: 1rem;
+
+  line-height: 1;
+
+  flex-shrink: 0;
+}
+
+
+.profile-navbar-logo-text {
+  font-size: 0.75rem;
+
+  letter-spacing: 1.5px;
+}
+
+
+.profile-navbar-greeting {
+  font-size: 0.75rem;
+
+  white-space: nowrap;
+}
+
+
+/* =========================================================
+   RIGHT ACTIONS
+========================================================= */
+
+.navbar-actions {
+  flex-shrink: 0;
+}
+
+
+/* =========================================================
+   MY SCHEDULE
+========================================================= */
+
+#nav-schedule-link {
+  flex-shrink: 0;
+
+  font-size: 0.7rem;
+
+  font-weight: 600;
+
+  letter-spacing: 0.05em;
+
+  white-space: nowrap;
+
+  text-decoration: none;
+
+  transition:
+    color 0.2s ease;
+}
+
+
+#nav-schedule-link:hover {
+  color: var(--color-primary) !important;
+}
+
+
+/* =========================================================
+   CHAT
+========================================================= */
+
+#nav-chat-link {
+  width: 24px;
+
+  height: 32px;
+
+  flex-shrink: 0;
+
+  transition:
+    color 0.2s ease;
+}
+
+
+#nav-chat-link:hover {
+  color: var(--color-primary) !important;
+}
+
+
+/* =========================================================
+   NOTIFICATION
+========================================================= */
+
+.navbar-notification-wrapper {
+  position: relative;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  flex-shrink: 0;
+}
+
+
+#notification-bell {
+  width: 24px;
+
+  height: 32px;
+
+  flex-shrink: 0;
+
+  transition:
+    color 0.2s ease;
+}
+
+
+#notification-bell:hover {
+  color: var(--color-primary) !important;
+}
+
+
+/* =========================================================
+   NOTIFICATION DROPDOWN
+========================================================= */
+
+.navbar-notification-dropdown {
+  position: absolute;
+
+  top: calc(100% + 0.5rem);
+
+  right: 0;
+
+  min-width: 320px;
+
+  max-width: calc(100vw - 24px);
+
+  padding: 0.75rem;
+
+  background: var(--color-surface);
+
+  border: 1px solid var(--color-border);
+
+  border-radius: var(--radius-md, 10px);
+
+  box-shadow:
+    0 8px 24px rgba(0, 0, 0, 0.12);
+
+  z-index: 1200;
+
+  display: none;
+}
+
+
+/* =========================================================
+   ACCOUNT WRAPPER
+========================================================= */
+
+.navbar-account-wrapper {
+  position: relative;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  flex-shrink: 0;
+}
+
+
+/* =========================================================
+   AVATAR
+========================================================= */
+
+.profile-navbar-avatar {
+  width: 32px;
+
+  height: 32px;
+
+  min-width: 32px;
+
+  padding: 0;
+
+  font-size: 0.75rem;
+
+  cursor: pointer;
+
+  transition:
+    all 0.2s ease;
+
+  position: relative;
+
+  z-index: 1;
+}
+
+
+.profile-navbar-avatar:hover {
+  border-color:
+    var(--color-primary) !important;
+
+  transform: scale(1.04);
+}
+
+/* =========================================================
+   ACCOUNT DROPDOWN
+========================================================= */
+
+.navbar-account-dropdown {
+  position: absolute;
+
+  top: calc(100% + 8px);
+
+  right: 0;
+
+  width: 180px;
+
+  min-width: 180px;
+
+  padding: 0.5rem;
+
+  box-sizing: border-box;
+
+  background: var(--color-surface);
+
+  border: 1px solid var(--color-border);
+
+  border-radius: var(--radius-md, 10px);
+
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+
+  z-index: 99999;
+
+  display: none;
+}
+
+
+/* =========================================================
+   OPEN STATE
+========================================================= */
+
+.navbar-account-dropdown.show {
+  display: block;
+}
+
+
+/* =========================================================
+   DROPDOWN ITEM
+========================================================= */
+
+.navbar-dropdown-item {
+  width: 100%;
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 0.5rem;
+
+  padding: 0.55rem 0.65rem;
+
+  margin: 0;
+
+  border: 0;
+
+  border-radius: 6px;
+
+  background: transparent;
+
+  color: var(--color-secondary);
+
+  font-family: inherit;
+
+  font-size: 0.7rem;
+
+  font-weight: 600;
+
+  line-height: 1.4;
+
+  text-decoration: none;
+
+  text-align: left;
+
+  cursor: pointer;
+
+  box-sizing: border-box;
+}
+
+
+.navbar-dropdown-item:hover {
+  background: var(--color-surface-alt);
+
+  color: var(--color-primary);
+}
+
+
+/* =========================================================
+   SVG
+========================================================= */
+
+.navbar-dropdown-item svg {
+  flex-shrink: 0;
+}
+
+
+/* =========================================================
+   DIVIDER
+========================================================= */
+
+.navbar-dropdown-divider {
+  width: 100%;
+
+  height: 1px;
+
+  margin: 0.4rem 0;
+
+  background: var(--color-border);
+}
+
+
+/* =========================================================
+   LOGOUT
+========================================================= */
+
+.navbar-dropdown-logout {
+  color: var(--color-danger, #dc3545);
+}
+
+
+.navbar-dropdown-logout:hover {
+  color: var(--color-danger, #dc3545);
+
+  background: var(--color-surface-alt);
+}
+
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media (max-width: 576px) {
+
+  .profile-navbar {
+    padding-left: 0.75rem !important;
+
+    padding-right: 0.75rem !important;
+  }
+
+
+  .profile-navbar-greeting {
+    font-size: 0.7rem;
+  }
+
+
+  #nav-schedule-link {
+    font-size: 0.65rem;
+  }
+
+
+  .navbar-account-dropdown {
+    width: 180px;
+
+    min-width: 180px;
+
+    right: 0;
+  }
+
+
+  .navbar-notification-dropdown {
+    min-width: 280px;
+
+    max-width: calc(100vw - 20px);
+  }
+}
+
+
+/* =========================================================
+   VERY SMALL SCREEN
+========================================================= */
+
+@media (max-width: 360px) {
+
+  .profile-navbar-greeting {
+    display: none;
+  }
+
+
+  .navbar-actions {
+    gap: 0.65rem !important;
+  }
+
+
+  #nav-schedule-link {
+    font-size: 0.6rem;
+  }
+
+
+  .navbar-account-dropdown {
+    width: 165px;
+
+    min-width: 165px;
+  }
+}

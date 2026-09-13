@@ -103,80 +103,14 @@ public interface GymClassRepository
             @Param("endTime") LocalDateTime endTime,
             @Param("cancelledStatus") GymClassStatus cancelledStatus
     );
-//    @Query("""
-//    SELECT g
-//    FROM GymClass g
-//    JOIN g.classType ct
-//    JOIN g.trainer t
-//    JOIN g.room r
-//    WHERE (:classTypeId IS NULL OR ct.id = :classTypeId)
-//      AND (:trainerId IS NULL OR t.id = :trainerId)
-//      AND (:roomId IS NULL OR r.id = :roomId)
-//      AND (:status IS NULL OR g.status = :status)
-//      AND (CAST(:from AS java.time.LocalDateTime) IS NULL
-//           OR g.startTime >= :from)
-//      AND (CAST(:to AS java.time.LocalDateTime) IS NULL
-//           OR g.endTime <= :to)
-//      AND (
-//            :keyword IS NULL
-//            OR :keyword = ''
-//            OR LOWER(g.title) LIKE LOWER(CONCAT('%', :keyword, '%'))
-//          )
-//    """)
-//    Page<GymClass> searchClasses(
-//            @Param("classTypeId") Long classTypeId,
-//            @Param("trainerId") Long trainerId,
-//            @Param("roomId") Long roomId,
-//            @Param("status") GymClassStatus status,
-//            @Param("from") LocalDateTime from,
-//            @Param("to") LocalDateTime to,
-//            @Param("keyword") String keyword,
-//            Pageable pageable
-//    );
-//    @Query("""
-//    SELECT g
-//    FROM GymClass g
-//    JOIN g.classType ct
-//    JOIN g.trainer t
-//    JOIN g.room r
-//    WHERE g.status IN (
-//        com.gym.gym_booking.enums.GymClassStatus.SCHEDULED,
-//        com.gym.gym_booking.enums.GymClassStatus.FULL
-//    )
-//      AND (:classTypeId IS NULL OR ct.id = :classTypeId)
-//      AND (:trainerId IS NULL OR t.id = :trainerId)
-//      AND (:roomId IS NULL OR r.id = :roomId)
-//      AND (:status IS NULL OR g.status = :status)
-//      AND (:from IS NULL OR g.startTime >= :from)
-//      AND (:to IS NULL OR g.endTime <= :to)
-//      AND (
-//            :keyword IS NULL
-//            OR :keyword = ''
-//            OR LOWER(g.title)
-//                LIKE LOWER(CONCAT('%', :keyword, '%'))
-//          )
-//    """)
-//    Page<GymClass> searchPublicClasses(
-//            @Param("classTypeId") Long classTypeId,
-//            @Param("trainerId") Long trainerId,
-//            @Param("roomId") Long roomId,
-//            @Param("status") GymClassStatus status,
-//            @Param("from") LocalDateTime from,
-//            @Param("to") LocalDateTime to,
-//            @Param("keyword") String keyword,
-//            Pageable pageable
-//    );
+    Page<GymClass> findByStatusInAndStartTimeAfterOrderByStartTimeAsc(
+            java.util.Collection<GymClassStatus> statuses,
+            LocalDateTime startTime,
+            Pageable pageable
+    );
 
-    /*
-     * =========================
-     * PUBLIC LIST
-     * =========================
-     *
-     * Public chỉ nên thấy những class:
-     * - không CANCELLED
-     * - không COMPLETED
-     *
-     * Phần filter cụ thể có thể xử lý bằng Specification
-     * hoặc query riêng khi làm API search.
-     */
+    long countByStatusInAndStartTimeAfter(
+            java.util.Collection<GymClassStatus> statuses,
+            LocalDateTime startTime
+    );
 }

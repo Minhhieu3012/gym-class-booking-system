@@ -1,0 +1,223 @@
+<div class="schedule-page">
+
+    <!-- NAVBAR -->
+    <nav class="schedule-navbar bg-surface">
+
+        <div class="schedule-navbar-left">
+
+            <a
+                    href="/"
+                    data-link
+                    class="schedule-brand text-decoration-none"
+            >
+                <span class="schedule-brand-icon">⚡</span>
+
+                <div>
+                    <div class="schedule-brand-name text-neutral">
+                        PULSE GYM
+                    </div>
+
+                    <div class="schedule-brand-subtitle text-tertiary">
+                        MY SCHEDULE
+                    </div>
+                </div>
+            </a>
+
+        </div>
+
+
+        <div class="schedule-navbar-actions">
+
+            <a
+                    href="/member/classes"
+                    data-link
+                    class="schedule-nav-link text-secondary-theme text-decoration-none"
+            >
+                CLASSES
+            </a>
+
+            <a
+                    href="/member/pt-booking"
+                    data-link
+                    class="schedule-nav-link text-secondary-theme text-decoration-none"
+            >
+                PT
+            </a>
+
+            <a
+                    href="/profile"
+                    data-link
+                    class="schedule-avatar bg-surface-alt text-secondary-theme"
+                    id="schedule-avatar"
+            >
+                M
+            </a>
+
+        </div>
+
+    </nav>
+
+
+    <!-- MAIN -->
+    <main class="schedule-main">
+
+        <div class="schedule-container">
+
+            <!-- HEADER -->
+            <section class="schedule-header">
+
+                <div>
+                    <div class="schedule-eyebrow text-primary-theme">
+                        YOUR TRAINING
+                    </div>
+
+                    <h1 class="schedule-title text-primary-theme">
+                        My Schedule
+                    </h1>
+
+                    <p class="schedule-description text-secondary-theme">
+                        Keep track of your upcoming classes and personal training sessions.
+                    </p>
+                </div>
+
+            </section>
+
+
+            <!-- FILTER -->
+            <section class="schedule-toolbar">
+
+                <div
+                        id="schedule-filters"
+                        class="schedule-filters"
+                >
+
+                    <button
+                            type="button"
+                            class="schedule-filter active"
+                            data-filter="ALL"
+                    >
+                        ALL
+                    </button>
+
+                    <button
+                            type="button"
+                            class="schedule-filter"
+                            data-filter="CLASS"
+                    >
+                        CLASSES
+                    </button>
+
+                    <button
+                            type="button"
+                            class="schedule-filter"
+                            data-filter="PT"
+                    >
+                        PERSONAL TRAINING
+                    </button>
+
+                </div>
+
+            </section>
+
+
+            <!-- LOADING -->
+            <div
+                    id="schedule-loading"
+                    class="schedule-state"
+            >
+                <div class="spinner-border text-primary-theme">
+                    <span class="visually-hidden">
+                        Loading...
+                    </span>
+                </div>
+
+                <p class="text-secondary-theme mb-0">
+                    Loading your schedule...
+                </p>
+            </div>
+
+
+            <!-- ERROR -->
+            <div
+                    id="schedule-error"
+                    class="schedule-state d-none"
+            >
+                <div class="schedule-state-icon">
+                    !
+                </div>
+
+                <h3 class="text-primary-theme">
+                    Unable to load schedule
+                </h3>
+
+                <p class="text-secondary-theme">
+                    Something went wrong while loading your schedule.
+                </p>
+
+                <button
+                        type="button"
+                        id="schedule-retry"
+                        class="btn-brand"
+                >
+                    TRY AGAIN
+                </button>
+            </div>
+
+
+            <!-- EMPTY -->
+            <div
+                    id="schedule-empty"
+                    class="schedule-state d-none"
+            >
+                <div class="schedule-state-icon">
+                    ◷
+                </div>
+
+                <h3 class="text-primary-theme">
+                    No training sessions
+                </h3>
+
+                <p class="text-secondary-theme">
+                    You don't have any sessions in this category yet.
+                </p>
+
+                <div class="d-flex justify-content-center gap-2 flex-wrap">
+
+                    <a
+                            href="/member/classes"
+                            data-link
+                            class="btn-brand text-decoration-none"
+                    >
+                        EXPLORE CLASSES
+                    </a>
+
+                    <a
+                            href="/member/pt-booking"
+                            data-link
+                            class="btn-brand-outline text-decoration-none"
+                    >
+                        BOOK A PT
+                    </a>
+
+                </div>
+            </div>
+
+
+            <!-- SCHEDULE LIST -->
+            <section
+                    id="schedule-content"
+                    class="d-none"
+            >
+
+                <div
+                        id="schedule-list"
+                        class="schedule-list"
+                ></div>
+
+            </section>
+
+        </div>
+
+    </main>
+
+</div>

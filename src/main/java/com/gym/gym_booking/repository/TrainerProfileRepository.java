@@ -41,4 +41,5 @@ public interface TrainerProfileRepository
             @Param("keyword") String keyword,
             Pageable pageable
     );
+    long countByUser_Status(UserStatus status);
 }
