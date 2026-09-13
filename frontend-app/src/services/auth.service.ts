@@ -1,6 +1,104 @@
+// import type { AxiosError } from "axios";
+// import { apiClient, setSession, clearAuthAndRedirect } from "../core/api";
+// import type { ApiErrorResponse } from "../core/api";
+// import type {
+//   LoginRequest,
+//   LoginResponse,
+//   RegisterMemberRequest,
+//   RegisterMemberResponse,
+//   RegisterTrainerRequest,
+//   RegisterTrainerResponse,
+//   ForgotPasswordRequest,
+//   ResetPasswordRequest,
+//   MessageResponse,
+//   UserProfile,
+// } from "../models/auth";
+//
+// export const authService = {
+//   // POST /auth/login
+//   async login(payload: LoginRequest): Promise<LoginResponse> {
+//     const { data } = await apiClient.post<LoginResponse>(
+//       "/auth/login",
+//       payload,
+//     );
+//     setSession(data);
+//     return data;
+//   },
+//
+//   // POST /auth/register
+//   async registerMember(
+//     payload: RegisterMemberRequest,
+//   ): Promise<RegisterMemberResponse> {
+//     const { data } = await apiClient.post<RegisterMemberResponse>(
+//       "/auth/register",
+//       payload,
+//     );
+//     return data;
+//   },
+//
+//   // POST /auth/register-trainer
+//   async registerTrainer(
+//     payload: RegisterTrainerRequest,
+//   ): Promise<RegisterTrainerResponse> {
+//     const { data } = await apiClient.post<RegisterTrainerResponse>(
+//       "/auth/register-trainer",
+//       payload,
+//     );
+//     return data;
+//   },
+//
+//   // POST /auth/forgot-password
+//   async forgotPassword(
+//     payload: ForgotPasswordRequest,
+//   ): Promise<MessageResponse> {
+//     const { data } = await apiClient.post<MessageResponse>(
+//       "/auth/forgot-password",
+//       payload,
+//     );
+//     return data;
+//   },
+//
+//   // POST /auth/reset-password
+//   async resetPassword(payload: ResetPasswordRequest): Promise<MessageResponse> {
+//     const { data } = await apiClient.post<MessageResponse>(
+//       "/auth/reset-password",
+//       payload,
+//     );
+//     return data;
+//   },
+//
+//   // GET /auth/me — dùng để refresh lại thông tin user mới nhất
+//   async getMe(): Promise<UserProfile> {
+//     const { data } = await apiClient.get<UserProfile>("/auth/me");
+//     return data;
+//   },
+//
+//   // POST /auth/logout — trả 204
+//   async logout(): Promise<void> {
+//     try {
+//       await apiClient.post("/auth/logout");
+//     } finally {
+//       clearAuthAndRedirect();
+//     }
+//   },
+//
+//   // Trích message lỗi để hiển thị trực tiếp lên form
+//   extractErrorMessage(error: unknown): string {
+//     const err = error as AxiosError<ApiErrorResponse>;
+//     return err.response?.data?.message ?? "Đã có lỗi xảy ra, vui lòng thử lại.";
+//   },
+// };
+
 import type { AxiosError } from "axios";
-import { apiClient, setSession, clearAuthAndRedirect } from "../core/api";
+
+import {
+  apiClient,
+  setSession,
+  clearAuthAndRedirect,
+} from "../core/api";
+
 import type { ApiErrorResponse } from "../core/api";
+
 import type {
   LoginRequest,
   LoginResponse,
@@ -15,66 +113,114 @@ import type {
 } from "../models/auth";
 
 export const authService = {
+
+  // ==========================================================
   // POST /auth/login
-  async login(payload: LoginRequest): Promise<LoginResponse> {
-    const { data } = await apiClient.post<LoginResponse>(
-      "/auth/login",
-      payload,
-    );
+  // ==========================================================
+
+  async login(
+    payload: LoginRequest,
+  ): Promise<LoginResponse> {
+
+    const { data } =
+      await apiClient.post<LoginResponse>(
+        "/auth/login",
+        payload,
+      );
+
     setSession(data);
+
     return data;
   },
 
+  // ==========================================================
   // POST /auth/register
+  // ==========================================================
+
   async registerMember(
     payload: RegisterMemberRequest,
   ): Promise<RegisterMemberResponse> {
-    const { data } = await apiClient.post<RegisterMemberResponse>(
-      "/auth/register",
-      payload,
-    );
+
+    const { data } =
+      await apiClient.post<RegisterMemberResponse>(
+        "/auth/register",
+        payload,
+      );
+
     return data;
   },
 
+  // ==========================================================
   // POST /auth/register-trainer
+  // ==========================================================
+
   async registerTrainer(
     payload: RegisterTrainerRequest,
   ): Promise<RegisterTrainerResponse> {
-    const { data } = await apiClient.post<RegisterTrainerResponse>(
-      "/auth/register-trainer",
-      payload,
-    );
+
+    const { data } =
+      await apiClient.post<RegisterTrainerResponse>(
+        "/auth/register-trainer",
+        payload,
+      );
+
     return data;
   },
 
+  // ==========================================================
   // POST /auth/forgot-password
+  // ==========================================================
+
   async forgotPassword(
     payload: ForgotPasswordRequest,
   ): Promise<MessageResponse> {
-    const { data } = await apiClient.post<MessageResponse>(
-      "/auth/forgot-password",
-      payload,
-    );
+
+    const { data } =
+      await apiClient.post<MessageResponse>(
+        "/auth/forgot-password",
+        payload,
+      );
+
     return data;
   },
 
+  // ==========================================================
   // POST /auth/reset-password
-  async resetPassword(payload: ResetPasswordRequest): Promise<MessageResponse> {
-    const { data } = await apiClient.post<MessageResponse>(
-      "/auth/reset-password",
-      payload,
-    );
+  // ==========================================================
+
+  async resetPassword(
+    payload: ResetPasswordRequest,
+  ): Promise<MessageResponse> {
+
+    const { data } =
+      await apiClient.post<MessageResponse>(
+        "/auth/reset-password",
+        payload,
+      );
+
     return data;
   },
 
-  // GET /auth/me — dùng để refresh lại thông tin user mới nhất
+  // ==========================================================
+  // GET /auth/me
+  // ==========================================================
+
   async getMe(): Promise<UserProfile> {
-    const { data } = await apiClient.get<UserProfile>("/auth/me");
+
+    const { data } =
+      await apiClient.get<UserProfile>(
+        "/auth/me",
+      );
+
     return data;
   },
 
-  // POST /auth/logout — trả 204
+  // ==========================================================
+  // POST /auth/logout
+  // ==========================================================
+
   async logout(): Promise<void> {
+
     try {
       await apiClient.post("/auth/logout");
     } finally {
@@ -82,9 +228,49 @@ export const authService = {
     }
   },
 
-  // Trích message lỗi để hiển thị trực tiếp lên form
+  // ==========================================================
+  // Error message
+  // ==========================================================
+
   extractErrorMessage(error: unknown): string {
     const err = error as AxiosError<ApiErrorResponse>;
-    return err.response?.data?.message ?? "Đã có lỗi xảy ra, vui lòng thử lại.";
+
+    // Backend có response
+    if (err.response?.data) {
+      const data = err.response.data;
+
+      if (typeof data === "string") {
+        return data;
+      }
+
+      if (data.message) {
+        return data.message;
+      }
+
+      // Spring Validation có thể trả errors
+      const validationErrors = (data as any).errors;
+
+      if (validationErrors) {
+        if (Array.isArray(validationErrors)) {
+          return validationErrors
+            .map((item) => item.message || item.defaultMessage)
+            .filter(Boolean)
+            .join(", ");
+        }
+
+        if (typeof validationErrors === "object") {
+          return Object.values(validationErrors)
+            .flat()
+            .join(", ");
+        }
+      }
+    }
+
+    // Axios/network error
+    if (err.message) {
+      return err.message;
+    }
+
+    return "An error occurred. Please try again.";
   },
 };
