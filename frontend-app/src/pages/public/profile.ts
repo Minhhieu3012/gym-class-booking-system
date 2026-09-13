@@ -5,7 +5,6 @@ import { getStoredUser } from "../../core/api";
 import template from "./profile.html?raw";
 import "./profile.css";
 
-
 const PLACEHOLDER_AVATAR =
   "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='96' height='96' viewBox='0 0 24 24' fill='none' stroke='%236C757D' stroke-width='1.5'%3E%3Cpath d='M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2'/%3E%3Ccircle cx='12' cy='7' r='4'/%3E%3C/svg%3E";
 
@@ -19,10 +18,12 @@ export function init(): void {
 
   const chatLink = document.querySelector<HTMLAnchorElement>("#nav-chat-link");
   if (chatLink) {
-    chatLink.href = user?.role === "TRAINER" ? "/trainer/chat.html" : "/member/chat.html";
+    chatLink.href =
+      user?.role === "TRAINER" ? "/trainer/chat.html" : "/member/chat.html";
   }
 
-  const backLink = document.querySelector<HTMLAnchorElement>("#profile-back-link");
+  const backLink =
+    document.querySelector<HTMLAnchorElement>("#profile-back-link");
   if (backLink) {
     if (user?.role === "TRAINER") {
       backLink.href = "/trainer/time-slots.html";
@@ -37,33 +38,97 @@ export function init(): void {
   }
 
   // Tùy chỉnh điều hướng Top Navbar & Bottom Nav theo vai trò (Role-Aware Navigation)
+  const trainerNav = document.querySelector<HTMLElement>(
+    "#profile-trainer-nav",
+  );
+  const memberNav = document.querySelector<HTMLElement>("#profile-member-nav");
+  const bottomNav = document.querySelector<HTMLElement>("#trainer-bottom-nav");
+  const memberBottomNav =
+    document.querySelector<HTMLElement>("#member-bottom-nav");
+  const headerDesc = document.querySelector<HTMLElement>(
+    ".trainer-header-desc",
+  );
+  const headerTag = document.querySelector<HTMLElement>(
+    ".trainer-header-tag span:last-child",
+  );
+
   if (user?.role === "MEMBER") {
-    const portalTag = document.querySelector<HTMLElement>("#profile-portal-tag");
+    const portalTag = document.querySelector<HTMLElement>(
+      "#profile-portal-tag",
+    );
     if (portalTag) portalTag.textContent = "MEMBER PORTAL";
-    const roleBadge = document.querySelector<HTMLElement>("#profile-role-badge");
+    const roleBadge = document.querySelector<HTMLElement>(
+      "#profile-role-badge",
+    );
     if (roleBadge) roleBadge.textContent = "HỘI VIÊN";
-    const athleteBadge = document.querySelector<HTMLElement>("#profile-athlete-badge");
+    const athleteBadge = document.querySelector<HTMLElement>(
+      "#profile-athlete-badge",
+    );
     if (athleteBadge) athleteBadge.textContent = "MEMBER VIP";
-    const homeLink = document.querySelector<HTMLAnchorElement>("#profile-nav-home-link");
+    const homeLink = document.querySelector<HTMLAnchorElement>(
+      "#profile-nav-home-link",
+    );
     if (homeLink) homeLink.href = "/member/class-list.html";
-    const trainerNav = document.querySelector<HTMLElement>("#profile-trainer-nav");
-    if (trainerNav) trainerNav.classList.add("d-none");
-    const memberNav = document.querySelector<HTMLElement>("#profile-member-nav");
-    if (memberNav) {
-      memberNav.classList.remove("d-none");
-      memberNav.classList.add("d-lg-flex");
+
+    // Ẩn hoàn toàn các cụm link điều hướng ở Top Navbar để tránh xung đột 2 navbar với Bottom Nav
+    if (trainerNav) {
+      trainerNav.classList.add("d-none");
+      trainerNav.classList.remove("d-lg-flex");
     }
-    const bottomNav = document.querySelector<HTMLElement>("#trainer-bottom-nav");
+    if (memberNav) {
+      memberNav.classList.add("d-none");
+      memberNav.classList.remove("d-lg-flex");
+    }
+
+    // Ẩn thanh bottom nav của Trainer, hiện thanh bottom nav của Member
     if (bottomNav) bottomNav.classList.add("d-none");
+    if (memberBottomNav) memberBottomNav.classList.remove("d-none");
+
+    if (headerTag) headerTag.textContent = "THÔNG TIN HỘI VIÊN & HỒ SƠ";
+    if (headerDesc) {
+      headerDesc.textContent =
+        "Quản lý thông tin hội viên cá nhân, theo dõi thành tích tập luyện và thiết lập bảo mật GYM HUB.";
+    }
   } else if (user?.role === "TRAINER") {
-    const portalTag = document.querySelector<HTMLElement>("#profile-portal-tag");
+    if (memberBottomNav) memberBottomNav.classList.add("d-none");
+    if (bottomNav) bottomNav.classList.remove("d-none");
+    const portalTag = document.querySelector<HTMLElement>(
+      "#profile-portal-tag",
+    );
     if (portalTag) portalTag.textContent = "TRAINER PORTAL";
-    const roleBadge = document.querySelector<HTMLElement>("#profile-role-badge");
+    const roleBadge = document.querySelector<HTMLElement>(
+      "#profile-role-badge",
+    );
     if (roleBadge) roleBadge.textContent = "HUẤN LUYỆN VIÊN";
-    const athleteBadge = document.querySelector<HTMLElement>("#profile-athlete-badge");
+    const athleteBadge = document.querySelector<HTMLElement>(
+      "#profile-athlete-badge",
+    );
     if (athleteBadge) athleteBadge.textContent = "PRO TRAINER";
-    const homeLink = document.querySelector<HTMLAnchorElement>("#profile-nav-home-link");
+    const homeLink = document.querySelector<HTMLAnchorElement>(
+      "#profile-nav-home-link",
+    );
     if (homeLink) homeLink.href = "/trainer/time-slots.html";
+
+    // Hiện navbar desktop cho Trainer
+    if (trainerNav) {
+      trainerNav.classList.remove("d-none");
+      trainerNav.classList.add("d-lg-flex");
+    }
+    if (memberNav) {
+      memberNav.classList.add("d-none");
+      memberNav.classList.remove("d-lg-flex");
+    }
+  } else {
+    if (trainerNav) {
+      trainerNav.classList.add("d-none");
+      trainerNav.classList.remove("d-lg-flex");
+    }
+    if (memberNav) {
+      memberNav.classList.add("d-none");
+      memberNav.classList.remove("d-lg-flex");
+    }
+    if (memberBottomNav) memberBottomNav.classList.add("d-none");
+    if (bottomNav) bottomNav.classList.add("d-none");
   }
   const avatarImg = document.querySelector<HTMLImageElement>("#profile-avatar");
   const avatarInput = document.querySelector<HTMLInputElement>(
@@ -102,7 +167,7 @@ export function init(): void {
     "#btn-discard-profile",
   );
 
-    let originalData: {
+  let originalData: {
     fullName: string;
     phone: string;
     address: string;
@@ -147,7 +212,7 @@ export function init(): void {
     }
   })();
 
-    const triggerAvatar = () => avatarInput?.click();
+  const triggerAvatar = () => avatarInput?.click();
   avatarTriggerBtn?.addEventListener("click", triggerAvatar);
   avatarLabelBtn?.addEventListener("click", triggerAvatar);
 
@@ -167,8 +232,7 @@ export function init(): void {
       console.error("Lỗi khi cập nhật avatar:", error);
       const msg = authService.extractErrorMessage(error);
       alert(msg);
-      if (profileError)
-        profileError.textContent = msg;
+      if (profileError) profileError.textContent = msg;
     } finally {
       avatarLabelBtn.textContent = originalLabel;
       avatarLabelBtn.removeAttribute("disabled");
@@ -177,14 +241,14 @@ export function init(): void {
     }
   });
 
-    discardBtn?.addEventListener("click", () => {
+  discardBtn?.addEventListener("click", () => {
     if (fnInput) fnInput.value = originalData.fullName;
     if (phoneInput) phoneInput.value = originalData.phone;
     if (addressInput) addressInput.value = originalData.address;
     if (profileError) profileError.textContent = "";
   });
 
-    profileForm?.addEventListener("submit", async (e: Event) => {
+  profileForm?.addEventListener("submit", async (e: Event) => {
     e.preventDefault();
     if (!updateBtn || !profileError) return;
 
