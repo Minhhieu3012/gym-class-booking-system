@@ -223,3 +223,48 @@
 #my-bookings-toast {
   min-width: 320px;
 }
+
+/* ============================================================
+   Responsive Fine-Tuning for My Bookings Page
+   ============================================================ */
+.table-responsive {
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+@media (max-width: 767.98px) {
+  .bookings-hero {
+    padding: 1.25rem 1rem !important;
+  }
+
+  .booking-card {
+    padding: 1rem 1.15rem;
+    border-radius: 14px;
+  }
+
+  .booking-card .btn-cancel-booking,
+  .booking-card .btn-review {
+    width: 100%;
+    justify-content: center;
+    display: inline-flex;
+    margin-top: 0.5rem;
+  }
+
+  .booking-meta-pill {
+    font-size: 0.78rem;
+    padding: 0.25rem 0.6rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .bookings-tabs-wrapper .nav-link {
+    font-size: 0.85rem;
+    padding: 0.5rem 0.25rem;
+  }
+
+  .booking-card h3 {
+    font-size: 1.05rem !important;
+  }
+}
+

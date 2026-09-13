@@ -87,7 +87,7 @@ export async function loadMyPackages(): Promise<void> {
   try {
     // Hiển thị loading spinner
     container.innerHTML = `
-      <div class="text-center py-4">
+      <div class="col-12 text-center py-4">
         <div class="spinner-border text-danger spinner-border-sm" role="status"></div>
         <span class="text-neutral ms-2">Đang tải gói tập của bạn...</span>
       </div>
@@ -100,22 +100,24 @@ export async function loadMyPackages(): Promise<void> {
 
     if (myPackages.length === 0) {
       container.innerHTML = `
-        <div class="empty-packages-card">
-          <div class="empty-icon-wrap">
-            <svg width="32" height="32" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
-            </svg>
+        <div class="col-12">
+          <div class="empty-packages-card">
+            <div class="empty-icon-wrap">
+              <svg width="32" height="32" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
+              </svg>
+            </div>
+            <h3 class="fw-bold text-secondary-theme fs-5 mb-1">Không có dữ liệu</h3>
+            <p class="text-neutral mb-3" style="max-width: 420px; margin: 0 auto;">
+              Hiện tại bạn chưa đăng ký gói tập nào hoặc các gói trước đây đã hết hạn. Hãy khám phá và đăng ký gói tập mới bên dưới!
+            </p>
+            <a href="#available-packages-section" class="btn-brand text-decoration-none d-inline-flex align-items-center gap-2">
+              <span>Khám phá gói tập ngay</span>
+              <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+              </svg>
+            </a>
           </div>
-          <h3 class="fw-bold text-secondary-theme fs-5 mb-1">Không có dữ liệu</h3>
-          <p class="text-neutral mb-3" style="max-width: 420px; margin: 0 auto;">
-            Hiện tại bạn chưa đăng ký gói tập nào hoặc các gói trước đây đã hết hạn. Hãy khám phá và đăng ký gói tập mới bên dưới!
-          </p>
-          <a href="#available-packages-section" class="btn-brand text-decoration-none d-inline-flex align-items-center gap-2">
-            <span>Khám phá gói tập ngay</span>
-            <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3" />
-            </svg>
-          </a>
         </div>
       `;
       return;
@@ -132,43 +134,45 @@ export async function loadMyPackages(): Promise<void> {
         const packageName = item.packageName || item.package?.name || `Gói tập #${item.packageId || item.id}`;
 
         return `
-          <div class="my-package-card ${cardModifier} p-3 p-md-4 shadow-theme-sm">
-            <div class="row align-items-center g-3">
-              <!-- Cột thông tin gói & trạng thái -->
-              <div class="col-12 col-md-7">
-                <div class="d-flex align-items-center gap-2 mb-2 flex-wrap">
-                  <span class="badge-theme ${statusBadgeClass} px-3 py-1">● ${escapeHtml(statusText)}</span>
-                  <span class="text-neutral fs-7 fw-semibold">MÃ GÓI: #MP-${String(item.id || item.memberPackageId || 0).padStart(4, "0")}</span>
-                </div>
-                <h3 class="fw-bold text-secondary-theme fs-4 mb-2">${escapeHtml(packageName)}</h3>
-                
-                <!-- Ngày hiệu lực -->
-                <div class="d-flex flex-wrap align-items-center gap-2 mt-3">
-                  <div class="date-pill text-neutral">
-                    <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                      <path stroke-linecap="round" stroke-linejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                    </svg>
-                    <span>Kích hoạt: <strong class="text-secondary-theme">${formatDate(item.startDate)}</strong></span>
+          <div class="col-12 col-md-6 col-lg-6 d-flex">
+            <div class="my-package-card ${cardModifier} p-3 p-md-4 shadow-theme-sm w-100 d-flex flex-column justify-content-between">
+              <div class="row align-items-center g-3">
+                <!-- Cột thông tin gói & trạng thái -->
+                <div class="col-12 col-sm-7">
+                  <div class="d-flex align-items-center gap-2 mb-2 flex-wrap">
+                    <span class="badge-theme ${statusBadgeClass} px-3 py-1">● ${escapeHtml(statusText)}</span>
+                    <span class="text-neutral fs-7 fw-semibold">MÃ GÓI: #MP-${String(item.id || item.memberPackageId || 0).padStart(4, "0")}</span>
                   </div>
-                  <div class="date-pill text-neutral">
-                    <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                      <path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-                    </svg>
-                    <span>Hết hạn: <strong class="text-secondary-theme">${formatDate(item.endDate)}</strong></span>
+                  <h3 class="fw-bold text-secondary-theme fs-4 mb-2">${escapeHtml(packageName)}</h3>
+                  
+                  <!-- Ngày hiệu lực -->
+                  <div class="d-flex flex-wrap align-items-center gap-2 mt-3">
+                    <div class="date-pill text-neutral">
+                      <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                      </svg>
+                      <span>Kích hoạt: <strong class="text-secondary-theme">${formatDate(item.startDate)}</strong></span>
+                    </div>
+                    <div class="date-pill text-neutral">
+                      <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                      </svg>
+                      <span>Hết hạn: <strong class="text-secondary-theme">${formatDate(item.endDate)}</strong></span>
+                    </div>
                   </div>
                 </div>
-              </div>
 
-              <!-- Cột làm nổi bật chỉ số sessionsRemaining -->
-              <div class="col-12 col-md-5 d-flex justify-content-md-end">
-                <div class="session-counter-block ${counterModifier} w-100 w-md-auto">
-                  <div class="session-number">${item.sessionsRemaining ?? 0}</div>
-                  <div class="session-label">Lượt tập còn lại</div>
-                  ${
-                    isActive && (item.sessionsRemaining ?? 0) <= 3
-                      ? `<div class="text-danger fw-bold fs-7 mt-1">Sắp hết lượt tập!</div>`
-                      : ""
-                  }
+                <!-- Cột làm nổi bật chỉ số sessionsRemaining -->
+                <div class="col-12 col-sm-5 d-flex justify-content-sm-end">
+                  <div class="session-counter-block ${counterModifier} w-100 w-sm-auto text-center">
+                    <div class="session-number">${item.sessionsRemaining ?? 0}</div>
+                    <div class="session-label">Lượt tập còn lại</div>
+                    ${
+                      isActive && (item.sessionsRemaining ?? 0) <= 3
+                        ? `<div class="text-danger fw-bold fs-7 mt-1">Sắp hết lượt tập!</div>`
+                        : ""
+                    }
+                  </div>
                 </div>
               </div>
             </div>
@@ -228,51 +232,53 @@ export async function loadAvailablePackages(): Promise<void> {
         const isBestValue = index === 1 || pkg.sessionCount >= 20;
 
         return `
-          <div class="col-12 col-md-6 col-lg-4">
-            <div class="available-package-card shadow-theme-sm position-relative">
-              ${isBestValue ? `<span class="package-popular-badge">PHỔ BIẾN NHẤT</span>` : ""}
-              
-              <h3 class="package-name">${escapeHtml(pkg.name)}</h3>
-              <p class="text-neutral fs-7 mb-0">${escapeHtml(pkg.description || "Gói rèn luyện thể chất toàn diện")}</p>
+          <div class="col-12 col-md-6 col-lg-4 d-flex">
+            <div class="available-package-card shadow-theme-sm position-relative w-100 d-flex flex-column justify-content-between">
+              <div>
+                ${isBestValue ? `<span class="package-popular-badge">PHỔ BIẾN NHẤT</span>` : ""}
+                
+                <h3 class="package-name">${escapeHtml(pkg.name)}</h3>
+                <p class="text-neutral fs-7 mb-0">${escapeHtml(pkg.description || "Gói rèn luyện thể chất toàn diện")}</p>
 
-              <!-- Giá gói tập -->
-              <div class="package-price-wrap">
-                <span class="package-price">${formatCurrency(pkg.price)}</span>
-                <span class="package-currency">/ gói</span>
+                <!-- Giá gói tập -->
+                <div class="package-price-wrap">
+                  <span class="package-price">${formatCurrency(pkg.price)}</span>
+                  <span class="package-currency">/ gói</span>
+                </div>
+
+                <!-- Chi tiết quyền lợi -->
+                <ul class="package-feature-list">
+                  <li class="package-feature-item">
+                    <svg class="feature-check-icon" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+                    </svg>
+                    <span>Số buổi tập: <strong class="text-secondary-theme">${pkg.sessionCount} buổi</strong></span>
+                  </li>
+                  <li class="package-feature-item">
+                    <svg class="feature-check-icon" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+                    </svg>
+                    <span>Thời hạn sử dụng: <strong class="text-secondary-theme">${pkg.durationDays} ngày</strong></span>
+                  </li>
+                  <li class="package-feature-item">
+                    <svg class="feature-check-icon" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+                    </svg>
+                    <span>Áp dụng cho mọi lớp Group Class &amp; PT</span>
+                  </li>
+                  <li class="package-feature-item">
+                    <svg class="feature-check-icon" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+                    </svg>
+                    <span>Kích hoạt tự động ngay sau khi thanh toán</span>
+                  </li>
+                </ul>
               </div>
-
-              <!-- Chi tiết quyền lợi -->
-              <ul class="package-feature-list">
-                <li class="package-feature-item">
-                  <svg class="feature-check-icon" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
-                  </svg>
-                  <span>Số buổi tập: <strong class="text-secondary-theme">${pkg.sessionCount} buổi</strong></span>
-                </li>
-                <li class="package-feature-item">
-                  <svg class="feature-check-icon" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
-                  </svg>
-                  <span>Thời hạn sử dụng: <strong class="text-secondary-theme">${pkg.durationDays} ngày</strong></span>
-                </li>
-                <li class="package-feature-item">
-                  <svg class="feature-check-icon" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
-                  </svg>
-                  <span>Áp dụng cho mọi lớp Group Class &amp; PT</span>
-                </li>
-                <li class="package-feature-item">
-                  <svg class="feature-check-icon" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
-                  </svg>
-                  <span>Kích hoạt tự động ngay sau khi thanh toán</span>
-                </li>
-              </ul>
 
               <!-- Nút Mua gói này -->
               <button 
                 type="button" 
-                class="btn-brand w-100 justify-content-center btn-buy-package" 
+                class="btn-brand w-100 justify-content-center btn-buy-package mt-auto" 
                 data-package-id="${pkg.id}"
                 data-package-name="${escapeHtml(pkg.name)}"
               >

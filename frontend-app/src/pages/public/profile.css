@@ -345,3 +345,41 @@
   color: var(--color-primary, #dc3545);
   transform: translateX(-2px);
 }
+
+/* ============================================================
+   Responsive Fine-Tuning for Profile Page
+   ============================================================ */
+@media (max-width: 767.98px) {
+  .profile-athletic-card {
+    border-radius: 16px;
+  }
+
+  .profile-name-title {
+    font-size: 1.2rem;
+  }
+
+  .profile-stat-value-large {
+    font-size: 1.15rem;
+  }
+
+  .profile-stat-value-medium {
+    font-size: 1rem;
+  }
+
+  .profile-stat-label {
+    font-size: 0.58rem;
+  }
+}
+
+@media (max-width: 575.98px) {
+  .profile-athletic-card {
+    padding: 1.25rem !important;
+  }
+
+  .profile-submit-btn,
+  .profile-discard-btn {
+    width: 100%;
+    justify-content: center;
+  }
+}
+

@@ -160,9 +160,9 @@ export async function loadTrainers(): Promise<void> {
         const bio = t.bio || "Tận tâm đồng hành, xây dựng lộ trình tập luyện khoa học và phù hợp với từng cá nhân.";
 
         return `
-          <div class="col-12 col-md-6 col-lg-4">
+          <div class="col-12 col-md-6 col-lg-4 d-flex">
             <div 
-              class="trainer-card shadow-theme-sm" 
+              class="trainer-card shadow-theme-sm w-100 d-flex flex-column justify-content-between" 
               data-trainer-id="${t.id}"
               data-trainer-name="${escapeHtml(t.fullName)}"
             >
@@ -174,7 +174,7 @@ export async function loadTrainers(): Promise<void> {
 
               <div class="d-flex align-items-center gap-3 mb-2">
                 <div class="trainer-avatar-box">
-                  <img src="${escapeHtml(t.avatarUrl || '/src/assets/img/avatar-user-default.jpg')}" alt="${escapeHtml(t.fullName)}" />
+                  <img src="${escapeHtml(t.avatarUrl || '/src/assets/img/avatar-user-default.jpg')}" alt="${escapeHtml(t.fullName)}" class="img-fluid" />
                 </div>
                 <div>
                   <h3 class="trainer-name mb-1">${escapeHtml(t.fullName)}</h3>

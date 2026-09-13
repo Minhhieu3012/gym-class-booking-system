@@ -1,4 +1,4 @@
-<main class="member-packages-page bg-surface-alt min-vh-100 pb-5 mb-5">
+<main class="member-packages-page bg-surface-alt min-vh-100">
   <!-- ── NAVBAR ── -->
   <nav
     class="packages-navbar w-100 d-flex justify-content-between align-items-center px-3 px-md-4 py-3 bg-surface border-bottom border-theme sticky-top"
@@ -9,11 +9,30 @@
           <img
             src="/src/assets/img/logo.png"
             alt="GYM HUB Logo"
-            class="app-brand-logo"
+            class="app-brand-logo img-fluid"
           />
           <span class="brand-title fw-bold text-secondary-theme">GYM HUB</span>
         </div>
       </div>
+    </div>
+    <!-- Desktop Navigation Links for Member -->
+    <div class="member-desktop-nav d-none d-md-flex align-items-center gap-1 mx-3" id="member-desktop-nav">
+      <a href="/member/class-list.html" data-link class="member-top-nav-link" aria-label="Lịch Lớp">
+        <i class="bi bi-calendar3"></i>
+        <span>Lịch Lớp</span>
+      </a>
+      <a href="/member/pt-booking.html" data-link class="member-top-nav-link" aria-label="Thuê PT">
+        <i class="bi bi-person-badge"></i>
+        <span>Thuê PT</span>
+      </a>
+      <a href="/member/packages.html" data-link class="member-top-nav-link active" aria-label="Mua Gói">
+        <i class="bi bi-credit-card-2-front"></i>
+        <span>Mua Gói</span>
+      </a>
+      <a href="/member/my-bookings.html" data-link class="member-top-nav-link" aria-label="Lịch sử">
+        <i class="bi bi-clock-history"></i>
+        <span>Lịch sử</span>
+      </a>
     </div>
     <div class="d-flex align-items-center gap-2">
       <div class="dropdown position-relative me-2">
@@ -71,9 +90,10 @@
       <a
         href="/profile"
         data-link
-        class="btn-user-profile btn-brand-outline py-1 px-3 rounded-pill text-decoration-none"
+        class="btn-user-profile btn-brand-outline py-1 px-3 rounded-pill text-decoration-none d-flex align-items-center gap-1"
       >
-        <span>Hồ sơ cá nhân</span>
+        <i class="bi bi-person-circle"></i>
+        <span class="d-none d-sm-inline">Hồ sơ cá nhân</span>
       </a>
     </div>
   </nav>
@@ -121,10 +141,10 @@
   </div>
 
   <!-- ── CONTENT WRAPPER ── -->
-  <div class="container pb-5 mb-5 py-4 px-3 px-md-4">
+  <div class="container py-3 py-md-4 px-3 px-md-4">
     <!-- PAGE HERO BANNER -->
     <div
-      class="hero-banner card-theme p-4 p-md-5 mb-5 position-relative overflow-hidden"
+      class="hero-banner card-theme p-4 p-md-5 mb-4 mb-md-5 position-relative overflow-hidden"
     >
       <div class="row align-items-center position-relative" style="z-index: 2">
         <div class="col-lg-8">
@@ -217,13 +237,13 @@
         </button>
       </div>
 
-      <!-- Danh sách gói tập của tôi (Cards view, TUYỆT ĐỐI KHÔNG dùng table) -->
+      <!-- Danh sách gói tập của tôi dạng lưới Responsive -->
       <div
         id="my-packages-container"
-        class="my-packages-list d-flex flex-column gap-3"
+        class="my-packages-list row g-3 g-md-4"
       >
         <!-- Placeholder loading spinner khi tải dữ liệu -->
-        <div class="text-center py-5">
+        <div class="col-12 text-center py-5">
           <div class="spinner-border text-danger" role="status">
             <span class="visually-hidden">Đang tải...</span>
           </div>

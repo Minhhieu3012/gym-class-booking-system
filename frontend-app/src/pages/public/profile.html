@@ -14,7 +14,7 @@
         <img
           src="/src/assets/img/logo.png"
           alt="GYM HUB Logo"
-          class="app-brand-logo"
+          class="app-brand-logo img-fluid"
         />
         <span class="trainer-brand-name">GYM HUB</span>
         <span
@@ -153,38 +153,42 @@
     </div>
 
     <!-- Desktop Navigation Links for Member (Hidden by default) -->
-    <div class="trainer-desktop-nav d-none" id="profile-member-nav">
+    <div class="member-desktop-nav d-none" id="profile-member-nav">
       <a
         href="/member/class-list.html"
         data-link
-        class="trainer-top-nav-link"
-        aria-label="Lớp học"
+        class="member-top-nav-link"
+        aria-label="Lịch Lớp"
       >
-        <span>Lớp học</span>
+        <i class="bi bi-calendar3"></i>
+        <span>Lịch Lớp</span>
       </a>
       <a
-        href="/member/my-bookings.html"
+        href="/member/pt-booking.html"
         data-link
-        class="trainer-top-nav-link"
-        aria-label="Lịch của tôi"
+        class="member-top-nav-link"
+        aria-label="Thuê PT"
       >
-        <span>Lịch của tôi</span>
+        <i class="bi bi-person-badge"></i>
+        <span>Thuê PT</span>
       </a>
       <a
         href="/member/packages.html"
         data-link
-        class="trainer-top-nav-link"
-        aria-label="Gói tập"
+        class="member-top-nav-link"
+        aria-label="Mua Gói"
       >
-        <span>Gói tập</span>
+        <i class="bi bi-credit-card-2-front"></i>
+        <span>Mua Gói</span>
       </a>
       <a
-        href="/member/chat.html"
+        href="/member/my-bookings.html"
         data-link
-        class="trainer-top-nav-link"
-        aria-label="Tin nhắn"
+        class="member-top-nav-link"
+        aria-label="Lịch sử"
       >
-        <span>Tin nhắn</span>
+        <i class="bi bi-clock-history"></i>
+        <span>Lịch sử</span>
       </a>
     </div>
 
@@ -205,7 +209,7 @@
           <img
             src="/src/assets/img/avatar-user-default.jpg"
             alt="Avatar"
-            class="w-100 h-100 object-fit-cover rounded-circle"
+            class="w-100 h-100 object-fit-cover rounded-circle img-fluid"
           />
         </div>
         <span class="d-none d-md-inline ms-1 fs-8 fw-semibold" id="nav-greeting"
@@ -298,7 +302,7 @@
   </nav>
 
   <!-- ── MAIN CONTENT CONTAINER ── -->
-  <div class="container pb-5 mb-5 py-4 py-md-5">
+  <div class="container py-3 py-md-5">
     <!-- ── ATHLETIC PAGE HEADER ── -->
     <div class="trainer-page-header mb-4">
       <div class="trainer-header-accent" aria-hidden="true"></div>
@@ -334,7 +338,7 @@
                 id="profile-avatar"
                 src="/src/assets/img/avatar-user-default.jpg"
                 alt="Avatar"
-                class="profile-avatar-img rounded-circle"
+                class="profile-avatar-img rounded-circle img-fluid"
               />
             </div>
             <button

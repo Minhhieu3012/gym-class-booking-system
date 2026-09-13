@@ -155,7 +155,7 @@ export async function loadClasses(
 
   // Hiển thị loading spinner
   container.innerHTML = `
-    <div class="text-center py-5">
+    <div class="col-12 text-center py-5">
       <div class="spinner-border text-danger" role="status">
         <span class="visually-hidden">Đang tải...</span>
       </div>
@@ -196,19 +196,21 @@ export async function loadClasses(
     // Nếu không có lớp học nào
     if (classes.length === 0) {
       container.innerHTML = `
-        <div class="empty-classes-card shadow-theme-sm">
-          <div class="empty-icon-wrap">
-            <svg width="34" height="34" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-              <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
-              <line x1="16" y1="2" x2="16" y2="6" />
-              <line x1="8" y1="2" x2="8" y2="6" />
-              <line x1="3" y1="10" x2="21" y2="10" />
-            </svg>
+        <div class="col-12">
+          <div class="empty-classes-card shadow-theme-sm">
+            <div class="empty-icon-wrap">
+              <svg width="34" height="34" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
+                <line x1="16" y1="2" x2="16" y2="6" />
+                <line x1="8" y1="2" x2="8" y2="6" />
+                <line x1="3" y1="10" x2="21" y2="10" />
+              </svg>
+            </div>
+            <h3 class="fw-bold text-secondary-theme fs-5 mb-1">Không có dữ liệu</h3>
+            <p class="text-neutral mb-3" style="max-width: 440px; margin: 0 auto;">
+              Không có lịch lớp học phù hợp với bộ lọc ngày hoặc môn học bạn đã chọn. Vui lòng chọn ngày khác hoặc đổi loại môn học!
+            </p>
           </div>
-          <h3 class="fw-bold text-secondary-theme fs-5 mb-1">Không có dữ liệu</h3>
-          <p class="text-neutral mb-3" style="max-width: 440px; margin: 0 auto;">
-            Không có lịch lớp học phù hợp với bộ lọc ngày hoặc môn học bạn đã chọn. Vui lòng chọn ngày khác hoặc đổi loại môn học!
-          </p>
         </div>
       `;
       return;
@@ -216,7 +218,7 @@ export async function loadClasses(
 
     const now = new Date();
 
-    // Render danh sách cuộn dọc (Vertical List) bằng Bootstrap Card (TUYỆT ĐỐI KHÔNG dùng table hay Calendar)
+    // Render danh sách thẻ Grid Responsive (col-12 -> col-md-6 -> col-lg-4)
     container.innerHTML = classes
       .map((cls) => {
         const startTime = new Date(cls.startTime);
@@ -231,20 +233,20 @@ export async function loadClasses(
           cardModifier = "class-full";
         }
 
-        // Logic render nút Đặt lớp theo yêu cầu khắt khe:
+        // Logic render nút Đặt lớp:
         // - Nếu startTime đã qua: Disable nút và đổi text thành "Đã diễn ra"
         // - Nếu currentCount >= maxCapacity: Disable nút và đổi text thành "Đã đầy"
         // - Còn lại: Nút "Đặt ngay" (class: btn-book-class)
         let actionBtnHtml = "";
         if (isPast) {
           actionBtnHtml = `
-            <button type="button" class="btn btn-secondary btn-book-class" disabled>
+            <button type="button" class="btn btn-secondary btn-book-class w-100 justify-content-center" disabled>
               Đã diễn ra
             </button>
           `;
         } else if (isFull) {
           actionBtnHtml = `
-            <button type="button" class="btn btn-secondary btn-book-class" disabled>
+            <button type="button" class="btn btn-secondary btn-book-class w-100 justify-content-center" disabled>
               Đã đầy
             </button>
           `;
@@ -252,7 +254,7 @@ export async function loadClasses(
           actionBtnHtml = `
             <button 
               type="button" 
-              class="btn-brand btn-book-class" 
+              class="btn-brand btn-book-class w-100 justify-content-center" 
               data-class-id="${cls.id}"
               data-class-title="${escapeHtml(cls.title)}"
             >
@@ -276,7 +278,7 @@ export async function loadClasses(
           progressClass = "progress-warning";
         }
 
-        // Badge trạng thái Bootstrap chuẩn theo yêu cầu: Còn chỗ (Available) / Đã đầy (Full) / Đã diễn ra
+        // Badge trạng thái Bootstrap chuẩn: Còn chỗ (Available) / Đã đầy (Full) / Đã diễn ra
         let statusBadgeHtml = "";
         if (isPast) {
           statusBadgeHtml = `<span class="badge bg-secondary text-white px-2 py-1"><i class="bi bi-clock-history me-1"></i>Đã diễn ra</span>`;
@@ -293,10 +295,9 @@ export async function loadClasses(
         const roomName = cls.roomName ? `· Phòng: ${cls.roomName}` : "";
 
         return `
-          <div class="gym-class-card ${cardModifier} p-3 p-md-4 shadow-theme-sm">
-            <div class="row align-items-center g-3">
-              <!-- Cột 1: Thông tin lớp học, môn học, thời gian, HLV -->
-              <div class="col-12 col-md-7 col-lg-8">
+          <div class="col-12 col-md-6 col-lg-4 d-flex">
+            <div class="gym-class-card ${cardModifier} p-3 p-md-4 shadow-theme-sm w-100 d-flex flex-column justify-content-between">
+              <div>
                 <div class="d-flex align-items-center gap-2 mb-2 flex-wrap">
                   <span class="class-type-badge">
                     ⚡ ${escapeHtml(classTypePrefix)}
@@ -309,7 +310,7 @@ export async function loadClasses(
 
                 <h3 class="class-title mb-2">${escapeHtml(cls.title)}</h3>
 
-                <div class="d-flex flex-wrap align-items-center gap-2 gap-md-3 mt-2">
+                <div class="d-flex flex-wrap align-items-center gap-2 mt-2 mb-3">
                   <!-- Giờ bắt đầu - Giờ kết thúc -->
                   <div class="class-meta-pill">
                     <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
@@ -327,11 +328,11 @@ export async function loadClasses(
                 </div>
               </div>
 
-              <!-- Cột 2: Sĩ số & Nút Action -->
-              <div class="col-12 col-md-5 col-lg-4 d-flex flex-column flex-sm-row flex-md-column align-items-sm-center align-items-md-end justify-content-between gap-3">
+              <!-- Sĩ số & Nút Action -->
+              <div class="mt-3 pt-3 border-top border-theme d-flex flex-column gap-3">
                 <!-- Sĩ số: currentCount / maxCapacity -->
-                <div class="capacity-box w-100 text-sm-start text-md-end">
-                  <div class="d-flex justify-content-between justify-content-md-end gap-2 align-items-baseline mb-1">
+                <div class="capacity-box w-100">
+                  <div class="d-flex justify-content-between gap-2 align-items-baseline mb-1">
                     <span class="text-neutral fs-7">Sĩ số lớp:</span>
                     <span class="capacity-text text-secondary-theme">
                       <strong>${cls.currentCount}</strong> / ${cls.maxCapacity} chỗ
@@ -346,7 +347,7 @@ export async function loadClasses(
                 </div>
 
                 <!-- Nút đặt lớp -->
-                <div class="w-100 w-sm-auto text-end">
+                <div class="w-100">
                   ${actionBtnHtml}
                 </div>
               </div>
@@ -358,13 +359,15 @@ export async function loadClasses(
   } catch (error) {
     console.error("Lỗi khi tải danh sách lớp học:", error);
     container.innerHTML = `
-      <div class="alert alert-danger d-flex align-items-center gap-2 mb-0" role="alert">
-        <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-          <circle cx="12" cy="12" r="10" />
-          <line x1="12" y1="8" x2="12" y2="12" />
-          <line x1="12" y1="16" x2="12.01" y2="16" />
-        </svg>
-        <div>Không thể tải lịch lớp học lúc này. Vui lòng thử lại sau.</div>
+      <div class="col-12">
+        <div class="alert alert-danger d-flex align-items-center gap-2 mb-0" role="alert">
+          <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <circle cx="12" cy="12" r="10" />
+            <line x1="12" y1="8" x2="12" y2="12" />
+            <line x1="12" y1="16" x2="12.01" y2="16" />
+          </svg>
+          <div>Không thể tải lịch lớp học lúc này. Vui lòng thử lại sau.</div>
+        </div>
       </div>
     `;
   }
