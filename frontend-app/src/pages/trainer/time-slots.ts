@@ -125,7 +125,7 @@ function renderSlotsList(slots: TrainerTimeSlot[]): void {
               <polyline points="12 6 12 12 16 14" />
             </svg>
           </div>
-          <h3 class="fs-5 fw-bold text-secondary-theme mb-1">Chưa có khung giờ nào</h3>
+          <h3 class="fs-5 fw-bold text-secondary-theme mb-1">Không có dữ liệu</h3>
           <p class="text-neutral fs-7 mb-0">
             Bạn chưa đăng ký khung giờ làm việc nào hoặc không khớp với bộ lọc. Hãy dùng form phía trên để mở khung giờ mới!
           </p>
@@ -324,8 +324,10 @@ async function handleCreateTimeSlot(e: Event): Promise<void> {
   } catch (error: unknown) {
     console.error("Lỗi khi tạo khung giờ:", error);
     const err = error as { response?: { data?: { message?: string } } };
-    errorEl.textContent =
+    const errorMessage =
       err.response?.data?.message || "Không thể tạo khung giờ lúc này. Vui lòng kiểm tra lại!";
+    alert(errorMessage);
+    errorEl.textContent = errorMessage;
   } finally {
     submitBtn.disabled = false;
     submitBtn.innerHTML = originalHtml;
@@ -360,7 +362,10 @@ async function handleDeactivateSlot(btn: HTMLButtonElement): Promise<void> {
   } catch (error: unknown) {
     console.error("Lỗi khi hủy khung giờ:", error);
     const err = error as { response?: { data?: { message?: string } } };
-    showToast(err.response?.data?.message || "Không thể hủy khung giờ!", false);
+    const errorMessage =
+      err.response?.data?.message || "Không thể hủy khung giờ!";
+    alert(errorMessage);
+    showToast(errorMessage, false);
     btn.disabled = false;
     btn.innerHTML = originalHtml;
   }

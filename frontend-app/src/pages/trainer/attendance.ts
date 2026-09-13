@@ -106,7 +106,7 @@ function renderAttendanceTable(bookings: AttendanceBookingItem[]): void {
     tbody.innerHTML = `
       <tr>
         <td colspan="6" class="text-center py-5 text-muted">
-          <p class="mb-0">Không có hội viên nào cần điểm danh trong buổi học hôm nay.</p>
+          <p class="mb-0">Không có dữ liệu (Không có hội viên nào cần điểm danh trong buổi học hôm nay).</p>
         </td>
       </tr>
     `;

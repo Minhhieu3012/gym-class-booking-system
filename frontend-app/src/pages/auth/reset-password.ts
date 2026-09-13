@@ -66,8 +66,10 @@ export function init(): void {
       );
       navigate("/login");
     } catch (error: unknown) {
-      // Error
-      errorEl.textContent = authService.extractErrorMessage(error);
+      console.error("Lỗi đặt lại mật khẩu:", error);
+      const msg = authService.extractErrorMessage(error);
+      alert(msg);
+      errorEl.textContent = msg;
     } finally {
       // Restore button state
       submitBtn.disabled = false;

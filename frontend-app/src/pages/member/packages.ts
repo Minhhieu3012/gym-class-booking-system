@@ -106,7 +106,7 @@ export async function loadMyPackages(): Promise<void> {
               <path stroke-linecap="round" stroke-linejoin="round" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
             </svg>
           </div>
-          <h3 class="fw-bold text-secondary-theme fs-5 mb-1">Bạn chưa có gói tập nào</h3>
+          <h3 class="fw-bold text-secondary-theme fs-5 mb-1">Không có dữ liệu</h3>
           <p class="text-neutral mb-3" style="max-width: 420px; margin: 0 auto;">
             Hiện tại bạn chưa đăng ký gói tập nào hoặc các gói trước đây đã hết hạn. Hãy khám phá và đăng ký gói tập mới bên dưới!
           </p>
@@ -216,7 +216,7 @@ export async function loadAvailablePackages(): Promise<void> {
       container.innerHTML = `
         <div class="col-12">
           <div class="alert alert-info text-center py-4">
-            Hiện tại không có gói tập nào đang mở đăng ký. Vui lòng quay lại sau!
+            Không có dữ liệu (Hiện tại không có gói tập nào đang mở đăng ký. Vui lòng quay lại sau!)
           </div>
         </div>
       `;
@@ -339,6 +339,7 @@ async function handleBuyPackageClick(btn: HTMLButtonElement): Promise<void> {
     const err = error as { response?: { data?: { message?: string } } };
     const errorMessage =
       err.response?.data?.message || "Thanh toán thất bại! Vui lòng thử lại.";
+    alert(errorMessage);
     showToastMessage(errorMessage, false);
   } finally {
     // Khôi phục nút bấm

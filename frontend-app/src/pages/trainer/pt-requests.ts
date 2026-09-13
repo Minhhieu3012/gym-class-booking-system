@@ -142,9 +142,9 @@ export async function loadPTRequests(): Promise<void> {
               <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
             </svg>
           </div>
-          <h3 class="fw-bold text-secondary-theme fs-5 mb-1">Hiện không có yêu cầu nào đang chờ duyệt</h3>
+          <h3 class="fw-bold text-secondary-theme fs-5 mb-1">Không có dữ liệu</h3>
           <p class="text-neutral mb-0" style="max-width: 440px; margin: 0 auto;">
-            Tất cả các yêu cầu đặt lịch đã được xử lý hoặc chưa có học viên nào gửi yêu cầu mới. Hãy quay lại sau!
+            Hiện không có yêu cầu huấn luyện 1-1 nào đang chờ duyệt. Hãy quay lại sau!
           </p>
         </div>
       `;
@@ -296,6 +296,7 @@ async function handleConfirmPTRequest(btn: HTMLButtonElement): Promise<void> {
     const err = error as { response?: { data?: { message?: string } } };
     const errorMessage =
       err.response?.data?.message || "Xác nhận lịch hẹn không thành công!";
+    alert(errorMessage);
     showToast(errorMessage, false);
     btn.disabled = false;
     btn.innerHTML = originalHtml;
@@ -363,6 +364,7 @@ async function handleRejectPTRequest(btn: HTMLButtonElement): Promise<void> {
     const err = error as { response?: { data?: { message?: string } } };
     const errorMessage =
       err.response?.data?.message || "Từ chối yêu cầu không thành công!";
+    alert(errorMessage);
     showToast(errorMessage, false);
     btn.disabled = false;
     btn.innerHTML = originalHtml;

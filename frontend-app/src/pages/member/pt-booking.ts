@@ -147,7 +147,7 @@ export async function loadTrainers(): Promise<void> {
     if (trainers.length === 0) {
       container.innerHTML = `
         <div class="col-12 text-center py-5">
-          <div class="alert alert-info">Hiện tại chưa có huấn luyện viên nào sẵn sàng nhận lịch đặt.</div>
+          <div class="alert alert-info">Không có dữ liệu (Hiện tại chưa có huấn luyện viên nào sẵn sàng nhận lịch đặt).</div>
         </div>
       `;
       return;
@@ -272,6 +272,7 @@ export async function loadTimeSlots(trainerId: number): Promise<void> {
     });
 
     if (availableFutureSlots.length === 0) {
+      emptyMsg.textContent = "Không có dữ liệu (Huấn luyện viên hiện chưa có khung giờ trống nào trong thời gian tới. Vui lòng chọn một huấn luyện viên khác!)";
       emptyMsg.classList.remove("d-none");
       return;
     }
@@ -386,6 +387,7 @@ async function handleSubmitPTBooking(): Promise<void> {
     const errorMessage =
       err.response?.data?.message ||
       "Không thể gửi yêu cầu đặt lịch! Có thể bạn chưa có gói tập hợp lệ, bị trùng lịch hoặc khung giờ đã được đặt trước.";
+    alert(errorMessage);
     showToastMessage(errorMessage, false);
   } finally {
     submitBtn.disabled = false;

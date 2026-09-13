@@ -1,6 +1,7 @@
 import template from "./progress-notes.html?raw";
 import "./progress-notes.css";
 import interactionService from "../../services/interaction.service";
+import bookingService from "../../services/booking.service";
 import { initNotification } from "../../components/notification-popover";
 
 // Khai báo kiểu Bootstrap toàn cục
@@ -97,7 +98,7 @@ function renderRecentNotes(): void {
   if (sessionSavedNotes.length === 0) {
     container.innerHTML = `
       <div class="p-4 text-center text-muted" id="recent-notes-empty">
-        <p class="mb-0" style="font-size: 0.875rem;">Chưa có ghi chú nào được lưu trong phiên này.</p>
+        <p class="mb-0" style="font-size: 0.875rem;">Không có dữ liệu (Chưa có ghi chú nào được lưu trong phiên này).</p>
       </div>
     `;
     return;
@@ -237,6 +238,50 @@ function attachEvents(): void {
 }
 
 /**
+ * Tải danh sách hội viên thực tế từ các yêu cầu PT của Trainer
+ */
+async function loadMembers(): Promise<void> {
+  const select = document.querySelector<HTMLSelectElement>("#memberSelect");
+  if (!select) return;
+
+  try {
+    const ptResponse = await bookingService.getPTRequestsForTrainer();
+    const ptList = Array.isArray(ptResponse) ? ptResponse : (ptResponse?.content ?? []);
+
+    const memberMap = new Map<number, { id: number; name: string; email?: string }>();
+    ptList.forEach((pt) => {
+      if (pt.memberId && !memberMap.has(pt.memberId)) {
+        memberMap.set(pt.memberId, {
+          id: pt.memberId,
+          name: pt.memberName || `Hội viên #${pt.memberId}`,
+          email: pt.memberEmail,
+        });
+      }
+    });
+
+    const members = Array.from(memberMap.values());
+
+    if (members.length === 0) {
+      select.innerHTML = `<option value="" selected disabled>Không có dữ liệu hội viên</option>`;
+      return;
+    }
+
+    select.innerHTML = `
+      <option value="" selected disabled>-- Vui lòng chọn hội viên --</option>
+      ${members
+        .map(
+          (m) =>
+            `<option value="${m.id}">${escapeHtml(m.name)} (Mã: #MB-${String(m.id).padStart(4, "0")}${m.email ? ` · ${escapeHtml(m.email)}` : ""})</option>`,
+        )
+        .join("")}
+    `;
+  } catch (error) {
+    console.error("Lỗi khi tải danh sách hội viên:", error);
+    select.innerHTML = `<option value="" selected disabled>Không thể tải danh sách hội viên</option>`;
+  }
+}
+
+/**
  * Render view template
  */
 export function render(): string {
@@ -250,4 +295,5 @@ export async function init(): Promise<void> {
   initNotification();
   attachEvents();
   renderRecentNotes();
+  await loadMembers();
 }

@@ -54,8 +54,10 @@ export function init(): void {
       // Optionally clear input
       emailInput.value = "";
     } catch (error: unknown) {
-      // Show error
-      errorEl.textContent = authService.extractErrorMessage(error);
+      console.error("Lỗi gửi yêu cầu quên mật khẩu:", error);
+      const msg = authService.extractErrorMessage(error);
+      alert(msg);
+      errorEl.textContent = msg;
       errorEl.style.display = "block";
     } finally {
       // Restore button state

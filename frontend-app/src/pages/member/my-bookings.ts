@@ -316,7 +316,7 @@ export async function loadMyClassBookings(): Promise<void> {
     if (bookings.length === 0) {
       container.innerHTML = `
         <div class="text-center py-5">
-          <p class="text-neutral mb-0">Bạn chưa có lịch đặt lớp học nào.</p>
+          <p class="text-neutral mb-0">Không có dữ liệu (Bạn chưa có lịch đặt lớp học nào).</p>
         </div>
       `;
       return;
@@ -449,7 +449,7 @@ export async function loadMyPTBookings(): Promise<void> {
     if (bookings.length === 0) {
       container.innerHTML = `
         <div class="text-center py-5">
-          <p class="text-neutral mb-0">Bạn chưa có lịch đặt PT nào.</p>
+          <p class="text-neutral mb-0">Không có dữ liệu (Bạn chưa có lịch đặt PT nào).</p>
         </div>
       `;
       return;
@@ -603,6 +603,7 @@ async function handleCancelClassBooking(btn: HTMLButtonElement): Promise<void> {
     const errorMessage =
       err.response?.data?.message ||
       "Không thể hủy lịch! Lưu ý quy định: chỉ được phép hủy trước giờ bắt đầu ít nhất 24 tiếng.";
+    alert(errorMessage);
     showToast(errorMessage, false);
     btn.disabled = false;
     btn.innerHTML = `<span class="ms-1">Hủy lịch</span>`;
@@ -652,6 +653,7 @@ async function handleCancelPTBooking(btn: HTMLButtonElement): Promise<void> {
     const errorMessage =
       err.response?.data?.message ||
       "Không thể hủy lịch! Lưu ý quy định: chỉ được phép hủy trước giờ tập ít nhất 24 tiếng.";
+    alert(errorMessage);
     showToast(errorMessage, false);
     btn.disabled = false;
     btn.innerHTML = `<span class="ms-1">Hủy lịch</span>`;

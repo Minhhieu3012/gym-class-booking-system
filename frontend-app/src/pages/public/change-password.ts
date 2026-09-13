@@ -141,10 +141,13 @@ export function init(): void {
       );
       navigate("/profile");
     } catch (error: unknown) {
+      console.error("Lỗi khi đổi mật khẩu:", error);
       const msg = authService.extractErrorMessage(error);
-      passwordError.textContent = msg.includes("INVALID_CURRENT_PASSWORD")
+      const displayMsg = msg.includes("INVALID_CURRENT_PASSWORD")
         ? "Mật khẩu hiện tại không đúng. Vui lòng thử lại."
         : msg;
+      alert(displayMsg);
+      passwordError.textContent = displayMsg;
     } finally {
       saveBtn.disabled = false;
       saveBtn.textContent = "SAVE NEW PASSWORD ⚡";

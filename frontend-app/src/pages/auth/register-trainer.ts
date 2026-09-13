@@ -148,7 +148,10 @@ export function init(): void {
       );
       navigate("/");
     } catch (error: unknown) {
-      errorDiv.textContent = authService.extractErrorMessage(error);
+      console.error("Lỗi đăng ký HLV:", error);
+      const msg = authService.extractErrorMessage(error);
+      alert(msg);
+      errorDiv.textContent = msg;
     } finally {
       submitBtn.disabled = false;
       submitBtn.textContent = "SUBMIT APPLICATION ⚡";

@@ -205,7 +205,7 @@ export async function loadClasses(
               <line x1="3" y1="10" x2="21" y2="10" />
             </svg>
           </div>
-          <h3 class="fw-bold text-secondary-theme fs-5 mb-1">Không tìm thấy lớp học nào</h3>
+          <h3 class="fw-bold text-secondary-theme fs-5 mb-1">Không có dữ liệu</h3>
           <p class="text-neutral mb-3" style="max-width: 440px; margin: 0 auto;">
             Không có lịch lớp học phù hợp với bộ lọc ngày hoặc môn học bạn đã chọn. Vui lòng chọn ngày khác hoặc đổi loại môn học!
           </p>
@@ -397,6 +397,7 @@ async function handleBookClassClick(btn: HTMLButtonElement): Promise<void> {
     const errorMessage =
       err.response?.data?.message ||
       "Đặt lớp không thành công! Vui lòng kiểm tra lại gói tập hoặc lịch trình của bạn.";
+    alert(errorMessage);
     showToastMessage(errorMessage, false);
 
     // Khôi phục nút nếu lỗi

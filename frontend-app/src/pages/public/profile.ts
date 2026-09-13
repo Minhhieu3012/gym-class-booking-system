@@ -96,6 +96,7 @@ export function init(): void {
         address: profile.address ?? "",
       };
     } catch (error: unknown) {
+      console.error("Lỗi khi tải thông tin hồ sơ:", error);
       if (profileError)
         profileError.textContent = authService.extractErrorMessage(error);
     }
@@ -117,10 +118,12 @@ export function init(): void {
       const { imageUrl } = await userService.uploadAvatar(file);
       if (avatarImg) avatarImg.src = imageUrl;
       await userService.updateProfile({ avatarUrl: imageUrl });
-      alert("Ảnh đại diện đã được cập nhật.");
     } catch (error: unknown) {
+      console.error("Lỗi khi cập nhật avatar:", error);
+      const msg = authService.extractErrorMessage(error);
+      alert(msg);
       if (profileError)
-        profileError.textContent = authService.extractErrorMessage(error);
+        profileError.textContent = msg;
     } finally {
       avatarLabelBtn.textContent = originalLabel;
       avatarLabelBtn.removeAttribute("disabled");
@@ -168,7 +171,10 @@ export function init(): void {
       originalData = { fullName, phone, address };
       alert("Thông tin đã được cập nhật thành công!");
     } catch (error: unknown) {
-      profileError.textContent = authService.extractErrorMessage(error);
+      console.error("Lỗi khi cập nhật thông tin hồ sơ:", error);
+      const msg = authService.extractErrorMessage(error);
+      alert(msg);
+      profileError.textContent = msg;
     } finally {
       updateBtn.disabled = false;
       updateBtn.textContent = "SAVE CHANGES ⚡";
