@@ -31,17 +31,20 @@ public class ClassBookingServiceImpl implements ClassBookingService {
     private final GymClassRepository gymClassRepository;
     private final MemberPackageRepository memberPackageRepository;
     private final UserRepository userRepository;
+    private final com.gym.gym_booking.service.NotificationService notificationService;
 
     public ClassBookingServiceImpl(
             ClassBookingRepository classBookingRepository,
             GymClassRepository gymClassRepository,
             MemberPackageRepository memberPackageRepository,
-            UserRepository userRepository
+            UserRepository userRepository,
+            com.gym.gym_booking.service.NotificationService notificationService
     ) {
         this.classBookingRepository = classBookingRepository;
         this.gymClassRepository = gymClassRepository;
         this.memberPackageRepository = memberPackageRepository;
         this.userRepository = userRepository;
+        this.notificationService = notificationService;
     }
 
     // =========================================================
@@ -221,6 +224,21 @@ public class ClassBookingServiceImpl implements ClassBookingService {
 
         ClassBooking savedBooking =
                 classBookingRepository.save(booking);
+
+        try {
+            notificationService.createNotification(
+                    member,
+                    "Bạn đã đặt chỗ thành công lớp " + gymClass.getTitle() + "!",
+                    NotificationType.BOOKING_CONFIRMED
+            );
+            if (gymClass.getTrainer() != null) {
+                notificationService.createNotification(
+                        gymClass.getTrainer(),
+                        "Học viên " + member.getFullName() + " vừa đặt chỗ lớp " + gymClass.getTitle() + ".",
+                        NotificationType.BOOKING_CONFIRMED
+                );
+            }
+        } catch (Exception ignored) {}
 
         return mapToResponse(savedBooking);
     }
@@ -548,9 +566,24 @@ public class ClassBookingServiceImpl implements ClassBookingService {
                 cancellationReason
         );
 
-        return mapToResponse(
-                classBookingRepository.save(booking)
-        );
+        ClassBooking saved = classBookingRepository.save(booking);
+
+        try {
+            notificationService.createNotification(
+                    member,
+                    "Bạn đã hủy đặt chỗ lớp " + gymClass.getTitle() + ".",
+                    NotificationType.BOOKING_CANCELLED
+            );
+            if (gymClass.getTrainer() != null) {
+                notificationService.createNotification(
+                        gymClass.getTrainer(),
+                        "Học viên " + member.getFullName() + " đã hủy đặt chỗ lớp " + gymClass.getTitle() + ".",
+                        NotificationType.BOOKING_CANCELLED
+                );
+            }
+        } catch (Exception ignored) {}
+
+        return mapToResponse(saved);
     }
 
     // =========================================================

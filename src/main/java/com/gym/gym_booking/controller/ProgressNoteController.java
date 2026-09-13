@@ -20,13 +20,16 @@ public class ProgressNoteController {
 
     private final ProgressNoteRepository progressNoteRepository;
     private final UserRepository userRepository;
+    private final com.gym.gym_booking.service.NotificationService notificationService;
 
     public ProgressNoteController(
             ProgressNoteRepository progressNoteRepository,
-            UserRepository userRepository
+            UserRepository userRepository,
+            com.gym.gym_booking.service.NotificationService notificationService
     ) {
         this.progressNoteRepository = progressNoteRepository;
         this.userRepository = userRepository;
+        this.notificationService = notificationService;
     }
 
     @PostMapping
@@ -49,6 +52,14 @@ public class ProgressNoteController {
                 } catch (Exception ignored) {
                     // Fallback if db constraints differ
                 }
+
+                try {
+                    notificationService.createNotification(
+                            memberOpt.get(),
+                            "HLV vừa thêm ghi chú tiến độ buổi tập mới cho bạn: " + request.getContent(),
+                            com.gym.gym_booking.enums.NotificationType.TRAINER_NOTE
+                    );
+                } catch (Exception ignored) {}
             }
         }
 

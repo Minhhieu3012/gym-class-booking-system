@@ -35,17 +35,20 @@ public class PTBookingServiceImpl implements PTBookingService {
     private final TrainerTimeSlotRepository trainerTimeSlotRepository;
     private final MemberPackageRepository memberPackageRepository;
     private final UserRepository userRepository;
+    private final com.gym.gym_booking.service.NotificationService notificationService;
 
     public PTBookingServiceImpl(
             PTBookingRepository ptBookingRepository,
             TrainerTimeSlotRepository trainerTimeSlotRepository,
             MemberPackageRepository memberPackageRepository,
-            UserRepository userRepository
+            UserRepository userRepository,
+            com.gym.gym_booking.service.NotificationService notificationService
     ) {
         this.ptBookingRepository = ptBookingRepository;
         this.trainerTimeSlotRepository = trainerTimeSlotRepository;
         this.memberPackageRepository = memberPackageRepository;
         this.userRepository = userRepository;
+        this.notificationService = notificationService;
     }
 
     @Override
@@ -163,9 +166,22 @@ public class PTBookingServiceImpl implements PTBookingService {
         slot.setStatus(TimeSlotStatus.BOOKED);
         trainerTimeSlotRepository.save(slot);
 
-        return mapToResponse(
-                ptBookingRepository.save(booking)
-        );
+        PTBooking saved = ptBookingRepository.save(booking);
+
+        try {
+            notificationService.createNotification(
+                    trainer,
+                    "Học viên " + member.getFullName() + " vừa gửi yêu cầu đặt lịch tập PT 1-1 với bạn.",
+                    com.gym.gym_booking.enums.NotificationType.PT_REQUEST
+            );
+            notificationService.createNotification(
+                    member,
+                    "Yêu cầu đặt lịch PT 1-1 với HLV " + trainer.getFullName() + " đã được gửi thành công.",
+                    com.gym.gym_booking.enums.NotificationType.PT_REQUEST
+            );
+        } catch (Exception ignored) {}
+
+        return mapToResponse(saved);
     }
 
     @Override
@@ -295,9 +311,17 @@ public class PTBookingServiceImpl implements PTBookingService {
         booking.setStatus(PTBookingStatus.CONFIRMED);
         booking.setRejectReason(null);
 
-        return mapToResponse(
-                ptBookingRepository.save(booking)
-        );
+        PTBooking saved = ptBookingRepository.save(booking);
+
+        try {
+            notificationService.createNotification(
+                    booking.getMember(),
+                    "HLV " + trainer.getFullName() + " đã chấp nhận yêu cầu đặt lịch PT 1-1 của bạn!",
+                    com.gym.gym_booking.enums.NotificationType.PT_ACCEPTED
+            );
+        } catch (Exception ignored) {}
+
+        return mapToResponse(saved);
     }
 
     @Override
@@ -345,9 +369,17 @@ public class PTBookingServiceImpl implements PTBookingService {
         restoreMemberPackage(booking);
         releaseTimeSlot(booking);
 
-        return mapToResponse(
-                ptBookingRepository.save(booking)
-        );
+        PTBooking savedRejected = ptBookingRepository.save(booking);
+
+        try {
+            notificationService.createNotification(
+                    booking.getMember(),
+                    "HLV " + trainer.getFullName() + " đã từ chối yêu cầu đặt lịch PT 1-1. Lý do: " + reason,
+                    com.gym.gym_booking.enums.NotificationType.PT_REJECTED
+            );
+        } catch (Exception ignored) {}
+
+        return mapToResponse(savedRejected);
     }
 
     @Override

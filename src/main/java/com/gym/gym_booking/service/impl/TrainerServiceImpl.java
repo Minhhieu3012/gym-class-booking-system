@@ -22,13 +22,16 @@ public class TrainerServiceImpl implements TrainerService {
 
     private final TrainerProfileRepository trainerProfileRepository;
     private final UserRepository userRepository;
+    private final com.gym.gym_booking.service.NotificationService notificationService;
 
     public TrainerServiceImpl(
             TrainerProfileRepository trainerProfileRepository,
-            UserRepository userRepository
+            UserRepository userRepository,
+            com.gym.gym_booking.service.NotificationService notificationService
     ) {
         this.trainerProfileRepository = trainerProfileRepository;
         this.userRepository = userRepository;
+        this.notificationService = notificationService;
     }
 
     private User getCurrentUser() {
@@ -213,6 +216,14 @@ public class TrainerServiceImpl implements TrainerService {
         userRepository.save(trainerUser);
         trainerProfileRepository.save(trainer);
 
+        try {
+            notificationService.createNotification(
+                    trainerUser,
+                    "Chúc mừng! Hồ sơ Huấn luyện viên của bạn đã được Admin phê duyệt thành công.",
+                    com.gym.gym_booking.enums.NotificationType.ACCOUNT
+            );
+        } catch (Exception ignored) {}
+
         return new TrainerApprovalResponseDTO(
                 trainerUser.getId(),
                 trainerUser.getStatus(),
@@ -251,12 +262,13 @@ public class TrainerServiceImpl implements TrainerService {
 
         userRepository.save(trainerUser);
 
-        /*
-         * request.getReason()
-         *
-         * Rejection reason is currently not persisted because
-         * the ERD does not contain a rejection-reason field.
-         * It can later be used by Notification module.
-         */
+        String reasonText = request != null && request.getReason() != null ? " Lý do: " + request.getReason() : "";
+        try {
+            notificationService.createNotification(
+                    trainerUser,
+                    "Rất tiếc! Hồ sơ ứng tuyển Huấn luyện viên của bạn đã bị từ chối." + reasonText,
+                    com.gym.gym_booking.enums.NotificationType.ACCOUNT
+            );
+        } catch (Exception ignored) {}
     }
 }

@@ -1,5 +1,6 @@
 import interactionService from "../services/interaction.service";
 import type { NotificationItem } from "../services/interaction.service";
+import { isAuthenticated } from "../core/api";
 
 /**
  * Định dạng thời gian hiển thị tương đối hoặc ngày tháng
@@ -59,6 +60,10 @@ function updateNotificationBadge(bellBtn: HTMLElement, count: number): void {
  * Lấy số lượng thông báo chưa đọc từ API và cập nhật badge
  */
 async function loadUnreadCount(bellBtn: HTMLElement): Promise<number> {
+  if (!isAuthenticated()) {
+    updateNotificationBadge(bellBtn, 0);
+    return 0;
+  }
   try {
     const res = await interactionService.getUnreadNotificationCount();
     let count = 0;
@@ -225,6 +230,11 @@ export function initNotification(): void {
   const dropdown = document.getElementById("notification-dropdown") as HTMLElement | null;
 
   if (!bellBtn || !dropdown) {
+    return;
+  }
+
+  if (!isAuthenticated()) {
+    updateNotificationBadge(bellBtn, 0);
     return;
   }
 

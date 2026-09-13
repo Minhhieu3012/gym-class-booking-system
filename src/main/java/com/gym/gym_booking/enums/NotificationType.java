@@ -8,5 +8,9 @@ public enum NotificationType {
     PT_REJECTED,
     CLASS_REMINDER,
     NEW_MESSAGE,
-    ACCOUNT
+    ACCOUNT,
+    TRAINER_NOTE,
+    PAYMENT,
+    SYSTEM
 }
+
