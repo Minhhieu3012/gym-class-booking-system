@@ -46,15 +46,15 @@
 .admin-theme {
   --font-primary: "Plus Jakarta Sans", sans-serif;
 
-  --color-primary: #101828;
-  --color-secondary: #a3e635;
-  --color-tertiary: #06b6d4;
+  --color-primary: #dc3545;
+  --color-secondary: #212529;
+  --color-tertiary: #00857a;
   --color-neutral: #64748b;
 
-  /* Derived tokens override */
-  --color-primary-hover: #1d2939;
-  --color-primary-light: #f0fdf4;
-  --color-tertiary-light: #ecfeff;
+  /* Derived tokens override matching member theme */
+  --color-primary-hover: #b52b38;
+  --color-primary-light: #fff0f1;
+  --color-tertiary-light: #e6f4f3;
   --color-surface: #ffffff;
   --color-surface-alt: #f8fafc;
   --color-border: #e2e8f0;

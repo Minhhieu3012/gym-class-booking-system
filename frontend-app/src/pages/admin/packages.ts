@@ -131,10 +131,10 @@ export async function init(): Promise<void> {
   }
 
   function fmtPrice(price: number): string {
-    return price.toLocaleString("en-US", {
-      minimumFractionDigits: 2,
-      maximumFractionDigits: 2,
-    });
+    return new Intl.NumberFormat("vi-VN", {
+      style: "currency",
+      currency: "VND",
+    }).format(price || 0);
   }
 
   function buildStatusBadge(isActive: boolean): string {
@@ -161,7 +161,7 @@ export async function init(): Promise<void> {
           ${shortDesc}
         </td>
         <td class="py-3 text-end">
-          <span class="fw-bold text-dark font-monospace">${fmtPrice(pkg.price)} $</span>
+          <span class="fw-bold text-dark font-monospace">${fmtPrice(pkg.price)}</span>
         </td>
         <td class="py-3 text-center">
           <span class="badge bg-light text-dark border px-2 py-1 rounded-3">${pkg.durationDays} ngày</span>

@@ -156,6 +156,55 @@ function highlightActiveNav(): void {
 }
 
 /**
+ * Tải và hiển thị 5 giao dịch thực tế mới nhất từ cơ sở dữ liệu
+ */
+export async function fetchAndRenderRecentTransactions(): Promise<void> {
+  const tbody = document.querySelector<HTMLTableSectionElement>("#dashboard-recent-tx-tbody");
+  if (!tbody) return;
+
+  try {
+    const res = await AdminCoreService.getTransactions({ page: 0, size: 5 });
+    const list = Array.isArray(res) ? res : (res?.content || []);
+    
+    if (list.length === 0) {
+      tbody.innerHTML = `
+        <tr>
+          <td colspan="5" class="text-center py-3 text-muted">Chưa có giao dịch nào được ghi nhận.</td>
+        </tr>`;
+      return;
+    }
+
+    tbody.innerHTML = list.map((tx: any) => {
+      const isSuccess = (tx.status || "").toUpperCase() === "SUCCESS";
+      const badgeClass = isSuccess ? "bg-success-subtle text-success border-success-subtle" : "bg-danger-subtle text-danger border-danger-subtle";
+      const statusText = isSuccess ? "Thành công" : (tx.status || "Chờ xử lý");
+      
+      return `
+        <tr>
+          <td class="ps-3 fw-bold text-dark font-monospace">${tx.transactionCode || ("#TX-" + tx.id)}</td>
+          <td>
+            <div class="fw-semibold text-dark">${tx.memberName || "--"}</div>
+            <div class="text-muted extra-small">${tx.memberEmail || ""}</div>
+          </td>
+          <td>
+            <span class="badge bg-light text-dark border px-2 py-1">${tx.packageName || "VIP Package"}</span>
+          </td>
+          <td class="text-end fw-bold text-dark">${formatVND(tx.amount || 0)}</td>
+          <td class="text-center">
+            <span class="badge ${badgeClass} border px-2 py-1 rounded-pill small fw-semibold">${statusText}</span>
+          </td>
+        </tr>`;
+    }).join("");
+  } catch (err) {
+    console.error("Lỗi khi tải giao dịch gần đây:", err);
+    tbody.innerHTML = `
+      <tr>
+        <td colspan="5" class="text-center py-3 text-muted">Không thể tải danh sách giao dịch.</td>
+      </tr>`;
+  }
+}
+
+/**
  * Hàm khởi tạo chính của Dashboard
  */
 export function init(): void {
@@ -163,6 +212,7 @@ export function init(): void {
   setupAdminName();
   setupLogoutAction();
   fetchAndRenderOverview();
+  fetchAndRenderRecentTransactions();
 }
 
 // Khởi chạy an toàn cho cả môi trường SPA lẫn standalone HTML
