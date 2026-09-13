@@ -1,12 +1,16 @@
-// Enums & Status Types for Classes & Bookings
 export type GymClassStatus = "SCHEDULED" | "FULL" | "CANCELLED" | "COMPLETED";
+
 export type TimeSlotStatus = "AVAILABLE" | "BOOKED" | "INACTIVE";
+
 export type AttendanceStatus = "NOT_MARKED" | "PRESENT" | "ABSENT";
+
 export type ClassBookingStatus =
+  | "PENDING"
   | "CONFIRMED"
   | "CANCELLED"
   | "COMPLETED"
   | "NO_SHOW";
+
 export type PTBookingStatus =
   | "PENDING"
   | "CONFIRMED"
@@ -15,7 +19,6 @@ export type PTBookingStatus =
   | "COMPLETED"
   | "NO_SHOW";
 
-// Gym Class Model
 export interface GymClass {
   id: number;
   title: string;
@@ -23,7 +26,7 @@ export interface GymClass {
   currentCount: number;
   startTime: string;
   endTime: string;
-  status: GymClassStatus | string;
+  status: GymClassStatus;
   classTypeId: number;
   classTypeName?: string;
   trainerId: number;
@@ -31,18 +34,18 @@ export interface GymClass {
   roomId: number;
   roomName?: string;
 }
+export type GymClassResponseDTO = GymClass;
 
-// Trainer Time Slot Model
 export interface TrainerTimeSlot {
   id: number;
   startTime: string;
   endTime: string;
-  status: TimeSlotStatus | string;
+  status: TimeSlotStatus;
   trainerId?: number;
   trainerName?: string;
 }
+export type TrainerTimeSlotResponseDTO = TrainerTimeSlot;
 
-// Class Booking Model
 export interface ClassBooking {
   id: number;
   gymClassId?: number;
@@ -54,18 +57,18 @@ export interface ClassBooking {
   cancelledAt?: string | null;
   cancellationReason?: string | null;
   cancelReason?: string | null;
-  attendanceStatus: AttendanceStatus | string;
-  status: ClassBookingStatus | string;
+  attendanceStatus: AttendanceStatus;
+  status: ClassBookingStatus;
 }
+export type ClassBookingResponseDTO = ClassBooking;
 
-// PT Booking Model
 export interface PTBooking {
   id: number;
-  trainerId: number;
+  trainerId?: number;
   trainerName?: string;
   memberId?: number;
   memberName?: string;
-  timeSlotId: number;
+  timeSlotId?: number;
   trainerTimeSlotId?: number;
   trainerTimeSlot?: TrainerTimeSlot;
   timeSlot?: TrainerTimeSlot;
@@ -75,45 +78,84 @@ export interface PTBooking {
   rejectReason?: string | null;
   bookedAt: string;
   cancelledAt?: string | null;
-  attendanceStatus: AttendanceStatus | string;
-  status: PTBookingStatus | string;
+  attendanceStatus: AttendanceStatus;
+  status: PTBookingStatus;
 }
+export type PTBookingResponseDTO = PTBooking;
 
-// Request DTOs
 export interface ClassBookingRequest {
   gymClassId: number;
   memberPackageId?: number;
 }
+export type ClassBookingCreateRequestDTO = ClassBookingRequest;
 
 export interface PTBookingRequest {
-  trainerId: number;
-  timeSlotId: number;
+  trainerId?: number;
+  timeSlotId?: number;
+  trainerTimeSlotId?: number;
   memberPackageId?: number;
   sessionNote: string;
   healthNote?: string;
 }
+export type PTBookingCreateRequestDTO = PTBookingRequest;
 
 export interface CancelBookingRequest {
-  cancelReason: string;
+  cancelReason?: string;
+  reason?: string;
 }
+export type PTBookingCancelRequestDTO = CancelBookingRequest;
 
 export interface RejectPTRequest {
   rejectReason: string;
 }
+export type PTBookingDecisionRequestDTO = RejectPTRequest;
 
 export interface CreateTimeSlotRequest {
   startTime: string;
   endTime: string;
 }
+export type TrainerTimeSlotRequestDTO = CreateTimeSlotRequest;
 
-// Query Parameters
+export interface UpdateTimeSlotRequest {
+  startTime?: string;
+  endTime?: string;
+}
+export type TrainerTimeSlotUpdateRequestDTO = UpdateTimeSlotRequest;
+
+export interface CreateGymClassRequest {
+  classTypeId: number;
+  trainerId: number;
+  roomId: number;
+  title: string;
+  maxCapacity: number;
+  startTime: string;
+  endTime: string;
+}
+export type GymClassRequestDTO = CreateGymClassRequest;
+
+export interface UpdateGymClassRequest {
+  classTypeId?: number;
+  trainerId?: number;
+  roomId?: number;
+  title?: string;
+  maxCapacity?: number;
+  startTime?: string;
+  endTime?: string;
+}
+export type GymClassUpdateRequestDTO = UpdateGymClassRequest;
+
+export interface UpdateAttendanceRequest {
+  attendanceStatus: AttendanceStatus;
+}
+export type AttendanceUpdateRequestDTO = UpdateAttendanceRequest;
+
 export interface ClassQueryParams {
   page?: number;
   size?: number;
   classTypeId?: number;
   trainerId?: number;
   roomId?: number;
-  status?: GymClassStatus | string;
+  status?: GymClassStatus;
   from?: string;
   to?: string;
   keyword?: string;
@@ -122,7 +164,11 @@ export interface ClassQueryParams {
 export interface ClassBookingQueryParams {
   page?: number;
   size?: number;
-  status?: ClassBookingStatus | string;
+  gymClassId?: number;
+  memberId?: number;
+  trainerId?: number;
+  status?: ClassBookingStatus;
+  attendanceStatus?: AttendanceStatus;
   from?: string;
   to?: string;
 }
@@ -130,7 +176,10 @@ export interface ClassBookingQueryParams {
 export interface PTBookingQueryParams {
   page?: number;
   size?: number;
-  status?: PTBookingStatus | string;
+  trainerId?: number;
+  memberId?: number;
+  status?: PTBookingStatus;
+  attendanceStatus?: AttendanceStatus;
   from?: string;
   to?: string;
 }
@@ -138,5 +187,7 @@ export interface PTBookingQueryParams {
 export interface TrainerTimeSlotQueryParams {
   from?: string;
   to?: string;
-  status?: TimeSlotStatus | string;
+  status?: TimeSlotStatus;
+  page?: number;
+  size?: number;
 }

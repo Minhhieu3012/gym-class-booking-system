@@ -1,23 +1,23 @@
-// Generic — PageResponse<T>
 export interface PageResponse<T> {
   content: T[];
   totalElements: number;
   totalPages: number;
   size: number;
-  number: number; // current page index (0-based)
+  number: number;
+  first?: boolean;
+  last?: boolean;
+  empty?: boolean;
+  numberOfElements?: number;
 }
 
-// Room APIs
 export type RoomStatus = "ACTIVE" | "INACTIVE";
 
-// GET /rooms
 export interface RoomQueryParams {
   page?: number;
   size?: number;
   status?: RoomStatus;
 }
 
-// GET /rooms  |  GET /rooms/{id}
 export interface RoomResponse {
   id: number;
   name: string;
@@ -25,67 +25,66 @@ export interface RoomResponse {
   capacity: number;
   status: RoomStatus;
 }
+export type RoomResponseDTO = RoomResponse;
 
-// POST /rooms
 export interface CreateRoomRequest {
   name: string;
-  location: string;
+  location?: string;
   capacity: number;
   status: RoomStatus;
 }
+export type RoomRequestDTO = CreateRoomRequest;
 
-// PATCH /rooms/{id}
 export interface UpdateRoomRequest {
   name?: string;
   location?: string;
   capacity?: number;
 }
+export type RoomUpdateRequestDTO = UpdateRoomRequest;
 
-// PATCH /rooms/{id}/status
 export interface UpdateRoomStatusRequest {
   status: RoomStatus;
 }
+export type RoomStatusUpdateRequestDTO = UpdateRoomStatusRequest;
 
-// Class Type APIs
-// GET /class-types
 export interface ClassTypeQueryParams {
   page?: number;
   size?: number;
+  status?: "ACTIVE" | "INACTIVE";
 }
 
-// GET /class-types  |  GET /class-types/{id}
 export interface ClassTypeResponse {
   id: number;
   name: string;
   description: string;
   isActive: boolean;
+  active?: boolean;
 }
+export type ClassTypeResponseDTO = ClassTypeResponse;
 
-// POST /class-types
 export interface CreateClassTypeRequest {
   name: string;
-  description: string;
+  description?: string;
   isActive: boolean;
+  active?: boolean;
 }
+export type ClassTypeRequestDTO = CreateClassTypeRequest;
 
-// PATCH /class-types/{id}
 export interface UpdateClassTypeRequest {
   name?: string;
   description?: string;
   isActive?: boolean;
+  active?: boolean;
 }
+export type ClassTypeUpdateRequestDTO = UpdateClassTypeRequest;
 
-// Package APIs
-
-// GET /packages
-// Query params per contract: page, size, isActive
 export interface PackageQueryParams {
   page?: number;
   size?: number;
   isActive?: boolean;
+  active?: boolean;
 }
 
-// GET /packages  |  GET /packages/{id}
 export interface PackageResponse {
   id: number;
   name: string;
@@ -94,19 +93,21 @@ export interface PackageResponse {
   durationDays: number;
   sessionCount: number;
   isActive: boolean;
+  active?: boolean;
 }
+export type PackageResponseDTO = PackageResponse;
 
-// POST /packages
 export interface CreatePackageRequest {
   name: string;
-  description: string;
+  description?: string;
   price: number;
   durationDays: number;
   sessionCount: number;
   isActive: boolean;
+  active?: boolean;
 }
+export type PackageRequestDTO = CreatePackageRequest;
 
-// PATCH /packages/{id}
 export interface UpdatePackageRequest {
   name?: string;
   description?: string;
@@ -114,12 +115,10 @@ export interface UpdatePackageRequest {
   durationDays?: number;
   sessionCount?: number;
   isActive?: boolean;
+  active?: boolean;
 }
+export type PackageUpdateRequestDTO = UpdatePackageRequest;
 
-// PATCH /packages/{id}/deactivate
-
-// Analytics Overview API
-// GET /admin/analytics/overview
 export interface AnalyticsOverview {
   totalMembers: number;
   totalTrainers: number;

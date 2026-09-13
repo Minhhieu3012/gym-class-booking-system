@@ -1,8 +1,9 @@
-// Enums & Types for Packages & Member Packages
 export type PaymentMethod = "CASH" | "MOCK";
+
 export type MemberPackageStatus = "ACTIVE" | "EXPIRED";
 
-// Package definition
+export type TransactionStatus = "PENDING" | "SUCCESS" | "FAILED";
+
 export interface Package {
   id: number;
   name: string;
@@ -11,9 +12,10 @@ export interface Package {
   durationDays: number;
   sessionCount: number;
   isActive: boolean;
+  active?: boolean;
 }
+export type PackageResponseDTO = Package;
 
-// Member Package definition
 export interface MemberPackage {
   id: number;
   memberPackageId?: number;
@@ -26,26 +28,26 @@ export interface MemberPackage {
   startDate: string;
   endDate: string;
   sessionsRemaining: number;
-  status: MemberPackageStatus | string;
+  status: MemberPackageStatus;
   priorityOrder?: number;
   transactionCode?: string;
 }
+export type MemberPackageResponseDTO = MemberPackage;
 
-// Request DTOs
 export interface BuyPackageRequest {
   packageId: number;
-  paymentMethod: PaymentMethod | string;
+  paymentMethod: PaymentMethod;
 }
+export type TransactionCreateRequestDTO = BuyPackageRequest;
 
-// Transaction Response
 export interface TransactionResponse {
   id: number;
   amount: number;
-  status: "PENDING" | "SUCCESS" | "FAILED" | string;
+  status: TransactionStatus;
   transactionCode: string;
-  paymentMethod: PaymentMethod | string;
+  paymentMethod: PaymentMethod;
   createdAt: string;
-  completedAt?: string;
+  completedAt?: string | null;
   memberId?: number;
   memberName?: string;
   memberEmail?: string;
@@ -53,33 +55,39 @@ export interface TransactionResponse {
   packageName?: string;
   memberPackageId?: number;
 }
+export type TransactionResponseDTO = TransactionResponse;
 
 export interface AdjustMemberPackageRequest {
   sessionsAdjustment?: number;
   newEndDate?: string;
+  remainingSessions?: number;
+  extensionDays?: number;
   reason: string;
 }
 
-// Query Parameters
+export interface UpdateTransactionStatusRequest {
+  status: TransactionStatus;
+}
+
 export interface PackageQueryParams {
   page?: number;
   size?: number;
   isActive?: boolean;
+  active?: boolean;
 }
 
 export interface MemberPackageQueryParams {
   memberId?: number;
   page?: number;
   size?: number;
-  status?: MemberPackageStatus | string;
+  status?: MemberPackageStatus | "ALL" | string;
 }
 
 export interface TransactionQueryParams {
   memberId?: number;
-  status?: string;
+  status?: TransactionStatus | "ALL" | string;
   page?: number;
   size?: number;
   sort?: string;
   keyword?: string;
 }
-

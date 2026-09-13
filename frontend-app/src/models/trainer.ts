@@ -1,4 +1,5 @@
-// Trainer Models
+export type TrainerStatus = "PENDING" | "ACTIVE" | "LOCKED" | "REJECTED";
+
 export interface Trainer {
   id: number;
   fullName: string;
@@ -9,24 +10,44 @@ export interface Trainer {
   hourlyFee?: number;
   bio?: string;
   avatarUrl?: string | null;
-  status?: string;
+  status?: TrainerStatus;
 }
+export type TrainerResponseDTO = Trainer;
 
 export interface TrainerQueryParams {
   page?: number;
   size?: number;
   specialization?: string;
-  status?: string;
+  status?: TrainerStatus | "ALL" | string;
   keyword?: string;
 }
+
+export interface TrainerProfileRequest {
+  specialization: string;
+  experienceYears: number;
+  hourlyFee: number;
+  bio?: string;
+}
+export type TrainerProfileRequestDTO = TrainerProfileRequest;
+
+export interface TrainerProfileUpdateRequest {
+  specialization?: string;
+  experienceYears?: number;
+  hourlyFee?: number;
+  bio?: string;
+}
+export type TrainerProfileUpdateRequestDTO = TrainerProfileUpdateRequest;
 
 export interface RejectTrainerPayload {
   reason: string;
 }
+export type RejectTrainerRequestDTO = RejectTrainerPayload;
 
 export interface TrainerApprovalResponse {
-  trainerId: number;
-  status: string;
+  id?: number;
+  trainerId?: number;
+  status: TrainerStatus;
   approvedBy?: number;
   approvedAt?: string;
 }
+export type TrainerApprovalResponseDTO = TrainerApprovalResponse;

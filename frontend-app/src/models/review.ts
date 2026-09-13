@@ -1,5 +1,7 @@
 import type { PageResponse } from "./admin";
 
+export type ReviewTargetType = "CLASS" | "PT";
+
 export interface Review {
   id: number;
   rating: number;
@@ -7,8 +9,8 @@ export interface Review {
   hidden: boolean;
   isHidden?: boolean;
   createdAt: string;
-  classBookingId?: number;
-  ptBookingId?: number;
+  classBookingId?: number | null;
+  ptBookingId?: number | null;
   memberName?: string;
   memberEmail?: string;
   member?: {
@@ -16,14 +18,23 @@ export interface Review {
     fullName?: string;
     email?: string;
   };
-  targetType?: string;
+  targetType?: ReviewTargetType | string;
   targetName?: string;
   message?: string;
 }
+export type ReviewResponseDTO = Review;
+
+export interface CreateReviewRequest {
+  classBookingId?: number;
+  ptBookingId?: number;
+  rating: number;
+  comment: string;
+}
+export type CreateReviewRequestDTO = CreateReviewRequest;
 
 export interface ReviewQueryParams {
-  rating?: number | string;
-  hidden?: boolean | string;
+  rating?: number | "ALL" | string;
+  hidden?: boolean | "ALL" | string;
   page?: number;
   size?: number;
   sort?: string;
