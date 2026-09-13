@@ -2,6 +2,7 @@
 import { isAuthenticated, hasRole, getStoredUser } from "./api";
 import type { UserRole } from "../models/auth";
 
+import * as MemberSchedulePage from "../pages/member/schedule";
 import * as LoginPage from "../pages/auth/login";
 import * as RegisterPage from "../pages/auth/register";
 import * as RegisterTrainerPage from "../pages/auth/register-trainer";
@@ -128,6 +129,13 @@ const routes: Route[] = [
     view: MemberMyBookingsPage.render,
     init: MemberMyBookingsPage.init,
   },
+    {
+      path: "/member/schedule",
+      requiresAuth: true,
+      roles: ["MEMBER"],
+      view: MemberSchedulePage.render,
+      init: MemberSchedulePage.init,
+    },
   {
     path: "/member/my-bookings.html",
     requiresAuth: true,
@@ -142,6 +150,13 @@ const routes: Route[] = [
     view: MemberMyBookingsPage.render,
     init: MemberMyBookingsPage.init,
   },
+    {
+      path: "/member/schedule",
+      requiresAuth: true,
+      roles: ["MEMBER", "ADMIN"],
+      view: MemberSchedulePage.render,
+      init: MemberSchedulePage.init,
+    },
   {
     path: "/member/chat",
     requiresAuth: true,
