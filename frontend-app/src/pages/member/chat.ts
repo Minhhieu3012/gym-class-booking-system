@@ -28,6 +28,7 @@ let activePartner: ConversationItem | null = null;
 let conversations: ConversationItem[] = [];
 let currentFilter: "all" | "unread" | "recent" = "all";
 let searchQuery: string = "";
+let isSending: boolean = false;
 
 // Lưu trữ lịch sử tin nhắn theo userId đối tác
 const messageHistoryMap: Record<number, ChatMessageDTO[]> = {};
@@ -154,7 +155,7 @@ function renderConversations(list: ConversationItem[]): void {
     container.innerHTML = `
       <div class="conversation-empty p-4 text-center text-muted">
         <i class="bi bi-chat-dots fs-1 mb-2 d-block opacity-40"></i>
-        <p class="mb-1 fw-medium text-light">Không tìm thấy cuộc trò chuyện</p>
+        <p class="mb-1 fw-medium text-secondary-theme">Không tìm thấy cuộc trò chuyện</p>
         <small class="text-secondary">Thử tìm kiếm với từ khóa khác</small>
       </div>
     `;
@@ -191,7 +192,7 @@ function renderConversations(list: ConversationItem[]): void {
       </div>
       <div class="conversation-info flex-grow-1 overflow-hidden">
         <div class="d-flex justify-content-between align-items-center mb-1">
-          <h2 class="h6 fw-semibold mb-0 text-light text-truncate">${escapeHtml(
+          <h2 class="h6 fw-semibold mb-0 text-truncate text-secondary-theme">${escapeHtml(
             conv.fullName
           )}</h2>
           <span class="message-time small text-muted">${escapeHtml(
@@ -400,7 +401,7 @@ export async function selectConversation(userId: number): Promise<void> {
     messageArea.innerHTML += `
       <div class="chat-placeholder my-auto text-center text-muted py-5">
         <i class="bi bi-chat-heart fs-1 text-danger mb-2 d-block"></i>
-        <h3 class="h6 text-light fw-bold">Chưa có tin nhắn nào</h3>
+        <h3 class="h6 text-dark fw-bold">Chưa có tin nhắn nào</h3>
         <p class="small text-muted mb-0">Hãy gửi tin nhắn đầu tiên để bắt đầu buổi trao đổi!</p>
       </div>
     `;
@@ -428,6 +429,8 @@ export async function selectConversation(userId: number): Promise<void> {
  * Xử lý sự kiện gửi tin nhắn văn bản và hình ảnh.
  */
 async function handleSendMessage(customContent?: string): Promise<void> {
+  if (isSending) return;
+
   // Nếu chưa chọn đối tác, tự động chọn người đầu tiên
   if (!activeReceiverId && conversations.length > 0) {
     await selectConversation(conversations[0].userId);
@@ -453,11 +456,17 @@ async function handleSendMessage(customContent?: string): Promise<void> {
 
   const content = (customContent !== undefined ? customContent : chatInput?.value || "").trim();
   const file = fileInput?.files?.[0] || null;
-  const previewDataUrl = previewImg?.src || "";
 
-  if (!content && !file && !previewDataUrl) {
+  // Kiểm tra ảnh thực tế đính kèm: chỉ nhận nếu previewContainer đang hiển thị và có data URL thật
+  const isPreviewVisible = !!(previewContainer && !previewContainer.classList.contains("d-none"));
+  const rawPreviewSrc = previewImg?.getAttribute("src") || "";
+  const hasValidAttachedImage = isPreviewVisible && previewImg?.dataset.attached === "true" && rawPreviewSrc.startsWith("data:image/");
+
+  if (!content && !file && !hasValidAttachedImage) {
     return;
   }
+
+  isSending = true;
 
   // Khóa nút gửi tạm thời
   if (btnSend) {
@@ -467,17 +476,17 @@ async function handleSendMessage(customContent?: string): Promise<void> {
   let finalImageUrl: string | null = null;
 
   try {
-    // 1. Upload ảnh nếu có file
+    // 1. Upload ảnh nếu có file thật được chọn
     if (file) {
       try {
         const uploadRes = await UploadService.uploadFile(file);
         finalImageUrl = uploadRes.imageUrl;
       } catch (uploadErr) {
         console.warn("Upload ảnh thất bại, fallback sang base64 data URL:", uploadErr);
-        finalImageUrl = previewDataUrl;
+        finalImageUrl = hasValidAttachedImage ? rawPreviewSrc : null;
       }
-    } else if (previewDataUrl && !previewDataUrl.endsWith("/")) {
-      finalImageUrl = previewDataUrl;
+    } else if (hasValidAttachedImage) {
+      finalImageUrl = rawPreviewSrc;
     }
 
     // 2. Tạo tin nhắn DTO gửi đi (Optimistic UI Update)
@@ -507,7 +516,7 @@ async function handleSendMessage(customContent?: string): Promise<void> {
 
     // 3. Cập nhật preview danh sách hội thoại bên trái
     if (activePartner) {
-      activePartner.lastMessage = content || "[Hình ảnh]";
+      activePartner.lastMessage = content || (finalImageUrl ? "[Hình ảnh]" : "");
       activePartner.lastMessageAt = newMsg.sentAt;
 
       // Đưa đối tác này lên đầu danh sách
@@ -519,11 +528,14 @@ async function handleSendMessage(customContent?: string): Promise<void> {
       renderConversations(conversations);
     }
 
-    // 4. Reset input và preview
+    // 4. Reset input và preview ảnh hoàn toàn
     if (chatInput) chatInput.value = "";
     if (fileInput) fileInput.value = "";
     if (previewContainer) previewContainer.classList.add("d-none");
-    if (previewImg) previewImg.src = "";
+    if (previewImg) {
+      previewImg.removeAttribute("src");
+      delete previewImg.dataset.attached;
+    }
 
     // 5. Thử gửi qua STOMP WebSocket nếu đã kết nối
     if (chatService.isConnected()) {
@@ -541,6 +553,7 @@ async function handleSendMessage(customContent?: string): Promise<void> {
   } catch (error: any) {
     console.error("Lỗi khi gửi tin nhắn:", error);
   } finally {
+    isSending = false;
     if (btnSend) {
       btnSend.disabled = false;
     }
@@ -625,10 +638,42 @@ function onMessageReceived(msg: ChatMessageDTO): void {
     messageHistoryMap[partnerId] = [];
   }
 
-  // Tránh trùng tin nhắn
-  if (!messageHistoryMap[partnerId].some((m) => m.id === msg.id)) {
+  // 1. Nếu đây là tin nhắn do chính mình gửi được STOMP WebSocket server echo về
+  if (msg.senderId === currentUserId) {
+    // Tìm tin nhắn lạc quan (optimistic) vừa render trên giao diện
+    const optimisticMsg = messageHistoryMap[partnerId].find(
+      (m) =>
+        m.senderId === currentUserId &&
+        m.content === msg.content &&
+        (m.imageUrl || null) === (msg.imageUrl || null) &&
+        Math.abs(new Date(m.sentAt).getTime() - new Date(msg.sentAt).getTime()) < 15000
+    );
+
+    if (optimisticMsg) {
+      // Đã render trên màn hình rồi, chỉ cập nhật lại ID thực từ Database
+      optimisticMsg.id = msg.id;
+      optimisticMsg.sentAt = msg.sentAt;
+      return;
+    }
+
+    // Nếu không tìm thấy (ví dụ gửi từ tab/thiết bị khác), kiểm tra ID để tránh trùng
+    if (messageHistoryMap[partnerId].some((m) => m.id === msg.id)) {
+      return;
+    }
+
     messageHistoryMap[partnerId].push(msg);
+    if (isForActiveConversation) {
+      renderMessage(msg);
+      scrollToBottom();
+    }
+    return;
   }
+
+  // 2. Nếu là tin nhắn từ đối tác gửi tới
+  if (messageHistoryMap[partnerId].some((m) => m.id === msg.id)) {
+    return;
+  }
+  messageHistoryMap[partnerId].push(msg);
 
   if (isForActiveConversation) {
     const placeholder = document.querySelector(".chat-placeholder");
@@ -672,11 +717,60 @@ function onAckReceived(_ack: any): void {
 export async function init(): Promise<void> {
   currentUserId = resolveCurrentUserId();
   const isTrainer = isTrainerRoute();
+  const user = getStoredUser();
+  const isMember = user?.role === "MEMBER";
+
+  // Cập nhật điều hướng & tiêu đề theo vai trò (Member vs Trainer)
+  const homeLink = document.getElementById(
+    "chat-nav-home-link"
+  ) as HTMLAnchorElement | null;
+  const backBtn = document.getElementById(
+    "chat-sidebar-back-btn"
+  ) as HTMLAnchorElement | null;
+  const portalTag = document.getElementById("chat-portal-tag");
+  const trainerNav = document.getElementById("chat-trainer-nav");
+  const memberNav = document.getElementById("chat-member-nav");
+
+  if (isMember) {
+    if (homeLink) homeLink.href = "/member/class-list.html";
+    if (backBtn) {
+      backBtn.href = "/member/class-list.html";
+      backBtn.title = "Quay lại Lớp học";
+    }
+    if (portalTag) portalTag.textContent = "MEMBER PORTAL";
+    if (trainerNav) {
+      trainerNav.classList.add("d-none");
+      trainerNav.classList.remove("d-lg-flex");
+    }
+    if (memberNav) {
+      memberNav.classList.remove("d-none");
+      memberNav.classList.add("d-lg-flex");
+    }
+  } else {
+    if (homeLink) homeLink.href = "/trainer/time-slots.html";
+    if (backBtn) {
+      backBtn.href = "/trainer/time-slots.html";
+      backBtn.title = "Quay lại Lịch dạy Huấn Luyện Viên";
+    }
+    if (portalTag) portalTag.textContent = "TRAINER PORTAL";
+    if (trainerNav) {
+      trainerNav.classList.remove("d-none");
+      trainerNav.classList.add("d-lg-flex");
+    }
+    if (memberNav) {
+      memberNav.classList.add("d-none");
+      memberNav.classList.remove("d-lg-flex");
+    }
+  }
 
   // Cập nhật nhãn vai trò
   const roleLabel = document.getElementById("chat-role-label");
   if (roleLabel) {
-    roleLabel.textContent = isTrainer ? "HLV Trưởng Hub" : "Học Viên Hub";
+    roleLabel.textContent = isMember
+      ? "Hội Viên Gym Hub"
+      : isTrainer
+      ? "HLV Trưởng Hub"
+      : "Gym Hub Realtime";
   }
 
   // Cố gắng kết nối STOMP WebSocket
@@ -716,43 +810,34 @@ export async function init(): Promise<void> {
       messageArea.innerHTML = `
         <div class="chat-placeholder my-auto text-center text-muted py-5">
           <i class="bi bi-chat-heart fs-1 text-secondary mb-2 d-block"></i>
-          <h3 class="h6 text-light fw-bold">Chưa có cuộc trò chuyện nào</h3>
+          <h3 class="h6 text-dark fw-bold">Chưa có cuộc trò chuyện nào</h3>
           <p class="small text-muted mb-0">Hãy kết nối và nhắn tin cùng Huấn luyện viên hoặc Hội viên!</p>
         </div>
       `;
     }
   }
 
-  // Thiết lập sự kiện Form gửi tin nhắn
-  const chatForm = document.getElementById("chat-form");
-  const btnSend = document.getElementById("btn-send");
-
+  // Thiết lập sự kiện Form gửi tin nhắn (dùng onsubmit duy nhất để tránh gửi lặp 2 lần)
+  const chatForm = document.getElementById("chat-form") as HTMLFormElement | null;
   if (chatForm) {
-    chatForm.addEventListener("submit", (e) => {
+    chatForm.onsubmit = (e) => {
       e.preventDefault();
       handleSendMessage();
-    });
-  }
-
-  if (btnSend) {
-    btnSend.addEventListener("click", (e) => {
-      e.preventDefault();
-      handleSendMessage();
-    });
+    };
   }
 
   // Sự kiện nút Quay lại trên Mobile
   const btnBack = document.getElementById("btn-back");
   const appContainer = document.getElementById("chat-app-container");
   if (btnBack && appContainer) {
-    btnBack.addEventListener("click", () => {
+    btnBack.onclick = () => {
       appContainer.classList.remove("chat-active");
       activeReceiverId = null;
       activePartner = null;
       document
         .querySelectorAll(".conversation-item")
         .forEach((el) => el.classList.remove("active"));
-    });
+    };
   }
 
   // Sự kiện đính kèm file ảnh
@@ -767,13 +852,13 @@ export async function init(): Promise<void> {
   const btnRemovePreview = document.getElementById("btn-remove-preview");
 
   if (btnAttach && fileInput) {
-    btnAttach.addEventListener("click", () => {
+    btnAttach.onclick = () => {
       fileInput.click();
-    });
+    };
   }
 
   if (fileInput && previewContainer && previewImg) {
-    fileInput.addEventListener("change", () => {
+    fileInput.onchange = () => {
       const file = fileInput.files?.[0];
       if (file) {
         if (!file.type.startsWith("image/")) {
@@ -784,20 +869,23 @@ export async function init(): Promise<void> {
 
         const reader = new FileReader();
         reader.onload = (e) => {
-          previewImg.src = (e.target?.result as string) || "";
+          const dataUrl = (e.target?.result as string) || "";
+          previewImg.setAttribute("src", dataUrl);
+          previewImg.dataset.attached = "true";
           previewContainer.classList.remove("d-none");
         };
         reader.readAsDataURL(file);
       }
-    });
+    };
   }
 
   if (btnRemovePreview && fileInput && previewContainer && previewImg) {
-    btnRemovePreview.addEventListener("click", () => {
+    btnRemovePreview.onclick = () => {
       fileInput.value = "";
-      previewImg.src = "";
+      previewImg.removeAttribute("src");
+      delete previewImg.dataset.attached;
       previewContainer.classList.add("d-none");
-    });
+    };
   }
 
   // Sự kiện Quick Filter chips ("Tất cả", "Chưa đọc", "Gần đây")
@@ -844,12 +932,12 @@ export async function init(): Promise<void> {
 
   // Sự kiện Quick Prompts Chips (Gợi ý tin nhắn nhanh)
   document.querySelectorAll(".btn-chip").forEach((chip) => {
-    chip.addEventListener("click", (e) => {
+    (chip as HTMLElement).onclick = (e) => {
       const prompt = (e.currentTarget as HTMLElement).dataset.prompt;
       if (prompt) {
         handleSendMessage(prompt);
       }
-    });
+    };
   });
 
   // Sự kiện Emoji Popover
