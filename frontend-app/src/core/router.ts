@@ -83,6 +83,18 @@ const routes: Route[] = [
     init: RegisterPage.init,
   },
   {
+    path: "/auth/register",
+    requiresAuth: false,
+    view: RegisterPage.render,
+    init: RegisterPage.init,
+  },
+  {
+    path: "/auth/register.html",
+    requiresAuth: false,
+    view: RegisterPage.render,
+    init: RegisterPage.init,
+  },
+  {
     path: "/register-trainer",
     requiresAuth: false,
     view: RegisterTrainerPage.render,
@@ -95,6 +107,18 @@ const routes: Route[] = [
     init: ProfilePage.init,
   },
   {
+    path: "/profile.html",
+    requiresAuth: true,
+    view: ProfilePage.render,
+    init: ProfilePage.init,
+  },
+  {
+    path: "/public/profile.html",
+    requiresAuth: true,
+    view: ProfilePage.render,
+    init: ProfilePage.init,
+  },
+  {
     path: "/change-password",
     requiresAuth: true,
     view: ChangePasswordPage.render,
@@ -102,6 +126,13 @@ const routes: Route[] = [
   },
   {
     path: "/member/packages",
+    requiresAuth: true,
+    roles: ["MEMBER", "ADMIN"],
+    view: MemberPackagesPage.render,
+    init: MemberPackagesPage.init,
+  },
+  {
+    path: "/member/packages.html",
     requiresAuth: true,
     roles: ["MEMBER", "ADMIN"],
     view: MemberPackagesPage.render,
@@ -137,6 +168,13 @@ const routes: Route[] = [
   },
   {
     path: "/member/pt-booking",
+    requiresAuth: true,
+    roles: ["MEMBER", "ADMIN"],
+    view: MemberPTBookingPage.render,
+    init: MemberPTBookingPage.init,
+  },
+  {
+    path: "/member/pt-booking.html",
     requiresAuth: true,
     roles: ["MEMBER", "ADMIN"],
     view: MemberPTBookingPage.render,
@@ -505,7 +543,15 @@ async function handleRoute(): Promise<void> {
   }
 
   // --- Chặn user đã đăng nhập vào /login hoặc /register ---
-  const guestOnlyPaths = ["/login", "/register", "/register-trainer"];
+  const guestOnlyPaths = [
+    "/login",
+    "/auth/login",
+    "/auth/login.html",
+    "/register",
+    "/auth/register",
+    "/auth/register.html",
+    "/register-trainer",
+  ];
   if (guestOnlyPaths.includes(pathname) && isAuthenticated()) {
     navigate("/");
     return;

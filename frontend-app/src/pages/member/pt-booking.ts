@@ -183,7 +183,12 @@ export async function loadTrainers(): Promise<void> {
                 </div>
                 <div>
                   <h3 class="trainer-name mb-1">${escapeHtml(t.fullName)}</h3>
-                  <span class="trainer-spec-badge">${escapeHtml(spec)}</span>
+                  <div class="d-flex align-items-center gap-1 flex-wrap">
+                    <span class="trainer-spec-badge">${escapeHtml(spec)}</span>
+                    <span class="badge bg-success text-white px-2 py-1" style="font-size: 0.7rem;">
+                      <i class="bi bi-check-circle me-1"></i>Còn chỗ
+                    </span>
+                  </div>
                 </div>
               </div>
 

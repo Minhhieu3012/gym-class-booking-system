@@ -1,4 +1,5 @@
 @import "./pages/trainer/trainer-nav.css";
+@import "./components/member-nav.css";
 
 :root {
   --font-primary: "Space Grotesk", sans-serif;

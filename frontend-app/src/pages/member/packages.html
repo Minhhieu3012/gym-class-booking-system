@@ -1,4 +1,4 @@
-<main class="member-packages-page bg-surface-alt min-vh-100 pb-5">
+<main class="member-packages-page bg-surface-alt min-vh-100 pb-5 mb-5">
   <!-- ── NAVBAR ── -->
   <nav class="packages-navbar w-100 d-flex justify-content-between align-items-center px-3 px-md-4 py-3 bg-surface border-bottom border-theme sticky-top">
     <div class="d-flex align-items-center gap-3">
@@ -38,7 +38,7 @@
   </div>
 
   <!-- ── CONTENT WRAPPER ── -->
-  <div class="container py-4 px-3 px-md-4">
+  <div class="container pb-5 mb-5 py-4 px-3 px-md-4">
     <!-- PAGE HERO BANNER -->
     <div class="hero-banner card-theme p-4 p-md-5 mb-5 position-relative overflow-hidden">
       <div class="row align-items-center position-relative" style="z-index: 2;">
@@ -120,4 +120,44 @@
       </div>
     </section>
   </div>
+
+  <!-- ── MEMBER MOBILE BOTTOM NAVIGATION (Sporty & Premium) ── -->
+  <nav class="member-bottom-nav fixed-bottom" id="member-bottom-nav" aria-label="Member Navigation">
+    <div class="member-bottom-nav-container">
+      <a href="/member/class-list.html" data-link class="member-nav-item" aria-label="Lịch Lớp">
+        <div class="member-nav-icon">
+          <i class="bi bi-calendar3"></i>
+        </div>
+        <span class="member-nav-label">Lịch Lớp</span>
+      </a>
+
+      <a href="/member/pt-booking.html" data-link class="member-nav-item" aria-label="Thuê PT">
+        <div class="member-nav-icon">
+          <i class="bi bi-person-badge"></i>
+        </div>
+        <span class="member-nav-label">Thuê PT</span>
+      </a>
+
+      <a href="/member/packages.html" data-link class="member-nav-item active" aria-label="Mua Gói">
+        <div class="member-nav-icon">
+          <i class="bi bi-credit-card-2-front"></i>
+        </div>
+        <span class="member-nav-label">Mua Gói</span>
+      </a>
+
+      <a href="/member/my-bookings.html" data-link class="member-nav-item" aria-label="Lịch sử">
+        <div class="member-nav-icon">
+          <i class="bi bi-clock-history"></i>
+        </div>
+        <span class="member-nav-label">Lịch sử</span>
+      </a>
+
+      <a href="/public/profile.html" data-link class="member-nav-item" aria-label="Hồ sơ">
+        <div class="member-nav-icon">
+          <i class="bi bi-person-circle"></i>
+        </div>
+        <span class="member-nav-label">Hồ sơ</span>
+      </a>
+    </div>
+  </nav>
 </main>

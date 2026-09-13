@@ -276,6 +276,17 @@ export async function loadClasses(
           progressClass = "progress-warning";
         }
 
+        // Badge trạng thái Bootstrap chuẩn theo yêu cầu: Còn chỗ (Available) / Đã đầy (Full) / Đã diễn ra
+        let statusBadgeHtml = "";
+        if (isPast) {
+          statusBadgeHtml = `<span class="badge bg-secondary text-white px-2 py-1"><i class="bi bi-clock-history me-1"></i>Đã diễn ra</span>`;
+        } else if (isFull) {
+          statusBadgeHtml = `<span class="badge bg-danger text-white px-2 py-1"><i class="bi bi-x-circle me-1"></i>Đã đầy</span>`;
+        } else {
+          const remainingSpots = cls.maxCapacity - cls.currentCount;
+          statusBadgeHtml = `<span class="badge bg-success text-white px-2 py-1"><i class="bi bi-check-circle me-1"></i>Còn chỗ (${remainingSpots} chỗ)</span>`;
+        }
+
         const timeData = formatTimeRange(cls.startTime, cls.endTime);
         const classTypePrefix = cls.classTypeName || "LỚP GROUP";
         const trainerName = cls.trainerName || "Huấn luyện viên Gym";
@@ -290,6 +301,7 @@ export async function loadClasses(
                   <span class="class-type-badge">
                     ⚡ ${escapeHtml(classTypePrefix)}
                   </span>
+                  ${statusBadgeHtml}
                   <span class="text-neutral fs-7 fw-semibold">
                     ${escapeHtml(timeData.date)} ${escapeHtml(roomName)}
                   </span>

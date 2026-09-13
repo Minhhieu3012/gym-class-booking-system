@@ -15,21 +15,18 @@ export function init(): void {
   if (!isAuthenticated()) {
     // Guest: show Sign Up + Login buttons
     if (loginLink) {
-      loginLink.href = "/login";
-      loginLink.textContent = "Log In";
+      loginLink.href = "/auth/login.html";
+      loginLink.textContent = "Đăng nhập";
     }
     ctaContainer.innerHTML = `
-      <a href="/register" data-link class="btn-brand w-100 justify-content-center py-3" style="font-size: 1rem; letter-spacing: 0.05em">
-        SIGN UP / JOIN NOW →
-      </a>
-      <a href="/login" data-link class="btn-brand-outline w-100 justify-content-center py-2" style="font-size: 0.85rem">
-        <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-          <circle cx="12" cy="12" r="10"/>
-          <polyline points="12 8 8 12 12 16"/>
-          <line x1="16" y1="12" x2="8" y2="12"/>
-        </svg>
-        EXPLORE FACILITY
-      </a>
+      <div class="d-flex flex-column flex-sm-row gap-3 w-100 mt-2">
+        <a href="/auth/register.html" data-link class="btn-brand flex-fill justify-content-center py-3 px-4 shadow-lg text-center text-nowrap fw-bold" style="font-size: 1rem; letter-spacing: 0.04em">
+          <i class="bi bi-lightning-charge-fill me-1 text-warning"></i> ĐĂNG KÝ NGAY →
+        </a>
+        <a href="/auth/login.html" data-link class="btn-brand-outline flex-fill justify-content-center py-3 px-4 text-center text-nowrap fw-bold" style="font-size: 1rem">
+          <i class="bi bi-box-arrow-in-right me-1"></i> ĐĂNG NHẬP
+        </a>
+      </div>
     `;
     return;
   }

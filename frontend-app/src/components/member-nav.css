@@ -1,0 +1,123 @@
+/* ============================================================
+   Member Shared Mobile-First Bottom Navigation Styles
+   Sporty & Premium Dark Theme (#0f172a) with Neon Crimson/Orange Accents
+   ============================================================ */
+
+/* Fixed Bottom Navigation */
+.member-bottom-nav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 66px;
+  background: rgba(15, 23, 42, 0.97);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: 0 -4px 25px rgba(0, 0, 0, 0.35);
+  z-index: 1045;
+  padding: 0 0.5rem;
+  transition: transform 0.3s ease;
+}
+
+.member-bottom-nav-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  height: 100%;
+  max-width: 580px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.member-nav-item {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  color: #94a3b8;
+  text-decoration: none !important;
+  padding: 0.3rem 0.2rem;
+  transition: all 0.22s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.member-nav-icon {
+  font-size: 1.25rem;
+  line-height: 1;
+  margin-bottom: 3px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.2s ease, color 0.2s ease;
+}
+
+.member-nav-icon i {
+  font-style: normal;
+  display: inline-block;
+}
+
+.member-nav-label {
+  display: block;
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+  transition: color 0.2s ease;
+}
+
+/* Hover State */
+.member-nav-item:hover {
+  color: #ffffff;
+}
+
+.member-nav-item:hover .member-nav-icon {
+  transform: translateY(-2px);
+  color: #f87171;
+}
+
+/* Active State */
+.member-nav-item.active {
+  color: #ffffff !important;
+}
+
+.member-nav-item.active .member-nav-icon {
+  color: #f43f5e;
+  transform: translateY(-2px) scale(1.08);
+  filter: drop-shadow(0 2px 8px rgba(244, 63, 94, 0.55));
+}
+
+.member-nav-item.active .member-nav-label {
+  color: #ffffff;
+  font-weight: 700;
+}
+
+.member-nav-item.active::after {
+  content: "";
+  position: absolute;
+  bottom: 4px;
+  width: 20px;
+  height: 3px;
+  border-radius: 9999px;
+  background: linear-gradient(90deg, #ff416c, #ff4b2b);
+  box-shadow: 0 0 10px rgba(255, 75, 43, 0.85);
+}
+
+/* Safe bottom padding for pages with bottom nav */
+.member-page-body-padding,
+.member-classes-page,
+.member-pt-booking-page,
+.member-packages-page,
+.member-my-bookings-page,
+.profile-page-root {
+  padding-bottom: 85px !important;
+}
