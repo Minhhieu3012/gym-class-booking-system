@@ -1,132 +1,317 @@
-.profile-navbar {
-  border-bottom: 1px solid var(--color-border);
-  position: sticky;
-  top: 0;
-  z-index: 100;
+/* ============================================================
+   Profile Page Athletic Styling
+   Synchronized with Trainer Portal Sporty & Premium Dark Theme
+   ============================================================ */
+
+@import "../trainer/trainer-nav.css";
+
+/* Base Layout & Theme Background */
+.profile-page-root {
+  background-color: #0b0f19 !important;
+  color: #f8fafc;
+  min-height: 100vh;
 }
-.profile-navbar-logo-icon {
-  font-size: 0.85rem;
-}
-.profile-navbar-logo-text {
-  font-size: 0.6rem;
-  letter-spacing: 1px;
-}
-.profile-navbar-greeting {
-  font-size: 0.8rem;
-}
-.profile-navbar-avatar {
-  width: 32px;
-  height: 32px;
-  font-size: 0.85rem;
-  cursor: pointer;
+
+/* ── Top Navbar Profile Avatar Bubble ── */
+.profile-nav-avatar {
+  width: 30px;
+  height: 30px;
+  font-size: 0.82rem;
+  background: linear-gradient(135deg, #e11d48 0%, #be123c 100%);
+  color: #ffffff;
+  box-shadow: 0 2px 8px rgba(225, 29, 72, 0.4);
   flex-shrink: 0;
 }
-.profile-header-container {
-  max-width: 520px;
+
+/* ── Athletic Cards ── */
+.profile-athletic-card {
+  background: #111827;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 20px;
+  box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.35);
+  position: relative;
+  overflow: hidden;
+  transition: border-color 0.25s ease, box-shadow 0.25s ease;
 }
-.profile-header-title {
-  font-size: 0.85rem;
-  letter-spacing: 0.05em;
+
+.profile-athletic-card:hover {
+  border-color: rgba(255, 255, 255, 0.15);
+  box-shadow: 0 14px 36px -4px rgba(0, 0, 0, 0.45);
 }
-.profile-id-text {
-  font-size: 0.72rem;
+
+/* ── Card Icon Wrapper ── */
+.profile-card-icon-wrapper {
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  background: rgba(225, 29, 72, 0.12);
+  border: 1px solid rgba(225, 29, 72, 0.25);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.profile-card-section-title {
+  font-size: 0.75rem;
   letter-spacing: 0.08em;
 }
-.profile-badge-small {
-  font-size: 0.6rem;
+
+/* ── Avatar Circle & Change Trigger ── */
+.profile-avatar-wrapper {
+  width: 106px;
+  height: 106px;
+  border-radius: 50%;
+  padding: 3px;
+  background: linear-gradient(135deg, #e11d48 0%, #be123c 50%, #fb7185 100%);
+  box-shadow: 0 0 24px rgba(225, 29, 72, 0.35);
+  display: inline-block;
 }
-.profile-main-container {
-  max-width: 520px;
-}
+
 .profile-avatar-img {
-  width: 96px;
-  height: 96px;
+  width: 100px;
+  height: 100px;
   object-fit: cover;
-  background-color: var(--color-surface-alt);
+  background-color: #1e293b;
+  display: block;
 }
+
 .profile-avatar-btn {
-  width: 28px;
-  height: 28px;
-  background-color: var(--color-tertiary);
+  width: 32px;
+  height: 32px;
+  background-color: #e11d48;
   cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 4px 12px rgba(225, 29, 72, 0.4);
 }
+
+.profile-avatar-btn:hover {
+  background-color: #be123c;
+  transform: scale(1.1);
+  box-shadow: 0 6px 16px rgba(225, 29, 72, 0.6);
+}
+
+.profile-avatar-btn:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(225, 29, 72, 0.4);
+}
+
+/* ── Badges & Identity ── */
 .profile-name-title {
-  font-size: 1.2rem;
+  font-size: 1.35rem;
+  letter-spacing: -0.02em;
 }
-.profile-member-badge {
-  font-size: 0.65rem;
+
+.profile-role-tag {
+  background: rgba(225, 29, 72, 0.15);
+  border: 1px solid rgba(225, 29, 72, 0.35);
+  color: #fb7185;
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  padding: 0.2rem 0.65rem;
+  border-radius: 9999px;
+  text-transform: uppercase;
 }
+
+.profile-id-pill {
+  background: rgba(16, 185, 129, 0.12);
+  border: 1px solid rgba(16, 185, 129, 0.3);
+  color: #34d399;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  padding: 0.2rem 0.65rem;
+  border-radius: 9999px;
+}
+
 .profile-member-since {
   font-size: 0.72rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
 }
+
 .profile-change-avatar-btn {
-  font-size: 0.75rem;
+  font-size: 0.8rem;
+  font-weight: 700;
+  border-radius: 10px;
 }
+
+/* ── Activity Metric Boxes ── */
+.profile-stat-box {
+  background: rgba(15, 23, 42, 0.75);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  transition: all 0.2s ease;
+}
+
+.profile-stat-box:hover {
+  background: rgba(15, 23, 42, 0.95);
+  border-color: rgba(255, 255, 255, 0.15);
+  transform: translateY(-2px);
+}
+
 .profile-stat-value-large {
   font-size: 1.3rem;
+  font-family: "Space Grotesk", sans-serif;
+  letter-spacing: -0.02em;
 }
+
 .profile-stat-value-medium {
-  font-size: 1.1rem;
+  font-size: 1.15rem;
+  font-family: "Space Grotesk", sans-serif;
+  letter-spacing: -0.02em;
 }
+
 .profile-stat-label {
-  font-size: 0.6rem;
+  font-size: 0.62rem;
+  font-weight: 700;
   letter-spacing: 0.05em;
 }
-.profile-stat-subtext {
-  font-size: 0.65rem;
+
+.profile-stat-badge {
+  font-size: 0.62rem;
+  font-weight: 700;
+  padding: 0.15rem 0.45rem;
 }
-.profile-stat-divider {
-  width: 1px;
-  background-color: var(--color-border);
-}
+
+/* ── Section Title & Status ── */
 .profile-section-title {
-  font-size: 0.85rem;
-  letter-spacing: 0.05em;
+  font-size: 1.1rem;
+  letter-spacing: -0.01em;
 }
+
 .profile-sync-status {
-  font-size: 0.7rem;
-}
-.profile-label {
   font-size: 0.72rem;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.04em;
+  color: #34d399 !important;
 }
+
+/* ── Form Styling ── */
+.profile-label {
+  font-size: 0.75rem;
+  letter-spacing: 0.04em;
+  color: #cbd5e1;
+}
+
+.profile-input-group {
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transition: all 0.2s ease;
+}
+
+.profile-input-group:focus-within {
+  border-color: #e11d48;
+  box-shadow: 0 0 0 3px rgba(225, 29, 72, 0.25) !important;
+}
+
 .profile-input-icon {
-  border-right: none;
+  background: #1e293b !important;
+  border: none !important;
+  color: #94a3b8;
+  padding-left: 1rem;
+  padding-right: 0.75rem;
 }
+
 .profile-input-field {
-  border-left: none;
-  box-shadow: none;
+  background: #1e293b !important;
+  border: none !important;
+  color: #f8fafc !important;
+  font-size: 0.92rem;
+  padding: 0.65rem 0.85rem;
+  box-shadow: none !important;
 }
-.profile-email-status {
-  font-size: 0.68rem;
+
+.profile-input-field::placeholder {
+  color: #64748b;
 }
+
 .profile-input-email {
-  border-left: none;
-  border-right: none;
-  box-shadow: none;
-  opacity: 0.7;
+  background: #1e293b !important;
+  border: none !important;
+  color: #94a3b8 !important;
+  font-size: 0.92rem;
+  padding: 0.65rem 0.85rem;
+  box-shadow: none !important;
+  cursor: not-allowed;
 }
+
 .profile-input-status-icon {
-  border-left: none;
+  background: #1e293b !important;
+  border: none !important;
+  color: #64748b;
+  padding-right: 1rem;
 }
+
+.profile-email-status {
+  font-size: 0.7rem;
+  letter-spacing: 0.04em;
+  color: #34d399 !important;
+}
+
+/* ── Action Buttons ── */
+.profile-submit-btn {
+  background: linear-gradient(135deg, #e11d48 0%, #be123c 100%) !important;
+  border: none !important;
+  color: #ffffff !important;
+  font-weight: 800;
+  font-size: 0.92rem;
+  letter-spacing: 0.05em;
+  border-radius: 12px;
+  box-shadow: 0 4px 18px rgba(225, 29, 72, 0.4);
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  display: inline-flex;
+  align-items: center;
+}
+
+.profile-submit-btn:hover {
+  background: linear-gradient(135deg, #f43f5e 0%, #e11d48 100%) !important;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 24px rgba(225, 29, 72, 0.55);
+}
+
+.profile-submit-btn:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(225, 29, 72, 0.5) !important;
+}
+
+.profile-discard-btn {
+  background: rgba(255, 255, 255, 0.06) !important;
+  border: 1px solid rgba(255, 255, 255, 0.15) !important;
+  color: #cbd5e1 !important;
+  font-weight: 700;
+  font-size: 0.85rem;
+  letter-spacing: 0.03em;
+  border-radius: 12px;
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+}
+
+.profile-discard-btn:hover {
+  background: rgba(255, 255, 255, 0.12) !important;
+  color: #ffffff !important;
+  border-color: rgba(255, 255, 255, 0.25) !important;
+}
+
 .profile-error-msg {
   font-size: 0.85rem;
   min-height: 1.25rem;
 }
-.profile-submit-btn {
-  font-size: 0.95rem;
-  letter-spacing: 0.06em;
+
+/* ── Back Button in Header ── */
+.btn-trainer-back {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: #e2e8f0;
+  border-radius: 10px;
+  transition: all 0.2s ease;
+  min-height: 40px;
 }
-.profile-discard-btn {
-  font-size: 0.8rem;
-}
-.profile-password-section {
-  border-top: 1px solid var(--color-border);
-}
-.profile-password-text {
-  font-size: 0.75rem;
-}
-.profile-password-btn {
-  font-size: 0.8rem;
-  width: 100%;
+
+.btn-trainer-back:hover {
+  background: rgba(225, 29, 72, 0.25);
+  border-color: rgba(225, 29, 72, 0.5);
+  color: #ffffff;
+  transform: translateX(-2px);
 }

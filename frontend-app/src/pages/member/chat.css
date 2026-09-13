@@ -2,6 +2,8 @@
    Gym Class Booking & Trainer Chat - Real-time Chat Styling (Luxury Fitness Dark)
    ========================================================================== */
 
+@import "../trainer/trainer-nav.css";
+
 :root {
   --chat-bg-main: #0b0f17;
   --chat-bg-pane: #111723;
@@ -42,14 +44,34 @@ body.gym-chat-app {
 }
 
 .chat-container {
-  height: 100vh;
-  height: 100dvh;
+  height: calc(100vh - 65px);
+  height: calc(100dvh - 65px);
   display: flex;
   flex-direction: column;
   background: radial-gradient(circle at 85% 15%, rgba(239, 68, 68, 0.04) 0%, transparent 45%),
               radial-gradient(circle at 15% 85%, rgba(59, 130, 246, 0.03) 0%, transparent 45%),
               var(--chat-bg-main);
   overflow: hidden;
+}
+
+#chat-sidebar-back-btn {
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  color: #e2e8f0;
+}
+
+#chat-sidebar-back-btn:hover {
+  background: rgba(225, 29, 72, 0.25);
+  border-color: rgba(225, 29, 72, 0.5);
+  color: #ffffff;
+  transform: translateX(-2px);
 }
 
 .border-theme {

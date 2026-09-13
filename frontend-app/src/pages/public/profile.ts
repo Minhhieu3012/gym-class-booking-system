@@ -35,6 +35,36 @@ export function init(): void {
       backLink.setAttribute("title", "Quay lại Lịch lớp học");
     }
   }
+
+  // Tùy chỉnh điều hướng Top Navbar & Bottom Nav theo vai trò (Role-Aware Navigation)
+  if (user?.role === "MEMBER") {
+    const portalTag = document.querySelector<HTMLElement>("#profile-portal-tag");
+    if (portalTag) portalTag.textContent = "MEMBER PORTAL";
+    const roleBadge = document.querySelector<HTMLElement>("#profile-role-badge");
+    if (roleBadge) roleBadge.textContent = "HỘI VIÊN";
+    const athleteBadge = document.querySelector<HTMLElement>("#profile-athlete-badge");
+    if (athleteBadge) athleteBadge.textContent = "MEMBER VIP";
+    const homeLink = document.querySelector<HTMLAnchorElement>("#profile-nav-home-link");
+    if (homeLink) homeLink.href = "/member/class-list.html";
+    const trainerNav = document.querySelector<HTMLElement>("#profile-trainer-nav");
+    if (trainerNav) trainerNav.classList.add("d-none");
+    const memberNav = document.querySelector<HTMLElement>("#profile-member-nav");
+    if (memberNav) {
+      memberNav.classList.remove("d-none");
+      memberNav.classList.add("d-lg-flex");
+    }
+    const bottomNav = document.querySelector<HTMLElement>("#trainer-bottom-nav");
+    if (bottomNav) bottomNav.classList.add("d-none");
+  } else if (user?.role === "TRAINER") {
+    const portalTag = document.querySelector<HTMLElement>("#profile-portal-tag");
+    if (portalTag) portalTag.textContent = "TRAINER PORTAL";
+    const roleBadge = document.querySelector<HTMLElement>("#profile-role-badge");
+    if (roleBadge) roleBadge.textContent = "HUẤN LUYỆN VIÊN";
+    const athleteBadge = document.querySelector<HTMLElement>("#profile-athlete-badge");
+    if (athleteBadge) athleteBadge.textContent = "PRO TRAINER";
+    const homeLink = document.querySelector<HTMLAnchorElement>("#profile-nav-home-link");
+    if (homeLink) homeLink.href = "/trainer/time-slots.html";
+  }
   const avatarImg = document.querySelector<HTMLImageElement>("#profile-avatar");
   const avatarInput = document.querySelector<HTMLInputElement>(
     "#profile-avatar-input",
