@@ -2,12 +2,23 @@
    Landing Page Styles — Sporty & Premium Dark/Contrasting Theme
    ============================================================ */
 
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 80px; /* Đảm bảo fixed-navbar không che mất tiêu đề section */
+}
+
 .landing-navbar {
-  position: sticky;
-  top: 0;
-  z-index: 1020;
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
+}
+
+.landing-nav-link {
+  transition: color var(--transition-fast);
+}
+
+.landing-nav-link:hover,
+.landing-nav-link:focus-visible {
+  color: var(--color-primary) !important;
 }
 
 .landing-navbar-logo-icon {
@@ -34,6 +45,7 @@
   position: relative;
   overflow: hidden;
   background: linear-gradient(180deg, #ffffff 0%, #f8f9fa 100%);
+  padding-top: calc(80px + 2rem) !important;
 }
 
 .landing-hero-gradient {
@@ -106,7 +118,7 @@
 @media (max-width: 575.98px) {
   .landing-hero-section {
     min-height: auto;
-    padding-top: 2rem !important;
+    padding-top: calc(80px + 1.5rem) !important;
     padding-bottom: 3rem !important;
   }
 }

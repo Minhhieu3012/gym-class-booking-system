@@ -1,43 +1,108 @@
 <main class="bg-surface-alt min-vh-100">
   <!-- ── NAVBAR ── -->
-  <nav class="landing-navbar w-100 d-flex justify-content-between align-items-center px-3 px-md-5 py-3 bg-surface border-bottom border-theme">
-    <div class="d-flex align-items-center gap-2">
-      <span class="landing-navbar-logo-icon">⚡</span>
-      <span class="landing-navbar-logo-text fw-bold text-secondary-theme fs-5">PULSE GYM</span>
+  <nav
+    class="navbar navbar-expand-lg fixed-top landing-navbar bg-surface border-bottom border-theme px-3 px-md-5 py-2"
+  >
+    <div class="container-fluid px-0">
+      <!-- Bên trái: Logo text "PULSE GYM", gắn id="logo-link" -->
+      <a
+        href="#home"
+        id="logo-link"
+        class="navbar-brand d-flex align-items-center gap-2 text-decoration-none m-0"
+      >
+        <img src="/src/assets/img/logo.png" alt="Pulse Gym Logo" class="app-brand-logo app-brand-logo-md" />
+        <span class="landing-navbar-logo-text fw-bold text-secondary-theme fs-5"
+          >PULSE GYM</span
+        >
+      </a>
+
+      <!-- Nút toggle cho mobile (Bootstrap 5) -->
+      <button
+        class="navbar-toggler border-0 shadow-none px-2"
+        type="button"
+        data-bs-toggle="collapse"
+        data-bs-target="#landingNavbar"
+        aria-controls="landingNavbar"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <!-- Nội dung Navbar thu gọn / mở rộng -->
+      <div class="collapse navbar-collapse" id="landingNavbar">
+        <!-- Ở giữa: Danh sách menu (navbar-nav mx-auto) -->
+        <div
+          class="navbar-nav mx-auto py-2 py-lg-0 gap-1 gap-lg-3 align-items-lg-center"
+        >
+          <a
+            class="nav-link landing-nav-link text-secondary-theme fw-semibold px-2"
+            href="#home"
+            >Home</a
+          >
+          <a
+            class="nav-link landing-nav-link text-secondary-theme fw-semibold px-2"
+            href="#about"
+            >About</a
+          >
+          <a
+            class="nav-link landing-nav-link text-secondary-theme fw-semibold px-2"
+            href="#programs"
+            >Programs</a
+          >
+          <a
+            class="nav-link landing-nav-link text-secondary-theme fw-semibold px-2"
+            href="#membership"
+            >Membership</a
+          >
+          <a
+            class="nav-link landing-nav-link text-secondary-theme fw-semibold px-2"
+            href="#contact"
+            >Contact</a
+          >
+        </div>
+      </div>
     </div>
-    <div class="d-none d-md-flex align-items-center gap-2">
-      <span class="landing-navbar-badge badge-theme badge-active d-flex align-items-center gap-1 px-3 py-1">
-        <i class="bi bi-geo-alt-fill text-danger me-1"></i>
-        DOWNTOWN ELITE ARENA · Sàn đấu thể thao đang mở cửa
-      </span>
-    </div>
-    <a href="/auth/login.html" data-link id="landing-login-link" class="btn btn-sm btn-outline-danger px-3 py-1 rounded-pill fw-semibold text-decoration-none">
-      Đăng nhập
-    </a>
   </nav>
 
   <!-- ── HERO SECTION ── -->
-  <section class="landing-hero-section position-relative d-flex flex-column justify-content-center py-5">
-    <div class="landing-hero-gradient position-absolute top-0 start-0 w-100 h-100"></div>
-    <div class="landing-hero-bg-wrapper position-absolute top-0 start-0 w-100 h-100">
+  <section
+    id="home"
+    class="landing-hero-section position-relative d-flex flex-column justify-content-center py-5"
+  >
+    <div
+      class="landing-hero-gradient position-absolute top-0 start-0 w-100 h-100"
+    ></div>
+    <div
+      class="landing-hero-bg-wrapper position-absolute top-0 start-0 w-100 h-100"
+    >
       <div class="landing-hero-bg-pattern"></div>
     </div>
 
-    <div class="container px-4 py-4 position-relative" style="z-index: 2;">
+    <div class="container px-4 py-4 position-relative" style="z-index: 2">
       <div class="row align-items-center g-5">
         <div class="col-12 col-lg-7">
-          <p class="landing-hero-tagline fw-bold mb-2 text-tertiary text-uppercase d-flex align-items-center gap-1">
+          <p
+            class="landing-hero-tagline fw-bold mb-2 text-tertiary text-uppercase d-flex align-items-center gap-1"
+          >
             <span class="text-warning">★</span> NEXT-GEN ATHLETIC CLUB
           </p>
           <h1 class="landing-hero-title fw-bold text-secondary-theme mb-3">
             PULSE GYM <span class="text-danger">ARENA</span>
           </h1>
-          <p class="landing-hero-desc text-neutral fs-5 mb-4" style="max-width: 580px;">
-            Đột phá giới hạn thể chất của bạn. Đặt lịch lớp học nhóm sôi động, kết nối trực tiếp với Huấn luyện viên cá nhân và nâng tầm thể lực mỗi ngày.
+          <p
+            class="landing-hero-desc text-neutral fs-5 mb-4"
+            style="max-width: 580px"
+          >
+            Đột phá giới hạn thể chất của bạn. Đặt lịch lớp học nhóm sôi động,
+            kết nối trực tiếp với Huấn luyện viên cá nhân và nâng tầm thể lực
+            mỗi ngày.
           </p>
 
           <!-- Địa chỉ & Giờ hoạt động -->
-          <div class="d-flex align-items-center gap-2 mb-4 text-secondary-theme fs-7">
+          <div
+            class="d-flex align-items-center gap-2 mb-4 text-secondary-theme fs-7"
+          >
             <i class="bi bi-geo-alt-fill text-danger"></i>
             <span class="fw-semibold">
               450 Olympic Blvd, Downtown Elite Arena · Mở cửa 06:00 - 22:00
@@ -47,25 +112,64 @@
           <!-- Thống kê nổi bật -->
           <div class="d-flex flex-wrap gap-4 mb-4 pb-2">
             <div class="border-start border-danger border-3 ps-3">
-              <p class="landing-stat-value fw-bold text-secondary-theme mb-0 fs-3">40+</p>
-              <p class="landing-stat-label text-neutral mb-0 fs-8 fw-semibold text-uppercase">LỚP MỖI TUẦN</p>
+              <p
+                class="landing-stat-value fw-bold text-secondary-theme mb-0 fs-3"
+              >
+                40+
+              </p>
+              <p
+                class="landing-stat-label text-neutral mb-0 fs-8 fw-semibold text-uppercase"
+              >
+                LỚP MỖI TUẦN
+              </p>
             </div>
             <div class="border-start border-danger border-3 ps-3">
-              <p class="landing-stat-value fw-bold text-primary-theme mb-0 fs-3">15+</p>
-              <p class="landing-stat-label text-neutral mb-0 fs-8 fw-semibold text-uppercase">HLV CHUYÊN NGHIỆP</p>
+              <p
+                class="landing-stat-value fw-bold text-primary-theme mb-0 fs-3"
+              >
+                15+
+              </p>
+              <p
+                class="landing-stat-label text-neutral mb-0 fs-8 fw-semibold text-uppercase"
+              >
+                HLV CHUYÊN NGHIỆP
+              </p>
             </div>
             <div class="border-start border-danger border-3 ps-3">
-              <p class="landing-stat-value fw-bold text-secondary-theme mb-0 fs-3">99.4%</p>
-              <p class="landing-stat-label text-neutral mb-0 fs-8 fw-semibold text-uppercase">HÀI LÒNG</p>
+              <p
+                class="landing-stat-value fw-bold text-secondary-theme mb-0 fs-3"
+              >
+                99.4%
+              </p>
+              <p
+                class="landing-stat-label text-neutral mb-0 fs-8 fw-semibold text-uppercase"
+              >
+                HÀI LÒNG
+              </p>
             </div>
           </div>
 
           <!-- 2 NÚT CALL-TO-ACTION NỔI BẬT THEO YÊU CẦU -->
-          <div id="cta-container" class="d-flex flex-column flex-sm-row gap-3 pt-2" style="max-width: 520px;">
-            <a href="/auth/register.html" data-link class="btn-brand justify-content-center py-3 px-4 shadow-lg flex-fill text-center text-nowrap fw-bold" style="font-size: 1.05rem; letter-spacing: 0.04em;">
-              <i class="bi bi-lightning-charge-fill me-1 text-warning"></i> ĐĂNG KÝ NGAY →
+          <div
+            id="cta-container"
+            class="d-flex flex-column flex-sm-row gap-3 pt-2"
+            style="max-width: 520px"
+          >
+            <a
+              href="/auth/register.html"
+              data-link
+              class="btn-brand justify-content-center py-3 px-4 shadow-lg flex-fill text-center text-nowrap fw-bold"
+              style="font-size: 1.05rem; letter-spacing: 0.04em"
+            >
+              <i class="bi bi-lightning-charge-fill me-1 text-warning"></i> ĐĂNG
+              KÝ NGAY →
             </a>
-            <a href="/auth/login.html" data-link class="btn-brand-outline justify-content-center py-3 px-4 flex-fill text-center text-nowrap fw-bold" style="font-size: 1.05rem;">
+            <a
+              href="/auth/login.html"
+              data-link
+              class="btn-brand-outline justify-content-center py-3 px-4 flex-fill text-center text-nowrap fw-bold"
+              style="font-size: 1.05rem"
+            >
               <i class="bi bi-box-arrow-in-right me-1"></i> ĐĂNG NHẬP
             </a>
           </div>
@@ -73,30 +177,49 @@
 
         <!-- Cột Phải: Ảnh / Hero Feature Visual -->
         <div class="col-12 col-lg-5 d-none d-lg-block">
-          <div class="landing-hero-card card-theme p-4 p-xl-5 shadow-lg border-theme position-relative">
+          <div
+            class="landing-hero-card card-theme p-4 p-xl-5 shadow-lg border-theme position-relative"
+          >
             <div class="d-flex align-items-center justify-content-between mb-4">
-              <span class="badge bg-danger text-white px-3 py-2 rounded-pill fw-bold fs-7">
+              <span
+                class="badge bg-danger text-white px-3 py-2 rounded-pill fw-bold fs-7"
+              >
                 ⚡ ĐẶT LỊCH TẬP THÔNG MINH
               </span>
               <span class="text-tertiary fw-bold fs-7">24/7 MOBILE-READY</span>
             </div>
-            <h3 class="fw-bold text-secondary-theme fs-4 mb-3">Sẵn Sàng Thay Đổi Cơ Thể?</h3>
+            <h3 class="fw-bold text-secondary-theme fs-4 mb-3">
+              Sẵn Sàng Thay Đổi Cơ Thể?
+            </h3>
             <p class="text-neutral fs-6 mb-4">
-              Trải nghiệm hệ thống đặt lịch tự động tối ưu lượt tập, không lo trùng lịch và nhận thông báo nhắc nhở ngay tức thì.
+              Trải nghiệm hệ thống đặt lịch tự động tối ưu lượt tập, không lo
+              trùng lịch và nhận thông báo nhắc nhở ngay tức thì.
             </p>
             <div class="d-flex flex-column gap-3">
-              <div class="d-flex align-items-center gap-3 p-3 rounded-theme-md bg-surface-alt border-theme">
+              <div
+                class="d-flex align-items-center gap-3 p-3 rounded-theme-md bg-surface-alt border-theme"
+              >
                 <i class="bi bi-check2-circle text-success fs-4"></i>
                 <div class="fs-7">
-                  <strong class="text-secondary-theme d-block">Lớp nhóm đa dạng</strong>
-                  <span class="text-neutral">HIIT, Yoga, Boxing, Functional Strength</span>
+                  <strong class="text-secondary-theme d-block"
+                    >Lớp nhóm đa dạng</strong
+                  >
+                  <span class="text-neutral"
+                    >HIIT, Yoga, Boxing, Functional Strength</span
+                  >
                 </div>
               </div>
-              <div class="d-flex align-items-center gap-3 p-3 rounded-theme-md bg-surface-alt border-theme">
+              <div
+                class="d-flex align-items-center gap-3 p-3 rounded-theme-md bg-surface-alt border-theme"
+              >
                 <i class="bi bi-person-check text-primary-theme fs-4"></i>
                 <div class="fs-7">
-                  <strong class="text-secondary-theme d-block">HLV kèm 1-1 chuyên sâu</strong>
-                  <span class="text-neutral">Giáo án cá nhân hoá theo thể trạng</span>
+                  <strong class="text-secondary-theme d-block"
+                    >HLV kèm 1-1 chuyên sâu</strong
+                  >
+                  <span class="text-neutral"
+                    >Giáo án cá nhân hoá theo thể trạng</span
+                  >
                 </div>
               </div>
             </div>
@@ -107,97 +230,168 @@
   </section>
 
   <!-- ── OUR CLASSES SECTION (Bootstrap Grid) ── -->
-  <section class="bg-surface py-5 border-top border-bottom border-theme">
+  <section
+    id="programs"
+    class="bg-surface py-5 border-top border-bottom border-theme"
+  >
     <div class="container px-4">
       <div class="text-center mb-5">
-        <p class="landing-section-eyebrow text-tertiary fw-bold mb-1 text-uppercase">
+        <p
+          class="landing-section-eyebrow text-tertiary fw-bold mb-1 text-uppercase"
+        >
           CURATED DISCIPLINES
         </p>
         <h2 class="landing-section-title fw-bold text-secondary-theme mb-2">
           Các Lớp Học Nhóm Nổi Bật
         </h2>
-        <p class="landing-section-desc text-neutral mx-auto" style="max-width: 600px;">
-          Lộ trình tập luyện năng động, đốt mỡ và xây dựng cơ bắp dưới sự hướng dẫn của HLV hàng đầu.
+        <p
+          class="landing-section-desc text-neutral mx-auto"
+          style="max-width: 600px"
+        >
+          Lộ trình tập luyện năng động, đốt mỡ và xây dựng cơ bắp dưới sự hướng
+          dẫn của HLV hàng đầu.
         </p>
       </div>
 
       <div class="row g-4">
         <!-- Class Card 1 -->
         <div class="col-12 col-md-6 col-lg-3">
-          <div class="card-theme h-100 p-4 d-flex flex-column justify-content-between shadow-theme-sm">
+          <div
+            class="card-theme h-100 p-4 d-flex flex-column justify-content-between shadow-theme-sm"
+          >
             <div>
-              <div class="d-flex justify-content-between align-items-center mb-3">
-                <span class="badge bg-danger-subtle text-danger fw-bold px-2 py-1 fs-8">HIGH ENERGY</span>
+              <div
+                class="d-flex justify-content-between align-items-center mb-3"
+              >
+                <span
+                  class="badge bg-danger-subtle text-danger fw-bold px-2 py-1 fs-8"
+                  >HIGH ENERGY</span
+                >
                 <i class="bi bi-fire text-danger fs-5"></i>
               </div>
-              <h3 class="fw-bold text-secondary-theme fs-5 mb-2">HIIT &amp; Cardio</h3>
+              <h3 class="fw-bold text-secondary-theme fs-5 mb-2">
+                HIIT &amp; Cardio
+              </h3>
               <p class="text-neutral fs-7 mb-4">
-                Đốt cháy tới 800 kcal với các chuỗi động tác cường độ cao, tối ưu hóa sức bền tim mạch và sức mạnh bùng nổ.
+                Đốt cháy tới 800 kcal với các chuỗi động tác cường độ cao, tối
+                ưu hóa sức bền tim mạch và sức mạnh bùng nổ.
               </p>
             </div>
-            <div class="d-flex justify-content-between align-items-center pt-3 border-top border-theme">
-              <span class="text-neutral fs-8 fw-semibold">CƯỜNG ĐỘ: CỰC CAO</span>
-              <span class="badge bg-light text-secondary border border-theme">45 PHÚT</span>
+            <div
+              class="d-flex justify-content-between align-items-center pt-3 border-top border-theme"
+            >
+              <span class="text-neutral fs-8 fw-semibold"
+                >CƯỜNG ĐỘ: CỰC CAO</span
+              >
+              <span class="badge bg-light text-secondary border border-theme"
+                >45 PHÚT</span
+              >
             </div>
           </div>
         </div>
 
         <!-- Class Card 2 -->
         <div class="col-12 col-md-6 col-lg-3">
-          <div class="card-theme h-100 p-4 d-flex flex-column justify-content-between shadow-theme-sm">
+          <div
+            class="card-theme h-100 p-4 d-flex flex-column justify-content-between shadow-theme-sm"
+          >
             <div>
-              <div class="d-flex justify-content-between align-items-center mb-3">
-                <span class="badge bg-success-subtle text-success fw-bold px-2 py-1 fs-8">STRENGTH</span>
+              <div
+                class="d-flex justify-content-between align-items-center mb-3"
+              >
+                <span
+                  class="badge bg-success-subtle text-success fw-bold px-2 py-1 fs-8"
+                  >STRENGTH</span
+                >
                 <i class="bi bi-trophy text-success fs-5"></i>
               </div>
-              <h3 class="fw-bold text-secondary-theme fs-5 mb-2">Metabolic Power</h3>
+              <h3 class="fw-bold text-secondary-theme fs-5 mb-2">
+                Metabolic Power
+              </h3>
               <p class="text-neutral fs-7 mb-4">
-                Kỹ thuật tạ đòn và bài tập khối lượng nâng cao giúp tăng sinh cơ bắp, săn chắc thể hình và phục hồi năng lượng.
+                Kỹ thuật tạ đòn và bài tập khối lượng nâng cao giúp tăng sinh cơ
+                bắp, săn chắc thể hình và phục hồi năng lượng.
               </p>
             </div>
-            <div class="d-flex justify-content-between align-items-center pt-3 border-top border-theme">
+            <div
+              class="d-flex justify-content-between align-items-center pt-3 border-top border-theme"
+            >
               <span class="text-neutral fs-8 fw-semibold">TĂNG TRƯỞNG CƠ</span>
-              <span class="badge bg-light text-secondary border border-theme">60 PHÚT</span>
+              <span class="badge bg-light text-secondary border border-theme"
+                >60 PHÚT</span
+              >
             </div>
           </div>
         </div>
 
         <!-- Class Card 3 -->
         <div class="col-12 col-md-6 col-lg-3">
-          <div class="card-theme h-100 p-4 d-flex flex-column justify-content-between shadow-theme-sm">
+          <div
+            class="card-theme h-100 p-4 d-flex flex-column justify-content-between shadow-theme-sm"
+          >
             <div>
-              <div class="d-flex justify-content-between align-items-center mb-3">
-                <span class="badge bg-warning-subtle text-warning-emphasis fw-bold px-2 py-1 fs-8">FIGHT CLUB</span>
+              <div
+                class="d-flex justify-content-between align-items-center mb-3"
+              >
+                <span
+                  class="badge bg-warning-subtle text-warning-emphasis fw-bold px-2 py-1 fs-8"
+                  >FIGHT CLUB</span
+                >
                 <i class="bi bi-shield-shaded text-warning-emphasis fs-5"></i>
               </div>
-              <h3 class="fw-bold text-secondary-theme fs-5 mb-2">Combat Boxing</h3>
+              <h3 class="fw-bold text-secondary-theme fs-5 mb-2">
+                Combat Boxing
+              </h3>
               <p class="text-neutral fs-7 mb-4">
-                Luyện kỹ năng đấm bốc, phản xạ nhanh và sự dẻo dai cơ bắp qua các hiệp đấm bao cát và đối kháng kịch tính.
+                Luyện kỹ năng đấm bốc, phản xạ nhanh và sự dẻo dai cơ bắp qua
+                các hiệp đấm bao cát và đối kháng kịch tính.
               </p>
             </div>
-            <div class="d-flex justify-content-between align-items-center pt-3 border-top border-theme">
-              <span class="text-neutral fs-8 fw-semibold">PHẢN XẠ &amp; THỂ LỰC</span>
-              <span class="badge bg-light text-secondary border border-theme">50 PHÚT</span>
+            <div
+              class="d-flex justify-content-between align-items-center pt-3 border-top border-theme"
+            >
+              <span class="text-neutral fs-8 fw-semibold"
+                >PHẢN XẠ &amp; THỂ LỰC</span
+              >
+              <span class="badge bg-light text-secondary border border-theme"
+                >50 PHÚT</span
+              >
             </div>
           </div>
         </div>
 
         <!-- Class Card 4 -->
         <div class="col-12 col-md-6 col-lg-3">
-          <div class="card-theme h-100 p-4 d-flex flex-column justify-content-between shadow-theme-sm">
+          <div
+            class="card-theme h-100 p-4 d-flex flex-column justify-content-between shadow-theme-sm"
+          >
             <div>
-              <div class="d-flex justify-content-between align-items-center mb-3">
-                <span class="badge bg-info-subtle text-info-emphasis fw-bold px-2 py-1 fs-8">MOBILITY</span>
+              <div
+                class="d-flex justify-content-between align-items-center mb-3"
+              >
+                <span
+                  class="badge bg-info-subtle text-info-emphasis fw-bold px-2 py-1 fs-8"
+                  >MOBILITY</span
+                >
                 <i class="bi bi-heart-pulse text-info-emphasis fs-5"></i>
               </div>
-              <h3 class="fw-bold text-secondary-theme fs-5 mb-2">Yoga &amp; Mobility</h3>
+              <h3 class="fw-bold text-secondary-theme fs-5 mb-2">
+                Yoga &amp; Mobility
+              </h3>
               <p class="text-neutral fs-7 mb-4">
-                Giãn cơ sâu, căn chỉnh tư thế cột sống, cải thiện độ linh hoạt của khớp và đưa tâm trí về trạng thái cân bằng.
+                Giãn cơ sâu, căn chỉnh tư thế cột sống, cải thiện độ linh hoạt
+                của khớp và đưa tâm trí về trạng thái cân bằng.
               </p>
             </div>
-            <div class="d-flex justify-content-between align-items-center pt-3 border-top border-theme">
-              <span class="text-neutral fs-8 fw-semibold">PHỤC HỒI TOÀN DIỆN</span>
-              <span class="badge bg-light text-secondary border border-theme">60 PHÚT</span>
+            <div
+              class="d-flex justify-content-between align-items-center pt-3 border-top border-theme"
+            >
+              <span class="text-neutral fs-8 fw-semibold"
+                >PHỤC HỒI TOÀN DIỆN</span
+              >
+              <span class="badge bg-light text-secondary border border-theme"
+                >60 PHÚT</span
+              >
             </div>
           </div>
         </div>
@@ -206,95 +400,143 @@
   </section>
 
   <!-- ── WORLD-CLASS COACHES (Bootstrap Grid) ── -->
-  <section class="bg-surface-alt py-5">
+  <section id="about" class="bg-surface-alt py-5">
     <div class="container px-4">
       <div class="text-center mb-5">
-        <p class="landing-section-eyebrow text-primary-theme fw-bold mb-1 text-uppercase">
-          THE CADRE
+        <p
+          class="landing-section-eyebrow text-primary-theme fw-bold mb-1 text-uppercase"
+        >
+          ABOUT US · THE CADRE
         </p>
         <h2 class="landing-section-title fw-bold text-secondary-theme mb-2">
           Đội Ngũ Huấn Luyện Viên Đẳng Cấp
         </h2>
-        <p class="landing-section-desc text-neutral mx-auto" style="max-width: 600px;">
-          Tập luyện cùng những chuyên gia giàu kinh nghiệm, đạt chứng chỉ quốc tế và luôn theo sát mục tiêu của bạn.
+        <p
+          class="landing-section-desc text-neutral mx-auto"
+          style="max-width: 600px"
+        >
+          Tập luyện cùng những chuyên gia giàu kinh nghiệm, đạt chứng chỉ quốc
+          tế và luôn theo sát mục tiêu của bạn.
         </p>
       </div>
 
       <div class="row g-4">
         <!-- Trainer 1 -->
         <div class="col-12 col-md-4">
-          <div class="card-theme p-4 h-100 d-flex flex-column justify-content-between shadow-theme-sm">
+          <div
+            class="card-theme p-4 h-100 d-flex flex-column justify-content-between shadow-theme-sm"
+          >
             <div class="d-flex align-items-center gap-3 mb-3">
-              <div class="landing-trainer-avatar rounded-circle bg-dark text-white fw-bold d-flex align-items-center justify-content-center flex-shrink-0" style="width: 60px; height: 60px; font-size: 1.4rem;">
+              <div
+                class="landing-trainer-avatar rounded-circle bg-dark text-white fw-bold d-flex align-items-center justify-content-center flex-shrink-0"
+                style="width: 60px; height: 60px; font-size: 1.4rem"
+              >
                 E
               </div>
               <div>
-                <h3 class="fw-bold text-secondary-theme fs-5 mb-0">Elena Rostova</h3>
-                <span class="text-danger fw-semibold fs-8">Master Olympic &amp; Strength</span>
+                <h3 class="fw-bold text-secondary-theme fs-5 mb-0">
+                  Elena Rostova
+                </h3>
+                <span class="text-danger fw-semibold fs-8"
+                  >Master Olympic &amp; Strength</span
+                >
               </div>
             </div>
             <p class="text-neutral fs-7 mb-4">
-              8+ năm kinh nghiệm huấn luyện VĐV quốc gia môn cử tạ và rèn luyện thể lực chuyên sâu.
+              8+ năm kinh nghiệm huấn luyện VĐV quốc gia môn cử tạ và rèn luyện
+              thể lực chuyên sâu.
             </p>
-            <div class="d-flex justify-content-between align-items-center pt-3 border-top border-theme">
+            <div
+              class="d-flex justify-content-between align-items-center pt-3 border-top border-theme"
+            >
               <div class="d-flex align-items-center gap-1 text-warning fs-7">
                 <i class="bi bi-star-fill"></i>
                 <strong class="text-secondary-theme">4.98</strong>
                 <span class="text-neutral fs-8">(142 lượt)</span>
               </div>
-              <span class="badge bg-success-subtle text-success">Olympic Contender</span>
+              <span class="badge bg-success-subtle text-success"
+                >Olympic Contender</span
+              >
             </div>
           </div>
         </div>
 
         <!-- Trainer 2 -->
         <div class="col-12 col-md-4">
-          <div class="card-theme p-4 h-100 d-flex flex-column justify-content-between shadow-theme-sm">
+          <div
+            class="card-theme p-4 h-100 d-flex flex-column justify-content-between shadow-theme-sm"
+          >
             <div class="d-flex align-items-center gap-3 mb-3">
-              <div class="landing-trainer-avatar rounded-circle bg-dark text-white fw-bold d-flex align-items-center justify-content-center flex-shrink-0" style="width: 60px; height: 60px; font-size: 1.4rem;">
+              <div
+                class="landing-trainer-avatar rounded-circle bg-dark text-white fw-bold d-flex align-items-center justify-content-center flex-shrink-0"
+                style="width: 60px; height: 60px; font-size: 1.4rem"
+              >
                 M
               </div>
               <div>
-                <h3 class="fw-bold text-secondary-theme fs-5 mb-0">Marcus Vance</h3>
-                <span class="text-danger fw-semibold fs-8">Combat &amp; Boxing Coach</span>
+                <h3 class="fw-bold text-secondary-theme fs-5 mb-0">
+                  Marcus Vance
+                </h3>
+                <span class="text-danger fw-semibold fs-8"
+                  >Combat &amp; Boxing Coach</span
+                >
               </div>
             </div>
             <p class="text-neutral fs-7 mb-4">
-              7+ năm thi đấu chuyên nghiệp, chuyên gia huấn luyện sức bền chuyển hoá và kỹ thuật đối kháng.
+              7+ năm thi đấu chuyên nghiệp, chuyên gia huấn luyện sức bền chuyển
+              hoá và kỹ thuật đối kháng.
             </p>
-            <div class="d-flex justify-content-between align-items-center pt-3 border-top border-theme">
+            <div
+              class="d-flex justify-content-between align-items-center pt-3 border-top border-theme"
+            >
               <div class="d-flex align-items-center gap-1 text-warning fs-7">
                 <i class="bi bi-star-fill"></i>
                 <strong class="text-secondary-theme">4.92</strong>
                 <span class="text-neutral fs-8">(98 lượt)</span>
               </div>
-              <span class="badge bg-success-subtle text-success">Pro Boxing</span>
+              <span class="badge bg-success-subtle text-success"
+                >Pro Boxing</span
+              >
             </div>
           </div>
         </div>
 
         <!-- Trainer 3 -->
         <div class="col-12 col-md-4">
-          <div class="card-theme p-4 h-100 d-flex flex-column justify-content-between shadow-theme-sm">
+          <div
+            class="card-theme p-4 h-100 d-flex flex-column justify-content-between shadow-theme-sm"
+          >
             <div class="d-flex align-items-center gap-3 mb-3">
-              <div class="landing-trainer-avatar rounded-circle bg-dark text-white fw-bold d-flex align-items-center justify-content-center flex-shrink-0" style="width: 60px; height: 60px; font-size: 1.4rem;">
+              <div
+                class="landing-trainer-avatar rounded-circle bg-dark text-white fw-bold d-flex align-items-center justify-content-center flex-shrink-0"
+                style="width: 60px; height: 60px; font-size: 1.4rem"
+              >
                 J
               </div>
               <div>
-                <h3 class="fw-bold text-secondary-theme fs-5 mb-0">Jaxson Reed</h3>
-                <span class="text-danger fw-semibold fs-8">Cardio Endurance &amp; VO2</span>
+                <h3 class="fw-bold text-secondary-theme fs-5 mb-0">
+                  Jaxson Reed
+                </h3>
+                <span class="text-danger fw-semibold fs-8"
+                  >Cardio Endurance &amp; VO2</span
+                >
               </div>
             </div>
             <p class="text-neutral fs-7 mb-4">
-              5+ năm đào tạo chạy bộ địa hình và cardio marathon, giúp học viên vượt ngưỡng hô hấp tối đa.
+              5+ năm đào tạo chạy bộ địa hình và cardio marathon, giúp học viên
+              vượt ngưỡng hô hấp tối đa.
             </p>
-            <div class="d-flex justify-content-between align-items-center pt-3 border-top border-theme">
+            <div
+              class="d-flex justify-content-between align-items-center pt-3 border-top border-theme"
+            >
               <div class="d-flex align-items-center gap-1 text-warning fs-7">
                 <i class="bi bi-star-fill"></i>
                 <strong class="text-secondary-theme">4.88</strong>
                 <span class="text-neutral fs-8">(115 lượt)</span>
               </div>
-              <span class="badge bg-success-subtle text-success">Lead Beat Rider</span>
+              <span class="badge bg-success-subtle text-success"
+                >Lead Beat Rider</span
+              >
             </div>
           </div>
         </div>
@@ -303,53 +545,74 @@
   </section>
 
   <!-- ── AMENITIES & FEATURES SECTION (Bootstrap Grid) ── -->
-  <section class="bg-surface py-5 border-top border-theme">
+  <section id="membership" class="bg-surface py-5 border-top border-theme">
     <div class="container px-4">
       <div class="text-center mb-5">
-        <p class="landing-amenity-eyebrow text-neutral fw-bold mb-1 text-uppercase">
+        <p
+          class="landing-amenity-eyebrow text-neutral fw-bold mb-1 text-uppercase"
+        >
           MEMBERSHIP PRIVILEGES
         </p>
         <h2 class="landing-section-title fw-bold text-secondary-theme mb-2">
           Đặc Quyền Hội Viên Pulse Gym
         </h2>
-        <p class="landing-section-desc text-neutral mx-auto" style="max-width: 600px;">
-          Tất cả những gì bạn cần để xây dựng lối sống thể thao đỉnh cao và lành mạnh.
+        <p
+          class="landing-section-desc text-neutral mx-auto"
+          style="max-width: 600px"
+        >
+          Tất cả những gì bạn cần để xây dựng lối sống thể thao đỉnh cao và lành
+          mạnh.
         </p>
       </div>
 
       <div class="row g-4">
         <div class="col-12 col-md-4">
           <div class="p-4 rounded-theme-lg bg-surface-alt border-theme h-100">
-            <div class="d-inline-flex p-3 rounded-circle bg-danger-subtle text-danger mb-3 fs-4">
+            <div
+              class="d-inline-flex p-3 rounded-circle bg-danger-subtle text-danger mb-3 fs-4"
+            >
               <i class="bi bi-calendar-check-fill"></i>
             </div>
-            <h3 class="fw-bold text-secondary-theme fs-5 mb-2">Đặt Lịch 1-Chạm Siêu Nhanh</h3>
+            <h3 class="fw-bold text-secondary-theme fs-5 mb-2">
+              Đặt Lịch 1-Chạm Siêu Nhanh
+            </h3>
             <p class="text-neutral fs-7 mb-0">
-              Xem lịch trống thời gian thực, tự động kiểm tra số buổi gói tập và đặt chỗ chỉ trong 3 giây trên điện thoại.
+              Xem lịch trống thời gian thực, tự động kiểm tra số buổi gói tập và
+              đặt chỗ chỉ trong 3 giây trên điện thoại.
             </p>
           </div>
         </div>
 
         <div class="col-12 col-md-4">
           <div class="p-4 rounded-theme-lg bg-surface-alt border-theme h-100">
-            <div class="d-inline-flex p-3 rounded-circle bg-success-subtle text-success mb-3 fs-4">
+            <div
+              class="d-inline-flex p-3 rounded-circle bg-success-subtle text-success mb-3 fs-4"
+            >
               <i class="bi bi-graph-up-arrow"></i>
             </div>
-            <h3 class="fw-bold text-secondary-theme fs-5 mb-2">Theo Dõi Tiến Độ Tập Luyện</h3>
+            <h3 class="fw-bold text-secondary-theme fs-5 mb-2">
+              Theo Dõi Tiến Độ Tập Luyện
+            </h3>
             <p class="text-neutral fs-7 mb-0">
-              Huấn luyện viên ghi chú buổi tập, chỉ số cơ thể và phản hồi sau mỗi buổi giúp bạn liên tục tiến bộ.
+              Huấn luyện viên ghi chú buổi tập, chỉ số cơ thể và phản hồi sau
+              mỗi buổi giúp bạn liên tục tiến bộ.
             </p>
           </div>
         </div>
 
         <div class="col-12 col-md-4">
           <div class="p-4 rounded-theme-lg bg-surface-alt border-theme h-100">
-            <div class="d-inline-flex p-3 rounded-circle bg-warning-subtle text-warning-emphasis mb-3 fs-4">
+            <div
+              class="d-inline-flex p-3 rounded-circle bg-warning-subtle text-warning-emphasis mb-3 fs-4"
+            >
               <i class="bi bi-shield-fill-check"></i>
             </div>
-            <h3 class="fw-bold text-secondary-theme fs-5 mb-2">Gói Tập Linh Hoạt &amp; Minh Bạch</h3>
+            <h3 class="fw-bold text-secondary-theme fs-5 mb-2">
+              Gói Tập Linh Hoạt &amp; Minh Bạch
+            </h3>
             <p class="text-neutral fs-7 mb-0">
-              Đa dạng gói tập theo nhu cầu cá nhân, hỗ trợ thanh toán tức thì và quản lý thời hạn minh bạch.
+              Đa dạng gói tập theo nhu cầu cá nhân, hỗ trợ thanh toán tức thì và
+              quản lý thời hạn minh bạch.
             </p>
           </div>
         </div>
@@ -357,24 +620,49 @@
     </div>
   </section>
 
-  <!-- ── FOOTER CTA ── -->
-  <div class="landing-footer-cta bg-surface-alt py-4 px-4 border-top border-theme">
-    <div class="container d-flex flex-column flex-sm-row align-items-center justify-content-between gap-3">
-      <div class="d-flex align-items-center gap-2">
-        <span class="fs-4">⚡</span>
-        <div>
-          <strong class="text-secondary-theme d-block">Bắt đầu hành trình thể thao của bạn ngay hôm nay</strong>
-          <span class="text-neutral fs-8">Hơn 2,000+ hội viên đã tin tưởng lựa chọn Pulse Gym</span>
+  <!-- ── FOOTER & CONTACT ── -->
+  <section
+    id="contact"
+    class="landing-footer-cta bg-surface-alt py-5 px-4 border-top border-theme"
+  >
+    <div class="container">
+      <div class="row align-items-center justify-content-between g-4 mb-4">
+        <div class="col-12 col-lg-7">
+          <div class="d-flex align-items-center gap-2 mb-2">
+            <img src="/src/assets/img/logo.png" alt="Pulse Gym Logo" class="app-brand-logo app-brand-logo-md" />
+            <span class="fw-bold text-secondary-theme fs-5"
+              >PULSE GYM ARENA</span
+            >
+          </div>
+          <strong class="text-secondary-theme d-block mb-1 fs-6"
+            >Bắt đầu hành trình thể thao của bạn ngay hôm nay</strong
+          >
+          <span class="text-neutral fs-7 d-block mb-3"
+            >Hơn 2,000+ hội viên đã tin tưởng lựa chọn Pulse Gym</span
+          >
+          <div
+            class="d-flex flex-wrap align-items-center gap-3 text-neutral fs-8"
+          >
+            <span
+              ><i class="bi bi-geo-alt-fill text-danger me-1"></i>450 Olympic
+              Blvd, Downtown Elite Arena</span
+            >
+            <span
+              ><i class="bi bi-clock-fill text-danger me-1"></i>06:00 - 22:00
+              Hàng ngày</span
+            >
+            <span
+              ><i class="bi bi-telephone-fill text-danger me-1"></i>Hotline:
+              (028) 3822 9999</span
+            >
+          </div>
         </div>
       </div>
-      <div class="d-flex gap-2">
-        <a href="/auth/login.html" data-link class="btn btn-outline-secondary px-4 py-2 fw-semibold">
-          Đăng nhập
-        </a>
-        <a href="/auth/register.html" data-link class="btn-brand px-4 py-2 fw-bold shadow">
-          Đăng ký ngay ⚡
-        </a>
+      <div class="text-center pt-3 border-top border-theme">
+        <p class="text-neutral fs-8 mb-0">
+          © 2026 Pulse Gym Arena. All rights reserved.
+        </p>
       </div>
     </div>
-  </div>
+  </section>
 </main>

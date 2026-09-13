@@ -220,6 +220,31 @@ a:hover {
 }
 
 /* ============================================================
+   Component: App Brand Logo
+   ============================================================ */
+.app-brand-logo {
+  width: 32px;
+  height: 32px;
+  object-fit: cover;
+  border-radius: 50%;
+  display: inline-block;
+  vertical-align: middle;
+  flex-shrink: 0;
+}
+.app-brand-logo-sm {
+  width: 24px;
+  height: 24px;
+}
+.app-brand-logo-md {
+  width: 34px;
+  height: 34px;
+}
+.app-brand-logo-lg {
+  width: 52px;
+  height: 52px;
+}
+
+/* ============================================================
    Component: Card
    ============================================================ */
 .card-theme {

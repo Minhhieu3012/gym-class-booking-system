@@ -7,6 +7,28 @@ export function render(): string {
 }
 
 export function init(): void {
+  // Tự động đóng menu trên thiết bị di động khi bấm vào link điều hướng neo (anchor)
+  const navCollapse = document.querySelector<HTMLDivElement>("#landingNavbar");
+  if (navCollapse) {
+    const navLinks = navCollapse.querySelectorAll<HTMLAnchorElement>(".landing-nav-link");
+    navLinks.forEach((link) => {
+      link.addEventListener("click", () => {
+        if (navCollapse.classList.contains("show")) {
+          if (typeof (window as any).bootstrap !== "undefined" && (window as any).bootstrap.Collapse) {
+            const bsCollapse = (window as any).bootstrap.Collapse.getInstance(navCollapse);
+            if (bsCollapse) {
+              bsCollapse.hide();
+            } else {
+              navCollapse.classList.remove("show");
+            }
+          } else {
+            navCollapse.classList.remove("show");
+          }
+        }
+      });
+    });
+  }
+
   const ctaContainer = document.querySelector<HTMLDivElement>("#cta-container");
   if (!ctaContainer) return;
 
