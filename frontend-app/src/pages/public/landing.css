@@ -83,6 +83,29 @@ html {
   box-shadow: 0 15px 35px -5px rgba(0, 0, 0, 0.08);
 }
 
+/* ── HERO IMAGE (MULTIPLY BLEND TO REMOVE WHITE BOX) ── */
+.landing-hero-img-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+.landing-hero-img {
+  width: 100%;
+  max-width: 480px;
+  height: auto;
+  object-fit: contain;
+  mix-blend-mode: multiply;
+  filter: contrast(1.02);
+  transition: transform var(--transition-normal);
+}
+
+.landing-hero-img:hover {
+  transform: translateY(-4px) scale(1.02);
+}
+
 /* ── SECTIONS & CARDS ── */
 .landing-section-eyebrow {
   font-size: 0.75rem;
@@ -96,7 +119,9 @@ html {
 
 .card-theme {
   border-radius: var(--radius-lg);
-  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease;
 }
 
 .card-theme:hover {
