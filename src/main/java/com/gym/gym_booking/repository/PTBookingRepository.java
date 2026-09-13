@@ -44,4 +44,7 @@ public interface PTBookingRepository extends JpaRepository<PTBooking, Long> {
             Long trainerTimeSlotId,
             PTBookingStatus status
     );
+    List<PTBooking> findByMemberIdOrderByTrainerTimeSlotStartTimeAsc(
+            Long memberId
+    );
 }

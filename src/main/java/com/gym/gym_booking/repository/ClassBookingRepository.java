@@ -60,4 +60,7 @@ public interface ClassBookingRepository extends JpaRepository<ClassBooking, Long
             Long gymClassId,
             ClassBookingStatus status
     );
+    List<ClassBooking> findByMemberIdOrderByGymClassStartTimeAsc(
+        Long memberId
+    );
 }
