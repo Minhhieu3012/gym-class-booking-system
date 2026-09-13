@@ -159,8 +159,6 @@ export async function loadPTRequests(): Promise<void> {
             ?.fullName ||
           `Học viên #${req.memberId || req.id}`;
 
-        const initial = memberName.charAt(0).toUpperCase();
-
         const timeData = formatDateTime(
           req.timeSlot?.startTime || req.trainerTimeSlot?.startTime,
           req.timeSlot?.endTime || req.trainerTimeSlot?.endTime,
@@ -173,7 +171,7 @@ export async function loadPTRequests(): Promise<void> {
               <div class="col-12 col-md-7">
                 <div class="d-flex align-items-center gap-3 mb-2">
                   <div class="member-avatar-box">
-                    ${initial}
+                    <img src="${escapeHtml((req as any).memberAvatarUrl || (req as any).avatarUrl || '/src/assets/img/avatar-user-default.jpg')}" alt="${escapeHtml(memberName)}" />
                   </div>
                   <div>
                     <h3 class="member-name mb-0">${escapeHtml(memberName)}</h3>

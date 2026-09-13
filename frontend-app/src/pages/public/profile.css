@@ -23,6 +23,12 @@
   flex-shrink: 0;
 }
 
+.profile-nav-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
 /* ── Athletic Cards ── */
 .profile-athletic-card {
   background: #111827;

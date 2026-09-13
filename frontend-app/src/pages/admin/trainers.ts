@@ -269,8 +269,8 @@ function renderTable(): void {
           <td class="ps-4 fw-bold text-muted small">#${trainer.id}</td>
           <td>
             <div class="d-flex align-items-center gap-2">
-              <div class="trainer-avatar-mini rounded-circle d-flex align-items-center justify-content-center fw-bold">
-                ${(trainer.fullName || "T").charAt(0).toUpperCase()}
+              <div class="trainer-avatar-mini rounded-circle d-flex align-items-center justify-content-center fw-bold overflow-hidden">
+                <img src="${(trainer as any).avatarUrl || '/src/assets/img/avatar-user-default.jpg'}" alt="${trainer.fullName || 'Trainer'}" class="w-100 h-100 object-fit-cover" />
               </div>
               <div>
                 <div class="fw-semibold text-dark">${trainer.fullName || "--"}</div>

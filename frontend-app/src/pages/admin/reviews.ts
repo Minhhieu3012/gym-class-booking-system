@@ -345,8 +345,8 @@ function renderTable(): void {
           <td class="ps-4 fw-bold text-muted small">#${rev.id}</td>
           <td>
             <div class="d-flex align-items-center gap-2">
-              <div class="review-avatar-mini rounded-circle d-flex align-items-center justify-content-center fw-bold">
-                ${memberName.charAt(0).toUpperCase()}
+              <div class="review-avatar-mini rounded-circle d-flex align-items-center justify-content-center fw-bold overflow-hidden">
+                <img src="${(rev as any).memberAvatarUrl || (rev as any).avatarUrl || '/src/assets/img/avatar-user-default.jpg'}" alt="${memberName}" class="w-100 h-100 object-fit-cover" />
               </div>
               <div>
                 <div class="fw-semibold text-dark">${memberName}</div>

@@ -443,8 +443,8 @@ function renderTable(): void {
           <td class="ps-4 fw-bold text-muted small">#${user.id}</td>
           <td>
             <div class="d-flex align-items-center gap-2">
-              <div class="user-avatar-mini rounded-circle d-flex align-items-center justify-content-center fw-bold">
-                ${(user.fullName || "U").charAt(0).toUpperCase()}
+              <div class="user-avatar-mini rounded-circle d-flex align-items-center justify-content-center fw-bold overflow-hidden">
+                <img src="${(user as any).avatarUrl || '/src/assets/img/avatar-user-default.jpg'}" alt="${user.fullName || 'User'}" class="w-100 h-100 object-fit-cover" />
               </div>
               <div>
                 <div class="fw-semibold text-dark">${user.fullName || "--"}</div>
