@@ -1,331 +1,570 @@
-<main class="bg-surface-alt">
-  <!-- ── NAVBAR ── -->
-  <nav class="landing-navbar w-100 d-flex justify-content-between align-items-center px-3 py-2 bg-surface border-theme">
-    <div class="d-flex align-items-center gap-2">
-      <span class="landing-navbar-logo-icon">⚡</span>
-      <span class="landing-navbar-logo-text fw-bold text-secondary-theme">PULSE GYM</span>
-    </div>
-    <div class="d-flex align-items-center gap-2">
-      <span class="landing-navbar-badge badge-theme badge-active d-flex align-items-center gap-1 px-2 py-1">
-        <svg width="10" height="10" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-          <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
-          <circle cx="12" cy="10" r="3" />
-        </svg>
-        DOWNTOWN ELITE ARENA · Arena Floor Open
-      </span>
-    </div>
-    <a href="/login" data-link class="landing-navbar-link text-secondary-theme fw-semibold text-decoration-none">
-      Log In
-    </a>
-  </nav>
+    <nav class="profile-navbar w-100 d-flex justify-content-between align-items-center px-3 py-2 bg-surface">
 
-  <!-- ── HERO ── -->
-  <section class="landing-hero-section position-relative d-flex flex-column justify-content-end">
-    <div class="landing-hero-gradient position-absolute top-0 start-0 w-100 h-100"></div>
-    <div class="landing-hero-bg-wrapper position-absolute top-0 start-0 w-100 h-100 d-flex align-items-center justify-content-center">
-      <div class="landing-hero-bg-pattern"></div>
-    </div>
+        <!-- LOGO + GREETING -->
+        <div class="d-flex align-items-center gap-2">
+            <span class="profile-navbar-logo-icon">⚡</span>
 
-    <div class="landing-hero-content container px-4 pb-4 position-relative">
-      <p class="landing-hero-tagline fw-bold mb-1 text-tertiary">
-        ★ NEXT-GEN ATHLETIC CLUB
-      </p>
-      <h1 class="landing-hero-title fw-bold text-secondary-theme mb-2">
-        PULSE GYM
-      </h1>
-      <p class="landing-hero-desc text-neutral mb-3">
-        Redefine your physical limits. Elite coaching, biometric performance telemetry, and Olympic-grade equipment designed for athletes.
-      </p>
-
-      <div class="d-flex align-items-center gap-2 mb-4">
-        <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" class="text-neutral" viewBox="0 0 24 24">
-          <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
-          <circle cx="12" cy="10" r="3" />
-        </svg>
-        <span class="landing-hero-location text-neutral">
-          450 Olympic Blvd, Downtown Elite Arena · Open
-        </span>
-      </div>
-
-      <div class="d-flex gap-4 mb-4">
-        <div>
-          <p class="landing-stat-value fw-bold text-secondary-theme mb-0">
-            40+
-          </p>
-          <p class="landing-stat-label text-neutral mb-0">
-            CLASSES/WK
-          </p>
-        </div>
-        <div>
-          <p class="landing-stat-value fw-bold text-primary-theme mb-0">
-            15
-          </p>
-          <p class="landing-stat-label text-neutral mb-0">
-            ELITE<br />COACHES
-          </p>
-        </div>
-        <div>
-          <p class="landing-stat-value fw-bold text-secondary-theme mb-0">
-            99.4%
-          </p>
-          <p class="landing-stat-label text-neutral mb-0">
-            SATISFACTION
-          </p>
-        </div>
-      </div>
-
-      <div id="cta-container" class="d-flex flex-column gap-2">
-        <a href="/register" data-link class="landing-cta-primary btn-brand w-100 justify-content-center py-3">
-          SIGN UP / JOIN NOW →
-        </a>
-        <a href="/login" data-link class="landing-cta-secondary btn-brand-outline w-100 justify-content-center py-2">
-          <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-            <circle cx="12" cy="12" r="10" />
-            <polyline points="12 8 8 12 12 16" />
-            <line x1="16" y1="12" x2="8" y2="12" />
-          </svg>
-          EXPLORE FACILITY
-        </a>
-      </div>
-    </div>
-  </section>
-
-  <!-- ── OUR CLASSES ── -->
-  <section class="bg-surface py-5">
-    <div class="landing-section-container container px-4">
-      <div class="d-flex justify-content-between align-items-center mb-1">
-        <p class="landing-section-eyebrow text-tertiary fw-bold mb-0">
-          CURATED DISCIPLINES
-        </p>
-        <a href="#" class="landing-section-link text-tertiary fw-semibold text-decoration-none">
-          Schedule ›
-        </a>
-      </div>
-      <h2 class="landing-section-title fw-bold text-secondary-theme mb-1">
-        Our Classes
-      </h2>
-      <p class="landing-section-desc text-neutral mb-4">
-        Targeted programming built for strength, speed, and sustained power.
-      </p>
-
-      <div class="landing-class-list d-flex gap-3 pb-2">
-        <div class="landing-class-card card-theme flex-shrink-0 p-3">
-          <div class="d-flex justify-content-between align-items-center mb-2">
-            <span class="landing-badge-small badge-theme badge-active px-2 py-1">HIGH ENERGY</span>
-            <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" class="text-primary-theme" viewBox="0 0 24 24">
-              <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" />
-            </svg>
-          </div>
-          <h3 class="landing-class-title fw-bold text-secondary-theme mb-1">
-            HIIT &amp; Cardio
-          </h3>
-          <p class="landing-class-desc text-neutral mb-3">
-            High-intensity interval training designed to push VO2 max and burn up to 800 kcal through explosive plyometrics and intervals.
-          </p>
-          <div class="d-flex justify-content-between align-items-center">
-            <span class="landing-class-meta-text text-neutral">INTENSITY: LEVEL 6</span>
-            <span class="landing-class-meta-badge badge-theme badge-inactive px-2 py-1">45 MIN</span>
-          </div>
-        </div>
-
-        <div class="landing-class-card card-theme flex-shrink-0 p-3">
-          <div class="d-flex justify-content-between align-items-center mb-2">
-            <span class="landing-badge-small badge-theme badge-active px-2 py-1">STRENGTH</span>
-            <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" class="text-tertiary" viewBox="0 0 24 24">
-              <path d="M18 8h1a4 4 0 0 1 0 8h-1" />
-              <path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z" />
-              <line x1="6" y1="1" x2="6" y2="4" />
-              <line x1="10" y1="1" x2="10" y2="4" />
-              <line x1="14" y1="1" x2="14" y2="4" />
-            </svg>
-          </div>
-          <h3 class="landing-class-title fw-bold text-secondary-theme mb-1">
-            Metabolic
-          </h3>
-          <p class="landing-class-desc text-neutral mb-3">
-            Barbell mechanics and metabolic progression designed with live telemetry feedback for peak output.
-          </p>
-          <div class="d-flex justify-content-between align-items-center">
-            <span class="landing-class-meta-text text-neutral">HYPERTROPHY</span>
-            <span class="landing-class-meta-badge badge-theme badge-inactive px-2 py-1">60 MIN</span>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ── WORLD-CLASS COACHES ── -->
-  <section class="bg-surface-alt py-5">
-    <div class="landing-section-container container px-4">
-      <p class="landing-section-eyebrow text-primary-theme fw-bold mb-1">
-        THE CADRE
-      </p>
-      <h2 class="landing-section-title fw-bold text-secondary-theme mb-1">
-        World-Class Coaches
-      </h2>
-      <p class="landing-section-desc text-neutral mb-4">
-        Train alongside certified Olympic contenders and master trainers.
-      </p>
-
-      <div class="d-flex flex-column gap-3">
-        <div class="card-theme p-3 d-flex align-items-center gap-3">
-          <div class="landing-trainer-avatar d-flex align-items-center justify-content-center rounded-circle flex-shrink-0 fw-bold text-secondary-theme bg-surface-alt border-theme">
-            E
-          </div>
-          <div class="flex-grow-1">
-            <div class="d-flex justify-content-between align-items-start">
-              <div>
-                <p class="landing-trainer-name fw-bold text-secondary-theme mb-0">
-                  Elena Rostova
+            <div>
+                <p class="profile-navbar-logo-text mb-0 text-neutral">
+                    PULSE GYM
                 </p>
-                <p class="landing-trainer-role text-neutral mb-1">
-                  Master Olympic &amp; Strength
+
+                <p
+                        class="profile-navbar-greeting mb-0 fw-bold text-tertiary"
+                        id="nav-greeting"
+                >
+                    Hey Member
                 </p>
-              </div>
-              <span class="landing-trainer-exp text-tertiary fw-bold">8+ Yrs</span>
             </div>
-            <div class="d-flex justify-content-between align-items-center">
-              <div class="d-flex align-items-center gap-1">
-                <svg width="12" height="12" fill="currentColor" class="text-primary-theme" viewBox="0 0 16 16">
-                  <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
+        </div>
+
+        <!-- RIGHT ACTIONS -->
+        <div class="d-flex align-items-center gap-3">
+
+            <!-- MY SCHEDULE -->
+            <a
+                    href="/member/schedule"
+                    data-link
+                    id="nav-schedule-link"
+                    class="landing-nav-schedule text-primary-theme text-decoration-none fw-semibold"
+                    aria-label="My Schedule"
+                    title="My Schedule"
+            >
+                MY SCHEDULE
+            </a>
+
+            <div class="d-flex align-items-center gap-3">
+
+            <!-- CHAT -->
+            <a
+                    href="/member/chat"
+                    data-link
+                    id="nav-chat-link"
+                    class="btn p-0 border-0 bg-transparent text-neutral position-relative d-flex align-items-center justify-content-center"
+                    aria-label="Tin nhắn"
+                    title="Tin nhắn"
+            >
+                <svg
+                        width="20"
+                        height="20"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        viewBox="0 0 24 24"
+                >
+                    <path
+                            d="M21 11.5a8.38 8.38 0 0 1-.9 3.8
+          8.5 8.5 0 0 1-7.6 4.7
+          8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7
+          a8.38 8.38 0 0 1-.9-3.8
+          8.5 8.5 0 0 1 4.7-7.6
+          8.38 8.38 0 0 1 3.8-.9h.5
+          a8.48 8.48 0 0 1 8 8v.5z"
+                    />
                 </svg>
-                <span class="landing-trainer-rating text-secondary-theme fw-semibold">4.98</span>
-                <span class="landing-trainer-reviews text-neutral">(142)</span>
-              </div>
-              <span class="landing-trainer-badge badge-theme badge-active px-2 py-1">Olympic Contender</span>
+            </a>
+
+            <!-- NOTIFICATION -->
+            <div class="dropdown position-relative">
+
+                <button
+                        id="notification-bell"
+                        class="btn p-0 border-0 bg-transparent text-neutral position-relative d-flex align-items-center justify-content-center"
+                        aria-label="Notifications"
+                        type="button"
+                >
+                    <svg
+                            width="20"
+                            height="20"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2"
+                            viewBox="0 0 24 24"
+                    >
+                        <path
+                                d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"
+                        />
+                        <path
+                                d="M13.73 21a2 2 0 0 1-3.46 0"
+                        />
+                    </svg>
+
+                    <!-- Notification count nếu sau này cần -->
+                    <!--
+                    <span class="position-absolute top-0 start-100
+                      translate-middle badge rounded-pill bg-danger">
+                      3
+                    </span>
+                    -->
+                </button>
+
+                <div
+                        id="notification-dropdown"
+                        class="dropdown-menu dropdown-menu-end shadow-lg p-0"
+                        style="
+          min-width: 320px;
+          max-width: 380px;
+          z-index: 1050;
+          right: 0;
+          left: auto;
+        "
+                >
+                </div>
             </div>
-          </div>
+
+            <!-- AVATAR + DROPDOWN -->
+            <div class="dropdown position-relative">
+
+                <button
+                        id="nav-avatar"
+                        type="button"
+                        class="profile-navbar-avatar rounded-circle border-theme
+               d-flex align-items-center justify-content-center
+               bg-surface-alt fw-bold text-secondary-theme
+               overflow-hidden p-0"
+                        aria-expanded="false"
+                        aria-label="Account menu"
+                >
+                    M
+                </button>
+
+                <!-- ACCOUNT MENU -->
+                <div
+                        id="profile-account-dropdown"
+                        class="dropdown-menu dropdown-menu-end shadow-lg p-2"
+                        style="
+          min-width: 180px;
+          z-index: 1050;
+        "
+                >
+
+                    <!-- PROFILE -->
+                    <a
+                            href="/profile"
+                            data-link
+                            class="dropdown-item d-flex align-items-center gap-2 rounded-theme-md"
+                    >
+                        <svg
+                                width="16"
+                                height="16"
+                                fill="none"
+                                stroke="currentColor"
+                                stroke-width="2"
+                                viewBox="0 0 24 24"
+                        >
+                            <path
+                                    d="M20 21v-2a4 4 0 0 0-4-4H8
+              a4 4 0 0 0-4 4v2"
+                            />
+                            <circle
+                                    cx="12"
+                                    cy="7"
+                                    r="4"
+                            />
+                        </svg>
+
+                        <span>My Profile</span>
+                    </a>
+
+                    <div class="dropdown-divider"></div>
+
+                    <!-- LOGOUT -->
+                    <button
+                            type="button"
+                            id="nav-logout"
+                            class="dropdown-item d-flex align-items-center gap-2 rounded-theme-md text-danger"
+                    >
+                        <svg
+                                width="16"
+                                height="16"
+                                fill="none"
+                                stroke="currentColor"
+                                stroke-width="2"
+                                viewBox="0 0 24 24"
+                        >
+                            <path
+                                    d="M9 21H5a2 2 0 0 1-2-2V5
+              a2 2 0 0 1 2-2h4"
+                            />
+                            <polyline points="16 17 21 12 16 7" />
+                            <line
+                                    x1="21"
+                                    y1="12"
+                                    x2="9"
+                                    y2="12"
+                            />
+                        </svg>
+
+                        <span>Logout</span>
+                    </button>
+
+                </div>
+            </div>
+
+        </div>
+    </nav>
+
+
+    <!-- =========================
+         HERO
+    ========================== -->
+    <section class="landing-hero-section position-relative bg-secondary">
+
+        <div class="landing-hero-bg-wrapper position-absolute top-0 start-0 w-100 h-100">
+            <div class="landing-hero-bg-pattern w-100 h-100"></div>
         </div>
 
-        <div class="card-theme p-3 d-flex align-items-center gap-3">
-          <div class="landing-trainer-avatar d-flex align-items-center justify-content-center rounded-circle flex-shrink-0 fw-bold text-secondary-theme bg-surface-alt border-theme">
-            M
-          </div>
-          <div class="flex-grow-1">
-            <div class="d-flex justify-content-between align-items-start">
-              <div>
-                <p class="landing-trainer-name fw-bold text-secondary-theme mb-0">
-                  Marcus Vance
+        <div class="landing-hero-gradient position-absolute top-0 start-0 w-100 h-100"></div>
+
+        <div class="container landing-section-container mx-auto px-3 position-relative h-100">
+            <div class="landing-hero-content position-relative py-5">
+
+                <div class="landing-hero-tagline text-primary-theme fw-semibold mb-3">
+                    NEXT-GEN ATHLETIC CLUB
+                </div>
+
+                <h1 class="landing-hero-title text-white fw-bold mb-4">
+                    PULSE<br />
+                    GYM
+                </h1>
+
+                <p class="landing-hero-desc text-secondary-theme mb-4">
+                    Train harder. Move smarter. Become stronger.
+                    Experience a premium fitness environment built
+                    for people who refuse to settle.
                 </p>
-                <p class="landing-trainer-role text-neutral mb-1">
-                  Combat &amp; Metabolic Prep
+
+                <div class="landing-hero-location text-tertiary mb-4">
+                    <span>⌖</span>
+                    DOWNTOWN · PREMIUM FITNESS ARENA
+                </div>
+
+                <!-- Dynamic stats -->
+                <div
+                        id="dashboard-stats"
+                        class="row g-3 mb-5"
+                >
+                    <div class="col-6">
+                        <div class="landing-stat-value text-white fw-bold">
+                            —
+                        </div>
+                        <div class="landing-stat-label text-tertiary">
+                            UPCOMING<br />CLASSES
+                        </div>
+                    </div>
+
+                    <div class="col-6">
+                        <div class="landing-stat-value text-white fw-bold">
+                            —
+                        </div>
+                        <div class="landing-stat-label text-tertiary">
+                            ACTIVE<br />COACHES
+                        </div>
+                    </div>
+                </div>
+
+                <div id="cta-container">
+                    <a
+                            href="/profile"
+                            data-link
+                            class="btn-brand landing-cta-primary w-100 justify-content-center py-3 text-decoration-none"
+                    >
+                        MY PROFILE →
+                    </a>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+
+    <!-- =========================
+         CLASSES
+    ========================== -->
+    <section class="py-5 bg-surface">
+
+        <div class="container landing-section-container mx-auto px-3">
+
+            <div class="d-flex align-items-end justify-content-between mb-4">
+
+                <div>
+                    <div class="landing-section-eyebrow text-primary-theme fw-semibold mb-2">
+                        TRAIN WITH PURPOSE
+                    </div>
+
+                    <h2 class="landing-section-title text-primary-theme fw-bold mb-2">
+                        Our Classes
+                    </h2>
+
+                    <p class="landing-section-desc text-secondary-theme mb-0">
+                        Find your next challenge and push your limits.
+                    </p>
+                </div>
+
+                <a
+                        href="/member/classes"
+                        data-link
+                        class="landing-section-link text-primary-theme text-decoration-none"
+                >
+                    VIEW ALL →
+                </a>
+
+            </div>
+
+
+            <!-- Loading -->
+            <div id="classes-loading" class="py-4">
+                <div class="d-flex justify-content-center">
+                    <div class="spinner-border text-primary-theme" role="status">
+                        <span class="visually-hidden">Loading...</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Empty -->
+            <div
+                    id="classes-empty"
+                    class="card-theme p-4 text-center d-none"
+            >
+                <div class="text-secondary-theme small">
+                    No upcoming classes available.
+                </div>
+            </div>
+
+            <!-- Error -->
+            <div
+                    id="classes-error"
+                    class="card-theme p-4 text-center d-none"
+            >
+                <div class="text-secondary-theme small">
+                    Unable to load classes.
+                </div>
+            </div>
+
+            <!-- Dynamic list -->
+            <div
+                    id="class-list"
+                    class="landing-class-list d-flex gap-3 pb-2 d-none"
+            ></div>
+
+        </div>
+    </section>
+
+
+    <!-- =========================
+         TRAINERS
+    ========================== -->
+    <section class="py-5 bg-surface-alt">
+
+        <div class="container landing-section-container mx-auto px-3">
+
+            <div class="d-flex align-items-end justify-content-between mb-4">
+
+                <div>
+                    <div class="landing-section-eyebrow text-primary-theme fw-semibold mb-2">
+                        TRAIN WITH THE BEST
+                    </div>
+
+                    <h2 class="landing-section-title text-primary-theme fw-bold mb-2">
+                        World-Class Coaches
+                    </h2>
+
+                    <p class="landing-section-desc text-secondary-theme mb-0">
+                        Experienced professionals ready to help you perform.
+                    </p>
+                </div>
+
+                <a
+                        href="member/pt-booking"
+                        data-link
+                        class="landing-section-link text-primary-theme text-decoration-none"
+                >
+                    VIEW ALL →
+                </a>
+
+            </div>
+
+
+            <!-- Loading -->
+            <div id="trainers-loading" class="py-4">
+                <div class="d-flex justify-content-center">
+                    <div class="spinner-border text-primary-theme" role="status">
+                        <span class="visually-hidden">Loading...</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Empty -->
+            <div
+                    id="trainers-empty"
+                    class="card-theme p-4 text-center d-none"
+            >
+                <div class="text-secondary-theme small">
+                    No active coaches available.
+                </div>
+            </div>
+
+            <!-- Error -->
+            <div
+                    id="trainers-error"
+                    class="card-theme p-4 text-center d-none"
+            >
+                <div class="text-secondary-theme small">
+                    Unable to load coaches.
+                </div>
+            </div>
+
+            <!-- Dynamic list -->
+            <div
+                    id="trainer-list"
+                    class="d-flex flex-column gap-3 d-none"
+            ></div>
+
+        </div>
+    </section>
+
+
+    <!-- =========================
+         AMENITIES
+    ========================== -->
+    <section class="py-5 bg-surface">
+
+        <div class="container landing-section-container mx-auto px-3">
+
+            <div class="landing-amenity-eyebrow text-primary-theme fw-semibold mb-2">
+                BUILT FOR PERFORMANCE
+            </div>
+
+            <h2 class="landing-section-title text-primary-theme fw-bold mb-3">
+                Everything You Need
+            </h2>
+
+            <p class="landing-section-desc text-secondary-theme mb-4">
+                A complete training environment designed around
+                your performance and recovery.
+            </p>
+
+
+            <div class="d-flex flex-column gap-4">
+
+                <div class="d-flex gap-3">
+                    <div class="landing-amenity-icon-wrapper card-theme d-flex align-items-center justify-content-center flex-shrink-0">
+                        ⚡
+                    </div>
+
+                    <div>
+                        <div class="landing-amenity-title text-primary-theme fw-semibold mb-1">
+                            Premium Equipment
+                        </div>
+
+                        <div class="landing-amenity-desc text-secondary-theme">
+                            Professional-grade equipment for every training style.
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="d-flex gap-3">
+                    <div class="landing-amenity-icon-wrapper card-theme d-flex align-items-center justify-content-center flex-shrink-0">
+                        ◉
+                    </div>
+
+                    <div>
+                        <div class="landing-amenity-title text-primary-theme fw-semibold mb-1">
+                            Recovery Zone
+                        </div>
+
+                        <div class="landing-amenity-desc text-secondary-theme">
+                            Dedicated spaces to recover and prepare for your next session.
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="d-flex gap-3">
+                    <div class="landing-amenity-icon-wrapper card-theme d-flex align-items-center justify-content-center flex-shrink-0">
+                        ◆
+                    </div>
+
+                    <div>
+                        <div class="landing-amenity-title text-primary-theme fw-semibold mb-1">
+                            Expert Coaching
+                        </div>
+
+                        <div class="landing-amenity-desc text-secondary-theme">
+                            Experienced coaches focused on helping you reach your goals.
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="d-flex gap-3">
+                    <div class="landing-amenity-icon-wrapper card-theme d-flex align-items-center justify-content-center flex-shrink-0">
+                        ✦
+                    </div>
+
+                    <div>
+                        <div class="landing-amenity-title text-primary-theme fw-semibold mb-1">
+                            Elite Environment
+                        </div>
+
+                        <div class="landing-amenity-desc text-secondary-theme">
+                            A clean, focused and motivating space built for serious training.
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+
+
+    <!-- =========================
+         FOOTER
+    ========================== -->
+    <footer class="landing-footer-cta bg-secondary py-5">
+
+        <div class="container landing-section-container mx-auto px-3">
+
+            <div class="text-center">
+
+                <div class="landing-section-eyebrow text-primary-theme fw-semibold mb-2">
+                    KEEP MOVING FORWARD
+                </div>
+
+                <h2 class="landing-section-title text-white fw-bold mb-3">
+                    YOUR NEXT LEVEL STARTS HERE.
+                </h2>
+
+                <p class="landing-section-desc text-secondary-theme mb-4">
+                    Train consistently. Get stronger. Become your best.
                 </p>
-              </div>
-              <span class="landing-trainer-exp text-tertiary fw-bold">7+ Yrs</span>
+
+                <div class="d-flex justify-content-center gap-2 flex-wrap">
+
+                    <a
+                            href="/profile"
+                            data-link
+                            class="btn-brand landing-footer-btn-primary text-decoration-none"
+                    >
+                        MY PROFILE
+                    </a>
+
+                    <a
+                            href="/classes"
+                            data-link
+                            class="btn-brand-outline landing-footer-btn-secondary text-decoration-none"
+                    >
+                        EXPLORE CLASSES
+                    </a>
+
+                </div>
+
             </div>
-            <div class="d-flex justify-content-between align-items-center">
-              <div class="d-flex align-items-center gap-1">
-                <svg width="12" height="12" fill="currentColor" class="text-primary-theme" viewBox="0 0 16 16">
-                  <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
-                </svg>
-                <span class="landing-trainer-rating text-secondary-theme fw-semibold">4.92</span>
-                <span class="landing-trainer-reviews text-neutral">(98 bouts)</span>
-              </div>
-              <span class="landing-trainer-badge badge-theme badge-active px-2 py-1">Pro Boxing</span>
-            </div>
-          </div>
+
         </div>
 
-        <div class="card-theme p-3 d-flex align-items-center gap-3">
-          <div class="landing-trainer-avatar d-flex align-items-center justify-content-center rounded-circle flex-shrink-0 fw-bold text-secondary-theme bg-surface-alt border-theme">
-            J
-          </div>
-          <div class="flex-grow-1">
-            <div class="d-flex justify-content-between align-items-start">
-              <div>
-                <p class="landing-trainer-name fw-bold text-secondary-theme mb-0">
-                  Jaxson Reed
-                </p>
-                <p class="landing-trainer-role text-neutral mb-1">
-                  Cardio Endurance &amp; VO2
-                </p>
-              </div>
-              <span class="landing-trainer-exp text-tertiary fw-bold">5+ Yrs</span>
-            </div>
-            <div class="d-flex justify-content-between align-items-center">
-              <div class="d-flex align-items-center gap-1">
-                <svg width="12" height="12" fill="currentColor" class="text-primary-theme" viewBox="0 0 16 16">
-                  <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
-                </svg>
-                <span class="landing-trainer-rating text-secondary-theme fw-semibold">4.88</span>
-                <span class="landing-trainer-reviews text-neutral">(115)</span>
-              </div>
-              <span class="landing-trainer-badge badge-theme badge-active px-2 py-1">Lead Beat Rider</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
+    </footer>
 
-  <!-- ── AMENITIES ── -->
-  <section class="bg-surface py-5">
-    <div class="landing-section-container container px-4">
-      <div class="d-flex justify-content-between align-items-center mb-1">
-        <p class="landing-amenity-eyebrow text-neutral fw-bold mb-0">
-          UNMATCHED AMENITIES
-        </p>
-        <span class="landing-amenity-sub-eyebrow text-tertiary fw-bold">MEMBERSHIP PRIVILEGES</span>
-      </div>
-      <div class="d-flex flex-column gap-3 mt-3">
-        <div class="d-flex align-items-start gap-3">
-          <div class="landing-amenity-icon-wrapper flex-shrink-0 d-flex align-items-center justify-content-center rounded-circle bg-surface-alt border-theme">
-            <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" class="text-primary-theme" viewBox="0 0 24 24">
-              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
-            </svg>
-          </div>
-          <div>
-            <p class="landing-amenity-title fw-bold text-secondary-theme mb-0">
-              Free 3-Day Guest Pass
-            </p>
-            <p class="landing-amenity-desc text-neutral mb-0">
-              Full access to classes, arena floor &amp; locker suites.
-            </p>
-          </div>
-        </div>
-
-        <div class="d-flex align-items-start gap-3">
-          <div class="landing-amenity-icon-wrapper flex-shrink-0 d-flex align-items-center justify-content-center rounded-circle bg-surface-alt border-theme">
-            <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" class="text-tertiary" viewBox="0 0 24 24">
-              <polyline points="22 12 18 12 15 21 9 3 6 12 2 12" />
-            </svg>
-          </div>
-          <div>
-            <p class="landing-amenity-title fw-bold text-secondary-theme mb-0">
-              Mobile Telemetry &amp; Biometrics
-            </p>
-            <p class="landing-amenity-desc text-neutral mb-0">
-              Sync heart-rate zones &amp; auto-log weights on gym app.
-            </p>
-          </div>
-        </div>
-
-        <div class="d-flex align-items-start gap-3">
-          <div class="landing-amenity-icon-wrapper flex-shrink-0 d-flex align-items-center justify-content-center rounded-circle bg-surface-alt border-theme">
-            <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" class="text-secondary-theme" viewBox="0 0 24 24">
-              <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
-            </svg>
-          </div>
-          <div>
-            <p class="landing-amenity-title fw-bold text-secondary-theme mb-0">
-              Recovery Spa &amp; Cryo Lounge
-            </p>
-            <p class="landing-amenity-desc text-neutral mb-0">
-              Cold plunges, infrared saunas, and percussion therapy.
-            </p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ── FOOTER CTA ── -->
-  <div class="landing-footer-cta bg-surface-alt py-4 px-4 d-flex align-items-center justify-content-between">
-    <a href="/login" data-link class="landing-footer-btn-secondary btn-brand-outline">
-      LOG IN
-    </a>
-    <a href="/register" data-link class="landing-footer-btn-primary btn-brand">
-      JOIN PULSE NOW ⚡
-    </a>
-  </div>
-</main>
+</div>
