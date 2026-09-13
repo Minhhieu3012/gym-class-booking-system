@@ -1,16 +1,9 @@
-import api from "../core/api";
+import { apiClient } from "../core/api";
 import type { PageResponse } from "../models/admin";
+import type { CreateReviewRequest, Review } from "../models/review";
+import type { AttendanceStatus } from "../models/booking";
 
-// ==========================================
-// TYPES & INTERFACES
-// ==========================================
-
-export interface CreateReviewRequest {
-  classBookingId?: number;
-  ptBookingId?: number;
-  rating: number;
-  comment: string;
-}
+export type { CreateReviewRequest };
 
 export interface NotificationQueryParams {
   page?: number;
@@ -32,10 +25,10 @@ export interface UserSummary {
 }
 
 export interface AttendanceResponse {
-  bookingId: number;
-  bookingType: string;
-  attendanceStatus: string;
-  message: string;
+  bookingId?: number;
+  bookingType?: string;
+  attendanceStatus: AttendanceStatus | string;
+  message?: string;
 }
 
 export interface NotificationItem {
@@ -49,22 +42,14 @@ export interface NotificationItem {
   user?: UserSummary;
 }
 
-export interface ReviewItem {
-  id: number;
-  rating: number;
-  comment: string;
-  createdAt: string;
-  hidden: boolean;
-  member?: UserSummary;
-  classBooking?: { id: number };
-  ptBooking?: { id: number };
-}
+export interface ReviewItem extends Review {}
 
 export interface ProgressNoteItem {
   id: number;
   content: string;
   createdAt: string;
   updatedAt: string;
+  memberId?: number;
   member?: UserSummary;
   trainer?: UserSummary;
   message?: string;
@@ -77,124 +62,91 @@ export interface UnreadCountResponse {
 }
 
 export interface ActionMessageResponse {
+  success?: boolean;
   message?: string;
+  id?: number;
   [key: string]: unknown;
 }
 
-// ==========================================
-// INTERACTION SERVICE
-// ==========================================
-
 export class InteractionService {
-  /**
-   * Điểm danh hội viên tham gia lớp học nhóm
-   * PATCH /class-bookings/${bookingId}/attendance
-   * Payload: { attendanceStatus }
-   */
   async markClassAttendance(
     bookingId: number,
-    attendanceStatus: string,
+    attendanceStatus: AttendanceStatus | string,
   ): Promise<AttendanceResponse> {
-    const { data } = await api.patch<AttendanceResponse>(
+    const { data } = await apiClient.patch<AttendanceResponse>(
       `/class-bookings/${bookingId}/attendance`,
       { attendanceStatus },
     );
     return data;
   }
 
-  /**
-   * Điểm danh buổi tập với huấn luyện viên cá nhân (PT)
-   * PATCH /pt-bookings/${bookingId}/attendance
-   * Payload: { attendanceStatus }
-   */
   async markPTAttendance(
     bookingId: number,
-    attendanceStatus: string,
+    attendanceStatus: AttendanceStatus | string,
   ): Promise<AttendanceResponse> {
-    const { data } = await api.patch<AttendanceResponse>(
+    const { data } = await apiClient.patch<AttendanceResponse>(
       `/pt-bookings/${bookingId}/attendance`,
       { attendanceStatus },
     );
     return data;
   }
 
-  /**
-   * Tạo đánh giá (Review) cho lớp học hoặc buổi tập PT
-   * POST /reviews
-   * Payload: { classBookingId?, ptBookingId?, rating, comment }
-   */
-  async createReview(data: CreateReviewRequest): Promise<ReviewItem> {
-    const { data: responseData } = await api.post<ReviewItem>(
+  async createReview(payload: CreateReviewRequest): Promise<ReviewItem> {
+    const { data } = await apiClient.post<ReviewItem>(
       "/reviews",
-      data,
+      payload,
     );
-    return responseData;
+    return data;
   }
 
-  /**
-   * Lấy danh sách thông báo của người dùng hiện tại
-   * GET /notifications/me
-   * Query params: { page?, size?, isRead?, type? }
-   */
   async getMyNotifications(
     params?: NotificationQueryParams,
-  ): Promise<PageResponse<NotificationItem>> {
-    const { data } = await api.get<PageResponse<NotificationItem>>(
+  ): Promise<PageResponse<NotificationItem> | NotificationItem[]> {
+    const { data } = await apiClient.get<PageResponse<NotificationItem> | NotificationItem[]>(
       "/notifications/me",
       { params },
     );
     return data;
   }
 
-  /**
-   * Lấy số lượng thông báo chưa đọc của người dùng hiện tại
-   * GET /notifications/me/unread-count
-   */
   async getUnreadNotificationCount(): Promise<UnreadCountResponse> {
-    const { data } = await api.get<UnreadCountResponse>(
+    const { data } = await apiClient.get<UnreadCountResponse>(
       "/notifications/me/unread-count",
     );
     return data;
   }
 
-  /**
-   * Đánh dấu một thông báo là đã đọc
-   * PATCH /notifications/${id}/read
-   */
   async markNotificationAsRead(id: number): Promise<ActionMessageResponse> {
-    const { data } = await api.patch<ActionMessageResponse>(
+    const { data } = await apiClient.patch<ActionMessageResponse>(
       `/notifications/${id}/read`,
     );
     return data;
   }
 
-  /**
-   * Đánh dấu toàn bộ thông báo của người dùng hiện tại là đã đọc
-   * PATCH /notifications/me/read-all
-   */
   async markAllNotificationsAsRead(): Promise<ActionMessageResponse> {
-    const { data } = await api.patch<ActionMessageResponse>(
+    const { data } = await apiClient.patch<ActionMessageResponse>(
       "/notifications/me/read-all",
     );
     return data;
   }
 
-  /**
-   * Huấn luyện viên tạo ghi chú tiến độ cho hội viên
-   * POST /progress-notes
-   * Payload: { memberId, content }
-   */
-  async createProgressNote(
-    data: CreateProgressNoteRequest,
-  ): Promise<ProgressNoteItem> {
-    const { data: responseData } = await api.post<ProgressNoteItem>(
-      "/progress-notes",
-      data,
+  async resetNotifications(): Promise<ActionMessageResponse> {
+    const { data } = await apiClient.post<ActionMessageResponse>(
+      "/notifications/reset",
     );
-    return responseData;
+    return data;
+  }
+
+  async createProgressNote(
+    payload: CreateProgressNoteRequest,
+  ): Promise<ProgressNoteItem> {
+    const { data } = await apiClient.post<ProgressNoteItem>(
+      "/progress-notes",
+      payload,
+    );
+    return data;
   }
 }
 
-// Export singleton instance
 export const interactionService = new InteractionService();
 export default interactionService;

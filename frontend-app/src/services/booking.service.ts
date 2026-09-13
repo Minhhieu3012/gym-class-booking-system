@@ -10,6 +10,8 @@ import type {
   CancelBookingRequest,
   RejectPTRequest,
   CreateTimeSlotRequest,
+  UpdateTimeSlotRequest,
+  AttendanceStatus,
   ClassQueryParams,
   ClassBookingQueryParams,
   PTBookingQueryParams,
@@ -21,10 +23,6 @@ export class BookingService {
   // LUỒNG CLASS (LỚP HỌC NHÓM)
   // ==========================================
 
-  /**
-   * Lấy danh sách lịch các lớp học nhóm
-   * GET /classes
-   */
   async getClasses(
     params?: ClassQueryParams,
   ): Promise<PageResponse<GymClass>> {
@@ -34,22 +32,14 @@ export class BookingService {
     return data;
   }
 
-  /**
-   * Đặt chỗ tham gia lớp học nhóm
-   * POST /class-bookings
-   */
-  async bookClass(data: ClassBookingRequest): Promise<ClassBooking> {
-    const { data: responseData } = await apiClient.post<ClassBooking>(
+  async bookClass(payload: ClassBookingRequest): Promise<ClassBooking> {
+    const { data } = await apiClient.post<ClassBooking>(
       "/class-bookings",
-      data,
+      payload,
     );
-    return responseData;
+    return data;
   }
 
-  /**
-   * Lấy lịch sử/danh sách các buổi học nhóm mà hội viên hiện tại đã đặt
-   * GET /class-bookings/me
-   */
   async getMyClassBookings(
     params?: ClassBookingQueryParams,
   ): Promise<PageResponse<ClassBooking>> {
@@ -60,29 +50,32 @@ export class BookingService {
     return data;
   }
 
-  /**
-   * Hủy đặt chỗ lớp học nhóm (yêu cầu trước giờ bắt đầu >= 24h)
-   * PATCH /class-bookings/{id}/cancel
-   */
   async cancelClassBooking(
     id: number,
-    data: CancelBookingRequest,
+    payload: CancelBookingRequest,
   ): Promise<ClassBooking> {
-    const { data: responseData } = await apiClient.patch<ClassBooking>(
+    const { data } = await apiClient.patch<ClassBooking>(
       `/class-bookings/${id}/cancel`,
-      data,
+      payload,
     );
-    return responseData;
+    return data;
+  }
+
+  async markClassAttendance(
+    id: number,
+    attendanceStatus: AttendanceStatus,
+  ): Promise<ClassBooking> {
+    const { data } = await apiClient.patch<ClassBooking>(
+      `/class-bookings/${id}/attendance`,
+      { attendanceStatus },
+    );
+    return data;
   }
 
   // ==========================================
   // LUỒNG PT (HUẤN LUYỆN VIÊN CÁ NHÂN 1-1)
   // ==========================================
 
-  /**
-   * Lấy danh sách khung giờ (time slots) còn trống của một huấn luyện viên
-   * GET /trainers/{trainerId}/time-slots
-   */
   async getTrainerTimeSlots(
     trainerId: number,
     params?: TrainerTimeSlotQueryParams,
@@ -98,22 +91,49 @@ export class BookingService {
     return data.content ?? [];
   }
 
-  /**
-   * Đặt lịch tập với huấn luyện viên cá nhân (PT)
-   * POST /pt-bookings
-   */
-  async bookPT(data: PTBookingRequest): Promise<PTBooking> {
-    const { data: responseData } = await apiClient.post<PTBooking>(
-      "/pt-bookings",
-      data,
+  async createTimeSlot(
+    payload: CreateTimeSlotRequest,
+  ): Promise<TrainerTimeSlot> {
+    const { data } = await apiClient.post<TrainerTimeSlot>(
+      "/trainers/time-slots",
+      payload,
     );
-    return responseData;
+    return data;
   }
 
-  /**
-   * Lấy danh sách lịch tập PT của hội viên hiện tại
-   * GET /pt-bookings/me
-   */
+  async updateTimeSlot(
+    id: number,
+    payload: UpdateTimeSlotRequest,
+  ): Promise<TrainerTimeSlot> {
+    const { data } = await apiClient.patch<TrainerTimeSlot>(
+      `/trainers/time-slots/${id}`,
+      payload,
+    );
+    return data;
+  }
+
+  async activateTimeSlot(id: number): Promise<TrainerTimeSlot> {
+    const { data } = await apiClient.patch<TrainerTimeSlot>(
+      `/trainers/time-slots/${id}/activate`,
+    );
+    return data;
+  }
+
+  async deactivateTimeSlot(id: number): Promise<TrainerTimeSlot> {
+    const { data } = await apiClient.patch<TrainerTimeSlot>(
+      `/trainers/time-slots/${id}/deactivate`,
+    );
+    return data;
+  }
+
+  async bookPT(payload: PTBookingRequest): Promise<PTBooking> {
+    const { data } = await apiClient.post<PTBooking>(
+      "/pt-bookings",
+      payload,
+    );
+    return data;
+  }
+
   async getMyPTBookings(
     params?: PTBookingQueryParams,
   ): Promise<PageResponse<PTBooking>> {
@@ -124,25 +144,17 @@ export class BookingService {
     return data;
   }
 
-  /**
-   * Hủy lịch tập PT (yêu cầu trước giờ tập >= 24h nếu do hội viên hủy)
-   * PATCH /pt-bookings/{id}/cancel
-   */
   async cancelPTBooking(
     id: number,
-    data: CancelBookingRequest,
+    payload: CancelBookingRequest,
   ): Promise<PTBooking> {
-    const { data: responseData } = await apiClient.patch<PTBooking>(
+    const { data } = await apiClient.patch<PTBooking>(
       `/pt-bookings/${id}/cancel`,
-      data,
+      payload,
     );
-    return responseData;
+    return data;
   }
 
-  /**
-   * Lấy danh sách yêu cầu đặt lịch PT gửi đến huấn luyện viên hiện tại
-   * GET /pt-bookings/trainer/me
-   */
   async getPTRequestsForTrainer(
     params?: PTBookingQueryParams,
   ): Promise<PageResponse<PTBooking>> {
@@ -153,10 +165,6 @@ export class BookingService {
     return data;
   }
 
-  /**
-   * Huấn luyện viên xác nhận chấp nhận yêu cầu đặt lịch PT
-   * PATCH /pt-bookings/{id}/confirm
-   */
   async confirmPTBooking(id: number): Promise<PTBooking> {
     const { data } = await apiClient.patch<PTBooking>(
       `/pt-bookings/${id}/confirm`,
@@ -164,45 +172,28 @@ export class BookingService {
     return data;
   }
 
-  /**
-   * Huấn luyện viên từ chối yêu cầu đặt lịch PT kèm lý do
-   * PATCH /pt-bookings/{id}/reject
-   */
   async rejectPTBooking(
     id: number,
-    data: RejectPTRequest,
+    payload: RejectPTRequest,
   ): Promise<PTBooking> {
-    const { data: responseData } = await apiClient.patch<PTBooking>(
+    const { data } = await apiClient.patch<PTBooking>(
       `/pt-bookings/${id}/reject`,
-      data,
+      payload,
     );
-    return responseData;
+    return data;
   }
 
-  /**
-   * Huấn luyện viên tạo khung giờ rảnh mới
-   * POST /trainers/time-slots
-   */
-  async createTimeSlot(data: CreateTimeSlotRequest): Promise<TrainerTimeSlot> {
-    const { data: responseData } = await apiClient.post<TrainerTimeSlot>(
-      "/trainers/time-slots",
-      data,
+  async markPTAttendance(
+    id: number,
+    attendanceStatus: AttendanceStatus,
+  ): Promise<PTBooking> {
+    const { data } = await apiClient.patch<PTBooking>(
+      `/pt-bookings/${id}/attendance`,
+      { attendanceStatus },
     );
-    return responseData;
-  }
-
-  /**
-   * Huấn luyện viên hủy / vô hiệu hóa khung giờ rảnh
-   * PATCH /trainers/time-slots/{id}/deactivate
-   */
-  async deactivateTimeSlot(id: number): Promise<TrainerTimeSlot> {
-    const { data: responseData } = await apiClient.patch<TrainerTimeSlot>(
-      `/trainers/time-slots/${id}/deactivate`,
-    );
-    return responseData;
+    return data;
   }
 }
 
-// Export singleton instance
 export const bookingService = new BookingService();
 export default bookingService;

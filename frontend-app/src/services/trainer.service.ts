@@ -3,14 +3,12 @@ import type { PageResponse } from "../models/admin";
 import type {
   Trainer,
   TrainerQueryParams,
+  TrainerProfileRequest,
+  TrainerProfileUpdateRequest,
   TrainerApprovalResponse,
 } from "../models/trainer";
 
 export class TrainerServiceClass {
-  /**
-   * Lấy danh sách Huấn luyện viên
-   * GET /trainers
-   */
   async getTrainers(
     params?: TrainerQueryParams | any,
   ): Promise<PageResponse<Trainer> | Trainer[]> {
@@ -32,19 +30,27 @@ export class TrainerServiceClass {
     return data;
   }
 
-  /**
-   * Lấy chi tiết Huấn luyện viên
-   * GET /trainers/{id}
-   */
   async getTrainerById(id: number): Promise<Trainer> {
     const { data } = await apiClient.get<Trainer>(`/trainers/${id}`);
     return data;
   }
 
-  /**
-   * Duyệt hồ sơ Huấn luyện viên
-   * PATCH /admin/trainers/${id}/approve
-   */
+  async createProfile(payload: TrainerProfileRequest): Promise<Trainer> {
+    const { data } = await apiClient.post<Trainer>(
+      "/trainers/profile",
+      payload,
+    );
+    return data;
+  }
+
+  async updateProfile(payload: TrainerProfileUpdateRequest): Promise<Trainer> {
+    const { data } = await apiClient.patch<Trainer>(
+      "/trainers/profile",
+      payload,
+    );
+    return data;
+  }
+
   async approveTrainer(id: number): Promise<TrainerApprovalResponse> {
     const { data } = await apiClient.patch<TrainerApprovalResponse>(
       `/admin/trainers/${id}/approve`,
@@ -52,10 +58,6 @@ export class TrainerServiceClass {
     return data;
   }
 
-  /**
-   * Từ chối hồ sơ Huấn luyện viên kèm lý do
-   * PATCH /admin/trainers/${id}/reject
-   */
   async rejectTrainer(id: number, reason: string): Promise<void> {
     await apiClient.patch<void>(`/admin/trainers/${id}/reject`, {
       reason,

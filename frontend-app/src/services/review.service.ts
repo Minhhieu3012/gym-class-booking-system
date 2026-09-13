@@ -1,12 +1,12 @@
 import { apiClient } from "../core/api";
 import type { PageResponse } from "../models/admin";
-import type { Review, ReviewQueryParams } from "../models/review";
+import type {
+  Review,
+  ReviewQueryParams,
+  CreateReviewRequest,
+} from "../models/review";
 
 export class ReviewServiceClass {
-  /**
-   * Lấy danh sách đánh giá
-   * GET /reviews
-   */
   async getAllReviews(
     params?: ReviewQueryParams | any,
   ): Promise<PageResponse<Review> | Review[]> {
@@ -32,19 +32,21 @@ export class ReviewServiceClass {
     return data;
   }
 
-  /**
-   * Ẩn đánh giá
-   * PATCH /reviews/{id}/hide
-   */
+  async getReviewById(id: number): Promise<Review> {
+    const { data } = await apiClient.get<Review>(`/reviews/${id}`);
+    return data;
+  }
+
+  async createReview(payload: CreateReviewRequest): Promise<Review> {
+    const { data } = await apiClient.post<Review>("/reviews", payload);
+    return data;
+  }
+
   async hideReview(id: number): Promise<Review> {
     const { data } = await apiClient.patch<Review>(`/reviews/${id}/hide`);
     return data;
   }
 
-  /**
-   * Hiện / Công khai đánh giá
-   * PATCH /reviews/{id}/show
-   */
   async showReview(id: number): Promise<Review> {
     const { data } = await apiClient.patch<Review>(`/reviews/${id}/show`);
     return data;

@@ -5,15 +5,14 @@ import type {
   MemberPackage,
   BuyPackageRequest,
   TransactionResponse,
+  TransactionStatus,
+  AdjustMemberPackageRequest,
   PackageQueryParams,
   MemberPackageQueryParams,
+  TransactionQueryParams,
 } from "../models/package";
 
 export class PaymentService {
-  /**
-   * Lấy danh sách các gói tập khả dụng trong hệ thống
-   * GET /packages
-   */
   async getAvailablePackages(
     params?: PackageQueryParams,
   ): Promise<PageResponse<Package>> {
@@ -23,10 +22,11 @@ export class PaymentService {
     return data;
   }
 
-  /**
-   * Lấy danh sách gói tập cá nhân của hội viên hiện tại
-   * GET /member-packages/me
-   */
+  async getPackageById(id: number): Promise<Package> {
+    const { data } = await apiClient.get<Package>(`/packages/${id}`);
+    return data;
+  }
+
   async getMyPackages(
     params?: MemberPackageQueryParams,
   ): Promise<PageResponse<MemberPackage>> {
@@ -37,39 +37,62 @@ export class PaymentService {
     return data;
   }
 
-  /**
-   * Mua gói tập mới cho hội viên hiện tại (Tạo giao dịch)
-   * POST /transactions
-   */
-  async buyPackage(data: BuyPackageRequest): Promise<TransactionResponse> {
-    const { data: responseData } = await apiClient.post<TransactionResponse>(
-      "/transactions",
-      data,
+  async getMyPackageById(id: number): Promise<MemberPackage> {
+    const { data } = await apiClient.get<MemberPackage>(
+      `/member-packages/me/${id}`,
     );
-    return responseData;
+    return data;
   }
 
-  /**
-   * Lấy danh sách giao dịch cho Quản trị viên
-   * GET /transactions
-   */
+  async buyPackage(payload: BuyPackageRequest): Promise<TransactionResponse> {
+    const { data } = await apiClient.post<TransactionResponse>(
+      "/transactions",
+      payload,
+    );
+    return data;
+  }
+
   async getTransactions(
-    params?: any,
+    params?: TransactionQueryParams | any,
   ): Promise<PageResponse<TransactionResponse>> {
+    const cleanParams: Record<string, any> = {};
+    if (params) {
+      if (params.page !== undefined) cleanParams.page = params.page;
+      if (params.size !== undefined) cleanParams.size = params.size;
+      if (params.memberId !== undefined) cleanParams.memberId = params.memberId;
+      if (params.status && params.status !== "ALL") cleanParams.status = params.status;
+      if (params.sort) cleanParams.sort = params.sort;
+      if (params.keyword && String(params.keyword).trim() !== "") {
+        cleanParams.keyword = String(params.keyword).trim();
+      }
+    }
     const { data } = await apiClient.get<PageResponse<TransactionResponse>>(
       "/transactions",
+      { params: cleanParams },
+    );
+    return data;
+  }
+
+  async getMyTransactions(
+    params?: TransactionQueryParams,
+  ): Promise<PageResponse<TransactionResponse>> {
+    const { data } = await apiClient.get<PageResponse<TransactionResponse>>(
+      "/transactions/me",
       { params },
     );
     return data;
   }
 
-  /**
-   * Cập nhật trạng thái giao dịch (Duyệt: SUCCESS, Hủy: FAILED)
-   * PATCH /transactions/${id}/status
-   */
+  async getTransactionById(id: number): Promise<TransactionResponse> {
+    const { data } = await apiClient.get<TransactionResponse>(
+      `/transactions/${id}`,
+    );
+    return data;
+  }
+
   async updateTransactionStatus(
     id: number,
-    status: string,
+    status: TransactionStatus | string,
   ): Promise<TransactionResponse> {
     const { data } = await apiClient.patch<TransactionResponse>(
       `/transactions/${id}/status`,
@@ -78,17 +101,21 @@ export class PaymentService {
     return data;
   }
 
-  /**
-   * Điều chỉnh lượt tập thủ công cho gói tập hội viên
-   * PATCH /member-packages/${id}/adjust
-   */
+  async mockPayment(
+    id: number,
+    status: TransactionStatus | string,
+  ): Promise<TransactionResponse> {
+    const { data } = await apiClient.post<TransactionResponse>(
+      `/admin/transactions/${id}/mock-payment`,
+      null,
+      { params: { status } },
+    );
+    return data;
+  }
+
   async adjustMemberPackage(
     id: number,
-    payload: {
-      sessionsAdjustment?: number;
-      newEndDate?: string;
-      reason: string;
-    },
+    payload: AdjustMemberPackageRequest,
   ): Promise<MemberPackage> {
     const { data } = await apiClient.patch<MemberPackage>(
       `/member-packages/${id}/adjust`,
@@ -98,14 +125,19 @@ export class PaymentService {
   }
 }
 
-// Standalone functions for direct import
+export const paymentService = new PaymentService();
+
 export const getTransactions = (params?: any) =>
   paymentService.getTransactions(params);
-export const updateTransactionStatus = (id: number, status: string) =>
-  paymentService.updateTransactionStatus(id, status);
-export const adjustMemberPackage = (id: number, payload: any) =>
-  paymentService.adjustMemberPackage(id, payload);
 
-// Export singleton instance
-export const paymentService = new PaymentService();
+export const updateTransactionStatus = (
+  id: number,
+  status: TransactionStatus | string,
+) => paymentService.updateTransactionStatus(id, status);
+
+export const adjustMemberPackage = (
+  id: number,
+  payload: AdjustMemberPackageRequest,
+) => paymentService.adjustMemberPackage(id, payload);
+
 export default paymentService;
