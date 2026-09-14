@@ -13,6 +13,7 @@ export interface Review {
   ptBookingId?: number | null;
   memberName?: string;
   memberEmail?: string;
+  memberAvatar?: string | null;
   member?: {
     id?: number;
     fullName?: string;

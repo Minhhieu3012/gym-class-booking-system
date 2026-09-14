@@ -32,36 +32,69 @@ export async function getAnalyticsOverview(): Promise<AnalyticsOverview> {
   }
 
   try {
-    const [usersRes, trainersRes, txsRes, classesRes, bookingsRes] = await Promise.allSettled([
-      apiClient.get<PageResponse<any>>("/users", { params: { size: 100 } }),
-      apiClient.get<PageResponse<any>>("/trainers", { params: { size: 100 } }),
-      apiClient.get<PageResponse<any>>("/admin/transactions", { params: { size: 100 } }),
-      apiClient.get<PageResponse<any>>("/admin/classes", { params: { size: 100 } }),
-      apiClient.get<PageResponse<any>>("/class-bookings", { params: { size: 100 } }),
-    ]);
+    const [usersRes, trainersRes, txsRes, classesRes, bookingsRes] =
+      await Promise.allSettled([
+        apiClient.get<PageResponse<any>>("/users", { params: { size: 100 } }),
+        apiClient.get<PageResponse<any>>("/trainers", {
+          params: { size: 100 },
+        }),
+        apiClient.get<PageResponse<any>>("/admin/transactions", {
+          params: { size: 100 },
+        }),
+        apiClient.get<PageResponse<any>>("/admin/classes", {
+          params: { size: 100 },
+        }),
+        apiClient.get<PageResponse<any>>("/class-bookings", {
+          params: { size: 100 },
+        }),
+      ]);
 
-    const users = usersRes.status === "fulfilled" ? (usersRes.value.data.content || []) : [];
+    const users =
+      usersRes.status === "fulfilled" ? usersRes.value.data.content || [] : [];
     const membersCount = users.filter((u: any) => u.role === "MEMBER").length;
-    
-    const trainers = trainersRes.status === "fulfilled" ? (trainersRes.value.data.content || []) : [];
-    const trainersCount = trainers.length > 0 ? trainers.length : users.filter((u: any) => u.role === "TRAINER").length;
 
-    const txs = txsRes.status === "fulfilled" ? (txsRes.value.data.content || []) : [];
+    const trainers =
+      trainersRes.status === "fulfilled"
+        ? trainersRes.value.data.content || []
+        : [];
+    const trainersCount =
+      trainers.length > 0
+        ? trainers.length
+        : users.filter((u: any) => u.role === "TRAINER").length;
+
+    const txs =
+      txsRes.status === "fulfilled" ? txsRes.value.data.content || [] : [];
     const totalRevenue = txs
       .filter((t: any) => (t.status || "").toUpperCase() === "SUCCESS")
       .reduce((sum: number, t: any) => sum + (Number(t.amount) || 0), 0);
 
-    const classes = classesRes.status === "fulfilled" ? (classesRes.value.data.content || []) : [];
-    const classesConducted = classes.filter((c: any) => {
-      const isPast = c.endTime ? new Date(c.endTime).getTime() < Date.now() : false;
-      return (c.status || "").toUpperCase() === "COMPLETED" || isPast;
-    }).length || classes.length;
+    const classes =
+      classesRes.status === "fulfilled"
+        ? classesRes.value.data.content || []
+        : [];
+    const classesConducted =
+      classes.filter((c: any) => {
+        const isPast = c.endTime
+          ? new Date(c.endTime).getTime() < Date.now()
+          : false;
+        return (c.status || "").toUpperCase() === "COMPLETED" || isPast;
+      }).length || classes.length;
 
-    const bookings = bookingsRes.status === "fulfilled" ? (bookingsRes.value.data.content || []) : [];
-    const activeBookings = bookings.filter((b: any) => (b.status || "").toUpperCase() === "CONFIRMED").length;
+    const bookings =
+      bookingsRes.status === "fulfilled"
+        ? bookingsRes.value.data.content || []
+        : [];
+    const activeBookings = bookings.filter(
+      (b: any) => (b.status || "").toUpperCase() === "CONFIRMED",
+    ).length;
 
-    const attendedCount = bookings.filter((b: any) => (b.status || "").toUpperCase() === "ATTENDED").length;
-    const attendanceRate = bookings.length > 0 ? Math.round((attendedCount / bookings.length) * 100) : 92;
+    const attendedCount = bookings.filter(
+      (b: any) => (b.status || "").toUpperCase() === "ATTENDED",
+    ).length;
+    const attendanceRate =
+      bookings.length > 0
+        ? Math.round((attendedCount / bookings.length) * 100)
+        : 92;
 
     return {
       totalMembers: membersCount || 2,
@@ -146,9 +179,13 @@ export const classTypeService = {
   },
 
   async create(payload: CreateClassTypeRequest): Promise<ClassTypeResponse> {
+    const body: CreateClassTypeRequest & { active?: boolean } = {
+      ...payload,
+      active: payload.isActive ?? true,
+    };
     const { data } = await apiClient.post<ClassTypeResponse>(
       "/admin/class-types",
-      payload,
+      body,
     );
     return data;
   },
@@ -157,9 +194,13 @@ export const classTypeService = {
     id: number,
     payload: UpdateClassTypeRequest,
   ): Promise<ClassTypeResponse> {
+    const body: UpdateClassTypeRequest & { active?: boolean } = { ...payload };
+    if (payload.isActive !== undefined) {
+      body.active = payload.isActive;
+    }
     const { data } = await apiClient.patch<ClassTypeResponse>(
       `/admin/class-types/${id}`,
-      payload,
+      body,
     );
     return data;
   },
@@ -226,9 +267,12 @@ export const showReview = reviewService.showReview.bind(reviewService);
 export { reviewService };
 
 import { paymentService } from "./payment.service";
-export const getTransactions = paymentService.getTransactions.bind(paymentService);
-export const updateTransactionStatus = paymentService.updateTransactionStatus.bind(paymentService);
-export const adjustMemberPackage = paymentService.adjustMemberPackage.bind(paymentService);
+export const getTransactions =
+  paymentService.getTransactions.bind(paymentService);
+export const updateTransactionStatus =
+  paymentService.updateTransactionStatus.bind(paymentService);
+export const adjustMemberPackage =
+  paymentService.adjustMemberPackage.bind(paymentService);
 export { paymentService };
 
 export const AdminCoreService = {

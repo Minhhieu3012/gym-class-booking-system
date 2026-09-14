@@ -13,6 +13,7 @@ public class TrainerResponseDTO {
     private BigDecimal hourlyFee;
     private String bio;
     private String status;
+    private String avatarUrl;
 
     public TrainerResponseDTO() {
     }
@@ -125,5 +126,13 @@ public class TrainerResponseDTO {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public String getAvatarUrl() {
+        return avatarUrl;
+    }
+
+    public void setAvatarUrl(String avatarUrl) {
+        this.avatarUrl = avatarUrl;
     }
 }

@@ -131,6 +131,8 @@ public class ReviewController {
             }
         }
 
+        String memberAvatar = review.getMember() != null ? review.getMember().getAvatarUrl() : null;
+
         ReviewResponseDTO dto = new ReviewResponseDTO();
         dto.setId(review.getId());
         dto.setRating(review.getRating());
@@ -141,6 +143,7 @@ public class ReviewController {
         dto.setPtBookingId(review.getPtBooking() != null ? review.getPtBooking().getId() : null);
         dto.setMemberName(memberName);
         dto.setMemberEmail(memberEmail);
+        dto.setMemberAvatar(memberAvatar);
         dto.setTargetType(targetType);
         dto.setTargetName(targetName);
         return dto;

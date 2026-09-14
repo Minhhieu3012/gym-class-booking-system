@@ -1,4 +1,4 @@
-package com.gym.booking;
+package com.gym.gym_booking;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

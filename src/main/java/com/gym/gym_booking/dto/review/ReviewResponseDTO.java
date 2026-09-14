@@ -14,6 +14,7 @@ public class ReviewResponseDTO {
 
     private String memberName;
     private String memberEmail;
+    private String memberAvatar;
     private String targetType; // "CLASS" or "PT"
     private String targetName; // e.g. "Yoga Hatha" or "HLV Nguyen Van Phuc"
 
@@ -102,6 +103,14 @@ public class ReviewResponseDTO {
 
     public void setMemberEmail(String memberEmail) {
         this.memberEmail = memberEmail;
+    }
+
+    public String getMemberAvatar() {
+        return memberAvatar;
+    }
+
+    public void setMemberAvatar(String memberAvatar) {
+        this.memberAvatar = memberAvatar;
     }
 
     public String getTargetType() {

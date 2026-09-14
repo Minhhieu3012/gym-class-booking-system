@@ -242,43 +242,6 @@ public class AuthServiceImpl implements AuthService {
         return UserMapper.toResponse(savedUser);
     }
 
-//    @Override
-//    public LoginResponseDTO login(LoginRequestDTO request) {
-//
-//        String username = request.getUsername().trim();
-//
-//        User user = userRepository
-//                .findByPhoneOrEmail(username, username)
-//                .orElseThrow(() ->
-//                        new RuntimeException(
-//                                "Invalid username or password"
-//                        ));
-//
-//        if (user.getStatus() == UserStatus.LOCKED) {
-//            throw new RuntimeException("Account is locked");
-//        }
-//
-//        Authentication authentication =
-//                authenticationManager.authenticate(
-//                        new UsernamePasswordAuthenticationToken(
-//                                username,
-//                                request.getPassword()
-//                        )
-//                );
-//
-//        UserDetails userDetails =
-//                (UserDetails) authentication.getPrincipal();
-//
-//        String accessToken =
-//                jwtService.generateAccessToken(userDetails);
-//
-//        return new LoginResponseDTO(
-//                accessToken,
-//                "Bearer",
-//                3600L,
-//                UserMapper.toResponse(user)
-//        );
-//    }
     @Override
     public LoginResponseDTO login(LoginRequestDTO request) {
 

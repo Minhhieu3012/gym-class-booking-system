@@ -240,11 +240,14 @@
               id="trainer-phone"
               name="phone"
               class="register-trainer-input-field form-control border-theme bg-surface py-2"
-              placeholder="(555) 234-8901"
+              placeholder="0912345678"
               autocomplete="tel"
               required
             />
           </div>
+          <small class="register-trainer-helper-text text-neutral mt-1 d-block">
+            Định dạng 10–11 chữ số, bắt đầu bằng số 0
+          </small>
         </div>
 
         <div class="mb-1">
@@ -325,6 +328,10 @@
               class="register-trainer-pw-bar flex-fill rounded-theme-sm"
             ></div>
           </div>
+          <small class="register-trainer-helper-text text-neutral mt-2 d-block">
+            Tối thiểu 6 ký tự, gồm chữ hoa, chữ thường, chữ số và ký tự đặc biệt
+            (@$!%*?&)
+          </small>
         </div>
       </div>
 
@@ -449,13 +456,13 @@
                 id="trainer-hourly-fee"
                 name="hourlyFee"
                 class="register-trainer-input-field form-control border-theme bg-surface py-2"
-                placeholder="95"
+                placeholder="300000"
                 min="0"
                 required
               />
             </div>
             <small class="register-trainer-helper-text text-neutral"
-              >$/hr</small
+              >VNĐ/giờ</small
             >
           </div>
         </div>
@@ -539,6 +546,76 @@
         Already a certified cadre coach?
         <a href="/login" data-link class="text-tertiary fw-bold ms-1">Log In</a>
       </p>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════
+       FEEDBACK MODAL (ERROR & SUCCESS DIALOG)
+  ═══════════════════════════════════════════ -->
+  <div
+    id="trainer-modal-overlay"
+    class="trainer-modal-backdrop"
+    aria-hidden="true"
+    role="dialog"
+    aria-modal="true"
+  >
+    <div class="trainer-modal-card shadow-lg" role="document">
+      <button
+        type="button"
+        id="trainer-modal-close-icon"
+        class="trainer-modal-close-btn"
+        aria-label="Đóng hộp thoại"
+      >
+        <svg
+          width="20"
+          height="20"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          viewBox="0 0 24 24"
+        >
+          <path d="M18 6L6 18M6 6l12 12" />
+        </svg>
+      </button>
+
+      <!-- Title & Description Message -->
+      <h3
+        id="trainer-modal-title"
+        class="trainer-modal-title text-center fw-bold mb-2"
+      ></h3>
+      <p
+        id="trainer-modal-message"
+        class="trainer-modal-message text-center mb-3"
+      ></p>
+
+      <!-- Details List Box -->
+      <div
+        id="trainer-modal-details-box"
+        class="trainer-modal-details-box mb-4 d-none"
+      >
+        <ul
+          id="trainer-modal-details-list"
+          class="trainer-modal-details-list mb-0"
+        ></ul>
+      </div>
+
+      <!-- Actions Button -->
+      <div class="d-flex flex-column gap-2" id="trainer-modal-actions">
+        <button
+          type="button"
+          id="trainer-modal-btn-primary"
+          class="btn btn-brand w-100 py-2 fw-bold shadow-sm"
+        >
+          Đã hiểu
+        </button>
+        <button
+          type="button"
+          id="trainer-modal-btn-secondary"
+          class="btn btn-outline-secondary w-100 py-2 d-none"
+        >
+          Đến trang Đăng Nhập
+        </button>
+      </div>
     </div>
   </div>
 </main>
