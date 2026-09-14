@@ -90,8 +90,6 @@ export interface ClassBookingRequest {
 export type ClassBookingCreateRequestDTO = ClassBookingRequest;
 
 export interface PTBookingRequest {
-  trainerId?: number;
-  timeSlotId?: number;
   trainerTimeSlotId?: number;
   memberPackageId?: number;
   sessionNote: string;
