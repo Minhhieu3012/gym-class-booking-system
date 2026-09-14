@@ -1,8 +1,3 @@
-/* ============================================================
-   ADMIN REVIEWS MODERATION - STYLES
-   ============================================================ */
-
-/* Kế thừa layout Desktop-first từ Dashboard */
 @import "./dashboard.css";
 
 /* ══════════════════════════════════════════
@@ -18,7 +13,9 @@
   border-color: #cbd5e1;
   font-size: 0.9rem;
   padding: 0.55rem 0.85rem;
-  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+  transition:
+    border-color 0.15s ease-in-out,
+    box-shadow 0.15s ease-in-out;
 }
 
 .review-toolbar-card .form-control:focus,
@@ -156,7 +153,9 @@
    ═══════════════════════════════════════════ */
 #reviewStatusModal .modal-content {
   border: 1px solid #e2e8f0;
-  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  box-shadow:
+    0 20px 25px -5px rgba(0, 0, 0, 0.1),
+    0 10px 10px -5px rgba(0, 0, 0, 0.04);
 }
 
 /* Pagination */

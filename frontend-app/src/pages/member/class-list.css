@@ -1,8 +1,3 @@
-/* ============================================================
-   Member Group Class List & Booking Styles
-   Mobile-first, Vertical Card List Aesthetics
-   ============================================================ */
-
 .member-classes-page {
   font-family: var(--font-primary);
 }
@@ -283,4 +278,3 @@
     font-size: 1.05rem;
   }
 }
-

@@ -1,8 +1,3 @@
-/* ============================================================
-   ADMIN ROOM MANAGEMENT - STYLES
-   ============================================================ */
-
-/* Kế thừa layout Desktop-first từ Dashboard */
 @import "./dashboard.css";
 
 /* Table custom styling */

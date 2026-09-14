@@ -1,473 +1,432 @@
-<!-- =========================================================
-     SHARED GYM HUB NAVBAR
-     Role-aware: MEMBER / TRAINER / ADMIN
-     ========================================================= -->
-
 <nav
-        class="gym-navbar w-100 d-flex justify-content-between align-items-center px-3 px-md-4 py-2 py-md-3 sticky-top"
-        id="gym-navbar"
-        aria-label="Main Navigation"
+  class="gym-navbar w-100 d-flex justify-content-between align-items-center px-3 px-md-4 py-2 py-md-3 sticky-top"
+  id="gym-navbar"
+  aria-label="Main Navigation"
 >
-    <!-- =========================
+  <!-- =========================
          BRAND
          ========================= -->
-    <div class="gym-navbar-brand-wrapper d-flex align-items-center gap-3">
-        <a
-                href="/"
-                data-link
-                class="gym-navbar-brand d-flex align-items-center text-decoration-none gap-2"
-                id="gym-navbar-home"
-        >
-            <img
-                    src="/src/assets/img/logo.png"
-                    alt="GYM HUB Logo"
-                    class="gym-navbar-logo img-fluid"
-            />
+  <div class="gym-navbar-brand-wrapper d-flex align-items-center gap-3">
+    <a
+      href="/"
+      data-link
+      class="gym-navbar-brand d-flex align-items-center text-decoration-none gap-2"
+      id="gym-navbar-home"
+    >
+      <img
+        src="/src/assets/img/logo.png"
+        alt="GYM HUB Logo"
+        class="gym-navbar-logo img-fluid"
+      />
 
-            <span class="gym-navbar-brand-name">
-        GYM HUB
-      </span>
+      <span class="gym-navbar-brand-name"> GYM HUB </span>
 
-            <span
-                    class="gym-navbar-portal-tag d-none d-sm-inline-block"
-                    id="gym-navbar-portal-tag"
-            >
+      <span
+        class="gym-navbar-portal-tag d-none d-sm-inline-block"
+        id="gym-navbar-portal-tag"
+      >
         MEMBER PORTAL
       </span>
-        </a>
+    </a>
 
-        <p
-                class="gym-navbar-role-badge text-neutral mb-0 d-none d-md-block ms-2 ps-2 border-start border-secondary-subtle"
-                id="gym-navbar-role-badge"
-        >
-            HỘI VIÊN
-        </p>
-    </div>
+    <p
+      class="gym-navbar-role-badge text-neutral mb-0 d-none d-md-block ms-2 ps-2 border-start border-secondary-subtle"
+      id="gym-navbar-role-badge"
+    >
+      HỘI VIÊN
+    </p>
+  </div>
 
-    <!-- =========================
+  <!-- =========================
          TRAINER DESKTOP NAV
          ========================= -->
-    <div
-            class="gym-navbar-menu gym-navbar-trainer-menu d-none"
-            id="gym-navbar-trainer-menu"
+  <div
+    class="gym-navbar-menu gym-navbar-trainer-menu d-none"
+    id="gym-navbar-trainer-menu"
+  >
+    <a
+      href="/trainer/time-slots.html"
+      data-link
+      class="gym-navbar-link"
+      data-nav="trainer-time-slots"
     >
-        <a
-                href="/trainer/time-slots.html"
-                data-link
-                class="gym-navbar-link"
-                data-nav="trainer-time-slots"
-        >
-            <svg
-                    width="15"
-                    height="15"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="2.2"
-                    viewBox="0 0 24 24"
-                    aria-hidden="true"
-            >
-                <rect x="3" y="4" width="18" height="18" rx="2" />
-                <line x1="16" y1="2" x2="16" y2="6" />
-                <line x1="8" y1="2" x2="8" y2="6" />
-                <line x1="3" y1="10" x2="21" y2="10" />
-            </svg>
-            <span>Lịch dạy</span>
-        </a>
+      <svg
+        width="15"
+        height="15"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2.2"
+        viewBox="0 0 24 24"
+        aria-hidden="true"
+      >
+        <rect x="3" y="4" width="18" height="18" rx="2" />
+        <line x1="16" y1="2" x2="16" y2="6" />
+        <line x1="8" y1="2" x2="8" y2="6" />
+        <line x1="3" y1="10" x2="21" y2="10" />
+      </svg>
+      <span>Lịch dạy</span>
+    </a>
 
-        <a
-                href="/trainer/pt-requests.html"
-                data-link
-                class="gym-navbar-link"
-                data-nav="trainer-pt-requests"
-        >
-            <svg
-                    width="15"
-                    height="15"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="2.2"
-                    viewBox="0 0 24 24"
-            >
-                <path
-                        d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
-                />
-            </svg>
-            <span>Yêu cầu PT</span>
-        </a>
+    <a
+      href="/trainer/pt-requests.html"
+      data-link
+      class="gym-navbar-link"
+      data-nav="trainer-pt-requests"
+    >
+      <svg
+        width="15"
+        height="15"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2.2"
+        viewBox="0 0 24 24"
+      >
+        <path d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+      </svg>
+      <span>Yêu cầu PT</span>
+    </a>
 
-        <a
-                href="/trainer/attendance.html"
-                data-link
-                class="gym-navbar-link"
-                data-nav="trainer-attendance"
-        >
-            <svg
-                    width="15"
-                    height="15"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="2.2"
-                    viewBox="0 0 24 24"
-            >
-                <path
-                        d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2"
-                />
-                <path d="M9 5a3 3 0 016 0" />
-            </svg>
-            <span>Điểm danh</span>
-        </a>
+    <a
+      href="/trainer/attendance.html"
+      data-link
+      class="gym-navbar-link"
+      data-nav="trainer-attendance"
+    >
+      <svg
+        width="15"
+        height="15"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2.2"
+        viewBox="0 0 24 24"
+      >
+        <path
+          d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2"
+        />
+        <path d="M9 5a3 3 0 016 0" />
+      </svg>
+      <span>Điểm danh</span>
+    </a>
 
-        <a
-                href="/trainer/progress-notes.html"
-                data-link
-                class="gym-navbar-link"
-                data-nav="trainer-progress-notes"
-        >
-            <svg
-                    width="15"
-                    height="15"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="2.2"
-                    viewBox="0 0 24 24"
-            >
-                <path
-                        d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5"
-                />
-                <path
-                        d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"
-                />
-            </svg>
-            <span>Ghi chú</span>
-        </a>
+    <a
+      href="/trainer/progress-notes.html"
+      data-link
+      class="gym-navbar-link"
+      data-nav="trainer-progress-notes"
+    >
+      <svg
+        width="15"
+        height="15"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2.2"
+        viewBox="0 0 24 24"
+      >
+        <path d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5" />
+        <path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z" />
+      </svg>
+      <span>Ghi chú</span>
+    </a>
 
-        <a
-                href="/trainer/chat.html"
-                data-link
-                class="gym-navbar-link"
-                data-nav="trainer-chat"
-                id="gym-navbar-trainer-chat"
-        >
-            <svg
-                    width="15"
-                    height="15"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="2.2"
-                    viewBox="0 0 24 24"
-            >
-                <path
-                        d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7"
-                />
-                <path
-                        d="M12 3a8.5 8.5 0 018.5 8.5"
-                />
-                <path
-                        d="M8.2 20.1L3 21l1.9-5.7A8.5 8.5 0 1112 21"
-                />
-            </svg>
-            <span>Nhắn tin</span>
-        </a>
-    </div>
+    <a
+      href="/trainer/chat.html"
+      data-link
+      class="gym-navbar-link"
+      data-nav="trainer-chat"
+      id="gym-navbar-trainer-chat"
+    >
+      <svg
+        width="15"
+        height="15"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2.2"
+        viewBox="0 0 24 24"
+      >
+        <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7" />
+        <path d="M12 3a8.5 8.5 0 018.5 8.5" />
+        <path d="M8.2 20.1L3 21l1.9-5.7A8.5 8.5 0 1112 21" />
+      </svg>
+      <span>Nhắn tin</span>
+    </a>
+  </div>
 
-    <!-- =========================
+  <!-- =========================
          MEMBER DESKTOP NAV
          ========================= -->
-    <div
-            class="gym-navbar-menu gym-navbar-member-menu d-none"
-            id="gym-navbar-member-menu"
+  <div
+    class="gym-navbar-menu gym-navbar-member-menu d-none"
+    id="gym-navbar-member-menu"
+  >
+    <a
+      href="/member/class-list.html"
+      data-link
+      class="gym-navbar-link"
+      data-nav="member-class-list"
     >
-        <a
-                href="/member/class-list.html"
-                data-link
-                class="gym-navbar-link"
-                data-nav="member-class-list"
-        >
-            <i class="bi bi-calendar3"></i>
-            <span>Lịch Lớp</span>
-        </a>
+      <i class="bi bi-calendar3"></i>
+      <span>Lịch Lớp</span>
+    </a>
 
-        <a
-                href="/member/pt-booking.html"
-                data-link
-                class="gym-navbar-link"
-                data-nav="member-pt-booking"
-        >
-            <i class="bi bi-person-badge"></i>
-            <span>Thuê PT</span>
-        </a>
+    <a
+      href="/member/pt-booking.html"
+      data-link
+      class="gym-navbar-link"
+      data-nav="member-pt-booking"
+    >
+      <i class="bi bi-person-badge"></i>
+      <span>Thuê PT</span>
+    </a>
 
-        <a
-                href="/member/packages.html"
-                data-link
-                class="gym-navbar-link"
-                data-nav="member-packages"
-        >
-            <i class="bi bi-credit-card-2-front"></i>
-            <span>Mua Gói</span>
-        </a>
+    <a
+      href="/member/packages.html"
+      data-link
+      class="gym-navbar-link"
+      data-nav="member-packages"
+    >
+      <i class="bi bi-credit-card-2-front"></i>
+      <span>Mua Gói</span>
+    </a>
 
-        <a
-                href="/member/my-bookings.html"
-                data-link
-                class="gym-navbar-link"
-                data-nav="member-my-bookings"
-        >
-            <i class="bi bi-clock-history"></i>
-            <span>Lịch của tôi</span>
-        </a>
-    </div>
+    <a
+      href="/member/my-bookings.html"
+      data-link
+      class="gym-navbar-link"
+      data-nav="member-my-bookings"
+    >
+      <i class="bi bi-clock-history"></i>
+      <span>Lịch của tôi</span>
+    </a>
+  </div>
 
-    <!-- =========================
+  <!-- =========================
          RIGHT SIDE
          ========================= -->
-    <div class="gym-navbar-actions d-flex align-items-center gap-2 gap-md-3">
+  <div class="gym-navbar-actions d-flex align-items-center gap-2 gap-md-3">
+    <!-- PROFILE -->
+    <a
+      href="/profile"
+      data-link
+      class="gym-navbar-profile"
+      id="gym-navbar-profile"
+      title="Hồ sơ cá nhân"
+    >
+      <div
+        class="gym-navbar-avatar rounded-circle d-flex align-items-center justify-content-center overflow-hidden"
+        id="gym-navbar-avatar"
+      >
+        <img
+          src="/src/assets/img/avatar-user-default.jpg"
+          alt="Avatar"
+          class="w-100 h-100 object-fit-cover rounded-circle"
+        />
+      </div>
 
-        <!-- PROFILE -->
-        <a
-                href="/profile"
-                data-link
-                class="gym-navbar-profile"
-                id="gym-navbar-profile"
-                title="Hồ sơ cá nhân"
-        >
-            <div
-                    class="gym-navbar-avatar rounded-circle d-flex align-items-center justify-content-center overflow-hidden"
-                    id="gym-navbar-avatar"
-            >
-                <img
-                        src="/src/assets/img/avatar-user-default.jpg"
-                        alt="Avatar"
-                        class="w-100 h-100 object-fit-cover rounded-circle"
-                />
-            </div>
-
-            <span
-                    class="d-none d-md-inline ms-1 fs-8 fw-semibold"
-                    id="gym-navbar-greeting"
-            >
+      <span
+        class="d-none d-md-inline ms-1 fs-8 fw-semibold"
+        id="gym-navbar-greeting"
+      >
         Hey —
       </span>
-        </a>
+    </a>
 
-        <!-- NOTIFICATION -->
-        <div class="dropdown position-relative">
-            <button
-                    id="gym-navbar-notification"
-                    class="gym-navbar-notification-btn btn p-0 border-0 bg-transparent text-secondary-theme position-relative d-flex align-items-center justify-content-center"
-                    aria-label="Xem thông báo"
-                    type="button"
-            >
-                <svg
-                        width="20"
-                        height="20"
-                        fill="none"
-                        stroke="currentColor"
-                        stroke-width="2"
-                        viewBox="0 0 24 24"
-                >
-                    <path
-                            d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"
-                    />
-                    <path d="M13.73 21a2 2 0 0 1-3.46 0" />
-                </svg>
-            </button>
-
-            <div
-                    id="gym-navbar-notification-dropdown"
-                    class="dropdown-menu dropdown-menu-end shadow-lg p-0"
-            ></div>
-        </div>
-
-        <!-- CHAT -->
-        <a
-                href="/member/chat.html"
-                data-link
-                id="gym-navbar-chat"
-                class="gym-navbar-chat btn-brand-outline py-1 px-3 rounded-pill text-decoration-none d-flex align-items-center gap-1"
-                title="Tin nhắn"
+    <!-- NOTIFICATION -->
+    <div class="dropdown position-relative">
+      <button
+        id="gym-navbar-notification"
+        class="gym-navbar-notification-btn btn p-0 border-0 bg-transparent text-secondary-theme position-relative d-flex align-items-center justify-content-center"
+        aria-label="Xem thông báo"
+        type="button"
+      >
+        <svg
+          width="20"
+          height="20"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          viewBox="0 0 24 24"
         >
-            <svg
-                    width="15"
-                    height="15"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="2"
-                    viewBox="0 0 24 24"
-            >
-                <path
-                        d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7"
-                />
-                <path
-                        d="M12 3a8.5 8.5 0 018.5 8.5"
-                />
-                <path
-                        d="M8.2 20.1L3 21l1.9-5.7A8.5 8.5 0 1112 21"
-                />
-            </svg>
+          <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9" />
+          <path d="M13.73 21a2 2 0 0 1-3.46 0" />
+        </svg>
+      </button>
 
-            <span class="d-none d-sm-inline">
-        Tin nhắn
-      </span>
-        </a>
-
-        <!-- LOGOUT -->
-        <button
-                type="button"
-                class="gym-navbar-logout d-none d-sm-inline-flex"
-                data-action="logout"
-                id="gym-navbar-logout"
-        >
-            <svg
-                    width="14"
-                    height="14"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="2.2"
-                    viewBox="0 0 24 24"
-            >
-                <path
-                        d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"
-                />
-            </svg>
-            <span>Đăng xuất</span>
-        </button>
+      <div
+        id="gym-navbar-notification-dropdown"
+        class="dropdown-menu dropdown-menu-end shadow-lg p-0"
+      ></div>
     </div>
-</nav>
 
+    <!-- CHAT -->
+    <a
+      href="/member/chat.html"
+      data-link
+      id="gym-navbar-chat"
+      class="gym-navbar-chat btn-brand-outline py-1 px-3 rounded-pill text-decoration-none d-flex align-items-center gap-1"
+      title="Tin nhắn"
+    >
+      <svg
+        width="15"
+        height="15"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        viewBox="0 0 24 24"
+      >
+        <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7" />
+        <path d="M12 3a8.5 8.5 0 018.5 8.5" />
+        <path d="M8.2 20.1L3 21l1.9-5.7A8.5 8.5 0 1112 21" />
+      </svg>
+
+      <span class="d-none d-sm-inline"> Tin nhắn </span>
+    </a>
+
+    <!-- LOGOUT -->
+    <button
+      type="button"
+      class="gym-navbar-logout d-none d-sm-inline-flex"
+      data-action="logout"
+      id="gym-navbar-logout"
+    >
+      <svg
+        width="14"
+        height="14"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2.2"
+        viewBox="0 0 24 24"
+      >
+        <path
+          d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"
+        />
+      </svg>
+      <span>Đăng xuất</span>
+    </button>
+  </div>
+</nav>
 
 <!-- =========================================================
      MOBILE BOTTOM NAV - MEMBER
      ========================================================= -->
 
 <nav
-        class="gym-mobile-bottom-nav gym-mobile-member-nav d-none"
-        id="gym-mobile-member-nav"
+  class="gym-mobile-bottom-nav gym-mobile-member-nav d-none"
+  id="gym-mobile-member-nav"
 >
-    <div class="gym-mobile-bottom-container">
+  <div class="gym-mobile-bottom-container">
+    <a
+      href="/member/class-list.html"
+      data-link
+      class="gym-mobile-nav-item"
+      data-nav="member-class-list"
+    >
+      <i class="bi bi-calendar3"></i>
+      <span>Lịch Lớp</span>
+    </a>
 
-        <a
-                href="/member/class-list.html"
-                data-link
-                class="gym-mobile-nav-item"
-                data-nav="member-class-list"
-        >
-            <i class="bi bi-calendar3"></i>
-            <span>Lịch Lớp</span>
-        </a>
+    <a
+      href="/member/pt-booking.html"
+      data-link
+      class="gym-mobile-nav-item"
+      data-nav="member-pt-booking"
+    >
+      <i class="bi bi-person-badge"></i>
+      <span>Thuê PT</span>
+    </a>
 
-        <a
-                href="/member/pt-booking.html"
-                data-link
-                class="gym-mobile-nav-item"
-                data-nav="member-pt-booking"
-        >
-            <i class="bi bi-person-badge"></i>
-            <span>Thuê PT</span>
-        </a>
+    <a
+      href="/member/packages.html"
+      data-link
+      class="gym-mobile-nav-item"
+      data-nav="member-packages"
+    >
+      <i class="bi bi-credit-card-2-front"></i>
+      <span>Mua Gói</span>
+    </a>
 
-        <a
-                href="/member/packages.html"
-                data-link
-                class="gym-mobile-nav-item"
-                data-nav="member-packages"
-        >
-            <i class="bi bi-credit-card-2-front"></i>
-            <span>Mua Gói</span>
-        </a>
+    <a
+      href="/member/my-bookings.html"
+      data-link
+      class="gym-mobile-nav-item"
+      data-nav="member-my-bookings"
+    >
+      <i class="bi bi-clock-history"></i>
+      <span>Lịch sử</span>
+    </a>
 
-        <a
-                href="/member/my-bookings.html"
-                data-link
-                class="gym-mobile-nav-item"
-                data-nav="member-my-bookings"
-        >
-            <i class="bi bi-clock-history"></i>
-            <span>Lịch sử</span>
-        </a>
-
-        <a
-                href="/profile"
-                data-link
-                class="gym-mobile-nav-item"
-                data-nav="profile"
-        >
-            <i class="bi bi-person-circle"></i>
-            <span>Hồ sơ</span>
-        </a>
-
-    </div>
+    <a href="/profile" data-link class="gym-mobile-nav-item" data-nav="profile">
+      <i class="bi bi-person-circle"></i>
+      <span>Hồ sơ</span>
+    </a>
+  </div>
 </nav>
-
 
 <!-- =========================================================
      MOBILE BOTTOM NAV - TRAINER
      ========================================================= -->
 
 <nav
-        class="gym-mobile-bottom-nav gym-mobile-trainer-nav d-none"
-        id="gym-mobile-trainer-nav"
+  class="gym-mobile-bottom-nav gym-mobile-trainer-nav d-none"
+  id="gym-mobile-trainer-nav"
 >
-    <div class="gym-mobile-bottom-container">
+  <div class="gym-mobile-bottom-container">
+    <a
+      href="/trainer/time-slots.html"
+      data-link
+      class="gym-mobile-nav-item"
+      data-nav="trainer-time-slots"
+    >
+      <i class="bi bi-calendar3"></i>
+      <span>Lịch dạy</span>
+    </a>
 
-        <a
-                href="/trainer/time-slots.html"
-                data-link
-                class="gym-mobile-nav-item"
-                data-nav="trainer-time-slots"
-        >
-            <i class="bi bi-calendar3"></i>
-            <span>Lịch dạy</span>
-        </a>
+    <a
+      href="/trainer/pt-requests.html"
+      data-link
+      class="gym-mobile-nav-item"
+      data-nav="trainer-pt-requests"
+    >
+      <i class="bi bi-clock-history"></i>
+      <span>Yêu cầu</span>
+    </a>
 
-        <a
-                href="/trainer/pt-requests.html"
-                data-link
-                class="gym-mobile-nav-item"
-                data-nav="trainer-pt-requests"
-        >
-            <i class="bi bi-clock-history"></i>
-            <span>Yêu cầu</span>
-        </a>
+    <a
+      href="/trainer/attendance.html"
+      data-link
+      class="gym-mobile-nav-item"
+      data-nav="trainer-attendance"
+    >
+      <i class="bi bi-check2-square"></i>
+      <span>Điểm danh</span>
+    </a>
 
-        <a
-                href="/trainer/attendance.html"
-                data-link
-                class="gym-mobile-nav-item"
-                data-nav="trainer-attendance"
-        >
-            <i class="bi bi-check2-square"></i>
-            <span>Điểm danh</span>
-        </a>
+    <a
+      href="/trainer/progress-notes.html"
+      data-link
+      class="gym-mobile-nav-item"
+      data-nav="trainer-progress-notes"
+    >
+      <i class="bi bi-pencil-square"></i>
+      <span>Ghi chú</span>
+    </a>
 
-        <a
-                href="/trainer/progress-notes.html"
-                data-link
-                class="gym-mobile-nav-item"
-                data-nav="trainer-progress-notes"
-        >
-            <i class="bi bi-pencil-square"></i>
-            <span>Ghi chú</span>
-        </a>
+    <a
+      href="/trainer/chat.html"
+      data-link
+      class="gym-mobile-nav-item"
+      data-nav="trainer-chat"
+    >
+      <i class="bi bi-chat-dots"></i>
+      <span>Nhắn tin</span>
+    </a>
 
-        <a
-                href="/trainer/chat.html"
-                data-link
-                class="gym-mobile-nav-item"
-                data-nav="trainer-chat"
-        >
-            <i class="bi bi-chat-dots"></i>
-            <span>Nhắn tin</span>
-        </a>
-
-        <button
-                type="button"
-                class="gym-mobile-nav-item gym-mobile-logout"
-                data-action="logout"
-        >
-            <i class="bi bi-box-arrow-right"></i>
-            <span>Đăng xuất</span>
-        </button>
-
-    </div>
+    <button
+      type="button"
+      class="gym-mobile-nav-item gym-mobile-logout"
+      data-action="logout"
+    >
+      <i class="bi bi-box-arrow-right"></i>
+      <span>Đăng xuất</span>
+    </button>
+  </div>
 </nav>

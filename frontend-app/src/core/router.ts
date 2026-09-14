@@ -202,13 +202,13 @@ const routes: Route[] = [
     view: MemberMyBookingsPage.render,
     init: MemberMyBookingsPage.init,
   },
-    {
-      path: "/member/schedule",
-      requiresAuth: true,
-      roles: ["MEMBER", "ADMIN"],
-      view: MemberSchedulePage.render,
-      init: MemberSchedulePage.init,
-    },
+  {
+    path: "/member/schedule",
+    requiresAuth: true,
+    roles: ["MEMBER", "ADMIN"],
+    view: MemberSchedulePage.render,
+    init: MemberSchedulePage.init,
+  },
   {
     path: "/member/chat",
     requiresAuth: true,
@@ -465,7 +465,9 @@ function view404(): string {
  * Lấy thông tin user từ localStorage. Nếu không có user hoặc user.role !== 'ADMIN',
  * lập tức chuyển hướng về /auth/login.html bằng window.location.href.
  */
-export function checkAdminRouteGuard(pathname: string = window.location.pathname): boolean {
+export function checkAdminRouteGuard(
+  pathname: string = window.location.pathname,
+): boolean {
   if (pathname.includes("/admin/")) {
     const user = getStoredUser();
     if (!user || user.role !== "ADMIN") {
@@ -476,13 +478,9 @@ export function checkAdminRouteGuard(pathname: string = window.location.pathname
   return true;
 }
 
-/**
- * Router Guard chuyên biệt cho các trang Trainer:
- * Kiểm tra nếu window.location.pathname chứa '/trainer/' hoặc các trang liên quan trainer:
- * Lấy thông tin user từ localStorage. Nếu không có user hoặc user.role !== 'TRAINER',
- * lập tức chuyển hướng về /auth/login.html bằng window.location.href.
- */
-export function checkTrainerRouteGuard(pathname: string = window.location.pathname): boolean {
+export function checkTrainerRouteGuard(
+  pathname: string = window.location.pathname,
+): boolean {
   if (
     pathname.includes("/trainer/") ||
     pathname === "/attendance.html" ||
@@ -620,4 +618,3 @@ if (typeof window !== "undefined") {
   checkAdminRouteGuard();
   checkTrainerRouteGuard();
 }
-

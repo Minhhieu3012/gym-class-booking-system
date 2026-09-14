@@ -1,12 +1,6 @@
-/* ============================================================
-   Member My Bookings Page Styles
-   Mobile-first, Bootstrap Nav-Tabs & Card List
-   ============================================================ */
-
 .member-my-bookings-page {
   font-family: var(--font-primary);
 }
-
 
 /* Hero */
 .bookings-hero {
@@ -229,4 +223,3 @@
     font-size: 1.05rem !important;
   }
 }
-
