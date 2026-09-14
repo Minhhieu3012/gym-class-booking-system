@@ -1,10 +1,22 @@
 import template from "./pt-booking.html?raw";
 import "./pt-booking.css";
-import { bookingService, BookingService } from "../../services/booking.service";
+
+import {
+  bookingService,
+  BookingService,
+} from "../../services/booking.service";
+
 import { trainerService } from "../../services/trainer.service";
+
 import type { TrainerTimeSlot } from "../../models/booking";
 import type { Trainer } from "../../models/trainer";
+
 import { navigate } from "../../core/router";
+
+import {
+  renderNavbar,
+  initNavbar,
+} from "../../components/navbar";
 
 // Khai báo kiểu Bootstrap toàn cục
 declare const bootstrap: {
@@ -472,18 +484,23 @@ function attachEvents(): void {
     });
   }
 }
-
 /**
  * Render view template
  */
 export function render(): string {
-  return template;
+  return `
+    ${renderNavbar({ active: "member-pt-booking" })}
+    ${template}
+  `;
 }
 
 /**
  * Khởi tạo dữ liệu khi view mount vào DOM
  */
 export async function init(): Promise<void> {
+  // Khởi tạo shared navbar
+  initNavbar();
+
   // Reset state
   selectedTrainerId = null;
   selectedTrainerName = "";
@@ -492,6 +509,7 @@ export async function init(): Promise<void> {
 
   updateStepIndicator(1);
   attachEvents();
+
   await loadTrainers();
 }
 

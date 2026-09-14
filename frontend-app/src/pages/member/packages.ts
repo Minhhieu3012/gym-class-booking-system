@@ -2,12 +2,12 @@ import template from "./packages.html?raw";
 import "./packages.css";
 import { paymentService } from "../../services/payment.service";
 import type { Package, MemberPackage } from "../../models/package";
+import { renderNavbar, initNavbar } from "../../components/navbar";
 
 // Khai báo kiểu Bootstrap toàn cục
 declare const bootstrap: {
   Toast: new (el: Element, options?: unknown) => { show(): void; hide(): void };
 };
-
 /**
  * Định dạng tiền tệ VNĐ (ví dụ: 1.500.000 đ)
  */
@@ -383,15 +383,31 @@ function attachEvents(): void {
  * Render HTML view template
  */
 export function render(): string {
-  return template;
+  return `
+    ${renderNavbar({ active: "member-packages" })}
+    ${template}
+  `;
 }
 
 /**
  * Khởi tạo dữ liệu và sự kiện sau khi view đã được mount vào DOM
  */
 export async function init(): Promise<void> {
+  // Khởi tạo shared navbar:
+  // - Role/member menu
+  // - Active menu
+  // - Notification
+  // - Chat
+  // - Profile
+  // - Logout
+  initNavbar();
+
   attachEvents();
-  await Promise.all([loadMyPackages(), loadAvailablePackages()]);
+
+  await Promise.all([
+    loadMyPackages(),
+    loadAvailablePackages(),
+  ]);
 }
 
 // Re-export để tương thích với các module khác

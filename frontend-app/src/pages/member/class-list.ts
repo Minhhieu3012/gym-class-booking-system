@@ -1,10 +1,16 @@
 import template from "./class-list.html?raw";
 import "./class-list.css";
+
 import { bookingService } from "../../services/booking.service";
 import { classTypeService } from "../../services/admin-core.service";
+
 import type { GymClass, ClassQueryParams } from "../../models/booking";
 import type { ClassTypeResponse } from "../../models/admin";
 
+import {
+  renderNavbar,
+  initNavbar,
+} from "../../components/navbar";
 // Khai báo kiểu Bootstrap toàn cục
 declare const bootstrap: {
   Toast: new (el: Element, options?: unknown) => { show(): void; hide(): void };
@@ -465,19 +471,26 @@ function attachEvents(): void {
     });
   }
 }
-
 /**
  * Render HTML View
  */
 export function render(): string {
-  return template;
+  return `
+    ${renderNavbar({ active: "member-class-list" })}
+    ${template}
+  `;
 }
 
 /**
  * Khởi tạo dữ liệu và sự kiện khi mount vào DOM
  */
 export async function init(): Promise<void> {
-  const dateInput = document.querySelector<HTMLInputElement>("#filter-date");
+  // Shared navbar
+  initNavbar();
+
+  const dateInput =
+    document.querySelector<HTMLInputElement>("#filter-date");
+
   const today = getTodayString();
 
   // Đặt ngày mặc định là hôm nay
@@ -488,7 +501,10 @@ export async function init(): Promise<void> {
   attachEvents();
 
   // Tải đồng thời dropdown môn học và danh sách lớp hôm nay
-  await Promise.all([loadClassTypes(), loadClasses(today)]);
+  await Promise.all([
+    loadClassTypes(),
+    loadClasses(today),
+  ]);
 }
 
 // Re-export để thuận tiện

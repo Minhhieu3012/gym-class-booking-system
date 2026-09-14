@@ -2,8 +2,8 @@ import template from "./my-bookings.html?raw";
 import "./my-bookings.css";
 import { bookingService } from "../../services/booking.service";
 import interactionService from "../../services/interaction.service";
-import { initNotification } from "../../components/notification-popover";
 import type { ClassBooking, PTBooking } from "../../models/booking";
+import { renderNavbar, initNavbar } from "../../components/navbar";
 
 // Khai báo kiểu Bootstrap toàn cục
 declare const bootstrap: {
@@ -746,14 +746,17 @@ function attachEvents(): void {
  * Render view template
  */
 export function render(): string {
-  return template;
+  return `
+    ${renderNavbar({ active: "member-my-bookings" })}
+    ${template}
+  `;
 }
 
 /**
  * Khởi tạo dữ liệu khi view mount vào DOM
  */
 export async function init(): Promise<void> {
-  initNotification();
+  initNavbar();
   attachEvents();
   await Promise.all([loadMyClassBookings(), loadMyPTBookings()]);
 }
