@@ -42,27 +42,32 @@
           <a
             class="nav-link landing-nav-link text-secondary-theme fw-semibold px-2"
             href="#home"
-            >Home</a
-          >
-          <a
-            class="nav-link landing-nav-link text-secondary-theme fw-semibold px-2"
-            href="#about"
-            >About</a
+            >Trang chủ</a
           >
           <a
             class="nav-link landing-nav-link text-secondary-theme fw-semibold px-2"
             href="#programs"
-            >Programs</a
+            >Lớp học</a
+          >
+          <a
+            class="nav-link landing-nav-link text-secondary-theme fw-semibold px-2"
+            href="#trainers"
+            >Huấn luyện viên</a
           >
           <a
             class="nav-link landing-nav-link text-secondary-theme fw-semibold px-2"
             href="#membership"
-            >Membership</a
+            >Đặc quyền</a
+          >
+          <a
+            class="nav-link landing-nav-link text-secondary-theme fw-semibold px-2"
+            href="#review"
+            >Đánh giá</a
           >
           <a
             class="nav-link landing-nav-link text-secondary-theme fw-semibold px-2"
             href="#contact"
-            >Contact</a
+            >Liên hệ</a
           >
         </div>
       </div>
@@ -365,14 +370,14 @@
     </div>
   </section>
 
-  <!-- ── WORLD-CLASS COACHES (Bootstrap Grid) ── -->
-  <section id="about" class="bg-surface-alt py-5">
+  <!-- ── WORLD-CLASS COACHES (Dynamic from Database) ── -->
+  <section id="trainers" class="bg-surface-alt py-5">
     <div class="container px-4">
       <div class="text-center mb-5">
         <p
           class="landing-section-eyebrow text-primary-theme fw-bold mb-1 text-uppercase"
         >
-          ABOUT US · THE CADRE
+          THE CADRE · ĐỘI NGŨ CHUYÊN GIA
         </p>
         <h2 class="landing-section-title fw-bold text-secondary-theme mb-2">
           Đội Ngũ Huấn Luyện Viên Đẳng Cấp
@@ -386,136 +391,15 @@
         </p>
       </div>
 
-      <div class="row g-4">
-        <!-- Trainer 1 -->
-        <div class="col-12 col-md-4">
-          <div
-            class="card-theme p-4 h-100 d-flex flex-column justify-content-between shadow-theme-sm"
-          >
-            <div class="d-flex align-items-center gap-3 mb-3">
-              <div
-                class="landing-trainer-avatar rounded-circle overflow-hidden flex-shrink-0"
-                style="width: 60px; height: 60px"
-              >
-                <img
-                  src="/src/assets/img/avatar-user-default.jpg"
-                  alt="Elena Rostova"
-                  class="w-100 h-100 object-fit-cover"
-                />
-              </div>
-              <div>
-                <h3 class="fw-bold text-secondary-theme fs-5 mb-0">
-                  Elena Rostova
-                </h3>
-                <span class="text-danger fw-semibold fs-8"
-                  >Master Olympic &amp; Strength</span
-                >
-              </div>
-            </div>
-            <p class="text-neutral fs-7 mb-4">
-              8+ năm kinh nghiệm huấn luyện VĐV quốc gia môn cử tạ và rèn luyện
-              thể lực chuyên sâu.
-            </p>
-            <div
-              class="d-flex justify-content-between align-items-center pt-3 border-top border-theme"
+      <div
+        class="row g-4 justify-content-center"
+        id="landing-trainers-container"
+      >
+        <div class="col-12 text-center py-5">
+          <div class="spinner-border text-danger" role="status">
+            <span class="visually-hidden"
+              >Đang tải danh sách huấn luyện viên...</span
             >
-              <div class="d-flex align-items-center gap-1 text-warning fs-7">
-                <i class="bi bi-star-fill"></i>
-                <strong class="text-secondary-theme">4.98</strong>
-                <span class="text-neutral fs-8">(142 lượt)</span>
-              </div>
-              <span class="badge bg-success-subtle text-success"
-                >Olympic Contender</span
-              >
-            </div>
-          </div>
-        </div>
-
-        <!-- Trainer 2 -->
-        <div class="col-12 col-md-4">
-          <div
-            class="card-theme p-4 h-100 d-flex flex-column justify-content-between shadow-theme-sm"
-          >
-            <div class="d-flex align-items-center gap-3 mb-3">
-              <div
-                class="landing-trainer-avatar rounded-circle overflow-hidden flex-shrink-0"
-                style="width: 60px; height: 60px"
-              >
-                <img
-                  src="/src/assets/img/avatar-user-default.jpg"
-                  alt="Marcus Vance"
-                  class="w-100 h-100 object-fit-cover"
-                />
-              </div>
-              <div>
-                <h3 class="fw-bold text-secondary-theme fs-5 mb-0">
-                  Marcus Vance
-                </h3>
-                <span class="text-danger fw-semibold fs-8"
-                  >Combat &amp; Boxing Coach</span
-                >
-              </div>
-            </div>
-            <p class="text-neutral fs-7 mb-4">
-              7+ năm thi đấu chuyên nghiệp, chuyên gia huấn luyện sức bền chuyển
-              hoá và kỹ thuật đối kháng.
-            </p>
-            <div
-              class="d-flex justify-content-between align-items-center pt-3 border-top border-theme"
-            >
-              <div class="d-flex align-items-center gap-1 text-warning fs-7">
-                <i class="bi bi-star-fill"></i>
-                <strong class="text-secondary-theme">4.92</strong>
-                <span class="text-neutral fs-8">(98 lượt)</span>
-              </div>
-              <span class="badge bg-success-subtle text-success"
-                >Pro Boxing</span
-              >
-            </div>
-          </div>
-        </div>
-
-        <!-- Trainer 3 -->
-        <div class="col-12 col-md-4">
-          <div
-            class="card-theme p-4 h-100 d-flex flex-column justify-content-between shadow-theme-sm"
-          >
-            <div class="d-flex align-items-center gap-3 mb-3">
-              <div
-                class="landing-trainer-avatar rounded-circle overflow-hidden flex-shrink-0"
-                style="width: 60px; height: 60px"
-              >
-                <img
-                  src="/src/assets/img/avatar-user-default.jpg"
-                  alt="Jaxson Reed"
-                  class="w-100 h-100 object-fit-cover"
-                />
-              </div>
-              <div>
-                <h3 class="fw-bold text-secondary-theme fs-5 mb-0">
-                  Jaxson Reed
-                </h3>
-                <span class="text-danger fw-semibold fs-8"
-                  >Cardio Endurance &amp; VO2</span
-                >
-              </div>
-            </div>
-            <p class="text-neutral fs-7 mb-4">
-              5+ năm đào tạo chạy bộ địa hình và cardio marathon, giúp học viên
-              vượt ngưỡng hô hấp tối đa.
-            </p>
-            <div
-              class="d-flex justify-content-between align-items-center pt-3 border-top border-theme"
-            >
-              <div class="d-flex align-items-center gap-1 text-warning fs-7">
-                <i class="bi bi-star-fill"></i>
-                <strong class="text-secondary-theme">4.88</strong>
-                <span class="text-neutral fs-8">(115 lượt)</span>
-              </div>
-              <span class="badge bg-success-subtle text-success"
-                >Lead Beat Rider</span
-              >
-            </div>
           </div>
         </div>
       </div>
@@ -592,6 +476,39 @@
               Đa dạng gói tập theo nhu cầu cá nhân, hỗ trợ thanh toán tức thì và
               quản lý thời hạn minh bạch.
             </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── review SECTION (Bootstrap Grid - 3 Members on 1 Horizontal Row) ── -->
+  <section id="review" class="bg-surface py-5 border-top border-theme">
+    <div class="container px-4">
+      <div class="text-center mb-5">
+        <p
+          class="landing-section-eyebrow text-primary fw-bold mb-1 text-uppercase"
+          style="letter-spacing: 0.14em"
+        >
+          MEMBERS TALK · ĐÁNH GIÁ TỪ HỘI VIÊN
+        </p>
+        <h2 class="landing-section-title fw-bold text-secondary-theme mb-2">
+          Review
+        </h2>
+        <p
+          class="landing-section-desc text-neutral mx-auto"
+          style="max-width: 600px"
+        >
+          Trải nghiệm thực tế và sự chuyển hóa tích cực từ những hội viên đã
+          đồng hành cùng GYM HUB ARENA.
+        </p>
+      </div>
+
+      <!-- 3 Đánh giá 5 sao thể hiện trên 1 hàng ngang theo ảnh mẫu -->
+      <div class="row g-4 justify-content-center" id="landing-review-container">
+        <div class="col-12 text-center py-5">
+          <div class="spinner-border text-danger" role="status">
+            <span class="visually-hidden">Đang tải đánh giá hội viên...</span>
           </div>
         </div>
       </div>

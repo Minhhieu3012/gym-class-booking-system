@@ -55,7 +55,7 @@ public class TrainerServiceImpl implements TrainerService {
 
         User user = trainer.getUser();
 
-        return new TrainerResponseDTO(
+        TrainerResponseDTO dto = new TrainerResponseDTO(
                 user.getId(),
                 user.getFullName(),
                 user.getEmail(),
@@ -66,6 +66,8 @@ public class TrainerServiceImpl implements TrainerService {
                 trainer.getBio(),
                 user.getStatus() != null ? user.getStatus().name() : null
         );
+        dto.setAvatarUrl(user.getAvatarUrl());
+        return dto;
     }
 
     @Override
