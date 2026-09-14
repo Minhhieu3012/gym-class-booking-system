@@ -127,3 +127,171 @@
 .register-trainer-footer-text {
   font-size: 0.875rem;
 }
+
+/* ══════════════════════════════════════════
+   FEEDBACK MODAL STYLES
+═══════════════════════════════════════════ */
+.trainer-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(15, 23, 42, 0.72);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.25rem;
+  z-index: 9999;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition:
+    opacity 0.25s ease,
+    visibility 0.25s ease;
+}
+
+.trainer-modal-backdrop.show {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+.trainer-modal-card {
+  position: relative;
+  width: 100%;
+  max-width: 440px;
+  background: var(--color-surface, #ffffff);
+  border-radius: var(--radius-lg, 16px);
+  border: 1px solid var(--color-border, #e2e8f0);
+  box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.35);
+  padding: 2.25rem 1.75rem 1.75rem;
+  transform: scale(0.92) translateY(12px);
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.trainer-modal-backdrop.show .trainer-modal-card {
+  transform: scale(1) translateY(0);
+}
+
+.trainer-modal-close-btn {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: transparent;
+  border: none;
+  color: var(--color-neutral, #64748b);
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition:
+    background-color 0.15s ease,
+    color 0.15s ease;
+}
+
+.trainer-modal-close-btn:hover {
+  background-color: var(--color-surface-alt, #f1f5f9);
+  color: var(--color-secondary, #0f172a);
+}
+
+/* Success State */
+.trainer-modal-card.is-success {
+  background: #ecfdf5;
+  color: #059669;
+  border: 2px solid #a7f3d0;
+  box-shadow: 0 0 25px rgba(16, 185, 129, 0.22);
+}
+
+.trainer-modal-card.is-success .trainer-modal-title {
+  color: #065f46;
+}
+
+.trainer-modal-card.is-success .trainer-modal-details-box {
+  background-color: #f0fdf4;
+  border: 1px solid #bbf7d0;
+}
+
+.trainer-modal-card.is-success .trainer-modal-details-list {
+  color: #166534;
+  list-style-type: none;
+  padding-left: 0;
+}
+
+.trainer-modal-card.is-success #trainer-modal-btn-primary {
+  background-color: #059669;
+  border-color: #059669;
+  color: #ffffff;
+}
+
+.trainer-modal-card.is-success #trainer-modal-btn-primary:hover {
+  background-color: #047857;
+  border-color: #047857;
+}
+
+/* Error State */
+.trainer-modal-card.is-error {
+  background: #fef2f2;
+  color: #dc2626;
+  border: 2px solid #fecaca;
+  box-shadow: 0 0 25px rgba(239, 68, 68, 0.2);
+}
+
+.trainer-modal-card.is-error .trainer-modal-title {
+  color: #991b1b;
+}
+
+.trainer-modal-card.is-error .trainer-modal-details-box {
+  background-color: #fff1f2;
+  border: 1px solid #fecdd3;
+}
+
+.trainer-modal-card.is-error .trainer-modal-details-list {
+  color: #9f1239;
+  padding-left: 1.25rem;
+}
+
+.trainer-modal-card.is-error #trainer-modal-btn-primary {
+  background-color: var(--color-primary, #dc3545);
+  border-color: var(--color-primary, #dc3545);
+  color: #ffffff;
+}
+
+.trainer-modal-card.is-error #trainer-modal-btn-primary:hover {
+  background-color: var(--color-primary-hover, #b52b38);
+  border-color: var(--color-primary-hover, #b52b38);
+}
+
+/* Common Modal Elements */
+.trainer-modal-title {
+  font-size: 1.3rem;
+  letter-spacing: -0.01em;
+}
+
+.trainer-modal-message {
+  font-size: 0.9rem;
+  color: var(--color-neutral, #475569);
+  line-height: 1.5;
+}
+
+.trainer-modal-details-box {
+  border-radius: var(--radius-md, 10px);
+  padding: 0.85rem 1rem;
+}
+
+.trainer-modal-details-list {
+  font-size: 0.825rem;
+  line-height: 1.6;
+}
+
+.trainer-modal-details-list li {
+  margin-bottom: 0.35rem;
+}
+
+.trainer-modal-details-list li:last-child {
+  margin-bottom: 0;
+}
