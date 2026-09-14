@@ -58,11 +58,10 @@ public class PTBooking {
     )
     private User trainer;
 
-    @OneToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(
             name = "trainer_time_slot_id",
             nullable = false,
-            unique = true,
             foreignKey = @ForeignKey(name = "fk_pt_booking_time_slot")
     )
     private TrainerTimeSlot trainerTimeSlot;

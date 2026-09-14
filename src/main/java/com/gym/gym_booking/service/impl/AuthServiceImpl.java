@@ -254,6 +254,22 @@ public class AuthServiceImpl implements AuthService {
                                 "Invalid username or password"
                         ));
 
+        System.out.println("========== LOGIN DEBUG ==========");
+        System.out.println("Input username: [" + username + "]");
+        System.out.println("DB email: [" + user.getEmail() + "]");
+        System.out.println("DB phone: [" + user.getPhone() + "]");
+        System.out.println("DB role: [" + user.getRole() + "]");
+        System.out.println("DB status: [" + user.getStatus() + "]");
+
+        boolean passwordMatch =
+                passwordEncoder.matches(
+                        request.getPassword(),
+                        user.getPassword()
+                );
+
+        System.out.println("Password match: " + passwordMatch);
+        System.out.println("=================================");
+
         if (user.getStatus() == UserStatus.LOCKED) {
             throw new RuntimeException("Account is locked");
         }
