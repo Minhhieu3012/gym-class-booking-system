@@ -45,46 +45,140 @@ public class PaymentServiceImpl implements PaymentService {
         this.userRepository = userRepository;
     }
 
-    @Override
-    @Transactional
-    public TransactionResponseDTO createTransaction(
-            TransactionCreateRequestDTO request
-    ) {
+//    @Override
+//    @Transactional
+//    public TransactionResponseDTO createTransaction(
+//            TransactionCreateRequestDTO request
+//    ) {
+//
+//        User member = getCurrentUser();
+//
+//        if (member.getRole() != UserRole.MEMBER) {
+//            throw new RuntimeException(
+//                    "Only MEMBER can purchase packages"
+//            );
+//        }
+//
+//        Package packageEntity = packageRepository
+//                .findByIdAndActive(request.getPackageId(), true)
+//                .orElseThrow(() ->
+//                        new RuntimeException(
+//                                "Package not found or inactive"
+//                        )
+//                );
+//
+//        Transaction transaction = new Transaction();
+//
+//        transaction.setAmount(packageEntity.getPrice());
+//        transaction.setStatus(TransactionStatus.PENDING);
+//        transaction.setTransactionCode(generateTransactionCode());
+//        transaction.setPaymentMethod(request.getPaymentMethod());
+//
+//        transaction.setMember(member);
+//        transaction.setPackageEntity(packageEntity);
+//
+//        // Chưa thanh toán nên chưa có MemberPackage
+//        transaction.setMemberPackage(null);
+//
+//        Transaction saved =
+//                transactionRepository.save(transaction);
+//
+//        return mapToResponse(saved);
+//    }
+@Override
+@Transactional
+public TransactionResponseDTO createTransaction(
+        TransactionCreateRequestDTO request
+) {
 
-        User member = getCurrentUser();
+    User member = getCurrentUser();
 
-        if (member.getRole() != UserRole.MEMBER) {
-            throw new RuntimeException(
-                    "Only MEMBER can purchase packages"
+    if (member.getRole() != UserRole.MEMBER) {
+        throw new RuntimeException(
+                "Only MEMBER can purchase packages"
+        );
+    }
+
+    Package packageEntity = packageRepository
+            .findByIdAndActive(request.getPackageId(), true)
+            .orElseThrow(() ->
+                    new RuntimeException(
+                            "Package not found or inactive"
+                    )
             );
-        }
 
-        Package packageEntity = packageRepository
-                .findByIdAndActive(request.getPackageId(), true)
-                .orElseThrow(() ->
-                        new RuntimeException(
-                                "Package not found or inactive"
-                        )
+    Transaction transaction = new Transaction();
+
+    transaction.setAmount(packageEntity.getPrice());
+    transaction.setTransactionCode(generateTransactionCode());
+    transaction.setPaymentMethod(request.getPaymentMethod());
+    transaction.setMember(member);
+    transaction.setPackageEntity(packageEntity);
+
+    /*
+     * MOCK PAYMENT
+     *
+     * Với đồ án hiện tại, MOCK được xem là
+     * thanh toán thành công ngay lập tức.
+     */
+    if (request.getPaymentMethod() != null
+            && request.getPaymentMethod().name().equals("MOCK")) {
+
+        LocalDate startDate = LocalDate.now();
+
+        LocalDate endDate =
+                startDate.plusDays(
+                        packageEntity.getDurationDays()
                 );
 
-        Transaction transaction = new Transaction();
+        MemberPackage memberPackage = new MemberPackage();
 
-        transaction.setAmount(packageEntity.getPrice());
-        transaction.setStatus(TransactionStatus.PENDING);
-        transaction.setTransactionCode(generateTransactionCode());
-        transaction.setPaymentMethod(request.getPaymentMethod());
+        memberPackage.setStartDate(startDate);
+        memberPackage.setEndDate(endDate);
 
-        transaction.setMember(member);
-        transaction.setPackageEntity(packageEntity);
+        memberPackage.setSessionsRemaining(
+                packageEntity.getSessionCount()
+        );
 
-        // Chưa thanh toán nên chưa có MemberPackage
+        memberPackage.setStatus(
+                MemberPackageStatus.ACTIVE
+        );
+
+        memberPackage.setMember(member);
+
+        memberPackage.setPackageEntity(packageEntity);
+
+        MemberPackage savedMemberPackage =
+                memberPackageRepository.save(memberPackage);
+
+        transaction.setMemberPackage(savedMemberPackage);
+
+        transaction.setStatus(
+                TransactionStatus.SUCCESS
+        );
+
+        transaction.setCompletedAt(
+                LocalDateTime.now()
+        );
+
+    } else {
+
+        /*
+         * Các phương thức thanh toán thật
+         * có thể để PENDING và xử lý callback/webhook sau này.
+         */
+        transaction.setStatus(
+                TransactionStatus.PENDING
+        );
+
         transaction.setMemberPackage(null);
-
-        Transaction saved =
-                transactionRepository.save(transaction);
-
-        return mapToResponse(saved);
     }
+
+    Transaction saved =
+            transactionRepository.save(transaction);
+
+    return mapToResponse(saved);
+}
 
     @Override
     @Transactional
