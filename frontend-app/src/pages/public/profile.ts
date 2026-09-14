@@ -1,18 +1,20 @@
 import { userService } from "../../services/user.service";
 import { authService } from "../../services/auth.service";
-import { initNotification } from "../../components/notification-popover";
 import { getStoredUser } from "../../core/api";
 import template from "./profile.html?raw";
 import "./profile.css";
+import { renderNavbar, initNavbar } from "../../components/navbar";
 
 const PLACEHOLDER_AVATAR = "/src/assets/img/avatar-user-default.jpg";
 
 export function render(): string {
-  return template;
+  return `
+    ${renderNavbar({ active: "profile" })}
+    ${template}
+  `;
 }
-
 export function init(): void {
-  initNotification();
+  initNavbar();
   const user = getStoredUser();
 
   const chatLink = document.querySelector<HTMLAnchorElement>("#nav-chat-link");
@@ -37,98 +39,98 @@ export function init(): void {
   }
 
   // Tùy chỉnh điều hướng Top Navbar & Bottom Nav theo vai trò (Role-Aware Navigation)
-  const trainerNav = document.querySelector<HTMLElement>(
-    "#profile-trainer-nav",
-  );
-  const memberNav = document.querySelector<HTMLElement>("#profile-member-nav");
-  const bottomNav = document.querySelector<HTMLElement>("#trainer-bottom-nav");
-  const memberBottomNav =
-    document.querySelector<HTMLElement>("#member-bottom-nav");
-  const headerDesc = document.querySelector<HTMLElement>(
-    ".trainer-header-desc",
-  );
-  const headerTag = document.querySelector<HTMLElement>(
-    ".trainer-header-tag span:last-child",
-  );
-
-  if (user?.role === "MEMBER") {
-    const portalTag = document.querySelector<HTMLElement>(
-      "#profile-portal-tag",
-    );
-    if (portalTag) portalTag.textContent = "MEMBER PORTAL";
-    const roleBadge = document.querySelector<HTMLElement>(
-      "#profile-role-badge",
-    );
-    if (roleBadge) roleBadge.textContent = "HỘI VIÊN";
-    const athleteBadge = document.querySelector<HTMLElement>(
-      "#profile-athlete-badge",
-    );
-    if (athleteBadge) athleteBadge.textContent = "MEMBER VIP";
-    const homeLink = document.querySelector<HTMLAnchorElement>(
-      "#profile-nav-home-link",
-    );
-    if (homeLink) homeLink.href = "/member/class-list.html";
-
-    // Ẩn hoàn toàn các cụm link điều hướng ở Top Navbar để tránh xung đột 2 navbar với Bottom Nav
-    if (trainerNav) {
-      trainerNav.classList.add("d-none");
-      trainerNav.classList.remove("d-lg-flex");
-    }
-    if (memberNav) {
-      memberNav.classList.remove("d-none");
-      memberNav.classList.add("d-md-flex");
-    }
-
-    // Ẩn thanh bottom nav của Trainer, hiện thanh bottom nav của Member
-    if (bottomNav) bottomNav.classList.add("d-none");
-    if (memberBottomNav) memberBottomNav.classList.remove("d-none");
-
-    if (headerTag) headerTag.textContent = "THÔNG TIN HỘI VIÊN & HỒ SƠ";
-    if (headerDesc) {
-      headerDesc.textContent =
-        "Quản lý thông tin hội viên cá nhân, theo dõi thành tích tập luyện và thiết lập bảo mật GYM HUB.";
-    }
-  } else if (user?.role === "TRAINER") {
-    if (memberBottomNav) memberBottomNav.classList.add("d-none");
-    if (bottomNav) bottomNav.classList.remove("d-none");
-    const portalTag = document.querySelector<HTMLElement>(
-      "#profile-portal-tag",
-    );
-    if (portalTag) portalTag.textContent = "TRAINER PORTAL";
-    const roleBadge = document.querySelector<HTMLElement>(
-      "#profile-role-badge",
-    );
-    if (roleBadge) roleBadge.textContent = "HUẤN LUYỆN VIÊN";
-    const athleteBadge = document.querySelector<HTMLElement>(
-      "#profile-athlete-badge",
-    );
-    if (athleteBadge) athleteBadge.textContent = "PRO TRAINER";
-    const homeLink = document.querySelector<HTMLAnchorElement>(
-      "#profile-nav-home-link",
-    );
-    if (homeLink) homeLink.href = "/trainer/time-slots.html";
-
-    // Hiện navbar desktop cho Trainer
-    if (trainerNav) {
-      trainerNav.classList.remove("d-none");
-      trainerNav.classList.add("d-lg-flex");
-    }
-    if (memberNav) {
-      memberNav.classList.add("d-none");
-      memberNav.classList.remove("d-md-flex");
-    }
-  } else {
-    if (trainerNav) {
-      trainerNav.classList.add("d-none");
-      trainerNav.classList.remove("d-lg-flex");
-    }
-    if (memberNav) {
-      memberNav.classList.add("d-none");
-      memberNav.classList.remove("d-lg-flex");
-    }
-    if (memberBottomNav) memberBottomNav.classList.add("d-none");
-    if (bottomNav) bottomNav.classList.add("d-none");
-  }
+//   const trainerNav = document.querySelector<HTMLElement>(
+//     "#profile-trainer-nav",
+//   );
+//   const memberNav = document.querySelector<HTMLElement>("#profile-member-nav");
+//   const bottomNav = document.querySelector<HTMLElement>("#trainer-bottom-nav");
+//   const memberBottomNav =
+//     document.querySelector<HTMLElement>("#member-bottom-nav");
+//   const headerDesc = document.querySelector<HTMLElement>(
+//     ".trainer-header-desc",
+//   );
+//   const headerTag = document.querySelector<HTMLElement>(
+//     ".trainer-header-tag span:last-child",
+//   );
+//
+//   if (user?.role === "MEMBER") {
+//     const portalTag = document.querySelector<HTMLElement>(
+//       "#profile-portal-tag",
+//     );
+//     if (portalTag) portalTag.textContent = "MEMBER PORTAL";
+//     const roleBadge = document.querySelector<HTMLElement>(
+//       "#profile-role-badge",
+//     );
+//     if (roleBadge) roleBadge.textContent = "HỘI VIÊN";
+//     const athleteBadge = document.querySelector<HTMLElement>(
+//       "#profile-athlete-badge",
+//     );
+//     if (athleteBadge) athleteBadge.textContent = "MEMBER VIP";
+//     const homeLink = document.querySelector<HTMLAnchorElement>(
+//       "#profile-nav-home-link",
+//     );
+//     if (homeLink) homeLink.href = "/member/class-list.html";
+//
+//     // Ẩn hoàn toàn các cụm link điều hướng ở Top Navbar để tránh xung đột 2 navbar với Bottom Nav
+//     if (trainerNav) {
+//       trainerNav.classList.add("d-none");
+//       trainerNav.classList.remove("d-lg-flex");
+//     }
+//     if (memberNav) {
+//       memberNav.classList.remove("d-none");
+//       memberNav.classList.add("d-md-flex");
+//     }
+//
+//     // Ẩn thanh bottom nav của Trainer, hiện thanh bottom nav của Member
+//     if (bottomNav) bottomNav.classList.add("d-none");
+//     if (memberBottomNav) memberBottomNav.classList.remove("d-none");
+//
+//     if (headerTag) headerTag.textContent = "THÔNG TIN HỘI VIÊN & HỒ SƠ";
+//     if (headerDesc) {
+//       headerDesc.textContent =
+//         "Quản lý thông tin hội viên cá nhân, theo dõi thành tích tập luyện và thiết lập bảo mật GYM HUB.";
+//     }
+//   } else if (user?.role === "TRAINER") {
+//     if (memberBottomNav) memberBottomNav.classList.add("d-none");
+//     if (bottomNav) bottomNav.classList.remove("d-none");
+//     const portalTag = document.querySelector<HTMLElement>(
+//       "#profile-portal-tag",
+//     );
+//     if (portalTag) portalTag.textContent = "TRAINER PORTAL";
+//     const roleBadge = document.querySelector<HTMLElement>(
+//       "#profile-role-badge",
+//     );
+//     if (roleBadge) roleBadge.textContent = "HUẤN LUYỆN VIÊN";
+//     const athleteBadge = document.querySelector<HTMLElement>(
+//       "#profile-athlete-badge",
+//     );
+//     if (athleteBadge) athleteBadge.textContent = "PRO TRAINER";
+//     const homeLink = document.querySelector<HTMLAnchorElement>(
+//       "#profile-nav-home-link",
+//     );
+//     if (homeLink) homeLink.href = "/trainer/time-slots.html";
+//
+//     // Hiện navbar desktop cho Trainer
+//     if (trainerNav) {
+//       trainerNav.classList.remove("d-none");
+//       trainerNav.classList.add("d-lg-flex");
+//     }
+//     if (memberNav) {
+//       memberNav.classList.add("d-none");
+//       memberNav.classList.remove("d-md-flex");
+//     }
+//   } else {
+//     if (trainerNav) {
+//       trainerNav.classList.add("d-none");
+//       trainerNav.classList.remove("d-lg-flex");
+//     }
+//     if (memberNav) {
+//       memberNav.classList.add("d-none");
+//       memberNav.classList.remove("d-lg-flex");
+//     }
+//     if (memberBottomNav) memberBottomNav.classList.add("d-none");
+//     if (bottomNav) bottomNav.classList.add("d-none");
+//   }
   const avatarImg = document.querySelector<HTMLImageElement>("#profile-avatar");
   const avatarInput = document.querySelector<HTMLInputElement>(
     "#profile-avatar-input",
