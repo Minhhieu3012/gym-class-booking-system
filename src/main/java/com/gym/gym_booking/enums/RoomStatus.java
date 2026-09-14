@@ -1,0 +1,6 @@
+package com.gym.gym_booking.enums;
+
+public enum RoomStatus {
+    ACTIVE,
+    INACTIVE
+}

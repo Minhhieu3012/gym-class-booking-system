@@ -1,0 +1,36 @@
+@import "./dashboard.css";
+
+/* ══════════════════════════════════════════
+   PACKAGE TABLE & ROWS
+   ═══════════════════════════════════════════ */
+.custom-package-table {
+  font-family: inherit;
+}
+
+.custom-package-table thead th {
+  background-color: #f8fafc !important;
+  border-bottom: 1px solid #e2e8f0;
+  font-size: 0.78rem;
+  letter-spacing: 0.05em;
+  color: #64748b;
+  font-weight: 700;
+}
+
+.custom-package-table td {
+  padding: 1rem 0.75rem;
+  font-size: 0.9rem;
+  border-bottom: 1px solid #f1f5f9;
+}
+
+.custom-package-table tr:hover {
+  background-color: #f8fafc !important;
+}
+
+/* Edit & Toggle Buttons */
+.btn-edit-pkg,
+.btn-toggle-pkg {
+  font-size: 0.8rem;
+  font-weight: 500;
+  white-space: nowrap;
+  transition: all 0.15s ease-in-out;
+}

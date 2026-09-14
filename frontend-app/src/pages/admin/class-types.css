@@ -1,0 +1,67 @@
+@import "./dashboard.css";
+
+/* Table custom styling */
+.custom-ct-table {
+  font-family: inherit;
+}
+
+.custom-ct-table thead th {
+  background-color: #f8fafc !important;
+  border-bottom: 1px solid #e2e8f0;
+  font-size: 0.78rem;
+  letter-spacing: 0.05em;
+  color: #64748b;
+  font-weight: 700;
+}
+
+.custom-ct-table td {
+  padding: 0.95rem 0.75rem;
+  font-size: 0.9rem;
+  border-bottom: 1px solid #f1f5f9;
+}
+
+/* Switch toggle styling */
+.ct-toggle {
+  position: relative;
+  display: inline-block;
+  width: 36px;
+  height: 20px;
+}
+
+.ct-toggle input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.ct-toggle-slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #cbd5e1;
+  transition: 0.2s;
+  border-radius: 20px;
+}
+
+.ct-toggle-slider:before {
+  position: absolute;
+  content: "";
+  height: 14px;
+  width: 14px;
+  left: 3px;
+  bottom: 3px;
+  background-color: white;
+  transition: 0.2s;
+  border-radius: 50%;
+}
+
+.ct-toggle input:checked + .ct-toggle-slider {
+  background-color: #10b981;
+}
+
+.ct-toggle input:checked + .ct-toggle-slider:before {
+  transform: translateX(16px);
+}

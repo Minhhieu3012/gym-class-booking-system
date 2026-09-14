@@ -1,0 +1,365 @@
+/* ── TOP NAVBAR (Desktop & Tablet) ── */
+.trainer-top-navbar {
+  background: rgba(255, 255, 255, 0.96) !important;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--color-border, #dee2e6);
+  box-shadow:
+    0 1px 3px rgba(0, 0, 0, 0.04),
+    0 4px 12px rgba(0, 0, 0, 0.02);
+  z-index: 1030;
+  transition: all 0.25s ease;
+}
+
+.trainer-brand-lightning {
+  font-size: 1.25rem;
+  filter: drop-shadow(0 2px 8px rgba(220, 53, 69, 0.35));
+}
+
+.trainer-brand-name {
+  font-size: 1.15rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: var(--color-secondary, #212529) !important;
+}
+
+.trainer-portal-tag {
+  background: linear-gradient(135deg, #dc3545 0%, #bb2d3b 100%);
+  color: #ffffff;
+  font-size: 0.65rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  padding: 0.2rem 0.6rem;
+  border-radius: 9999px;
+  box-shadow: 0 2px 8px rgba(220, 53, 69, 0.3);
+  display: inline-block;
+}
+
+/* Desktop Navigation Link Pills */
+.trainer-desktop-nav {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.trainer-top-nav-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-size: 0.82rem;
+  font-weight: 600;
+  padding: 0.45rem 0.85rem;
+  border-radius: 12px;
+  color: #64748b;
+  text-decoration: none;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  border: 1px solid transparent;
+  min-height: 40px;
+}
+
+.trainer-top-nav-link:hover {
+  color: var(--color-primary, #dc3545);
+  background: rgba(220, 53, 69, 0.06);
+  border-color: rgba(220, 53, 69, 0.15);
+  transform: translateY(-1px);
+}
+
+.trainer-top-nav-link.active {
+  color: var(--color-primary, #dc3545);
+  background: rgba(220, 53, 69, 0.1);
+  border-color: rgba(220, 53, 69, 0.25);
+  font-weight: 700;
+  box-shadow: 0 2px 8px rgba(220, 53, 69, 0.15);
+}
+
+.trainer-top-nav-link.active svg {
+  stroke: var(--color-primary, #dc3545);
+}
+
+.trainer-top-nav-link:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(220, 53, 69, 0.25);
+}
+
+/* Top Navbar Profile Button */
+.btn-trainer-profile {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  padding: 0.45rem 0.8rem;
+  border-radius: 12px;
+  border: 1px solid var(--color-border, #dee2e6);
+  background: #ffffff;
+  color: #334155;
+  transition: all 0.2s ease;
+  text-decoration: none;
+  min-height: 40px;
+}
+
+.btn-trainer-profile:hover {
+  background: #fff0f1;
+  color: var(--color-primary, #dc3545);
+  border-color: rgba(220, 53, 69, 0.35);
+  transform: translateY(-1px);
+}
+
+.btn-trainer-profile:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(220, 53, 69, 0.25);
+}
+
+/* Subpage Back Button inside Navbar */
+.trainer-top-navbar .btn-back {
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
+  border: 1px solid var(--color-border, #dee2e6);
+  background: #ffffff;
+  color: #334155;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  text-decoration: none;
+}
+
+.trainer-top-navbar .btn-back:hover {
+  background: #fff0f1;
+  border-color: rgba(220, 53, 69, 0.35);
+  color: var(--color-primary, #dc3545);
+  transform: translateX(-2px);
+}
+
+/* Top Navbar Logout Button */
+.btn-trainer-logout {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.8rem;
+  font-weight: 700;
+  padding: 0.45rem 0.9rem;
+  border-radius: 12px;
+  border: 1.5px solid rgba(220, 53, 69, 0.35);
+  background: rgba(220, 53, 69, 0.06);
+  color: var(--color-primary, #dc3545);
+  transition: all 0.2s ease;
+  cursor: pointer;
+  text-decoration: none;
+  min-height: 40px;
+}
+
+.btn-trainer-logout:hover {
+  background: var(--color-primary, #dc3545);
+  border-color: var(--color-primary, #dc3545);
+  color: #ffffff;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 14px rgba(220, 53, 69, 0.35);
+}
+
+.btn-trainer-logout:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(220, 53, 69, 0.25);
+}
+
+/* Notification Bell inside Navbar */
+.trainer-top-navbar #notification-bell {
+  color: #64748b !important;
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
+  border: 1px solid var(--color-border, #dee2e6);
+  background: #ffffff;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+}
+
+.trainer-top-navbar #notification-bell:hover {
+  color: var(--color-primary, #dc3545) !important;
+  background: #fff0f1;
+  border-color: rgba(220, 53, 69, 0.3);
+}
+
+/* ── BOTTOM NAVIGATION BAR (Mobile First) ── */
+.trainer-bottom-nav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 64px;
+  background: rgba(255, 255, 255, 0.96);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-top: 1px solid var(--color-border, #dee2e6);
+  box-shadow:
+    0 -4px 20px rgba(0, 0, 0, 0.06),
+    0 -1px 3px rgba(0, 0, 0, 0.03);
+  z-index: 1045;
+  padding: 0 0.5rem;
+}
+
+.trainer-bottom-nav-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  height: 100%;
+  max-width: 600px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.trainer-bottom-nav-item {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  color: #64748b;
+  text-decoration: none;
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  padding: 0.25rem 0.15rem;
+  transition: all 0.2s ease;
+  position: relative;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.trainer-bottom-nav-item svg {
+  width: 20px;
+  height: 20px;
+  margin-bottom: 2px;
+  stroke: currentColor;
+  transition:
+    transform 0.2s ease,
+    stroke 0.2s ease;
+}
+
+.trainer-bottom-nav-item span {
+  display: block;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+}
+
+.trainer-bottom-nav-item:hover,
+.trainer-bottom-nav-item:focus {
+  color: var(--color-primary, #dc3545);
+  outline: none;
+}
+
+.trainer-bottom-nav-item.active {
+  color: var(--color-primary, #dc3545);
+  font-weight: 700;
+}
+
+.trainer-bottom-nav-item.active svg {
+  stroke: var(--color-primary, #dc3545);
+  transform: translateY(-2px);
+  filter: drop-shadow(0 2px 6px rgba(220, 53, 69, 0.35));
+}
+
+.trainer-bottom-nav-item.active::after {
+  content: "";
+  position: absolute;
+  bottom: 4px;
+  width: 18px;
+  height: 3px;
+  border-radius: 9999px;
+  background: var(--color-primary, #dc3545);
+  box-shadow: 0 0 8px rgba(220, 53, 69, 0.6);
+}
+
+/* Logout on mobile bottom bar */
+.trainer-bottom-nav-item.item-logout {
+  color: #dc3545;
+}
+
+.trainer-bottom-nav-item.item-logout:hover {
+  color: #bb2d3b;
+}
+
+/* ── PAGE HEADER (To, In Đậm, Kiểu Chữ Thể Thao) ── */
+.trainer-page-header {
+  background: linear-gradient(135deg, #ffffff 0%, #fff4f5 100%);
+  border: 1px solid rgba(220, 53, 69, 0.15);
+  border-radius: 20px;
+  padding: 1.75rem 2rem;
+  color: var(--color-secondary, #212529);
+  box-shadow:
+    0 4px 20px -2px rgba(220, 53, 69, 0.06),
+    0 2px 6px -1px rgba(0, 0, 0, 0.02);
+  position: relative;
+  overflow: hidden;
+  margin-bottom: 2rem;
+}
+
+.trainer-header-accent {
+  position: absolute;
+  top: -40px;
+  right: -30px;
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    rgba(220, 53, 69, 0.12) 0%,
+    rgba(255, 255, 255, 0) 70%
+  );
+  pointer-events: none;
+}
+
+.trainer-header-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.7rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-primary, #dc3545);
+  background: rgba(220, 53, 69, 0.1);
+  border: 1px solid rgba(220, 53, 69, 0.25);
+  padding: 0.25rem 0.75rem;
+  border-radius: 9999px;
+  margin-bottom: 0.75rem;
+}
+
+.trainer-header-title {
+  font-size: clamp(1.5rem, 3.5vw, 2.25rem);
+  font-weight: 900;
+  letter-spacing: -0.03em;
+  text-transform: uppercase;
+  color: var(--color-secondary, #212529);
+  margin-bottom: 0.4rem;
+  line-height: 1.15;
+}
+
+.trainer-header-desc {
+  color: var(--color-neutral, #6c757d);
+  font-size: 0.95rem;
+  max-width: 650px;
+  line-height: 1.6;
+  margin-bottom: 0;
+}
+
+/* ── RESPONSIVE SAFE PADDING FOR MOBILE BOTTOM NAV ── */
+@media (max-width: 991.98px) {
+  body {
+    padding-bottom: 76px !important;
+  }
+
+  .trainer-page-header {
+    padding: 1.25rem 1.25rem;
+    border-radius: 16px;
+    margin-bottom: 1.5rem;
+  }
+}
