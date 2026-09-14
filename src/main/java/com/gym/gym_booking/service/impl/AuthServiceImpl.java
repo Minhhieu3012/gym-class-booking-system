@@ -242,6 +242,43 @@ public class AuthServiceImpl implements AuthService {
         return UserMapper.toResponse(savedUser);
     }
 
+//    @Override
+//    public LoginResponseDTO login(LoginRequestDTO request) {
+//
+//        String username = request.getUsername().trim();
+//
+//        User user = userRepository
+//                .findByPhoneOrEmail(username, username)
+//                .orElseThrow(() ->
+//                        new RuntimeException(
+//                                "Invalid username or password"
+//                        ));
+//
+//        if (user.getStatus() == UserStatus.LOCKED) {
+//            throw new RuntimeException("Account is locked");
+//        }
+//
+//        Authentication authentication =
+//                authenticationManager.authenticate(
+//                        new UsernamePasswordAuthenticationToken(
+//                                username,
+//                                request.getPassword()
+//                        )
+//                );
+//
+//        UserDetails userDetails =
+//                (UserDetails) authentication.getPrincipal();
+//
+//        String accessToken =
+//                jwtService.generateAccessToken(userDetails);
+//
+//        return new LoginResponseDTO(
+//                accessToken,
+//                "Bearer",
+//                3600L,
+//                UserMapper.toResponse(user)
+//        );
+//    }
     @Override
     public LoginResponseDTO login(LoginRequestDTO request) {
 
@@ -253,6 +290,22 @@ public class AuthServiceImpl implements AuthService {
                         new RuntimeException(
                                 "Invalid username or password"
                         ));
+
+        System.out.println("========== LOGIN DEBUG ==========");
+        System.out.println("Input username: [" + username + "]");
+        System.out.println("DB email: [" + user.getEmail() + "]");
+        System.out.println("DB phone: [" + user.getPhone() + "]");
+        System.out.println("DB role: [" + user.getRole() + "]");
+        System.out.println("DB status: [" + user.getStatus() + "]");
+
+        boolean passwordMatch =
+                passwordEncoder.matches(
+                        request.getPassword(),
+                        user.getPassword()
+                );
+
+        System.out.println("Password match: " + passwordMatch);
+        System.out.println("=================================");
 
         if (user.getStatus() == UserStatus.LOCKED) {
             throw new RuntimeException("Account is locked");
