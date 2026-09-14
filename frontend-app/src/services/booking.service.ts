@@ -167,7 +167,7 @@ export class BookingService {
 
   async confirmPTBooking(id: number): Promise<PTBooking> {
     const { data } = await apiClient.patch<PTBooking>(
-      `/pt-bookings/${id}/confirm`,
+      `/pt-bookings/${id}/approve`,
     );
     return data;
   }

@@ -376,8 +376,7 @@ async function handleSubmitPTBooking(): Promise<void> {
   try {
     // Gọi API bookPT - KHÔNG truyền memberPackageId để Backend tự động xử lý gói tập phù hợp
     await bookingService.bookPT({
-      trainerId: selectedTrainerId,
-      timeSlotId: selectedTimeSlotId,
+      trainerTimeSlotId: selectedTimeSlotId,
       sessionNote,
       healthNote: healthNote || undefined,
     });
