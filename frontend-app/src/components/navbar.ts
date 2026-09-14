@@ -1,417 +1,310 @@
 import { authService } from "../services/auth.service";
-import { clearAuthAndRedirect } from "../core/api";
+import { userService } from "../services/user.service";
+import {
+  getStoredUser,
+} from "../core/api";
+import { initNotification } from "./notification-popover";
 
 import template from "./navbar.html?raw";
-
 import "./navbar.css";
 
+export type NavbarActiveItem =
+  | "profile"
+  | "member-class-list"
+  | "member-pt-booking"
+  | "member-packages"
+  | "member-my-bookings"
+  | "trainer-time-slots"
+  | "trainer-pt-requests"
+  | "trainer-attendance"
+  | "trainer-progress-notes"
+  | "trainer-chat";
 
-/*
- * =========================================================
- * RENDER
- * =========================================================
- */
-
-export function renderNavbar(): string {
-  return template;
+export interface NavbarOptions {
+  active?: NavbarActiveItem;
 }
 
-
-/*
- * =========================================================
- * INIT
- * =========================================================
+/**
+ * Render shared navbar.
+ *
+ * Usage:
+ * renderNavbar({ active: "profile" })
  */
+export function renderNavbar(options: NavbarOptions = {}): string {
+  return `
+    <div
+      id="shared-navbar"
+      data-navbar-active="${options.active ?? ""}"
+    >
+      ${template}
+    </div>
+  `;
+}
 
+/**
+ * Initialize shared navbar.
+ */
 export function initNavbar(): void {
+  const user = getStoredUser();
 
-  setupNavbarUser();
+  if (!user) {
+    console.warn("Navbar: Không tìm thấy user trong session.");
+    return;
+  }
 
-  setupAccountDropdown();
+  const active =
+    document
+      .querySelector<HTMLElement>("#shared-navbar")
+      ?.dataset.navbarActive ?? "";
 
+  setupRole(user.role);
+  setupUserProfile();
+  setupChat(user.role);
+  setupActiveMenu(active);
   setupLogout();
 
+  // Notification
+  initNotification();
 }
 
+/* ============================================================
+   ROLE
+   ============================================================ */
 
-/*
- * =========================================================
- * USER INFO
- * =========================================================
- */
+function setupRole(role?: string): void {
+  const trainerMenu =
+    document.querySelector<HTMLElement>(
+      "#gym-navbar-trainer-menu",
+    );
 
-function setupNavbarUser(): void {
+  const memberMenu =
+    document.querySelector<HTMLElement>(
+      "#gym-navbar-member-menu",
+    );
 
-  const storedUser =
-    localStorage.getItem("user");
+  const trainerMobile =
+    document.querySelector<HTMLElement>(
+      "#gym-mobile-trainer-nav",
+    );
 
-  if (!storedUser) {
+  const memberMobile =
+    document.querySelector<HTMLElement>(
+      "#gym-mobile-member-nav",
+    );
+
+  const portalTag =
+    document.querySelector<HTMLElement>(
+      "#gym-navbar-portal-tag",
+    );
+
+  const roleBadge =
+    document.querySelector<HTMLElement>(
+      "#gym-navbar-role-badge",
+    );
+
+  const homeLink =
+    document.querySelector<HTMLAnchorElement>(
+      "#gym-navbar-home",
+    );
+
+  // Reset
+  trainerMenu?.classList.add("d-none");
+  memberMenu?.classList.add("d-none");
+
+  trainerMobile?.classList.add("d-none");
+  memberMobile?.classList.add("d-none");
+
+  if (role === "TRAINER") {
+    // -----------------------------
+    // TRAINER
+    // -----------------------------
+
+    trainerMenu?.classList.remove("d-none");
+    trainerMobile?.classList.remove("d-none");
+
+    if (portalTag) {
+      portalTag.textContent = "TRAINER PORTAL";
+    }
+
+    if (roleBadge) {
+      roleBadge.textContent = "HUẤN LUYỆN VIÊN";
+    }
+
+    if (homeLink) {
+      homeLink.href = "/trainer/time-slots.html";
+    }
+
     return;
   }
 
+  if (role === "MEMBER") {
+    // -----------------------------
+    // MEMBER
+    // -----------------------------
 
-  try {
+    memberMenu?.classList.remove("d-none");
+    memberMobile?.classList.remove("d-none");
 
-    const user =
-      JSON.parse(storedUser);
-
-
-    /*
-     * -----------------------------------------
-     * GREETING
-     * -----------------------------------------
-     */
-
-    const greeting =
-      document.querySelector<HTMLElement>(
-        "#nav-greeting"
-      );
-
-    if (
-      greeting &&
-      user.fullName
-    ) {
-
-      const firstName =
-        user.fullName
-          .trim()
-          .split(/\s+/)[0];
-
-      greeting.textContent =
-        `Hey ${firstName}`;
-
+    if (portalTag) {
+      portalTag.textContent = "MEMBER PORTAL";
     }
 
-
-    /*
-     * -----------------------------------------
-     * AVATAR
-     * -----------------------------------------
-     */
-
-    const avatar =
-      document.querySelector<HTMLButtonElement>(
-        "#nav-avatar"
-      );
-
-    if (avatar) {
-
-      avatar.textContent =
-        getInitials(
-          user.fullName || "Member"
-        );
-
+    if (roleBadge) {
+      roleBadge.textContent = "HỘI VIÊN";
     }
 
-  } catch (error) {
+    if (homeLink) {
+      homeLink.href = "/member/class-list.html";
+    }
 
-    console.error(
-      "Failed to load navbar user:",
-      error
-    );
-
+    return;
   }
 
+  // -----------------------------
+  // ADMIN
+  // -----------------------------
+
+  if (role === "ADMIN") {
+    if (portalTag) {
+      portalTag.textContent = "ADMIN PORTAL";
+    }
+
+    if (roleBadge) {
+      roleBadge.textContent = "QUẢN TRỊ VIÊN";
+    }
+
+    if (homeLink) {
+      homeLink.href = "/admin/dashboard.html";
+    }
+  }
 }
 
-/*
- * =========================================================
- * ACCOUNT DROPDOWN
- * =========================================================
- */
+/* ============================================================
+   USER PROFILE
+   ============================================================ */
 
-function setupAccountDropdown(): void {
+async function setupUserProfile(): Promise<void> {
+  const greeting =
+    document.querySelector<HTMLElement>(
+      "#gym-navbar-greeting",
+    );
 
   const avatar =
-    document.querySelector<HTMLButtonElement>(
-      "#nav-avatar"
+    document.querySelector<HTMLElement>(
+      "#gym-navbar-avatar",
     );
 
-  const dropdown =
-    document.querySelector<HTMLDivElement>(
-      "#profile-account-dropdown"
-    );
+  try {
+    const profile = await userService.getMyProfile();
 
+    const firstName =
+      profile.fullName?.trim().split(/\s+/)[0] ?? "Bạn";
 
-  /*
-   * Elements not found
-   */
+    if (greeting) {
+      greeting.textContent = `Hey ${firstName}`;
+    }
 
-  if (!avatar || !dropdown) {
+    const avatarUrl =
+      profile.avatarUrl ||
+      "/src/assets/img/avatar-user-default.jpg";
 
+    if (avatar) {
+      avatar.innerHTML = `
+        <img
+          src="${avatarUrl}"
+          alt="Avatar"
+          class="w-100 h-100 object-fit-cover rounded-circle"
+        />
+      `;
+    }
+  } catch (error) {
     console.error(
-      "[Navbar] Account dropdown elements not found.",
-      {
-        avatar,
-        dropdown
-      }
+      "Navbar: Không thể tải thông tin user.",
+      error,
     );
+  }
+}
+
+/* ============================================================
+   CHAT
+   ============================================================ */
+
+function setupChat(role?: string): void {
+  const chatLink =
+    document.querySelector<HTMLAnchorElement>(
+      "#gym-navbar-chat",
+    );
+
+  const trainerChat =
+    document.querySelector<HTMLAnchorElement>(
+      "#gym-navbar-trainer-chat",
+    );
+
+  if (role === "TRAINER") {
+    if (chatLink) {
+      chatLink.href = "/trainer/chat.html";
+    }
+
+    if (trainerChat) {
+      trainerChat.href = "/trainer/chat.html";
+    }
 
     return;
   }
 
-
-  /*
-   * Initial state
-   */
-
-  dropdown.classList.remove("show");
-
-  dropdown.setAttribute(
-    "aria-hidden",
-    "true"
-  );
-
-  avatar.setAttribute(
-    "aria-expanded",
-    "false"
-  );
-
-
-  /*
-   * =======================================================
-   * AVATAR CLICK
-   * =======================================================
-   */
-
-  avatar.addEventListener(
-    "click",
-    (event) => {
-
-      event.preventDefault();
-
-      event.stopPropagation();
-
-
-      const isOpen =
-        dropdown.classList.contains("show");
-
-
-      if (isOpen) {
-
-        closeAccountDropdown(
-          avatar,
-          dropdown
-        );
-
-      } else {
-
-        openAccountDropdown(
-          avatar,
-          dropdown
-        );
-
-      }
-
+  if (role === "MEMBER") {
+    if (chatLink) {
+      chatLink.href = "/member/chat.html";
     }
-  );
-
-
-  /*
-   * =======================================================
-   * DROPDOWN CLICK
-   * =======================================================
-   */
-
-  dropdown.addEventListener(
-    "click",
-    (event) => {
-
-      event.stopPropagation();
-
-    }
-  );
-
-
-  /*
-   * =======================================================
-   * CLICK OUTSIDE
-   * =======================================================
-   */
-
-  document.addEventListener(
-    "click",
-    (event) => {
-
-      const target =
-        event.target as Node;
-
-
-      if (
-        !avatar.contains(target) &&
-        !dropdown.contains(target)
-      ) {
-
-        closeAccountDropdown(
-          avatar,
-          dropdown
-        );
-
-      }
-
-    }
-  );
-
-
-  /*
-   * =======================================================
-   * ESC
-   * =======================================================
-   */
-
-  document.addEventListener(
-    "keydown",
-    (event) => {
-
-      if (event.key === "Escape") {
-
-        closeAccountDropdown(
-          avatar,
-          dropdown
-        );
-
-      }
-
-    }
-  );
-
+  }
 }
 
+/* ============================================================
+   ACTIVE MENU
+   ============================================================ */
 
-/*
- * =========================================================
- * OPEN
- * =========================================================
- */
+function setupActiveMenu(active: string): void {
+  if (!active) return;
 
-function openAccountDropdown(
-  avatar: HTMLButtonElement,
-  dropdown: HTMLDivElement
-): void {
+  const items =
+    document.querySelectorAll<HTMLElement>(
+      `[data-nav="${active}"]`,
+    );
 
-  dropdown.classList.add("show");
+  items.forEach((item) => {
+    item.classList.add("active");
+  });
 
-  dropdown.setAttribute(
-    "aria-hidden",
-    "false"
-  );
-
-  avatar.setAttribute(
-    "aria-expanded",
-    "true"
-  );
-
+  // Profile riêng
+  if (active === "profile") {
+    document
+      .querySelector("#gym-navbar-profile")
+      ?.classList.add("active");
+  }
 }
 
-
-/*
- * =========================================================
- * CLOSE
- * =========================================================
- */
-
-function closeAccountDropdown(
-  avatar: HTMLButtonElement,
-  dropdown: HTMLDivElement
-): void {
-
-  dropdown.classList.remove("show");
-
-  dropdown.setAttribute(
-    "aria-hidden",
-    "true"
-  );
-
-  avatar.setAttribute(
-    "aria-expanded",
-    "false"
-  );
-
-}
-
-/*
- * =========================================================
- * LOGOUT
- * =========================================================
- */
+/* ============================================================
+   LOGOUT
+   ============================================================ */
 
 function setupLogout(): void {
-
-  const logoutButton =
-    document.querySelector<HTMLButtonElement>(
-      "#nav-logout"
+  const logoutButtons =
+    document.querySelectorAll<HTMLElement>(
+      '[data-action="logout"]',
     );
 
-
-  if (!logoutButton) {
-
-    console.warn(
-      "Logout button not found."
-    );
-
-    return;
-  }
-
-
-  logoutButton.addEventListener(
-    "click",
-    async () => {
-
-      logoutButton.disabled = true;
-
-      logoutButton.innerHTML = `
-        <span
-          class="spinner-border spinner-border-sm"
-          aria-hidden="true"
-        ></span>
-
-        <span>
-          Logging out...
-        </span>
-      `;
-
-
+  logoutButtons.forEach((button) => {
+    button.addEventListener("click", async () => {
       try {
+        button.setAttribute("disabled", "true");
 
         await authService.logout();
-
       } catch (error) {
-
         console.error(
-          "Logout failed:",
-          error
+          "Navbar: Lỗi đăng xuất.",
+          error,
         );
-
-        clearAuthAndRedirect();
-
       }
-
-    }
-  );
-
-}
-
-
-/*
- * =========================================================
- * HELPERS
- * =========================================================
- */
-
-function getInitials(
-  name: string
-): string {
-
-  return name
-    .trim()
-    .split(/\s+/)
-    .slice(-2)
-    .map(
-      part =>
-        part
-          .charAt(0)
-          .toUpperCase()
-    )
-    .join("");
-
+    });
+  });
 }
