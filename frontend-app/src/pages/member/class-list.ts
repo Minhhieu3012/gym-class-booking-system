@@ -11,6 +11,7 @@ import {
   renderNavbar,
   initNavbar,
 } from "../../components/navbar";
+import { showToast } from "../../utils/toast";
 // Khai báo kiểu Bootstrap toàn cục
 declare const bootstrap: {
   Toast: new (el: Element, options?: unknown) => { show(): void; hide(): void };
@@ -116,7 +117,7 @@ function showToastMessage(message: string, isSuccess = true): void {
     }
   }
 
-  alert(message);
+  showToast(message, isSuccess ? "success" : "error");
 }
 
 /**
@@ -418,7 +419,6 @@ async function handleBookClassClick(btn: HTMLButtonElement): Promise<void> {
     const errorMessage =
       err.response?.data?.message ||
       "Đặt lớp không thành công! Vui lòng kiểm tra lại gói tập hoặc lịch trình của bạn.";
-    alert(errorMessage);
     showToastMessage(errorMessage, false);
 
     // Khôi phục nút nếu lỗi

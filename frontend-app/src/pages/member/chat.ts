@@ -8,6 +8,7 @@ import type {
   ChatErrorDTO,
 } from "../../models/chat";
 import { getStoredUser } from "../../core/api";
+import { showToast } from "../../utils/toast";
 
 /**
  * Trả về nội dung template HTML cho Router render vào #app.
@@ -862,7 +863,7 @@ export async function init(): Promise<void> {
       const file = fileInput.files?.[0];
       if (file) {
         if (!file.type.startsWith("image/")) {
-          alert("Vui lòng chỉ chọn tệp định dạng hình ảnh.");
+          showToast("Vui lòng chỉ chọn tệp định dạng hình ảnh.", "warning");
           fileInput.value = "";
           return;
         }

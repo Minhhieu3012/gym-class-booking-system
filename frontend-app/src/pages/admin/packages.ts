@@ -485,7 +485,6 @@ export async function init(): Promise<void> {
         formError.textContent = msg;
         formError.style.display = "block";
       }
-      alert(msg);
     } finally {
       if (submitBtn) {
         submitBtn.disabled = false;

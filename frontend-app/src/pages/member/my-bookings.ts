@@ -4,6 +4,7 @@ import { bookingService } from "../../services/booking.service";
 import interactionService from "../../services/interaction.service";
 import type { ClassBooking, PTBooking } from "../../models/booking";
 import { renderNavbar, initNavbar } from "../../components/navbar";
+import { showToast as showGlobalToast } from "../../utils/toast";
 
 // Khai báo kiểu Bootstrap toàn cục
 declare const bootstrap: {
@@ -160,7 +161,7 @@ function showToast(message: string, isSuccess = true): void {
     }
   }
 
-  alert(message);
+  showGlobalToast(message, isSuccess ? "success" : "error");
 }
 
 /**
@@ -206,7 +207,7 @@ function handleOpenReviewModal(btn: HTMLButtonElement): void {
  */
 async function handleSubmitReview(): Promise<void> {
   if (!currentReviewBookingId || !currentReviewBookingType) {
-    alert("Không tìm thấy thông tin lượt đặt cần đánh giá.");
+    showToast("Không tìm thấy thông tin lượt đặt cần đánh giá.", false);
     return;
   }
 
@@ -221,7 +222,7 @@ async function handleSubmitReview(): Promise<void> {
   const comment = commentInput?.value.trim() || "";
 
   if (!comment) {
-    alert("Vui lòng nhập nội dung nhận xét trước khi gửi đánh giá.");
+    showToast("Vui lòng nhập nội dung nhận xét trước khi gửi đánh giá.", false);
     commentInput?.focus();
     return;
   }
@@ -253,7 +254,6 @@ async function handleSubmitReview(): Promise<void> {
     }
 
     // Hiển thị thông báo thành công
-    alert("Đánh giá thành công!");
     showToast("Đánh giá thành công!", true);
 
     // Disable nút 'Đánh giá' của item vừa rồi
@@ -280,7 +280,6 @@ async function handleSubmitReview(): Promise<void> {
       err?.response?.data?.message ||
       err?.message ||
       "Không thể gửi đánh giá. Vui lòng thử lại sau!";
-    alert(`Lỗi: ${msg}`);
     showToast(msg, false);
   } finally {
     if (submitBtn) {
@@ -581,7 +580,7 @@ async function handleCancelClassBooking(btn: HTMLButtonElement): Promise<void> {
 
   const reasonTrimmed = cancelReason.trim();
   if (!reasonTrimmed) {
-    alert("Vui lòng nhập lý do hủy lịch!");
+    showToast("Vui lòng nhập lý do hủy lịch!", false);
     return;
   }
 
@@ -603,7 +602,6 @@ async function handleCancelClassBooking(btn: HTMLButtonElement): Promise<void> {
     const errorMessage =
       err.response?.data?.message ||
       "Không thể hủy lịch! Lưu ý quy định: chỉ được phép hủy trước giờ bắt đầu ít nhất 24 tiếng.";
-    alert(errorMessage);
     showToast(errorMessage, false);
     btn.disabled = false;
     btn.innerHTML = `<span class="ms-1">Hủy lịch</span>`;
@@ -631,7 +629,7 @@ async function handleCancelPTBooking(btn: HTMLButtonElement): Promise<void> {
 
   const reasonTrimmed = cancelReason.trim();
   if (!reasonTrimmed) {
-    alert("Vui lòng nhập lý do hủy lịch!");
+    showToast("Vui lòng nhập lý do hủy lịch!", false);
     return;
   }
 
@@ -653,7 +651,6 @@ async function handleCancelPTBooking(btn: HTMLButtonElement): Promise<void> {
     const errorMessage =
       err.response?.data?.message ||
       "Không thể hủy lịch! Lưu ý quy định: chỉ được phép hủy trước giờ tập ít nhất 24 tiếng.";
-    alert(errorMessage);
     showToast(errorMessage, false);
     btn.disabled = false;
     btn.innerHTML = `<span class="ms-1">Hủy lịch</span>`;

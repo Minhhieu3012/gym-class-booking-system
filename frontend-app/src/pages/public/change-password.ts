@@ -1,6 +1,7 @@
 import { userService } from "../../services/user.service";
 import { authService } from "../../services/auth.service";
 import { navigate } from "../../core/router";
+import { showToast } from "../../utils/toast";
 import template from "./change-password.html?raw";
 import "./change-password.css";
 
@@ -150,8 +151,9 @@ export function init(): void {
 
     try {
       await userService.changePassword({ currentPassword, newPassword });
-      alert(
+      showToast(
         "Đổi mật khẩu thành công! Phiên đăng nhập trên các thiết bị khác đã bị vô hiệu hóa.",
+        "success",
       );
       navigate("/profile");
     } catch (error: unknown) {
@@ -160,7 +162,7 @@ export function init(): void {
       const displayMsg = msg.includes("INVALID_CURRENT_PASSWORD")
         ? "Mật khẩu hiện tại không đúng. Vui lòng thử lại."
         : msg;
-      alert(displayMsg);
+      showToast(displayMsg, "error");
       passwordError.textContent = displayMsg;
     } finally {
       saveBtn.disabled = false;

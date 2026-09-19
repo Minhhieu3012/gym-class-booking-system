@@ -1,6 +1,16 @@
 import "./style.css";
 import { initRouter, navigate } from "./core/router";
 import { initNotification } from "./components/notification-popover";
+import { showToast } from "./utils/toast";
+
+// Ghi đè window.alert toàn cục bằng popup Toast hiện đại
+window.alert = (message: unknown) => {
+  const str = String(message ?? "");
+  const isSuccess = /thành công|success|hoàn tất/i.test(str);
+  const isWarning = /vui lòng|cảnh báo|chú ý/i.test(str);
+  const type = isSuccess ? "success" : isWarning ? "warning" : "error";
+  showToast(str, type);
+};
 
 // Global SPA link handler
 document.body.addEventListener("click", (event: MouseEvent) => {

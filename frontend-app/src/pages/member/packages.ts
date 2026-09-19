@@ -3,6 +3,7 @@ import "./packages.css";
 import { paymentService } from "../../services/payment.service";
 import type { Package, MemberPackage } from "../../models/package";
 import { renderNavbar, initNavbar } from "../../components/navbar";
+import { showToast } from "../../utils/toast";
 
 // Khai báo kiểu Bootstrap toàn cục
 declare const bootstrap: {
@@ -73,7 +74,7 @@ function showToastMessage(message: string, isSuccess = true): void {
       return;
     }
   }
-  alert(message);
+  showToast(message, isSuccess ? "success" : "error");
 }
 
 /**
@@ -345,7 +346,6 @@ async function handleBuyPackageClick(btn: HTMLButtonElement): Promise<void> {
     const err = error as { response?: { data?: { message?: string } } };
     const errorMessage =
       err.response?.data?.message || "Thanh toán thất bại! Vui lòng thử lại.";
-    alert(errorMessage);
     showToastMessage(errorMessage, false);
   } finally {
     // Khôi phục nút bấm

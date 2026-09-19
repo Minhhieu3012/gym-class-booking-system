@@ -3,6 +3,7 @@ import "./progress-notes.css";
 import interactionService from "../../services/interaction.service";
 import bookingService from "../../services/booking.service";
 import { initNotification } from "../../components/notification-popover";
+import { showToast as showGlobalToast } from "../../utils/toast";
 
 // Khai báo kiểu Bootstrap toàn cục
 declare const bootstrap: {
@@ -80,7 +81,7 @@ function showToast(message: string, isSuccess = true): void {
     }
   }
 
-  alert(message);
+  showGlobalToast(message, isSuccess ? "success" : "error");
 }
 
 /**
@@ -138,7 +139,6 @@ async function handleSaveProgressNote(): Promise<void> {
 
   // 1. Validate nếu rỗng thì báo lỗi
   if (!memberIdRaw) {
-    alert("Vui lòng chọn Hội viên cần ghi chú!");
     showToast("Vui lòng chọn Hội viên cần ghi chú!", false);
     memberSelect?.focus();
     return;
@@ -146,13 +146,11 @@ async function handleSaveProgressNote(): Promise<void> {
 
   const memberId = Number(memberIdRaw);
   if (isNaN(memberId) || memberId <= 0) {
-    alert("Mã hội viên không hợp lệ!");
     showToast("Mã hội viên không hợp lệ!", false);
     return;
   }
 
   if (!content) {
-    alert("Vui lòng nhập nội dung ghi chú tiến độ / sức khỏe!");
     showToast("Vui lòng nhập nội dung ghi chú tiến độ / sức khỏe!", false);
     noteContent?.focus();
     return;
@@ -174,7 +172,6 @@ async function handleSaveProgressNote(): Promise<void> {
     await interactionService.createProgressNote({ memberId, content });
 
     // Hiển thị thông báo thành công
-    alert("Lưu ghi chú thành công!");
     showToast("Lưu ghi chú thành công!", true);
 
     // Lưu vào danh sách tạm hiển thị trên UI
@@ -209,7 +206,6 @@ async function handleSaveProgressNote(): Promise<void> {
       err?.response?.data?.message ||
       err?.message ||
       "Không thể lưu ghi chú tiến độ. Vui lòng thử lại!";
-    alert(`Lỗi: ${msg}`);
     showToast(msg, false);
   } finally {
     if (saveBtn) {

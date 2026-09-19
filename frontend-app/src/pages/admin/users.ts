@@ -629,7 +629,6 @@ function setupEventListeners(): void {
       console.error("Lỗi khi cập nhật trạng thái người dùng:", error);
       const errMsg = error?.response?.data?.message || error?.message || "Cập nhật trạng thái người dùng thất bại! Vui lòng thử lại.";
       showUserToast(errMsg, "danger");
-      alert(errMsg);
     } finally {
       confirmStatusBtn.disabled = false;
       confirmStatusBtn.innerHTML = originalText;
@@ -700,7 +699,6 @@ function setupEventListeners(): void {
       console.error("Lỗi khi điều chỉnh lượt tập:", err);
       const errMsg = err?.response?.data?.message || err?.message || "Điều chỉnh lượt tập thất bại. Vui lòng kiểm tra lại thông tin!";
       showUserToast(errMsg, "danger");
-      alert(errMsg);
     } finally {
       if (submitBtn) {
         submitBtn.disabled = false;

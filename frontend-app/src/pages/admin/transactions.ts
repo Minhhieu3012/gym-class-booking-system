@@ -552,7 +552,6 @@ function setupEventListeners(): void {
       console.error("Lỗi khi cập nhật trạng thái giao dịch:", err);
       const errMsg = err?.response?.data?.message || err?.message || "Cập nhật giao dịch thất bại. Vui lòng kiểm tra lại!";
       showTransactionToast(errMsg, "danger");
-      alert(errMsg);
     } finally {
       confirmBtn.disabled = false;
       confirmBtn.innerHTML = originalText;

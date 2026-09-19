@@ -3,6 +3,7 @@ import "./attendance.css";
 import { bookingService } from "../../services/booking.service";
 import interactionService from "../../services/interaction.service";
 import { initNotification } from "../../components/notification-popover";
+import { showToast as showGlobalToast } from "../../utils/toast";
 
 // Khai báo kiểu Bootstrap toàn cục
 declare const bootstrap: {
@@ -78,7 +79,7 @@ function showToast(message: string, isSuccess = true): void {
     }
   }
 
-  alert(message);
+  showGlobalToast(message, isSuccess ? "success" : "error");
 }
 
 /**
@@ -225,7 +226,7 @@ async function handleSaveAttendance(row: HTMLElement, saveBtn: HTMLButtonElement
   const bookingType = row.getAttribute("data-booking-type") as "class" | "pt" | null;
 
   if (!bookingIdStr || !bookingType) {
-    alert("Không tìm thấy thông tin lượt đặt.");
+    showToast("Không tìm thấy thông tin lượt đặt.", false);
     return;
   }
 
@@ -237,7 +238,7 @@ async function handleSaveAttendance(row: HTMLElement, saveBtn: HTMLButtonElement
   );
 
   if (!selectedRadio || !selectedRadio.value) {
-    alert("Vui lòng chọn trạng thái điểm danh (Có mặt hoặc Vắng mặt).");
+    showToast("Vui lòng chọn trạng thái điểm danh (Có mặt hoặc Vắng mặt).", false);
     return;
   }
 
@@ -254,8 +255,7 @@ async function handleSaveAttendance(row: HTMLElement, saveBtn: HTMLButtonElement
       await interactionService.markPTAttendance(bookingId, attendanceStatus);
     }
 
-    // Hiển thị thông báo thành công (alert/toast) theo đúng kỳ vọng kịch bản
-    alert("Điểm danh thành công");
+    // Hiển thị thông báo thành công (toast)
     showToast("Điểm danh thành công", true);
 
     // Vô hiệu hóa hàng đó và làm mờ để ngăn điểm danh lại
@@ -267,7 +267,6 @@ async function handleSaveAttendance(row: HTMLElement, saveBtn: HTMLButtonElement
       err?.response?.data?.message ||
       err?.message ||
       "Điểm danh thất bại. Vui lòng thử lại sau!";
-    alert(`Lỗi: ${msg}`);
     showToast(msg, false);
     saveBtn.disabled = false;
     saveBtn.textContent = "Lưu điểm danh";

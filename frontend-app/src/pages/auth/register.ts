@@ -1,5 +1,6 @@
 import { authService } from "../../services/auth.service";
 import { navigate } from "../../core/router";
+import { showToast } from "../../utils/toast";
 import template from "./register.html?raw";
 import "./register.css";
 
@@ -523,16 +524,18 @@ export function init(): void {
         address,
       });
 
-      alert(
-        "Member account created successfully! Please log in.",
+      showToast(
+        "Đăng ký tài khoản Hội viên thành công! Vui lòng đăng nhập.",
+        "success",
       );
 
       navigate("/login");
     } catch (error: unknown) {
       console.error("Lỗi đăng ký hội viên:", error);
       const msg = authService.extractErrorMessage(error);
-      alert(msg);
+      showToast(msg, "error");
       errorDiv.textContent = msg;
+      errorDiv.classList.remove("d-none");
     } finally {
       submitBtn.disabled = false;
 

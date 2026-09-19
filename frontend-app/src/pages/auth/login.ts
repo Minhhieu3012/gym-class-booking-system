@@ -1,5 +1,6 @@
 import { authService } from "../../services/auth.service";
 import { navigate } from "../../core/router";
+import { showToast } from "../../utils/toast";
 import loginTemplate from "./login.html?raw";
 import "./login.css";
 
@@ -75,8 +76,11 @@ export function init(): void {
       if (msg.toLowerCase().includes("bad credentials")) {
         msg = "Sai tài khoản hoặc mật khẩu.";
       }
-      alert(msg);
-      errorDiv.textContent = msg;
+      showToast(msg, "error");
+      if (errorDiv) {
+        errorDiv.textContent = msg;
+        errorDiv.classList.remove("d-none");
+      }
     } finally {
       submitBtn.disabled = false;
       submitBtn.textContent = "LOG IN";

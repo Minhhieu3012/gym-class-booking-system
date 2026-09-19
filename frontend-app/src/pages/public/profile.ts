@@ -4,6 +4,7 @@ import { getStoredUser, STORAGE_KEYS } from "../../core/api";
 import template from "./profile.html?raw";
 import "./profile.css";
 import { renderNavbar, initNavbar } from "../../components/navbar";
+import { showToast } from "../../utils/toast";
 
 const PLACEHOLDER_AVATAR = "/src/assets/img/avatar-user-default.jpg";
 
@@ -256,10 +257,11 @@ export function init(): void {
           JSON.stringify({ ...stored, avatarUrl: updatedProfile.avatarUrl || imageUrl }),
         );
       }
+      showToast("Cập nhật ảnh đại diện thành công!", "success");
     } catch (error: unknown) {
       console.error("Lỗi khi cập nhật avatar:", error);
       const msg = authService.extractErrorMessage(error);
-      alert(msg);
+      showToast(msg, "error");
       if (profileError) profileError.textContent = msg;
     } finally {
       avatarLabelBtn.textContent = originalLabel;
@@ -306,11 +308,11 @@ export function init(): void {
       if (navGreeting)
         navGreeting.textContent = `Hey ${updated.fullName.split(" ")[0]}`;
       originalData = { fullName, phone, address };
-      alert("Thông tin đã được cập nhật thành công!");
+      showToast("Thông tin đã được cập nhật thành công!", "success");
     } catch (error: unknown) {
       console.error("Lỗi khi cập nhật thông tin hồ sơ:", error);
       const msg = authService.extractErrorMessage(error);
-      alert(msg);
+      showToast(msg, "error");
       profileError.textContent = msg;
     } finally {
       updateBtn.disabled = false;

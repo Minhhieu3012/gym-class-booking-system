@@ -2,6 +2,7 @@ import template from "./pt-requests.html?raw";
 import "./pt-requests.css";
 import { bookingService } from "../../services/booking.service";
 import type { PTBooking } from "../../models/booking";
+import { showToast as showGlobalToast } from "../../utils/toast";
 
 // Khai báo kiểu Bootstrap toàn cục
 declare const bootstrap: {
@@ -97,7 +98,7 @@ function showToast(message: string, isSuccess = true): void {
     }
   }
 
-  alert(message);
+  showGlobalToast(message, isSuccess ? "success" : "error");
 }
 
 /**
@@ -294,7 +295,6 @@ async function handleConfirmPTRequest(btn: HTMLButtonElement): Promise<void> {
     const err = error as { response?: { data?: { message?: string } } };
     const errorMessage =
       err.response?.data?.message || "Xác nhận lịch hẹn không thành công!";
-    alert(errorMessage);
     showToast(errorMessage, false);
     btn.disabled = false;
     btn.innerHTML = originalHtml;
@@ -323,7 +323,7 @@ async function handleRejectPTRequest(btn: HTMLButtonElement): Promise<void> {
 
   const reasonTrimmed = rejectReason.trim();
   if (!reasonTrimmed) {
-    alert("Vui lòng nhập lý do từ chối!");
+    showToast("Vui lòng nhập lý do từ chối!", false);
     return;
   }
 
@@ -362,7 +362,6 @@ async function handleRejectPTRequest(btn: HTMLButtonElement): Promise<void> {
     const err = error as { response?: { data?: { message?: string } } };
     const errorMessage =
       err.response?.data?.message || "Từ chối yêu cầu không thành công!";
-    alert(errorMessage);
     showToast(errorMessage, false);
     btn.disabled = false;
     btn.innerHTML = originalHtml;

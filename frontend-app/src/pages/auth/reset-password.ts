@@ -1,6 +1,7 @@
 import template from "./reset-password.html?raw";
 import { authService } from "../../services/auth.service";
 import { navigate } from "../../core/router";
+import { showToast } from "../../utils/toast";
 import "./reset-password.css";
 
 
@@ -61,14 +62,15 @@ export function init(): void {
       await authService.resetPassword({ token, newPassword });
 
       // Success
-      alert(
+      showToast(
         "Đặt lại mật khẩu thành công. Vui lòng đăng nhập bằng mật khẩu mới.",
+        "success",
       );
       navigate("/login");
     } catch (error: unknown) {
       console.error("Lỗi đặt lại mật khẩu:", error);
       const msg = authService.extractErrorMessage(error);
-      alert(msg);
+      showToast(msg, "error");
       errorEl.textContent = msg;
     } finally {
       // Restore button state

@@ -3,6 +3,7 @@ import "./time-slots.css";
 import { bookingService, BookingService } from "../../services/booking.service";
 import { getStoredUser } from "../../core/api";
 import type { TrainerTimeSlot } from "../../models/booking";
+import { showToast as showGlobalToast } from "../../utils/toast";
 
 // Khai báo kiểu Bootstrap Toast
 declare const bootstrap: {
@@ -100,7 +101,7 @@ function showToast(message: string, isSuccess = true): void {
     }
   }
 
-  alert(message);
+  showGlobalToast(message, isSuccess ? "success" : "error");
 }
 
 /**
@@ -326,7 +327,7 @@ async function handleCreateTimeSlot(e: Event): Promise<void> {
     const err = error as { response?: { data?: { message?: string } } };
     const errorMessage =
       err.response?.data?.message || "Không thể tạo khung giờ lúc này. Vui lòng kiểm tra lại!";
-    alert(errorMessage);
+    showToast(errorMessage, false);
     errorEl.textContent = errorMessage;
   } finally {
     submitBtn.disabled = false;
@@ -364,7 +365,6 @@ async function handleDeactivateSlot(btn: HTMLButtonElement): Promise<void> {
     const err = error as { response?: { data?: { message?: string } } };
     const errorMessage =
       err.response?.data?.message || "Không thể hủy khung giờ!";
-    alert(errorMessage);
     showToast(errorMessage, false);
     btn.disabled = false;
     btn.innerHTML = originalHtml;

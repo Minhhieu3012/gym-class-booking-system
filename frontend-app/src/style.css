@@ -342,3 +342,119 @@ a:hover {
   display: block !important;
 }
 
+/* ============================================================
+   Global Toast Notifications
+   ============================================================ */
+.gym-toast-container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  max-width: 420px;
+  width: calc(100vw - 32px);
+}
+
+.gym-toast {
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 14px 16px;
+  border-radius: 14px;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
+  transform: translateX(120%);
+  opacity: 0;
+  transition:
+    transform 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+    opacity 0.25s ease;
+}
+
+.gym-toast.gym-toast-visible {
+  transform: translateX(0);
+  opacity: 1;
+}
+
+.gym-toast.gym-toast-hiding {
+  transform: translateX(120%);
+  opacity: 0;
+}
+
+.gym-toast-icon-box {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  margin-top: 1px;
+}
+
+.gym-toast-body {
+  flex: 1;
+  font-size: 0.9rem;
+  line-height: 1.5;
+  color: #1e293b;
+  font-weight: 500;
+}
+
+.gym-toast-close {
+  flex-shrink: 0;
+  background: transparent;
+  border: none;
+  color: #94a3b8;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 6px;
+  cursor: pointer;
+  padding: 0;
+  transition: all 0.15s ease;
+}
+
+.gym-toast-close:hover {
+  background: rgba(0, 0, 0, 0.05);
+  color: #1e293b;
+}
+
+/* Modifiers */
+.gym-toast-success {
+  border-color: #86efac;
+  background-color: #f0fdf4;
+}
+.gym-toast-success .gym-toast-icon-box {
+  background-color: #dcfce7;
+  color: #16a34a;
+}
+
+.gym-toast-error {
+  border-color: #fca5a5;
+  background-color: #fef2f2;
+}
+.gym-toast-error .gym-toast-icon-box {
+  background-color: #fee2e2;
+  color: #dc2626;
+}
+
+.gym-toast-warning {
+  border-color: #fde68a;
+  background-color: #fffbeb;
+}
+.gym-toast-warning .gym-toast-icon-box {
+  background-color: #fef3c7;
+  color: #d97706;
+}
+
+.gym-toast-info {
+  border-color: #bfdbfe;
+  background-color: #eff6ff;
+}
+.gym-toast-info .gym-toast-icon-box {
+  background-color: #dbeafe;
+  color: #2563eb;
+}
+
+

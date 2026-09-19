@@ -264,7 +264,6 @@ export async function init(): Promise<void> {
             toggle.checked = !toggle.checked;
             const msg = authService.extractErrorMessage(error);
             showAlert(msg, "danger");
-            alert(msg);
             console.error("Lỗi khi đổi trạng thái phòng:", error);
           } finally {
             toggle.disabled = false;
@@ -452,7 +451,6 @@ export async function init(): Promise<void> {
         formError.textContent = msg;
         formError.style.display = "block";
       }
-      alert(msg);
       console.error("Lỗi khi lưu phòng:", error);
     } finally {
       if (submitBtn) {

@@ -1,5 +1,6 @@
 import template from "./forgot-password.html?raw";
 import { authService } from "../../services/auth.service";
+import { showToast } from "../../utils/toast";
 import "./forgot-password.css";
 
 export function render(): string {
@@ -46,17 +47,19 @@ export function init(): void {
       const response = await authService.forgotPassword({ email });
 
       // Show success
-      successEl.textContent =
+      const successMsg =
         response.message ||
         "Đã gửi hướng dẫn khôi phục mật khẩu. Vui lòng kiểm tra email của bạn.";
+      successEl.textContent = successMsg;
       successEl.style.display = "block";
+      showToast(successMsg, "success");
 
       // Optionally clear input
       emailInput.value = "";
     } catch (error: unknown) {
       console.error("Lỗi gửi yêu cầu quên mật khẩu:", error);
       const msg = authService.extractErrorMessage(error);
-      alert(msg);
+      showToast(msg, "error");
       errorEl.textContent = msg;
       errorEl.style.display = "block";
     } finally {

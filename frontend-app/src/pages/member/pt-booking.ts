@@ -17,6 +17,7 @@ import {
   renderNavbar,
   initNavbar,
 } from "../../components/navbar";
+import { showToast } from "../../utils/toast";
 
 // Khai báo kiểu Bootstrap toàn cục
 declare const bootstrap: {
@@ -113,7 +114,7 @@ function showToastMessage(message: string, isSuccess = true): void {
     }
   }
 
-  alert(message);
+  showToast(message, isSuccess ? "success" : "error");
 }
 
 /**
@@ -398,7 +399,6 @@ async function handleSubmitPTBooking(): Promise<void> {
     const errorMessage =
       err.response?.data?.message ||
       "Không thể gửi yêu cầu đặt lịch! Có thể bạn chưa có gói tập hợp lệ, bị trùng lịch hoặc khung giờ đã được đặt trước.";
-    alert(errorMessage);
     showToastMessage(errorMessage, false);
   } finally {
     submitBtn.disabled = false;

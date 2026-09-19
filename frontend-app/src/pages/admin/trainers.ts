@@ -450,7 +450,6 @@ function setupEventListeners(): void {
       console.error("Lỗi khi duyệt hồ sơ trainer:", err);
       const errMsg = err?.response?.data?.message || err?.message || "Phê duyệt hồ sơ thất bại. Vui lòng thử lại sau!";
       showTrainerToast(errMsg, "danger");
-      alert(errMsg);
     } finally {
       confirmApproveBtn.disabled = false;
       confirmApproveBtn.innerHTML = originalText;
@@ -488,7 +487,6 @@ function setupEventListeners(): void {
       console.error("Lỗi khi từ chối hồ sơ trainer:", err);
       const errMsg = err?.response?.data?.message || err?.message || "Từ chối hồ sơ thất bại. Vui lòng thử lại sau!";
       showTrainerToast(errMsg, "danger");
-      alert(errMsg);
     } finally {
       confirmRejectBtn.disabled = false;
       confirmRejectBtn.innerHTML = originalText;
