@@ -158,6 +158,15 @@ export const authService = {
           title = "Số điện thoại đã tồn tại";
           message =
             "Số điện thoại này đã được đăng ký trong hệ thống. Vui lòng sử dụng số điện thoại khác.";
+        } else if (
+          data.message === "Bad credentials" ||
+          data.message?.toLowerCase().includes("bad credentials")
+        ) {
+          title = "Đăng nhập thất bại";
+          message = "Sai tài khoản hoặc mật khẩu.";
+        } else if (data.message?.includes("No static resource upload for request '/upload'")) {
+          title = "Máy chủ chưa khởi động lại";
+          message = "Endpoint /upload chưa được nạp. Vui lòng dừng và khởi động lại Spring Boot (./mvnw spring-boot:run) để hoàn tất cập nhật.";
         } else if (data.message !== "Invalid request data") {
           message = data.message;
         }

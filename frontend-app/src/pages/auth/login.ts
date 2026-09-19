@@ -71,7 +71,10 @@ export function init(): void {
       navigate(redirectTo);
     } catch (error: unknown) {
       console.error("Lỗi đăng nhập:", error);
-      const msg = authService.extractErrorMessage(error);
+      let msg = authService.extractErrorMessage(error);
+      if (msg.toLowerCase().includes("bad credentials")) {
+        msg = "Sai tài khoản hoặc mật khẩu.";
+      }
       alert(msg);
       errorDiv.textContent = msg;
     } finally {
