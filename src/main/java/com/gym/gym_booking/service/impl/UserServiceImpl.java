@@ -61,16 +61,25 @@ public class UserServiceImpl implements UserService {
 
         User user = getCurrentUser();
 
-        if (!user.getPhone().equals(request.getPhone())
-                && userRepository.existsByPhone(request.getPhone())) {
-
-            throw new RuntimeException("Phone already exists");
+        if (request.getPhone() != null && !request.getPhone().isBlank()) {
+            if (!request.getPhone().equals(user.getPhone())
+                    && userRepository.existsByPhone(request.getPhone())) {
+                throw new RuntimeException("Phone already exists");
+            }
+            user.setPhone(request.getPhone());
         }
 
-        user.setFullName(request.getFullName());
-        user.setPhone(request.getPhone());
-        user.setAddress(request.getAddress());
-        user.setAvatarUrl(request.getAvatarUrl());
+        if (request.getFullName() != null && !request.getFullName().isBlank()) {
+            user.setFullName(request.getFullName());
+        }
+
+        if (request.getAddress() != null) {
+            user.setAddress(request.getAddress());
+        }
+
+        if (request.getAvatarUrl() != null) {
+            user.setAvatarUrl(request.getAvatarUrl());
+        }
 
         User savedUser = userRepository.save(user);
 

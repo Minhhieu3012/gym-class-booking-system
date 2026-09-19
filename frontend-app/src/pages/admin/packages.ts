@@ -2,6 +2,7 @@ import template from "./packages.html?raw";
 import { packageService } from "../../services/admin-core.service";
 import { authService } from "../../services/auth.service";
 import { getStoredUser, STORAGE_KEYS } from "../../core/api";
+import { initNotification } from "../../components/notification-popover";
 import "./packages.css";
 import type { PackageResponse } from "../../models/admin";
 
@@ -29,6 +30,8 @@ export function render(): string {
 }
 
 export async function init(): Promise<void> {
+  initNotification();
+
   const tbody = document.querySelector<HTMLTableSectionElement>("#pkg-tbody");
   const loadingEl = document.querySelector<HTMLDivElement>("#pkg-loading");
   const tableWrapper =

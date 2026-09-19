@@ -57,6 +57,8 @@ public class SecurityConfig {
                         ).permitAll()
 
                         .requestMatchers(
+                                "/upload",
+                                "/uploads/**",
                                 "/packages",
                                 "/packages/**",
                                 "/trainers",

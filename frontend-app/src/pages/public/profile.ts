@@ -1,6 +1,6 @@
 import { userService } from "../../services/user.service";
 import { authService } from "../../services/auth.service";
-import { getStoredUser } from "../../core/api";
+import { getStoredUser, STORAGE_KEYS } from "../../core/api";
 import template from "./profile.html?raw";
 import "./profile.css";
 import { renderNavbar, initNavbar } from "../../components/navbar";
@@ -16,6 +16,14 @@ export function render(): string {
 export function init(): void {
   initNavbar();
   const user = getStoredUser();
+
+  // Hiển thị trainer bottom nav chỉ khi user là TRAINER
+  const trainerBottomNav = document.querySelector<HTMLElement>(
+    "#profile-trainer-bottom-nav",
+  );
+  if (trainerBottomNav && user?.role === "TRAINER") {
+    trainerBottomNav.classList.remove("d-none");
+  }
 
   const chatLink = document.querySelector<HTMLAnchorElement>("#nav-chat-link");
   if (chatLink) {
@@ -233,7 +241,21 @@ export function init(): void {
       if (navAvatar) {
         navAvatar.innerHTML = `<img src="${imageUrl || PLACEHOLDER_AVATAR}" alt="${originalData?.fullName || "Avatar"}" class="w-100 h-100 object-fit-cover rounded-circle" />`;
       }
-      await userService.updateProfile({ avatarUrl: imageUrl });
+      const updatedProfile = await userService.updateProfile({
+        fullName: originalData?.fullName || fnInput?.value || "",
+        phone: originalData?.phone || phoneInput?.value || "",
+        address: originalData?.address || addressInput?.value || "",
+        avatarUrl: imageUrl,
+      });
+
+      // Cập nhật lại localStorage để các trang khác và navbar luôn giữ avatar mới
+      const stored = getStoredUser();
+      if (stored) {
+        localStorage.setItem(
+          STORAGE_KEYS.USER,
+          JSON.stringify({ ...stored, avatarUrl: updatedProfile.avatarUrl || imageUrl }),
+        );
+      }
     } catch (error: unknown) {
       console.error("Lỗi khi cập nhật avatar:", error);
       const msg = authService.extractErrorMessage(error);

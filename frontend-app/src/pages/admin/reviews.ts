@@ -1,6 +1,7 @@
 import { ReviewService } from "../../services/review.service";
 import type { Review, ReviewQueryParams } from "../../models/review";
 import { authService } from "../../services/auth.service";
+import { initNotification } from "../../components/notification-popover";
 import { getStoredUser, STORAGE_KEYS } from "../../core/api";
 import template from "./reviews.html?raw";
 import "./reviews.css";
@@ -667,6 +668,7 @@ export function init(): void {
   highlightActiveNav();
   setupAdminProfile();
   setupLogoutAction();
+  initNotification();
   setupEventListeners();
   loadReviews();
 }

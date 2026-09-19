@@ -1,6 +1,7 @@
 import { UserService, type UserResponseDTO, type UserQueryParams } from "../../services/user.service";
 import { paymentService } from "../../services/payment.service";
 import { authService } from "../../services/auth.service";
+import { initNotification } from "../../components/notification-popover";
 import { getStoredUser, STORAGE_KEYS, apiClient } from "../../core/api";
 import template from "./users.html?raw";
 import "./users.css";
@@ -835,6 +836,7 @@ export function init(): void {
   highlightActiveNav();
   setupAdminProfile();
   setupLogoutAction();
+  initNotification();
   setupEventListeners();
   loadUsers();
 }

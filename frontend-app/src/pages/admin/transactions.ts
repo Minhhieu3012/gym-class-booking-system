@@ -1,6 +1,7 @@
 import { paymentService } from "../../services/payment.service";
 import type { TransactionResponse, TransactionQueryParams } from "../../models/package";
 import { authService } from "../../services/auth.service";
+import { initNotification } from "../../components/notification-popover";
 import { getStoredUser, STORAGE_KEYS } from "../../core/api";
 import template from "./transactions.html?raw";
 import "./transactions.css";
@@ -677,6 +678,7 @@ export function init(): void {
   highlightActiveNav();
   setupAdminProfile();
   setupLogoutAction();
+  initNotification();
   setupEventListeners();
   loadTransactions();
 }

@@ -24,7 +24,17 @@ document.body.addEventListener("click", async (event: MouseEvent) => {
   if (!logoutBtn) return;
 
   event.preventDefault();
-  const confirmed = window.confirm("Bạn có chắc chắn muốn đăng xuất khỏi tài khoản Huấn Luyện Viên?");
+  const { getStoredUser } = await import("./core/api");
+  const user = getStoredUser();
+  const roleTitle =
+    user?.role === "TRAINER"
+      ? "Huấn Luyện Viên"
+      : user?.role === "ADMIN"
+        ? "Quản Trị Viên"
+        : "Hội Viên";
+  const confirmed = window.confirm(
+    `Bạn có chắc chắn muốn đăng xuất khỏi tài khoản ${roleTitle}?`,
+  );
   if (!confirmed) return;
 
   try {

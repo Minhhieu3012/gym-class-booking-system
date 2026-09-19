@@ -161,14 +161,15 @@
 .trainer-modal-card {
   position: relative;
   width: 100%;
-  max-width: 440px;
-  background: var(--color-surface, #ffffff);
-  border-radius: var(--radius-lg, 16px);
-  border: 1px solid var(--color-border, #e2e8f0);
-  box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.35);
-  padding: 2.25rem 1.75rem 1.75rem;
+  max-width: 460px;
+  background: #ffffff;
+  border-radius: 20px;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+  padding: 2.25rem 2rem 2rem;
   transform: scale(0.92) translateY(12px);
   transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  text-align: center;
 }
 
 .trainer-modal-backdrop.show .trainer-modal-card {
@@ -177,13 +178,13 @@
 
 .trainer-modal-close-btn {
   position: absolute;
-  top: 1rem;
-  right: 1rem;
+  top: 1.15rem;
+  right: 1.15rem;
   background: transparent;
   border: none;
   color: var(--color-neutral, #64748b);
-  width: 32px;
-  height: 32px;
+  width: 34px;
+  height: 34px;
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -199,16 +200,37 @@
   color: var(--color-secondary, #0f172a);
 }
 
+/* Icon Wrapper Centered Circle */
+#trainer-modal-icon-wrapper {
+  width: 68px;
+  height: 68px;
+  border-radius: 50%;
+  margin: 0 auto 1.25rem auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+}
+
+#trainer-modal-icon-wrapper svg {
+  width: 32px;
+  height: 32px;
+}
+
 /* Success State */
 .trainer-modal-card.is-success {
-  background: #ecfdf5;
-  color: #059669;
   border: 2px solid #a7f3d0;
-  box-shadow: 0 0 25px rgba(16, 185, 129, 0.22);
+  box-shadow: 0 20px 45px -10px rgba(16, 185, 129, 0.22);
+}
+
+.trainer-modal-card.is-success #trainer-modal-icon-wrapper {
+  background-color: #dcfce7;
+  color: #16a34a;
+  box-shadow: 0 0 0 8px #f0fdf4;
 }
 
 .trainer-modal-card.is-success .trainer-modal-title {
-  color: #065f46;
+  color: #15803d;
 }
 
 .trainer-modal-card.is-success .trainer-modal-details-box {
@@ -220,39 +242,45 @@
   color: #166534;
   list-style-type: none;
   padding-left: 0;
+  text-align: left;
 }
 
 .trainer-modal-card.is-success #trainer-modal-btn-primary {
-  background-color: #059669;
-  border-color: #059669;
+  background-color: #16a34a;
+  border-color: #16a34a;
   color: #ffffff;
 }
 
 .trainer-modal-card.is-success #trainer-modal-btn-primary:hover {
-  background-color: #047857;
-  border-color: #047857;
+  background-color: #15803d;
+  border-color: #15803d;
 }
 
 /* Error State */
 .trainer-modal-card.is-error {
-  background: #fef2f2;
-  color: #dc2626;
   border: 2px solid #fecaca;
-  box-shadow: 0 0 25px rgba(239, 68, 68, 0.2);
+  box-shadow: 0 20px 45px -10px rgba(239, 68, 68, 0.2);
+}
+
+.trainer-modal-card.is-error #trainer-modal-icon-wrapper {
+  background-color: #fee2e2;
+  color: #dc2626;
+  box-shadow: 0 0 0 8px #fef2f2;
 }
 
 .trainer-modal-card.is-error .trainer-modal-title {
-  color: #991b1b;
+  color: #b91c1c;
 }
 
 .trainer-modal-card.is-error .trainer-modal-details-box {
-  background-color: #fff1f2;
+  background-color: #fef2f2;
   border: 1px solid #fecdd3;
 }
 
 .trainer-modal-card.is-error .trainer-modal-details-list {
-  color: #9f1239;
+  color: #991b1b;
   padding-left: 1.25rem;
+  text-align: left;
 }
 
 .trainer-modal-card.is-error #trainer-modal-btn-primary {
@@ -268,30 +296,70 @@
 
 /* Common Modal Elements */
 .trainer-modal-title {
-  font-size: 1.3rem;
+  font-size: 1.35rem;
+  font-weight: 700;
   letter-spacing: -0.01em;
+  margin-bottom: 0.5rem;
 }
 
 .trainer-modal-message {
-  font-size: 0.9rem;
-  color: var(--color-neutral, #475569);
-  line-height: 1.5;
+  font-size: 0.925rem;
+  color: #475569;
+  line-height: 1.55;
+  margin-bottom: 1.25rem;
 }
 
 .trainer-modal-details-box {
-  border-radius: var(--radius-md, 10px);
-  padding: 0.85rem 1rem;
+  border-radius: 12px;
+  padding: 1rem 1.25rem;
+  margin-bottom: 1.5rem;
 }
 
 .trainer-modal-details-list {
-  font-size: 0.825rem;
+  font-size: 0.875rem;
   line-height: 1.6;
 }
 
 .trainer-modal-details-list li {
-  margin-bottom: 0.35rem;
+  margin-bottom: 0.4rem;
 }
 
 .trainer-modal-details-list li:last-child {
   margin-bottom: 0;
+}
+
+#trainer-modal-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+#trainer-modal-btn-primary {
+  height: 46px;
+  border-radius: 12px;
+  font-weight: 600;
+  font-size: 0.95rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#trainer-modal-btn-secondary {
+  height: 46px;
+  border-radius: 12px;
+  font-weight: 600;
+  font-size: 0.95rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #ffffff;
+  border: 1px solid #cbd5e1;
+  color: #334155;
+  transition: all 0.15s ease;
+}
+
+#trainer-modal-btn-secondary:hover {
+  background-color: #f8fafc;
+  border-color: #94a3b8;
+  color: #0f172a;
 }

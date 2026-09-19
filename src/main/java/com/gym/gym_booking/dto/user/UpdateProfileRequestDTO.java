@@ -1,13 +1,9 @@
 package com.gym.gym_booking.dto.user;
 
-import jakarta.validation.constraints.NotBlank;
-
 public class UpdateProfileRequestDTO {
 
-    @NotBlank(message = "Full name is required")
     private String fullName;
 
-    @NotBlank(message = "Phone is required")
     private String phone;
 
     private String address;

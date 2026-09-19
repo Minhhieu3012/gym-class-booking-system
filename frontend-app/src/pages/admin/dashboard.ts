@@ -2,6 +2,7 @@ import { AdminCoreService } from "../../services/admin-core.service";
 import type { AnalyticsOverview } from "../../models/admin";
 import { authService } from "../../services/auth.service";
 import { getStoredUser, STORAGE_KEYS } from "../../core/api";
+import { initNotification } from "../../components/notification-popover";
 import template from "./dashboard.html?raw";
 import "./dashboard.css";
 
@@ -211,6 +212,7 @@ export function init(): void {
   highlightActiveNav();
   setupAdminName();
   setupLogoutAction();
+  initNotification();
   fetchAndRenderOverview();
   fetchAndRenderRecentTransactions();
 }

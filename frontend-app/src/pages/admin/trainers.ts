@@ -1,6 +1,7 @@
 import { TrainerService } from "../../services/trainer.service";
 import type { Trainer, TrainerQueryParams } from "../../models/trainer";
 import { authService } from "../../services/auth.service";
+import { initNotification } from "../../components/notification-popover";
 import { getStoredUser, STORAGE_KEYS } from "../../core/api";
 import template from "./trainers.html?raw";
 import "./trainers.css";
@@ -622,6 +623,7 @@ export function init(): void {
   highlightActiveNav();
   setupAdminProfile();
   setupLogoutAction();
+  initNotification();
   setupEventListeners();
   loadPendingTrainers();
 }

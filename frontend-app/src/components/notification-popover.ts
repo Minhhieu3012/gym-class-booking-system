@@ -341,10 +341,14 @@ function renderNotificationDropdown(
  * Khởi tạo notification navbar
  */
 export function initNotification(): void {
+  // Hỗ trợ cả shared navbar (gym-navbar-notification) và admin navbar (notification-bell)
   const bellBtn =
+    document.getElementById("gym-navbar-notification") ||
     document.getElementById("notification-bell");
 
+  // Hỗ trợ cả shared navbar dropdown và admin dropdown
   const dropdown =
+    document.getElementById("gym-navbar-notification-dropdown") ||
     document.getElementById("notification-dropdown");
 
   if (!bellBtn || !dropdown) {

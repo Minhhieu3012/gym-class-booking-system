@@ -2,6 +2,7 @@ import template from "./rooms.html?raw";
 import { roomService } from "../../services/admin-core.service";
 import { authService } from "../../services/auth.service";
 import { getStoredUser, STORAGE_KEYS } from "../../core/api";
+import { initNotification } from "../../components/notification-popover";
 import "./rooms.css";
 import type { RoomResponse, RoomStatus } from "../../models/admin";
 
@@ -32,6 +33,8 @@ export function render(): string {
 }
 
 export async function init(): Promise<void> {
+  initNotification();
+
   // Grab DOM refs
   const tbody = document.querySelector<HTMLTableSectionElement>("#rooms-tbody");
   const loadingEl = document.querySelector<HTMLDivElement>("#rooms-loading");
