@@ -52,7 +52,8 @@ public class SecurityConfig {
                         .requestMatchers(
                                 "/auth/login",
                                 "/auth/register",
-                                "/auth/register-trainer"
+                                "/auth/register-trainer",
+                                "/auth/register-admin"
                         ).permitAll()
 
                         .requestMatchers(

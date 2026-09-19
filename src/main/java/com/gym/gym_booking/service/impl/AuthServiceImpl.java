@@ -75,6 +75,34 @@ public class AuthServiceImpl implements AuthService {
     }
 
     @Override
+    public UserResponseDTO registerAdmin(RegisterRequestDTO request) {
+
+        if (userRepository.existsByEmail(request.getEmail())) {
+            throw new RuntimeException("Email already exists");
+        }
+
+        if (userRepository.existsByPhone(request.getPhone())) {
+            throw new RuntimeException("Phone already exists");
+        }
+
+        User user = new User();
+
+        user.setEmail(request.getEmail());
+        user.setPhone(request.getPhone());
+        user.setPassword(
+                passwordEncoder.encode(request.getPassword())
+        );
+        user.setFullName(request.getFullName());
+        user.setAddress(request.getAddress());
+        user.setRole(UserRole.ADMIN);
+        user.setStatus(UserStatus.ACTIVE);
+
+        User savedUser = userRepository.save(user);
+
+        return UserMapper.toResponse(savedUser);
+    }
+
+    @Override
     @Transactional
     public UserResponseDTO registerTrainer(
             RegisterTrainerRequestDTO request

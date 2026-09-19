@@ -68,6 +68,35 @@
           "response": []
         },
         {
+          "name": "Register Admin",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"phone\": \"0900000001\",\r\n    \"address\": \"Admin Office\",\r\n    \"email\": \"admin@gmail.com\",\r\n    \"password\": \"Password123@\",\r\n    \"fullName\": \"System Administrator\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8080/auth/register-admin",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "auth",
+                "register-admin"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
           "name": "Login",
           "request": {
             "method": "POST",

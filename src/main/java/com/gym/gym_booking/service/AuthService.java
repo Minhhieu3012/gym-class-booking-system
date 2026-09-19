@@ -12,6 +12,8 @@ public interface AuthService {
 
     UserResponseDTO registerTrainer(RegisterTrainerRequestDTO request);
 
+    UserResponseDTO registerAdmin(RegisterRequestDTO request);
+
     LoginResponseDTO login(LoginRequestDTO request);
 
     UserResponseDTO getCurrentUser();
