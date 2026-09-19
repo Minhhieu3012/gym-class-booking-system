@@ -33,6 +33,31 @@ function formatTime(isoString?: string): string {
 }
 
 /**
+ * Format loại thông báo sang tiếng Việt
+ */
+function formatNotificationType(type?: string): string {
+  switch (type) {
+    case "BOOKING_CONFIRMED":
+    case "BOOKING":
+      return "ĐẶT LỊCH";
+    case "BOOKING_CANCELLED":
+      return "HỦY LỊCH";
+    case "PAYMENT":
+    case "PAYMENT_SUCCESS":
+      return "THANH TOÁN";
+    case "SYSTEM":
+      return "HỆ THỐNG";
+    case "REMINDER":
+      return "NHẮC NHỞ";
+    case "CHAT":
+      return "TIN NHẮN";
+    case "NOTIFICATION":
+    default:
+      return type ? type : "THÔNG BÁO";
+  }
+}
+
+/**
  * Escape HTML để tránh render nội dung HTML trực tiếp từ API
  */
 function escapeHtml(value: unknown): string {
@@ -179,7 +204,7 @@ function renderNotificationDropdown(
                         class="badge ${badgeClass} me-2"
                         style="font-size: 0.68rem;"
                       >
-                        ${escapeHtml(item.type || "NOTIFICATION")}
+                        ${escapeHtml(formatNotificationType(item.type))}
                       </span>
 
                       <small

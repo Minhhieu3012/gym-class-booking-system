@@ -126,10 +126,10 @@ function renderStatusBadge(status: string): string {
 function renderPaymentMethodBadge(method?: string): string {
   const m = (method || "").toUpperCase();
   if (m === "MOCK") {
-    return `<span class="badge bg-info-subtle text-info border border-info-subtle rounded-3 extra-small">Mô phỏng (MOCK)</span>`;
+    return `<span class="badge bg-info-subtle text-info border border-info-subtle rounded-3 extra-small">Mô phỏng</span>`;
   }
   if (m === "CASH") {
-    return `<span class="badge bg-secondary-subtle text-dark border border-secondary-subtle rounded-3 extra-small">Tiền mặt (CASH)</span>`;
+    return `<span class="badge bg-secondary-subtle text-dark border border-secondary-subtle rounded-3 extra-small">Tiền mặt</span>`;
   }
   return `<span class="badge bg-light text-secondary border rounded-3 extra-small">${method || "--"}</span>`;
 }

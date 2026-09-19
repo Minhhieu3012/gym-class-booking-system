@@ -265,7 +265,7 @@ export async function loadAvailablePackages(): Promise<void> {
                     <svg class="feature-check-icon" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
                       <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
                     </svg>
-                    <span>Áp dụng cho mọi lớp Group Class &amp; PT</span>
+                    <span>Áp dụng cho mọi lớp nhóm &amp; Huấn luyện viên</span>
                   </li>
                   <li class="package-feature-item">
                     <svg class="feature-check-icon" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">

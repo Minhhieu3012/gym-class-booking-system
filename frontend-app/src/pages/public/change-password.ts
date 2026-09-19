@@ -34,7 +34,7 @@ export function init(): void {
       const profile = await userService.getMyProfile();
       const navGreeting = document.querySelector<HTMLElement>("#nav-greeting");
       const navAvatar = document.querySelector<HTMLElement>("#nav-avatar");
-      if (navGreeting) navGreeting.textContent = `Hey ${profile.fullName.split(" ")[0]}`;
+      if (navGreeting) navGreeting.textContent = `Chào, ${profile.fullName.split(" ")[0]}`;
       if (navAvatar) {
         navAvatar.innerHTML = `<img src="${profile.avatarUrl || '/src/assets/img/avatar-user-default.jpg'}" alt="${profile.fullName}" class="w-100 h-100 object-fit-cover rounded-circle" />`;
       }
@@ -73,7 +73,7 @@ export function init(): void {
       "var(--color-tertiary)",
       "var(--color-tertiary)",
     ];
-    const labels = ["", "WEAK", "FAIR", "GOOD", "STRENGTH: OPTIMAL"];
+    const labels = ["", "YẾU", "TRUNG BÌNH", "TỐT", "MẠNH: TỐI ƯU"];
 
     for (let i = 1; i <= 4; i++) {
       const bar = document.querySelector<HTMLDivElement>(`#npw-bar-${i}`);
@@ -87,7 +87,7 @@ export function init(): void {
     // Realtime match hint
     if (confirmPwInput?.value && pwMatchLabel) {
       const match = confirmPwInput.value === val;
-      pwMatchLabel.textContent = match ? "✓ Keys Match" : "✗ Mismatch";
+      pwMatchLabel.textContent = match ? "✓ Mật khẩu khớp" : "✗ Không khớp";
       pwMatchLabel.style.color = match
         ? "var(--color-tertiary)"
         : "var(--color-primary)";
@@ -101,7 +101,7 @@ export function init(): void {
       return;
     }
     const match = confirmPwInput.value === newPwInput.value;
-    pwMatchLabel.textContent = match ? "✓ Keys Match" : "✗ Mismatch";
+    pwMatchLabel.textContent = match ? "✓ Mật khẩu khớp" : "✗ Không khớp";
     pwMatchLabel.style.color = match
       ? "var(--color-tertiary)"
       : "var(--color-primary)";
@@ -166,7 +166,7 @@ export function init(): void {
       passwordError.textContent = displayMsg;
     } finally {
       saveBtn.disabled = false;
-      saveBtn.textContent = "SAVE NEW PASSWORD ⚡";
+      saveBtn.textContent = "LƯU MẬT KHẨU MỚI ⚡";
     }
   });
 }

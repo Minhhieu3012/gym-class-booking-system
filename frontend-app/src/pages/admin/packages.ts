@@ -141,7 +141,7 @@ export async function init(): Promise<void> {
   }
 
   function buildStatusBadge(isActive: boolean): string {
-    return `<span class="badge ${isActive ? "bg-success-subtle text-success border border-success-subtle" : "bg-secondary-subtle text-secondary border border-secondary-subtle"} px-2.5 py-1 rounded-pill small fw-semibold">${isActive ? "ACTIVE" : "INACTIVE"}</span>`;
+    return `<span class="badge ${isActive ? "bg-success-subtle text-success border border-success-subtle" : "bg-secondary-subtle text-secondary border border-secondary-subtle"} px-2.5 py-1 rounded-pill small fw-semibold">${isActive ? "HOẠT ĐỘNG" : "TẠM DỪNG"}</span>`;
   }
 
   function buildRow(pkg: PackageResponse): string {

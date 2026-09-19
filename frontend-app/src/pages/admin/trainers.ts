@@ -80,11 +80,11 @@ function renderStatusBadge(status?: string): string {
   const s = (status || "").toUpperCase();
   switch (s) {
     case "PENDING":
-      return `<span class="badge bg-warning-subtle text-warning-emphasis border border-warning-subtle px-3 py-1 rounded-pill fw-semibold">PENDING</span>`;
+      return `<span class="badge bg-warning-subtle text-warning-emphasis border border-warning-subtle px-3 py-1 rounded-pill fw-semibold">CHỜ XÉT DUYỆT</span>`;
     case "ACTIVE":
-      return `<span class="badge bg-success-subtle text-success border border-success-subtle px-3 py-1 rounded-pill fw-semibold">ACTIVE</span>`;
+      return `<span class="badge bg-success-subtle text-success border border-success-subtle px-3 py-1 rounded-pill fw-semibold">ĐÃ KÍCH HOẠT</span>`;
     case "REJECTED":
-      return `<span class="badge bg-danger-subtle text-danger border border-danger-subtle px-3 py-1 rounded-pill fw-semibold">REJECTED</span>`;
+      return `<span class="badge bg-danger-subtle text-danger border border-danger-subtle px-3 py-1 rounded-pill fw-semibold">ĐÃ TỪ CHỐI</span>`;
     default:
       return `<span class="badge bg-light text-dark border px-3 py-1 rounded-pill">${status || "--"}</span>`;
   }

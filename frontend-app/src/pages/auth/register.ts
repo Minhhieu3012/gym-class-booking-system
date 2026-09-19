@@ -76,22 +76,22 @@ function getPasswordStrength(password: string): {
     },
     1: {
       width: "25%",
-      label: "WEAK",
+      label: "YẾU",
       color: "#ef4444",
     },
     2: {
       width: "50%",
-      label: "FAIR",
+      label: "TRUNG BÌNH",
       color: "#f59e0b",
     },
     3: {
       width: "75%",
-      label: "GOOD",
+      label: "TỐT",
       color: "var(--color-tertiary)",
     },
     4: {
       width: "100%",
-      label: "STRONG",
+      label: "MẠNH",
       color: "var(--color-tertiary)",
     },
   };
@@ -132,7 +132,7 @@ function setEmailStatus(email: string): void {
       >
         <polyline points="20 6 9 17 4 12" />
       </svg>
-      Valid
+      Hợp lệ
     `;
 
     status.className =
@@ -167,7 +167,7 @@ function setEmailStatus(email: string): void {
         <line x1="12" y1="8" x2="12" y2="12" />
         <line x1="12" y1="16" x2="12.01" y2="16" />
       </svg>
-      Invalid
+      Không hợp lệ
     `;
 
     status.className =
@@ -300,7 +300,7 @@ export function init(): void {
         passwordError,
         isStrongPassword(value)
           ? ""
-          : "Password does not meet the required format.",
+          : "Mật khẩu chưa đúng định dạng yêu cầu.",
       );
     } else {
       setFieldError(passwordInput, passwordError, "");
@@ -320,7 +320,7 @@ export function init(): void {
       setFieldError(
         emailInput,
         emailError,
-        "Email is required.",
+        "Vui lòng nhập địa chỉ email.",
       );
       return;
     }
@@ -330,7 +330,7 @@ export function init(): void {
       emailError,
       isValidEmail(email)
         ? ""
-        : "Please enter a valid email address.",
+        : "Vui lòng nhập đúng định dạng email.",
     );
   });
 
@@ -344,7 +344,7 @@ export function init(): void {
     setFieldError(
       fullNameInput,
       fullnameError,
-      value ? "" : "Full name is required.",
+      value ? "" : "Vui lòng nhập họ và tên.",
     );
   });
 
@@ -359,7 +359,7 @@ export function init(): void {
       setFieldError(
         phoneInput,
         phoneError,
-        "Phone number is required.",
+        "Vui lòng nhập số điện thoại.",
       );
       return;
     }
@@ -368,7 +368,7 @@ export function init(): void {
       phoneInput,
       phoneError,
       value.length < 8
-        ? "Please enter a valid phone number."
+        ? "Vui lòng nhập số điện thoại hợp lệ."
         : "",
     );
   });
@@ -383,7 +383,7 @@ export function init(): void {
     setFieldError(
       addressInput,
       addressError,
-      value ? "" : "Address is required.",
+      value ? "" : "Vui lòng nhập địa chỉ.",
     );
   });
 
@@ -420,7 +420,7 @@ export function init(): void {
       setFieldError(
         fullNameInput,
         fullnameError,
-        "Full name is required.",
+        "Vui lòng nhập họ và tên.",
       );
       hasError = true;
     } else {
@@ -432,14 +432,14 @@ export function init(): void {
       setFieldError(
         emailInput,
         emailError,
-        "Email is required.",
+        "Vui lòng nhập địa chỉ email.",
       );
       hasError = true;
     } else if (!isValidEmail(email)) {
       setFieldError(
         emailInput,
         emailError,
-        "Please enter a valid email address.",
+        "Vui lòng nhập đúng định dạng email.",
       );
       hasError = true;
     } else {
@@ -453,14 +453,14 @@ export function init(): void {
       setFieldError(
         phoneInput,
         phoneError,
-        "Phone number is required.",
+        "Vui lòng nhập số điện thoại.",
       );
       hasError = true;
     } else if (phone.length < 8) {
       setFieldError(
         phoneInput,
         phoneError,
-        "Please enter a valid phone number.",
+        "Vui lòng nhập số điện thoại hợp lệ.",
       );
       hasError = true;
     } else {
@@ -472,7 +472,7 @@ export function init(): void {
       setFieldError(
         addressInput,
         addressError,
-        "Address is required.",
+        "Vui lòng nhập địa chỉ.",
       );
       hasError = true;
     } else {
@@ -484,14 +484,14 @@ export function init(): void {
       setFieldError(
         passwordInput,
         passwordError,
-        "Password is required.",
+        "Vui lòng nhập mật khẩu.",
       );
       hasError = true;
     } else if (!isStrongPassword(password)) {
       setFieldError(
         passwordInput,
         passwordError,
-        "Password must contain uppercase, lowercase, number and special character.",
+        "Mật khẩu phải chứa chữ hoa, chữ thường, chữ số và ký tự đặc biệt.",
       );
       hasError = true;
     } else {
@@ -501,7 +501,7 @@ export function init(): void {
     // Terms
     if (!termsChecked) {
       errorDiv.textContent =
-        "You must agree to the Membership Terms to continue.";
+        "Bạn cần đồng ý với Điều khoản hội viên để tiếp tục.";
       hasError = true;
     }
 
@@ -512,7 +512,7 @@ export function init(): void {
     submitBtn.disabled = true;
 
     if (submitText) {
-      submitText.textContent = "CREATING ACCOUNT...";
+      submitText.textContent = "ĐANG TẠO TÀI KHOẢN...";
     }
 
     try {
@@ -540,7 +540,7 @@ export function init(): void {
       submitBtn.disabled = false;
 
       if (submitText) {
-        submitText.textContent = "CREATE MEMBER ACCOUNT";
+        submitText.textContent = "ĐĂNG KÝ HỘI VIÊN";
       }
     }
   });

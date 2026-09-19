@@ -176,9 +176,16 @@ export async function fetchAndRenderRecentTransactions(): Promise<void> {
     }
 
     tbody.innerHTML = list.map((tx: any) => {
-      const isSuccess = (tx.status || "").toUpperCase() === "SUCCESS";
-      const badgeClass = isSuccess ? "bg-success-subtle text-success border-success-subtle" : "bg-danger-subtle text-danger border-danger-subtle";
-      const statusText = isSuccess ? "Thành công" : (tx.status || "Chờ xử lý");
+      const statusUpper = (tx.status || "").toUpperCase();
+      let badgeClass = "bg-secondary-subtle text-secondary border-secondary-subtle";
+      let statusText = "Chờ xử lý";
+      if (statusUpper === "SUCCESS") {
+        badgeClass = "bg-success-subtle text-success border-success-subtle";
+        statusText = "Thành công";
+      } else if (statusUpper === "FAILED") {
+        badgeClass = "bg-danger-subtle text-danger border-danger-subtle";
+        statusText = "Thất bại";
+      }
       
       return `
         <tr>
@@ -188,7 +195,7 @@ export async function fetchAndRenderRecentTransactions(): Promise<void> {
             <div class="text-muted extra-small">${tx.memberEmail || ""}</div>
           </td>
           <td>
-            <span class="badge bg-light text-dark border px-2 py-1">${tx.packageName || "VIP Package"}</span>
+            <span class="badge bg-light text-dark border px-2 py-1">${tx.packageName || "Gói tập VIP"}</span>
           </td>
           <td class="text-end fw-bold text-dark">${formatVND(tx.amount || 0)}</td>
           <td class="text-center">

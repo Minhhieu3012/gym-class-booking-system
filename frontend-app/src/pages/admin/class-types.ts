@@ -121,7 +121,7 @@ export async function init(): Promise<void> {
   }
 
   function buildStatusBadge(isActive: boolean): string {
-    return `<span class="badge ${isActive ? "bg-success-subtle text-success border border-success-subtle" : "bg-secondary-subtle text-secondary border border-secondary-subtle"} rounded-pill small fw-semibold px-2 py-1">${isActive ? "ACTIVE" : "INACTIVE"}</span>`;
+    return `<span class="badge ${isActive ? "bg-success-subtle text-success border border-success-subtle" : "bg-secondary-subtle text-secondary border border-secondary-subtle"} rounded-pill small fw-semibold px-2 py-1">${isActive ? "HOẠT ĐỘNG" : "TẠM DỪNG"}</span>`;
   }
 
   function buildRow(ct: ClassTypeResponse): string {
@@ -241,7 +241,7 @@ export async function init(): Promise<void> {
               const oldBadge = badgeContainer.querySelector(".badge");
               if (oldBadge) {
                 oldBadge.className = `badge ${newActive ? "bg-success-subtle text-success border border-success-subtle" : "bg-secondary-subtle text-secondary border border-secondary-subtle"} rounded-pill small fw-semibold px-2 py-1`;
-                oldBadge.textContent = newActive ? "ACTIVE" : "INACTIVE";
+                oldBadge.textContent = newActive ? "HOẠT ĐỘNG" : "TẠM DỪNG";
               }
             }
 
@@ -286,13 +286,13 @@ export async function init(): Promise<void> {
   function syncStatusLabel(active: boolean): void {
     if (statusLabel) {
       statusLabel.textContent = active
-        ? "Active (Visible)"
-        : "Inactive (Hidden)";
+        ? "Đang hoạt động"
+        : "Tạm dừng";
     }
     if (statusHint) {
       statusHint.textContent = active
-        ? "This class type will be visible to members for booking."
-        : "This class type will be hidden from the member catalog.";
+        ? "Thể loại này sẽ hiển thị cho học viên khi đăng ký lớp học."
+        : "Thể loại này sẽ bị ẩn khỏi danh mục đăng ký của học viên.";
     }
   }
 

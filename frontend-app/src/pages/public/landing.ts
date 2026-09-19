@@ -242,17 +242,17 @@ async function loadLandingreview(): Promise<void> {
           email.includes("maria") ||
           memberName.toLowerCase().includes("maria")
         ) {
-          role = "Web Developer";
+          role = "Kỹ sư phần mềm";
         } else if (
           email.includes("lisa") ||
           memberName.toLowerCase().includes("lisa")
         ) {
-          role = "Graphic Designer";
+          role = "Thiết kế đồ họa";
         } else if (
           email.includes("john") ||
           memberName.toLowerCase().includes("john")
         ) {
-          role = "Marketing Specialist";
+          role = "Chuyên viên Marketing";
         } else if (review.targetName && review.targetName !== "--") {
           role = escapeHtml(review.targetName);
         } else {
@@ -342,7 +342,7 @@ function setupCtaContainer(): void {
   if (hasRole("ADMIN")) {
     if (loginLink) {
       loginLink.href = "/admin/dashboard.html";
-      loginLink.textContent = "Dashboard Admin";
+      loginLink.textContent = "Trang Quản Trị";
     }
     ctaContainer.innerHTML = `
       <a href="/admin/dashboard.html" data-link class="btn-brand w-100 justify-content-center py-3" style="font-size: 1rem; letter-spacing: 0.05em">
@@ -350,13 +350,13 @@ function setupCtaContainer(): void {
           <rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/>
           <rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/>
         </svg>
-        VÀO DASHBOARD ADMIN
+        TRANG QUẢN TRỊ VIÊN
       </a>
     `;
   } else if (hasRole("TRAINER")) {
     if (loginLink) {
       loginLink.href = "/trainer/time-slots.html";
-      loginLink.textContent = "Trainer Portal";
+      loginLink.textContent = "Cổng Huấn Luyện Viên";
     }
     ctaContainer.innerHTML = `
       <a href="/trainer/time-slots.html" data-link class="btn-brand w-100 justify-content-center py-3" style="font-size: 1rem; letter-spacing: 0.05em">
@@ -366,7 +366,7 @@ function setupCtaContainer(): void {
           <line x1="8" y1="2" x2="8" y2="6" />
           <line x1="3" y1="10" x2="21" y2="10" />
         </svg>
-        VÀO PORTAL HUẤN LUYỆN VIÊN
+        CỔNG HUẤN LUYỆN VIÊN
       </a>
     `;
   } else {

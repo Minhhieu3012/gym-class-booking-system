@@ -21,7 +21,7 @@
           >GYM HUB</span
         >
         <span class="brand-subtitle text-secondary-emphasis small"
-          >ADMIN PORTAL</span
+          >QUẢN TRỊ VIÊN</span
         >
       </div>
     </div>
@@ -55,7 +55,7 @@
           <rect x="14" y="12" width="7" height="9" rx="1" />
           <rect x="3" y="16" width="7" height="5" rx="1" />
         </svg>
-        <span>Dashboard</span>
+        <span>Tổng quan</span>
       </a>
 
       <!-- 2. Users -->
@@ -78,7 +78,7 @@
           <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
           <path d="M16 3.13a4 4 0 0 1 0 7.75" />
         </svg>
-        <span>Users</span>
+        <span>Người dùng</span>
       </a>
 
       <!-- 3. Trainers -->
@@ -100,7 +100,7 @@
           <circle cx="12" cy="12" r="10" />
           <path d="M12 8v8" />
         </svg>
-        <span>Trainers</span>
+        <span>Huấn luyện viên</span>
       </a>
 
       <!-- 4. Rooms -->
@@ -121,7 +121,7 @@
           <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
           <polyline points="9 22 9 12 15 12 15 22" />
         </svg>
-        <span>Rooms</span>
+        <span>Phòng tập</span>
       </a>
 
       <!-- 5. Class Types -->
@@ -144,7 +144,7 @@
             d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"
           />
         </svg>
-        <span>Class Types</span>
+        <span>Thể loại lớp</span>
       </a>
 
       <!-- 6. Packages (Active) -->
@@ -165,7 +165,7 @@
           <rect x="2" y="7" width="20" height="14" rx="2" ry="2" />
           <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16" />
         </svg>
-        <span>Packages</span>
+        <span>Gói tập</span>
       </a>
 
       <!-- 7. Reviews -->
@@ -187,7 +187,7 @@
             points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"
           />
         </svg>
-        <span>Reviews</span>
+        <span>Đánh giá</span>
       </a>
 
       <!-- 8. Transactions -->
@@ -208,7 +208,7 @@
           <rect x="1" y="4" width="22" height="16" rx="2" ry="2" />
           <line x1="1" y1="10" x2="23" y2="10" />
         </svg>
-        <span>Transactions</span>
+        <span>Giao dịch</span>
       </a>
     </nav>
 
@@ -227,7 +227,7 @@
           >
             Admin
           </div>
-          <div class="text-muted small text-truncate">System Administrator</div>
+          <div class="text-muted small text-truncate">Quản trị viên hệ thống</div>
         </div>
       </div>
     </div>
@@ -244,7 +244,7 @@
       <!-- Breadcrumbs -->
       <div class="d-flex align-items-center gap-2">
         <span class="text-muted small text-uppercase fw-semibold"
-          >Command Center</span
+          >Trung tâm điều khiển</span
         >
         <svg
           width="14"
@@ -568,7 +568,7 @@
                     class="py-3 text-muted text-uppercase small fw-bold text-end"
                     style="width: 140px"
                   >
-                    Giá (USD)
+                    Giá (VNĐ)
                   </th>
                   <th
                     scope="col"
@@ -739,21 +739,21 @@
                 for="pkg-price"
                 class="form-label fw-semibold text-dark small mb-1"
               >
-                GIÁ ($) <span class="text-danger">*</span>
+                GIÁ (VNĐ) <span class="text-danger">*</span>
               </label>
               <div class="input-group">
                 <span
                   class="input-group-text bg-light border-light-subtle text-muted fw-semibold"
-                  >$</span
+                  >₫</span
                 >
                 <input
                   type="number"
                   id="pkg-price"
                   name="price"
                   class="form-control border-light-subtle shadow-none py-2"
-                  placeholder="500.00"
+                  placeholder="500000"
                   min="0"
-                  step="0.01"
+                  step="1000"
                   required
                 />
               </div>

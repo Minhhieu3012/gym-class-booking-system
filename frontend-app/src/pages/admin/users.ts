@@ -1,4 +1,8 @@
-import { UserService, type UserResponseDTO, type UserQueryParams } from "../../services/user.service";
+import {
+  UserService,
+  type UserResponseDTO,
+  type UserQueryParams,
+} from "../../services/user.service";
 import { paymentService } from "../../services/payment.service";
 import { authService } from "../../services/auth.service";
 import { initNotification } from "../../components/notification-popover";
@@ -36,7 +40,10 @@ let debounceTimer: ReturnType<typeof setTimeout> | null = null;
 /**
  * Hiển thị Toast thông báo trên góc màn hình
  */
-function showUserToast(message: string, type: "success" | "danger" = "success"): void {
+function showUserToast(
+  message: string,
+  type: "success" | "danger" = "success",
+): void {
   let container = document.getElementById("user-toast-container");
   if (!container) {
     container = document.createElement("div");
@@ -69,7 +76,12 @@ function showUserToast(message: string, type: "success" | "danger" = "success"):
 /**
  * Mở modal xác nhận thay đổi trạng thái người dùng (Khóa / Mở khóa)
  */
-function openUserStatusModal(userId: number, userName: string, userEmail: string, targetStatus: string): void {
+function openUserStatusModal(
+  userId: number,
+  userName: string,
+  userEmail: string,
+  targetStatus: string,
+): void {
   currentStatusUserId = userId;
   currentStatusUserName = userName;
   currentStatusUserEmail = userEmail;
@@ -84,12 +96,18 @@ function openUserStatusModal(userId: number, userName: string, userEmail: string
   const emailEl = document.getElementById("userStatusModalUserEmail");
   const msgEl = document.getElementById("userStatusConfirmMessage");
   const subMsgEl = document.getElementById("userStatusSubMessage");
-  const confirmBtn = document.getElementById("btn-confirm-user-status") as HTMLButtonElement | null;
+  const confirmBtn = document.getElementById(
+    "btn-confirm-user-status",
+  ) as HTMLButtonElement | null;
   const infoBox = document.getElementById("userStatusModalInfoBox");
 
   if (titleEl) {
-    titleEl.textContent = isLocking ? "Xác nhận Khóa tài khoản" : "Xác nhận Mở khóa tài khoản";
-    titleEl.className = isLocking ? "fw-bold text-danger" : "fw-bold text-success";
+    titleEl.textContent = isLocking
+      ? "Xác nhận Khóa tài khoản"
+      : "Xác nhận Mở khóa tài khoản";
+    titleEl.className = isLocking
+      ? "fw-bold text-danger"
+      : "fw-bold text-success";
   }
 
   if (nameEl) nameEl.textContent = userName;
@@ -113,16 +131,19 @@ function openUserStatusModal(userId: number, userName: string, userEmail: string
         </div>`;
     }
     if (infoBox) {
-      infoBox.className = "d-flex align-items-center gap-3 p-3 rounded-3 mb-3 border bg-danger-subtle border-danger-subtle";
+      infoBox.className =
+        "d-flex align-items-center gap-3 p-3 rounded-3 mb-3 border bg-danger-subtle border-danger-subtle";
     }
     if (msgEl) {
       msgEl.innerHTML = `Bạn có chắc chắn muốn <strong>KHÓA</strong> tài khoản của <strong>${userName}</strong> không?`;
     }
     if (subMsgEl) {
-      subMsgEl.textContent = "Người dùng này sẽ bị chặn đăng nhập vào hệ thống ngay sau khi tài khoản bị khóa.";
+      subMsgEl.textContent =
+        "Người dùng này sẽ bị chặn đăng nhập vào hệ thống ngay sau khi tài khoản bị khóa.";
     }
     if (confirmBtn) {
-      confirmBtn.className = "btn btn-danger px-4 rounded-3 fw-semibold d-flex align-items-center gap-2 shadow-sm";
+      confirmBtn.className =
+        "btn btn-danger px-4 rounded-3 fw-semibold d-flex align-items-center gap-2 shadow-sm";
       confirmBtn.innerHTML = `<span>Xác nhận Khóa</span>`;
     }
   } else {
@@ -143,23 +164,28 @@ function openUserStatusModal(userId: number, userName: string, userEmail: string
         </div>`;
     }
     if (infoBox) {
-      infoBox.className = "d-flex align-items-center gap-3 p-3 rounded-3 mb-3 border bg-success-subtle border-success-subtle";
+      infoBox.className =
+        "d-flex align-items-center gap-3 p-3 rounded-3 mb-3 border bg-success-subtle border-success-subtle";
     }
     if (msgEl) {
       msgEl.innerHTML = `Bạn có chắc chắn muốn <strong>MỞ KHÓA</strong> cho tài khoản của <strong>${userName}</strong> không?`;
     }
     if (subMsgEl) {
-      subMsgEl.textContent = "Người dùng sẽ có thể đăng nhập và sử dụng dịch vụ trở lại bình thường.";
+      subMsgEl.textContent =
+        "Người dùng sẽ có thể đăng nhập và sử dụng dịch vụ trở lại bình thường.";
     }
     if (confirmBtn) {
-      confirmBtn.className = "btn btn-success px-4 rounded-3 fw-semibold d-flex align-items-center gap-2 shadow-sm";
+      confirmBtn.className =
+        "btn btn-success px-4 rounded-3 fw-semibold d-flex align-items-center gap-2 shadow-sm";
       confirmBtn.innerHTML = `<span>Xác nhận Mở khóa</span>`;
     }
   }
 
   const modalEl = document.getElementById("userStatusModal");
   if (modalEl) {
-    const modalInstance = (window as any).bootstrap?.Modal?.getOrCreateInstance(modalEl);
+    const modalInstance = (window as any).bootstrap?.Modal?.getOrCreateInstance(
+      modalEl,
+    );
     if (modalInstance) {
       modalInstance.show();
     } else {
@@ -175,7 +201,9 @@ function openUserStatusModal(userId: number, userName: string, userEmail: string
 function closeUserStatusModal(): void {
   const modalEl = document.getElementById("userStatusModal");
   if (modalEl) {
-    const modalInstance = (window as any).bootstrap?.Modal?.getInstance(modalEl);
+    const modalInstance = (window as any).bootstrap?.Modal?.getInstance(
+      modalEl,
+    );
     if (modalInstance) {
       modalInstance.hide();
     } else {
@@ -191,17 +219,28 @@ function closeUserStatusModal(): void {
 /**
  * Mở modal Điều chỉnh Lượt tập & Gói tập cho Member
  */
-async function openAdjustPackageModal(userId: number, userName: string): Promise<void> {
+async function openAdjustPackageModal(
+  userId: number,
+  userName: string,
+): Promise<void> {
   currentAdjustUserName = userName;
 
   const memberNameEl = document.getElementById("adjustModalMemberName");
   const memberInfoEl = document.getElementById("adjustModalMemberInfo");
-  const pkgSelect = document.getElementById("adjust-package-select") as HTMLSelectElement | null;
+  const pkgSelect = document.getElementById(
+    "adjust-package-select",
+  ) as HTMLSelectElement | null;
   const pkgInfo = document.getElementById("adjust-package-info");
   const manualBox = document.getElementById("adjust-package-manual-box");
-  const sessionsInput = document.getElementById("adjust-sessions-input") as HTMLInputElement | null;
-  const endDateInput = document.getElementById("adjust-end-date-input") as HTMLInputElement | null;
-  const reasonInput = document.getElementById("adjust-reason-input") as HTMLTextAreaElement | null;
+  const sessionsInput = document.getElementById(
+    "adjust-sessions-input",
+  ) as HTMLInputElement | null;
+  const endDateInput = document.getElementById(
+    "adjust-end-date-input",
+  ) as HTMLInputElement | null;
+  const reasonInput = document.getElementById(
+    "adjust-reason-input",
+  ) as HTMLTextAreaElement | null;
 
   if (memberNameEl) memberNameEl.textContent = userName;
   if (memberInfoEl) memberInfoEl.textContent = `Hội viên ID: #${userId}`;
@@ -215,7 +254,9 @@ async function openAdjustPackageModal(userId: number, userName: string): Promise
 
   const modalEl = document.getElementById("adjustPackageModal");
   if (modalEl) {
-    const modalInstance = (window as any).bootstrap?.Modal?.getOrCreateInstance(modalEl);
+    const modalInstance = (window as any).bootstrap?.Modal?.getOrCreateInstance(
+      modalEl,
+    );
     if (modalInstance) {
       modalInstance.show();
     } else {
@@ -257,7 +298,8 @@ async function openAdjustPackageModal(userId: number, userName: string): Promise
         pkgSelect.innerHTML = `<option value="" disabled selected>Hội viên chưa có gói tập nào</option>`;
         if (manualBox) manualBox.style.display = "block";
         if (pkgInfo) {
-          pkgInfo.textContent = "Không tìm thấy gói tập tự động. Bạn có thể nhập ID gói tập bên dưới.";
+          pkgInfo.textContent =
+            "Không tìm thấy gói tập tự động. Bạn có thể nhập ID gói tập bên dưới.";
         }
       }
     }
@@ -276,7 +318,9 @@ async function openAdjustPackageModal(userId: number, userName: string): Promise
 function closeAdjustPackageModal(): void {
   const modalEl = document.getElementById("adjustPackageModal");
   if (modalEl) {
-    const modalInstance = (window as any).bootstrap?.Modal?.getInstance(modalEl);
+    const modalInstance = (window as any).bootstrap?.Modal?.getInstance(
+      modalEl,
+    );
     if (modalInstance) {
       modalInstance.hide();
     } else {
@@ -287,25 +331,17 @@ function closeAdjustPackageModal(): void {
   currentAdjustUserName = "";
 }
 
-
-/**
- * Hiển thị Badge cho Trạng thái tài khoản
- * - ACTIVE: xanh lá
- * - LOCKED: đỏ
- * - PENDING: vàng
- * - REJECTED: xám đậm
- */
 function renderStatusBadge(status: string): string {
   const s = (status || "").toUpperCase();
   switch (s) {
     case "ACTIVE":
-      return `<span class="badge bg-success-subtle text-success border border-success-subtle px-3 py-1 rounded-pill fw-semibold">ACTIVE</span>`;
+      return `<span class="badge bg-success-subtle text-success border border-success-subtle px-3 py-1 rounded-pill fw-semibold">HOẠT ĐỘNG</span>`;
     case "LOCKED":
-      return `<span class="badge bg-danger-subtle text-danger border border-danger-subtle px-3 py-1 rounded-pill fw-semibold">LOCKED</span>`;
+      return `<span class="badge bg-danger-subtle text-danger border border-danger-subtle px-3 py-1 rounded-pill fw-semibold">BỊ KHÓA</span>`;
     case "PENDING":
-      return `<span class="badge bg-warning-subtle text-warning border border-warning-subtle px-3 py-1 rounded-pill fw-semibold">PENDING</span>`;
+      return `<span class="badge bg-warning-subtle text-warning border border-warning-subtle px-3 py-1 rounded-pill fw-semibold">CHỜ DUYỆT</span>`;
     case "REJECTED":
-      return `<span class="badge bg-secondary-subtle text-secondary border border-secondary-subtle px-3 py-1 rounded-pill fw-semibold">REJECTED</span>`;
+      return `<span class="badge bg-secondary-subtle text-secondary border border-secondary-subtle px-3 py-1 rounded-pill fw-semibold">BỊ TỪ CHỐI</span>`;
     default:
       return `<span class="badge bg-light text-dark border px-3 py-1 rounded-pill">${status}</span>`;
   }
@@ -318,11 +354,11 @@ function renderRoleBadge(role: string): string {
   const r = (role || "").toUpperCase();
   switch (r) {
     case "ADMIN":
-      return `<span class="badge bg-primary-subtle text-primary border border-primary-subtle px-2 py-1 rounded-pill fw-bold">ADMIN</span>`;
+      return `<span class="badge bg-primary-subtle text-primary border border-primary-subtle px-2 py-1 rounded-pill fw-bold">QUẢN TRỊ</span>`;
     case "TRAINER":
-      return `<span class="badge bg-info-subtle text-info border border-info-subtle px-2 py-1 rounded-pill fw-bold">TRAINER</span>`;
+      return `<span class="badge bg-info-subtle text-info border border-info-subtle px-2 py-1 rounded-pill fw-bold">HLV</span>`;
     case "MEMBER":
-      return `<span class="badge bg-secondary-subtle text-secondary border border-secondary-subtle px-2 py-1 rounded-pill fw-bold">MEMBER</span>`;
+      return `<span class="badge bg-secondary-subtle text-secondary border border-secondary-subtle px-2 py-1 rounded-pill fw-bold">HỘI VIÊN</span>`;
     default:
       return `<span class="badge bg-light text-dark border px-2 py-1 rounded-pill">${role}</span>`;
   }
@@ -332,9 +368,12 @@ function renderRoleBadge(role: string): string {
  * Render bảng danh sách người dùng vào #user-table-body
  */
 function renderTable(): void {
-  const tbody = document.querySelector<HTMLTableSectionElement>("#user-table-body");
+  const tbody =
+    document.querySelector<HTMLTableSectionElement>("#user-table-body");
   const countBadge = document.querySelector<HTMLElement>("#users-count-badge");
-  const paginationInfo = document.querySelector<HTMLElement>("#table-pagination-info");
+  const paginationInfo = document.querySelector<HTMLElement>(
+    "#table-pagination-info",
+  );
 
   if (!tbody) return;
 
@@ -343,7 +382,10 @@ function renderTable(): void {
   }
 
   if (paginationInfo) {
-    const start = totalElements === 0 ? 0 : (filtersState.page ?? 0) * (filtersState.size ?? 10) + 1;
+    const start =
+      totalElements === 0
+        ? 0
+        : (filtersState.page ?? 0) * (filtersState.size ?? 10) + 1;
     const end = Math.min(
       ((filtersState.page ?? 0) + 1) * (filtersState.size ?? 10),
       totalElements,
@@ -384,7 +426,7 @@ function renderTable(): void {
             type="button"
             class="btn btn-sm btn-outline-primary btn-adjust-package d-inline-flex align-items-center gap-1 rounded-3 px-2 py-1 fw-medium"
             data-id="${user.id}"
-            data-name="${(user.fullName || user.email).replace(/"/g, '&quot;')}"
+            data-name="${(user.fullName || user.email).replace(/"/g, "&quot;")}"
             title="Cộng / Trừ lượt tập thủ công cho hội viên này"
           >
             <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" style="pointer-events: none;">
@@ -445,7 +487,7 @@ function renderTable(): void {
           <td>
             <div class="d-flex align-items-center gap-2">
               <div class="user-avatar-mini rounded-circle d-flex align-items-center justify-content-center fw-bold overflow-hidden">
-                <img src="${(user as any).avatarUrl || '/src/assets/img/avatar-user-default.jpg'}" alt="${user.fullName || 'User'}" class="w-100 h-100 object-fit-cover" />
+                <img src="${(user as any).avatarUrl || "/src/assets/img/avatar-user-default.jpg"}" alt="${user.fullName || "User"}" class="w-100 h-100 object-fit-cover" />
               </div>
               <div>
                 <div class="fw-semibold text-dark">${user.fullName || "--"}</div>
@@ -528,7 +570,8 @@ function renderPagination(): void {
  * Tải danh sách người dùng từ API qua UserService
  */
 export async function loadUsers(): Promise<void> {
-  const tbody = document.querySelector<HTMLTableSectionElement>("#user-table-body");
+  const tbody =
+    document.querySelector<HTMLTableSectionElement>("#user-table-body");
   if (tbody) {
     tbody.innerHTML = `
       <tr>
@@ -570,7 +613,9 @@ export async function loadUsers(): Promise<void> {
             </button>
           </td>
         </tr>`;
-      document.querySelector("#btn-retry-load")?.addEventListener("click", () => loadUsers());
+      document
+        .querySelector("#btn-retry-load")
+        ?.addEventListener("click", () => loadUsers());
     }
   }
 }
@@ -580,10 +625,13 @@ export async function loadUsers(): Promise<void> {
  */
 function setupEventListeners(): void {
   // 1. Delegated Click Listener cho nút Khóa / Mở khóa & Điều chỉnh lượt tập
-  const tbody = document.querySelector<HTMLTableSectionElement>("#user-table-body");
+  const tbody =
+    document.querySelector<HTMLTableSectionElement>("#user-table-body");
   tbody?.addEventListener("click", async (event: MouseEvent) => {
     // A. Nút Điều chỉnh lượt tập gói tập (MEMBER)
-    const adjustBtn = (event.target as HTMLElement).closest<HTMLButtonElement>(".btn-adjust-package");
+    const adjustBtn = (event.target as HTMLElement).closest<HTMLButtonElement>(
+      ".btn-adjust-package",
+    );
     if (adjustBtn) {
       const userId = Number(adjustBtn.dataset.id);
       const userName = adjustBtn.dataset.name || "Hội viên";
@@ -592,7 +640,9 @@ function setupEventListeners(): void {
     }
 
     // B. Nút Khóa / Mở khóa tài khoản
-    const btn = (event.target as HTMLElement).closest<HTMLButtonElement>(".btn-toggle-status");
+    const btn = (event.target as HTMLElement).closest<HTMLButtonElement>(
+      ".btn-toggle-status",
+    );
     if (!btn) return;
 
     const userId = Number(btn.dataset.id);
@@ -604,7 +654,9 @@ function setupEventListeners(): void {
   });
 
   // 1b. Xử lý nút xác nhận trong Modal thay đổi trạng thái
-  const confirmStatusBtn = document.querySelector<HTMLButtonElement>("#btn-confirm-user-status");
+  const confirmStatusBtn = document.querySelector<HTMLButtonElement>(
+    "#btn-confirm-user-status",
+  );
   confirmStatusBtn?.addEventListener("click", async () => {
     if (!currentStatusUserId) return;
 
@@ -616,7 +668,10 @@ function setupEventListeners(): void {
         <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
         <span>Đang xử lý...</span>`;
 
-      await UserService.updateUserStatus(currentStatusUserId, currentTargetStatus);
+      await UserService.updateUserStatus(
+        currentStatusUserId,
+        currentTargetStatus,
+      );
       closeUserStatusModal();
       showUserToast(
         isLocking
@@ -627,7 +682,10 @@ function setupEventListeners(): void {
       await loadUsers();
     } catch (error: any) {
       console.error("Lỗi khi cập nhật trạng thái người dùng:", error);
-      const errMsg = error?.response?.data?.message || error?.message || "Cập nhật trạng thái người dùng thất bại! Vui lòng thử lại.";
+      const errMsg =
+        error?.response?.data?.message ||
+        error?.message ||
+        "Cập nhật trạng thái người dùng thất bại! Vui lòng thử lại.";
       showUserToast(errMsg, "danger");
     } finally {
       confirmStatusBtn.disabled = false;
@@ -636,29 +694,47 @@ function setupEventListeners(): void {
   });
 
   // 1c. Xử lý nút tăng giảm nhanh buổi tập trong Adjust Modal
-  document.querySelectorAll<HTMLButtonElement>(".btn-session-preset").forEach((btn) => {
-    btn.addEventListener("click", (e) => {
-      e.preventDefault();
-      const val = Number(btn.dataset.val || 0);
-      const input = document.getElementById("adjust-sessions-input") as HTMLInputElement | null;
-      if (input) {
-        const cur = Number(input.value) || 0;
-        input.value = String(cur + val);
-      }
+  document
+    .querySelectorAll<HTMLButtonElement>(".btn-session-preset")
+    .forEach((btn) => {
+      btn.addEventListener("click", (e) => {
+        e.preventDefault();
+        const val = Number(btn.dataset.val || 0);
+        const input = document.getElementById(
+          "adjust-sessions-input",
+        ) as HTMLInputElement | null;
+        if (input) {
+          const cur = Number(input.value) || 0;
+          input.value = String(cur + val);
+        }
+      });
     });
-  });
 
   // 1d. Xử lý Submit Form Điều chỉnh lượt tập thủ công
-  const adjustForm = document.getElementById("adjustPackageForm") as HTMLFormElement | null;
+  const adjustForm = document.getElementById(
+    "adjustPackageForm",
+  ) as HTMLFormElement | null;
   adjustForm?.addEventListener("submit", async (e: SubmitEvent) => {
     e.preventDefault();
 
-    const selectEl = document.getElementById("adjust-package-select") as HTMLSelectElement | null;
-    const manualInput = document.getElementById("adjust-package-id-input") as HTMLInputElement | null;
-    const sessionsInput = document.getElementById("adjust-sessions-input") as HTMLInputElement | null;
-    const endDateInput = document.getElementById("adjust-end-date-input") as HTMLInputElement | null;
-    const reasonInput = document.getElementById("adjust-reason-input") as HTMLTextAreaElement | null;
-    const submitBtn = document.getElementById("btn-confirm-adjust-package") as HTMLButtonElement | null;
+    const selectEl = document.getElementById(
+      "adjust-package-select",
+    ) as HTMLSelectElement | null;
+    const manualInput = document.getElementById(
+      "adjust-package-id-input",
+    ) as HTMLInputElement | null;
+    const sessionsInput = document.getElementById(
+      "adjust-sessions-input",
+    ) as HTMLInputElement | null;
+    const endDateInput = document.getElementById(
+      "adjust-end-date-input",
+    ) as HTMLInputElement | null;
+    const reasonInput = document.getElementById(
+      "adjust-reason-input",
+    ) as HTMLTextAreaElement | null;
+    const submitBtn = document.getElementById(
+      "btn-confirm-adjust-package",
+    ) as HTMLButtonElement | null;
 
     let packageId = selectEl && selectEl.value ? Number(selectEl.value) : null;
     if (!packageId && manualInput && manualInput.value) {
@@ -666,7 +742,10 @@ function setupEventListeners(): void {
     }
 
     if (!packageId) {
-      showUserToast("Vui lòng chọn hoặc nhập ID gói tập cần điều chỉnh!", "danger");
+      showUserToast(
+        "Vui lòng chọn hoặc nhập ID gói tập cần điều chỉnh!",
+        "danger",
+      );
       return;
     }
 
@@ -676,8 +755,12 @@ function setupEventListeners(): void {
       return;
     }
 
-    const sessionsAdjustment = sessionsInput && sessionsInput.value !== "" ? Number(sessionsInput.value) : undefined;
-    const newEndDate = endDateInput && endDateInput.value ? endDateInput.value : undefined;
+    const sessionsAdjustment =
+      sessionsInput && sessionsInput.value !== ""
+        ? Number(sessionsInput.value)
+        : undefined;
+    const newEndDate =
+      endDateInput && endDateInput.value ? endDateInput.value : undefined;
 
     const originalBtnHtml = submitBtn ? submitBtn.innerHTML : "";
     try {
@@ -692,12 +775,18 @@ function setupEventListeners(): void {
         reason,
       });
 
-      showUserToast(`Đã cập nhật lượt tập cho hội viên "${currentAdjustUserName}" thành công!`, "success");
+      showUserToast(
+        `Đã cập nhật lượt tập cho hội viên "${currentAdjustUserName}" thành công!`,
+        "success",
+      );
       closeAdjustPackageModal();
       await loadUsers();
     } catch (err: any) {
       console.error("Lỗi khi điều chỉnh lượt tập:", err);
-      const errMsg = err?.response?.data?.message || err?.message || "Điều chỉnh lượt tập thất bại. Vui lòng kiểm tra lại thông tin!";
+      const errMsg =
+        err?.response?.data?.message ||
+        err?.message ||
+        "Điều chỉnh lượt tập thất bại. Vui lòng kiểm tra lại thông tin!";
       showUserToast(errMsg, "danger");
     } finally {
       if (submitBtn) {
@@ -708,12 +797,21 @@ function setupEventListeners(): void {
   });
 
   // 2. Phân trang clicks
-  const paginationControls = document.querySelector<HTMLElement>("#pagination-controls");
+  const paginationControls = document.querySelector<HTMLElement>(
+    "#pagination-controls",
+  );
   paginationControls?.addEventListener("click", (event: MouseEvent) => {
-    const btn = (event.target as HTMLElement).closest<HTMLButtonElement>(".btn-page");
+    const btn = (event.target as HTMLElement).closest<HTMLButtonElement>(
+      ".btn-page",
+    );
     if (!btn) return;
     const pageNum = Number(btn.dataset.page);
-    if (!isNaN(pageNum) && pageNum >= 0 && pageNum < totalPages && pageNum !== filtersState.page) {
+    if (
+      !isNaN(pageNum) &&
+      pageNum >= 0 &&
+      pageNum < totalPages &&
+      pageNum !== filtersState.page
+    ) {
       filtersState.page = pageNum;
       loadUsers();
     }
@@ -728,7 +826,8 @@ function setupEventListeners(): void {
   });
 
   // 4. Dropdown Status filter
-  const statusSelect = document.querySelector<HTMLSelectElement>("#filter-status");
+  const statusSelect =
+    document.querySelector<HTMLSelectElement>("#filter-status");
   statusSelect?.addEventListener("change", () => {
     filtersState.status = statusSelect.value;
     filtersState.page = 0;
@@ -736,7 +835,8 @@ function setupEventListeners(): void {
   });
 
   // 5. Input tìm kiếm Keyword (Debounce 300ms)
-  const keywordInput = document.querySelector<HTMLInputElement>("#filter-keyword");
+  const keywordInput =
+    document.querySelector<HTMLInputElement>("#filter-keyword");
   keywordInput?.addEventListener("input", () => {
     if (debounceTimer) {
       clearTimeout(debounceTimer);
@@ -749,7 +849,8 @@ function setupEventListeners(): void {
   });
 
   // 6. Nút Reset Filters
-  const resetBtn = document.querySelector<HTMLButtonElement>("#btn-reset-filters");
+  const resetBtn =
+    document.querySelector<HTMLButtonElement>("#btn-reset-filters");
   resetBtn?.addEventListener("click", () => {
     if (keywordInput) keywordInput.value = "";
     if (roleSelect) roleSelect.value = "ALL";
@@ -777,7 +878,9 @@ function setupAdminProfile(): void {
     headerName.textContent = displayName;
   }
 
-  const sidebarName = document.querySelector<HTMLElement>("#sidebar-admin-name");
+  const sidebarName = document.querySelector<HTMLElement>(
+    "#sidebar-admin-name",
+  );
   if (sidebarName) {
     sidebarName.textContent = displayName;
   }
@@ -787,7 +890,8 @@ function setupAdminProfile(): void {
  * Xử lý sự kiện đăng xuất
  */
 function setupLogoutAction(): void {
-  const logoutBtn = document.querySelector<HTMLElement>("#btn-logout") ||
+  const logoutBtn =
+    document.querySelector<HTMLElement>("#btn-logout") ||
     document.querySelector<HTMLElement>("#logout-btn");
 
   if (!logoutBtn) return;
@@ -813,11 +917,15 @@ function setupLogoutAction(): void {
  */
 function highlightActiveNav(): void {
   const currentPath = window.location.pathname;
-  const navLinks = document.querySelectorAll<HTMLAnchorElement>(".admin-nav-link");
+  const navLinks =
+    document.querySelectorAll<HTMLAnchorElement>(".admin-nav-link");
 
   navLinks.forEach((link) => {
     const href = link.getAttribute("href");
-    if (href === currentPath || (currentPath === "/admin/users" && href === "/admin/users")) {
+    if (
+      href === currentPath ||
+      (currentPath === "/admin/users" && href === "/admin/users")
+    ) {
       link.classList.add("active", "text-white");
       link.classList.remove("text-secondary-emphasis");
     } else {

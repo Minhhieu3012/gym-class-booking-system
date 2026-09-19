@@ -55,7 +55,7 @@ export function init(): void {
     submitBtn.disabled = true;
     submitBtn.innerHTML = `
       <span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true" style="width: 1rem; height: 1rem;"></span>
-      Processing...
+      Đang xử lý...
     `;
 
     try {
@@ -75,7 +75,7 @@ export function init(): void {
     } finally {
       // Restore button state
       submitBtn.disabled = false;
-      submitBtn.textContent = "SAVE NEW PASSWORD";
+      submitBtn.textContent = "LƯU MẬT KHẨU MỚI";
     }
   });
 }

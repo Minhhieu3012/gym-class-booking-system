@@ -123,7 +123,7 @@ function setupRole(role?: string): void {
     trainerMobile?.classList.remove("d-none");
 
     if (portalTag) {
-      portalTag.textContent = "TRAINER PORTAL";
+      portalTag.textContent = "HUẤN LUYỆN VIÊN";
     }
 
     if (roleBadge) {
@@ -146,7 +146,7 @@ function setupRole(role?: string): void {
     memberMobile?.classList.remove("d-none");
 
     if (portalTag) {
-      portalTag.textContent = "MEMBER PORTAL";
+      portalTag.textContent = "HỘI VIÊN";
     }
 
     if (roleBadge) {
@@ -166,7 +166,7 @@ function setupRole(role?: string): void {
 
   if (role === "ADMIN") {
     if (portalTag) {
-      portalTag.textContent = "ADMIN PORTAL";
+      portalTag.textContent = "QUẢN TRỊ VIÊN";
     }
 
     if (roleBadge) {
@@ -201,7 +201,7 @@ async function setupUserProfile(): Promise<void> {
       profile.fullName?.trim().split(/\s+/)[0] ?? "Bạn";
 
     if (greeting) {
-      greeting.textContent = `Hey ${firstName}`;
+      greeting.textContent = `Chào, ${firstName}`;
     }
 
     const avatarUrl =

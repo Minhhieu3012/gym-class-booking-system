@@ -147,8 +147,8 @@ function renderScheduleItem(
 
   const typeLabel =
     item.type === "CLASS"
-      ? "GYM CLASS"
-      : "PERSONAL TRAINING";
+      ? "LỚP HỌC NHÓM"
+      : "HUẤN LUYỆN 1-1";
 
   const statusClass =
     `schedule-status-${item.status
@@ -436,7 +436,7 @@ function formatDate(
   }
 
   return date.toLocaleDateString(
-    "en-US",
+    "vi-VN",
     {
       weekday: "short",
       month: "short",
@@ -458,7 +458,7 @@ function formatTime(
   }
 
   return date.toLocaleTimeString(
-    "en-US",
+    "vi-VN",
     {
       hour: "2-digit",
       minute: "2-digit",
@@ -470,12 +470,23 @@ function formatTime(
 function formatStatus(
   status: string
 ): string {
-
-  return status
-    .replaceAll("_", " ")
-    .replace(/\b\w/g, char =>
-      char.toUpperCase()
-    );
+  switch (status) {
+    case "CONFIRMED":
+    case "BOOKED":
+      return "ĐÃ XÁC NHẬN";
+    case "COMPLETED":
+      return "ĐÃ HOÀN THÀNH";
+    case "CANCELLED":
+      return "ĐÃ HỦY";
+    case "PENDING":
+      return "CHỜ DUYỆT";
+    default:
+      return status
+        .replaceAll("_", " ")
+        .replace(/\b\w/g, char =>
+          char.toUpperCase()
+        );
+  }
 }
 
 

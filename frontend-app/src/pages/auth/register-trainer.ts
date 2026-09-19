@@ -417,7 +417,7 @@ export function init(): void {
       }
     } finally {
       submitBtn.disabled = false;
-      submitBtn.textContent = "SUBMIT APPLICATION ⚡";
+      submitBtn.textContent = "NỘP HỒ SƠ ỨNG TUYỂN ⚡";
     }
   });
 }

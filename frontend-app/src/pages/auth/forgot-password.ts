@@ -40,7 +40,7 @@ export function init(): void {
     submitBtn.disabled = true;
     submitBtn.innerHTML = `
       <span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true" style="width: 1rem; height: 1rem;"></span>
-      SENDING...
+      ĐANG GỬI...
     `;
 
     try {
@@ -66,7 +66,7 @@ export function init(): void {
       // Restore button state
       submitBtn.disabled = false;
       submitBtn.innerHTML = `
-        SEND RESET LINK
+        GỬI LIÊN KẾT ĐẶT LẠI MẬT KHẨU
         <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
           <line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/>
         </svg>

@@ -120,7 +120,7 @@ export async function init(): Promise<void> {
 
   function buildStatusBadge(status: RoomStatus): string {
     const isActive = status === "ACTIVE";
-    return `<span class="badge ${isActive ? "bg-success-subtle text-success border border-success-subtle" : "bg-secondary-subtle text-secondary border border-secondary-subtle"} rounded-pill small fw-semibold px-2 py-1">${isActive ? "ACTIVE" : "INACTIVE"}</span>`;
+    return `<span class="badge ${isActive ? "bg-success-subtle text-success border border-success-subtle" : "bg-secondary-subtle text-secondary border border-secondary-subtle"} rounded-pill small fw-semibold px-2 py-1">${isActive ? "HOẠT ĐỘNG" : "TẠM DỪNG"}</span>`;
   }
 
   function buildRow(room: RoomResponse): string {

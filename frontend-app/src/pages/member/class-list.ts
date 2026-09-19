@@ -297,7 +297,7 @@ export async function loadClasses(
         }
 
         const timeData = formatTimeRange(cls.startTime, cls.endTime);
-        const classTypePrefix = cls.classTypeName || "LỚP GROUP";
+        const classTypePrefix = cls.classTypeName || "LỚP NHÓM";
         const trainerName = cls.trainerName || "Huấn luyện viên Gym";
         const roomName = cls.roomName ? `· Phòng: ${cls.roomName}` : "";
 

@@ -189,13 +189,13 @@ export function init(): void {
 
       // Nav bar
       if (navGreeting)
-        navGreeting.textContent = `Hey ${profile.fullName.split(" ")[0]}`;
+        navGreeting.textContent = `Chào, ${profile.fullName.split(" ")[0]}`;
       if (navAvatar) {
         const avatarSrc = profile.avatarUrl || PLACEHOLDER_AVATAR;
         navAvatar.innerHTML = `<img src="${avatarSrc}" alt="${profile.fullName}" class="w-100 h-100 object-fit-cover rounded-circle" />`;
       }
       if (profileIdBadge)
-        profileIdBadge.textContent = `● ID #PL-${String(profile.id).padStart(4, "0")} · ACTIVE`;
+        profileIdBadge.textContent = `● ID #PL-${String(profile.id).padStart(4, "0")} · HOẠT ĐỘNG`;
 
       // Avatar card
       if (avatarImg) {
@@ -203,7 +203,7 @@ export function init(): void {
         avatarImg.alt = profile.fullName;
       }
       if (nameDisplay) nameDisplay.textContent = profile.fullName;
-      if (memberSince) memberSince.textContent = `MEMBER SINCE JAN 2024`;
+      if (memberSince) memberSince.textContent = `THÀNH VIÊN TỪ THÁNG 01/2024`;
 
       // Form fields
       if (fnInput) fnInput.value = profile.fullName;
@@ -232,7 +232,7 @@ export function init(): void {
     const file = avatarInput.files?.[0];
     if (!file || !avatarLabelBtn) return;
 
-    const originalLabel = avatarLabelBtn.textContent ?? "Change Avatar";
+    const originalLabel = avatarLabelBtn.textContent ?? "Đổi ảnh đại diện";
     avatarLabelBtn.textContent = "Đang tải ảnh...";
     avatarLabelBtn.setAttribute("disabled", "true");
 
@@ -306,7 +306,7 @@ export function init(): void {
       // Refresh display
       if (nameDisplay) nameDisplay.textContent = updated.fullName;
       if (navGreeting)
-        navGreeting.textContent = `Hey ${updated.fullName.split(" ")[0]}`;
+        navGreeting.textContent = `Chào, ${updated.fullName.split(" ")[0]}`;
       originalData = { fullName, phone, address };
       showToast("Thông tin đã được cập nhật thành công!", "success");
     } catch (error: unknown) {
@@ -316,7 +316,7 @@ export function init(): void {
       profileError.textContent = msg;
     } finally {
       updateBtn.disabled = false;
-      updateBtn.textContent = "SAVE CHANGES ⚡";
+      updateBtn.textContent = "LƯU THAY ĐỔI ⚡";
     }
   });
 }
