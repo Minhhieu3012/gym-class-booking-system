@@ -17,7 +17,7 @@ import {
   renderNavbar,
   initNavbar,
 } from "../../components/navbar";
-import { showToast } from "../../utils/toast";
+import { showToast, translateErrorMessage } from "../../utils/toast";
 
 // Khai báo kiểu Bootstrap toàn cục
 declare const bootstrap: {
@@ -73,7 +73,8 @@ function escapeHtml(str: unknown): string {
 /**
  * Hiển thị Toast thông báo
  */
-function showToastMessage(message: string, isSuccess = true): void {
+function showToastMessage(rawMessage: string, isSuccess = true): void {
+  const message = translateErrorMessage(rawMessage);
   const toastEl = document.querySelector<HTMLElement>("#pt-toast");
   const msgEl = document.querySelector<HTMLElement>("#pt-toast-message");
   const iconEl = document.querySelector<HTMLElement>("#pt-toast-icon");

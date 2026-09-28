@@ -457,4 +457,13 @@ a:hover {
   color: #2563eb;
 }
 
+/* ============================================================
+   RESPONSIVE GLOBAL SAFE PADDING (Split Screen Tabs & Mobile)
+   ============================================================ */
+@media (max-width: 991.98px) {
+  body:not(.gym-chat-app) {
+    padding-bottom: 78px !important;
+  }
+}
+
 

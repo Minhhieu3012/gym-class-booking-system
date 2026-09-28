@@ -80,6 +80,8 @@
   transition: all var(--transition-normal);
   position: relative;
   overflow: hidden;
+  word-break: break-word;
+  overflow-wrap: anywhere;
 }
 
 .gym-class-card:hover {
@@ -122,6 +124,8 @@
   font-weight: 700;
   letter-spacing: -0.02em;
   color: var(--color-secondary);
+  word-break: break-word;
+  overflow-wrap: anywhere;
 }
 
 /* Time & Location Pills */
@@ -242,11 +246,11 @@
 }
 
 /* ============================================================
-   Responsive Fine-Tuning for Class List Page
+   Responsive Fine-Tuning for Class List Page (Split Tab & Mobile)
    ============================================================ */
-@media (max-width: 767.98px) {
+@media (max-width: 991.98px) {
   .classes-hero {
-    padding: 1.25rem 1rem !important;
+    padding: 1.5rem 1.25rem !important;
   }
 
   .gym-class-card {

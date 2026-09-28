@@ -3,14 +3,13 @@ import "./packages.css";
 import { paymentService } from "../../services/payment.service";
 import type { Package, MemberPackage } from "../../models/package";
 import { renderNavbar, initNavbar } from "../../components/navbar";
-import { showToast } from "../../utils/toast";
+import { showToast, translateErrorMessage } from "../../utils/toast";
 
-// Khai báo kiểu Bootstrap toàn cục
 declare const bootstrap: {
   Toast: new (el: Element, options?: unknown) => { show(): void; hide(): void };
 };
 /**
- * Định dạng tiền tệ VNĐ (ví dụ: 1.500.000 đ)
+ * Định dạng tiền tệ VNĐ
  */
 function formatCurrency(amount?: number | null): string {
   if (amount == null) return "0 đ";
@@ -53,7 +52,8 @@ function escapeHtml(str: unknown): string {
 /**
  * Hiển thị thông báo Toast hoặc Alert
  */
-function showToastMessage(message: string, isSuccess = true): void {
+function showToastMessage(rawMessage: string, isSuccess = true): void {
+  const message = translateErrorMessage(rawMessage);
   const toastEl = document.querySelector<HTMLElement>("#package-toast");
   const msgEl = document.querySelector<HTMLElement>("#toast-message");
   if (msgEl) {
@@ -82,7 +82,9 @@ function showToastMessage(message: string, isSuccess = true): void {
  * GET /member-packages/me
  */
 export async function loadMyPackages(): Promise<void> {
-  const container = document.querySelector<HTMLDivElement>("#my-packages-container");
+  const container = document.querySelector<HTMLDivElement>(
+    "#my-packages-container",
+  );
   if (!container) return;
 
   try {
@@ -132,7 +134,10 @@ export async function loadMyPackages(): Promise<void> {
         const statusText = isActive ? "ĐANG HOẠT ĐỘNG" : "ĐÃ HẾT HẠN";
         const cardModifier = isActive ? "active-card" : "expired-card";
         const counterModifier = isActive ? "" : "expired";
-        const packageName = item.packageName || item.package?.name || `Gói tập #${item.packageId || item.id}`;
+        const packageName =
+          item.packageName ||
+          item.package?.name ||
+          `Gói tập #${item.packageId || item.id}`;
 
         return `
           <div class="col-12 col-md-6 col-lg-6 d-flex">
@@ -201,7 +206,9 @@ export async function loadMyPackages(): Promise<void> {
  * GET /packages (isActive: true)
  */
 export async function loadAvailablePackages(): Promise<void> {
-  const container = document.querySelector<HTMLDivElement>("#available-packages-container");
+  const container = document.querySelector<HTMLDivElement>(
+    "#available-packages-container",
+  );
   if (!container) return;
 
   try {
@@ -212,7 +219,9 @@ export async function loadAvailablePackages(): Promise<void> {
       </div>
     `;
 
-    const response = await paymentService.getAvailablePackages({ isActive: true });
+    const response = await paymentService.getAvailablePackages({
+      isActive: true,
+    });
     const packages: Package[] = Array.isArray(response)
       ? response
       : (response?.content ?? []);
@@ -331,13 +340,18 @@ async function handleBuyPackageClick(btn: HTMLButtonElement): Promise<void> {
     });
 
     // Hiển thị thông báo thành công
-    showToastMessage("Thanh toán thành công & Gói tập đã được kích hoạt!", true);
+    showToastMessage(
+      "Thanh toán thành công & Gói tập đã được kích hoạt!",
+      true,
+    );
 
     // Tự động làm mới danh sách gói tập của tôi
     await loadMyPackages();
 
     // Cuộn mượt lên phần Gói tập của tôi
-    const myPackagesSection = document.querySelector<HTMLElement>("#my-packages-section");
+    const myPackagesSection = document.querySelector<HTMLElement>(
+      "#my-packages-section",
+    );
     if (myPackagesSection) {
       myPackagesSection.scrollIntoView({ behavior: "smooth" });
     }
@@ -359,18 +373,24 @@ async function handleBuyPackageClick(btn: HTMLButtonElement): Promise<void> {
  */
 function attachEvents(): void {
   // 1. Nút làm mới danh sách gói tập của tôi
-  const refreshBtn = document.querySelector<HTMLButtonElement>("#btn-refresh-my-packages");
+  const refreshBtn = document.querySelector<HTMLButtonElement>(
+    "#btn-refresh-my-packages",
+  );
   if (refreshBtn) {
     refreshBtn.addEventListener("click", () => {
       loadMyPackages();
     });
   }
 
-  // 2. Bắt sự kiện click nút "Mua gói này" (Event delegation trên container)
-  const availableContainer = document.querySelector<HTMLDivElement>("#available-packages-container");
+  // 2. Bắt sự kiện click nút "Mua gói này"
+  const availableContainer = document.querySelector<HTMLDivElement>(
+    "#available-packages-container",
+  );
   if (availableContainer) {
     availableContainer.addEventListener("click", (event: MouseEvent) => {
-      const target = (event.target as HTMLElement).closest<HTMLButtonElement>(".btn-buy-package");
+      const target = (event.target as HTMLElement).closest<HTMLButtonElement>(
+        ".btn-buy-package",
+      );
       if (target) {
         event.preventDefault();
         handleBuyPackageClick(target);
@@ -393,21 +413,12 @@ export function render(): string {
  * Khởi tạo dữ liệu và sự kiện sau khi view đã được mount vào DOM
  */
 export async function init(): Promise<void> {
-  // Khởi tạo shared navbar:
-  // - Role/member menu
-  // - Active menu
-  // - Notification
-  // - Chat
-  // - Profile
-  // - Logout
+  // Khởi tạo shared navbar
   initNavbar();
 
   attachEvents();
 
-  await Promise.all([
-    loadMyPackages(),
-    loadAvailablePackages(),
-  ]);
+  await Promise.all([loadMyPackages(), loadAvailablePackages()]);
 }
 
 // Re-export để tương thích với các module khác

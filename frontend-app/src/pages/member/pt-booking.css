@@ -96,6 +96,8 @@
   position: relative;
   display: flex;
   flex-direction: column;
+  word-break: break-word;
+  overflow-wrap: anywhere;
 }
 
 .trainer-card:hover {
@@ -137,6 +139,8 @@
   font-weight: 700;
   letter-spacing: -0.01em;
   color: var(--color-secondary);
+  word-break: break-word;
+  overflow-wrap: anywhere;
 }
 
 .trainer-spec-badge {
@@ -148,6 +152,9 @@
   border-radius: var(--radius-sm);
   background: var(--color-tertiary-light);
   color: var(--color-tertiary);
+  word-break: break-word;
+  overflow-wrap: anywhere;
+  max-width: 100%;
 }
 
 .trainer-experience {
@@ -163,6 +170,8 @@
   flex-grow: 1;
   margin-top: 0.75rem;
   margin-bottom: 1rem;
+  word-break: break-word;
+  overflow-wrap: anywhere;
 }
 
 .trainer-selected-check {
@@ -267,16 +276,16 @@
 }
 
 /* ============================================================
-   Responsive Fine-Tuning for PT Booking Page
+   Responsive Fine-Tuning for PT Booking Page (Split Tab & Mobile)
    ============================================================ */
-@media (max-width: 767.98px) {
+@media (max-width: 991.98px) {
   .pt-hero {
-    padding: 1.25rem 1rem !important;
+    padding: 1.5rem 1.25rem !important;
   }
 
   .trainer-card {
-    padding: 1.25rem;
-    border-radius: 14px;
+    padding: 1.25rem 1rem;
+    border-radius: 16px;
   }
 
   .trainer-avatar-box {

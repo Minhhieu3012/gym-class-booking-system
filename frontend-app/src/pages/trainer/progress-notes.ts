@@ -3,7 +3,7 @@ import "./progress-notes.css";
 import interactionService from "../../services/interaction.service";
 import bookingService from "../../services/booking.service";
 import { initNotification } from "../../components/notification-popover";
-import { showToast as showGlobalToast } from "../../utils/toast";
+import { showToast as showGlobalToast, translateErrorMessage } from "../../utils/toast";
 
 // Khai báo kiểu Bootstrap toàn cục
 declare const bootstrap: {
@@ -36,7 +36,8 @@ function escapeHtml(str: unknown): string {
 /**
  * Hiển thị Toast thông báo
  */
-function showToast(message: string, isSuccess = true): void {
+function showToast(rawMessage: string, isSuccess = true): void {
+  const message = translateErrorMessage(rawMessage);
   const toastEl = document.querySelector<HTMLElement>("#progress-note-toast");
   const msgEl = document.querySelector<HTMLElement>(
     "#progress-note-toast-message",

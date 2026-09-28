@@ -33,28 +33,35 @@ function formatTime(isoString?: string): string {
 }
 
 /**
- * Format loại thông báo sang tiếng Việt
+ * Format loại thông báo
  */
 function formatNotificationType(type?: string): string {
-  switch (type) {
-    case "BOOKING_CONFIRMED":
-    case "BOOKING":
-      return "ĐẶT LỊCH";
-    case "BOOKING_CANCELLED":
-      return "HỦY LỊCH";
-    case "PAYMENT":
-    case "PAYMENT_SUCCESS":
-      return "THANH TOÁN";
-    case "SYSTEM":
-      return "HỆ THỐNG";
-    case "REMINDER":
-      return "NHẮC NHỞ";
-    case "CHAT":
-      return "TIN NHẮN";
-    case "NOTIFICATION":
-    default:
-      return type ? type : "THÔNG BÁO";
-  }
+  if (!type) return "THÔNG BÁO";
+  const upper = String(type).trim().toUpperCase();
+
+  const typeMap: Record<string, string> = {
+    BOOKING_CONFIRMED: "ĐẶT LỊCH",
+    BOOKING: "ĐẶT LỊCH",
+    BOOKING_CANCELLED: "HỦY LỊCH",
+    PT_REQUEST: "YÊU CẦU PT",
+    PT_ACCEPTED: "CHẤP NHẬN PT",
+    PT_REJECTED: "TỪ CHỐI PT",
+    CLASS_REMINDER: "NHẮC LỊCH",
+    REMINDER: "NHẮC NHỞ",
+    NEW_MESSAGE: "TIN NHẮN",
+    CHAT: "TIN NHẮN",
+    ACCOUNT: "TÀI KHOẢN",
+    TRAINER_NOTE: "GHI CHÚ HLV",
+    PAYMENT: "THANH TOÁN",
+    PAYMENT_SUCCESS: "THANH TOÁN",
+    PAYMENT_FAILED: "LỖI THANH TOÁN",
+    SYSTEM: "HỆ THỐNG",
+    PACKAGE: "GÓI TẬP",
+    PACKAGE_EXPIRED: "GÓI HẾT HẠN",
+    NOTIFICATION: "THÔNG BÁO",
+  };
+
+  return typeMap[upper] || "THÔNG BÁO";
 }
 
 /**
@@ -72,10 +79,7 @@ function escapeHtml(value: unknown): string {
 /**
  * Cập nhật badge unread trên chuông
  */
-function updateNotificationBadge(
-  bellBtn: HTMLElement,
-  count: number,
-): void {
+function updateNotificationBadge(bellBtn: HTMLElement, count: number): void {
   let badge = bellBtn.querySelector<HTMLElement>(".notification-badge");
 
   if (count > 0) {
@@ -89,10 +93,7 @@ function updateNotificationBadge(
     }
 
     badge.textContent = count > 99 ? "99+" : String(count);
-    badge.setAttribute(
-      "aria-label",
-      `${count} thông báo chưa đọc`,
-    );
+    badge.setAttribute("aria-label", `${count} thông báo chưa đọc`);
 
     badge.style.display = "inline-block";
   } else if (badge) {
@@ -103,9 +104,7 @@ function updateNotificationBadge(
 /**
  * Lấy số lượng notification chưa đọc
  */
-async function loadUnreadCount(
-  bellBtn: HTMLElement,
-): Promise<number> {
+async function loadUnreadCount(bellBtn: HTMLElement): Promise<number> {
   if (!isAuthenticated()) {
     updateNotificationBadge(bellBtn, 0);
     return 0;
@@ -130,10 +129,7 @@ async function loadUnreadCount(
 
     return count;
   } catch (error) {
-    console.error(
-      "Lỗi khi lấy số lượng thông báo chưa đọc:",
-      error,
-    );
+    console.error("Lỗi khi lấy số lượng thông báo chưa đọc:", error);
 
     updateNotificationBadge(bellBtn, 0);
 
@@ -177,16 +173,13 @@ function renderNotificationDropdown(
         hasNotifications
           ? notifications
               .map((item) => {
-                const isRead =
-                  item.read ?? item.isRead ?? false;
+                const isRead = item.read ?? item.isRead ?? false;
 
                 const itemClass = isRead
                   ? "text-muted opacity-75"
                   : "fw-bold bg-light-subtle";
 
-                const badgeClass = isRead
-                  ? "bg-secondary"
-                  : "bg-danger";
+                const badgeClass = isRead ? "bg-secondary" : "bg-danger";
 
                 return `
                   <div
@@ -255,9 +248,7 @@ function renderNotificationDropdown(
    * Mark all as read
    */
   const markAllBtn =
-    dropdown.querySelector<HTMLButtonElement>(
-      "#mark-all-read-btn",
-    );
+    dropdown.querySelector<HTMLButtonElement>("#mark-all-read-btn");
 
   markAllBtn?.addEventListener("click", async (event) => {
     event.stopPropagation();
@@ -268,25 +259,16 @@ function renderNotificationDropdown(
       updateNotificationBadge(bellBtn, 0);
 
       const items =
-        dropdown.querySelectorAll<HTMLElement>(
-          ".notification-item",
-        );
+        dropdown.querySelectorAll<HTMLElement>(".notification-item");
 
       items.forEach((item) => {
-        item.classList.remove(
-          "fw-bold",
-          "bg-light-subtle",
-        );
+        item.classList.remove("fw-bold", "bg-light-subtle");
 
-        item.classList.add(
-          "text-muted",
-          "opacity-75",
-        );
+        item.classList.add("text-muted", "opacity-75");
 
         item.dataset.read = "true";
 
-        const badge =
-          item.querySelector<HTMLElement>(".badge");
+        const badge = item.querySelector<HTMLElement>(".badge");
 
         if (badge) {
           badge.classList.remove("bg-danger");
@@ -294,20 +276,14 @@ function renderNotificationDropdown(
         }
       });
     } catch (error) {
-      console.error(
-        "Lỗi khi đánh dấu tất cả thông báo:",
-        error,
-      );
+      console.error("Lỗi khi đánh dấu tất cả thông báo:", error);
     }
   });
 
   /**
    * Mark từng notification as read
    */
-  const items =
-    dropdown.querySelectorAll<HTMLElement>(
-      ".notification-item",
-    );
+  const items = dropdown.querySelectorAll<HTMLElement>(".notification-item");
 
   items.forEach((item) => {
     item.addEventListener("click", async () => {
@@ -327,20 +303,13 @@ function renderNotificationDropdown(
       try {
         await interactionService.markNotificationAsRead(id);
 
-        item.classList.remove(
-          "fw-bold",
-          "bg-light-subtle",
-        );
+        item.classList.remove("fw-bold", "bg-light-subtle");
 
-        item.classList.add(
-          "text-muted",
-          "opacity-75",
-        );
+        item.classList.add("text-muted", "opacity-75");
 
         item.dataset.read = "true";
 
-        const badge =
-          item.querySelector<HTMLElement>(".badge");
+        const badge = item.querySelector<HTMLElement>(".badge");
 
         if (badge) {
           badge.classList.remove("bg-danger");
@@ -353,10 +322,7 @@ function renderNotificationDropdown(
          */
         await loadUnreadCount(bellBtn);
       } catch (error) {
-        console.error(
-          `Lỗi khi đánh dấu notification #${id}:`,
-          error,
-        );
+        console.error(`Lỗi khi đánh dấu notification #${id}:`, error);
       }
     });
   });
@@ -388,9 +354,7 @@ export function initNotification(): void {
   /**
    * Không init trùng cùng một navbar
    */
-  if (
-    bellBtn.dataset.notificationInitialized === "true"
-  ) {
+  if (bellBtn.dataset.notificationInitialized === "true") {
     loadUnreadCount(bellBtn);
     return;
   }
@@ -413,8 +377,7 @@ export function initNotification(): void {
   bellBtn.addEventListener("click", async (event) => {
     event.stopPropagation();
 
-    const isOpen =
-      dropdown.classList.contains("show");
+    const isOpen = dropdown.classList.contains("show");
 
     if (isOpen) {
       dropdown.classList.remove("show");
@@ -437,26 +400,17 @@ export function initNotification(): void {
     `;
 
     try {
-      const res =
-        await interactionService.getMyNotifications({
-          size: 10,
-        });
+      const res = await interactionService.getMyNotifications({
+        size: 10,
+      });
 
-      const notifications: NotificationItem[] =
-        Array.isArray(res)
-          ? res
-          : (res?.content ?? []);
+      const notifications: NotificationItem[] = Array.isArray(res)
+        ? res
+        : (res?.content ?? []);
 
-      renderNotificationDropdown(
-        dropdown,
-        notifications,
-        bellBtn,
-      );
+      renderNotificationDropdown(dropdown, notifications, bellBtn);
     } catch (error) {
-      console.error(
-        "Lỗi khi tải danh sách thông báo:",
-        error,
-      );
+      console.error("Lỗi khi tải danh sách thông báo:", error);
 
       dropdown.innerHTML = `
         <div
@@ -477,10 +431,7 @@ export function initNotification(): void {
   document.addEventListener("click", (event) => {
     const target = event.target as Node;
 
-    if (
-      !bellBtn.contains(target) &&
-      !dropdown.contains(target)
-    ) {
+    if (!bellBtn.contains(target) && !dropdown.contains(target)) {
       dropdown.classList.remove("show");
     }
   });

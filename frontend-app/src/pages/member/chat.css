@@ -179,6 +179,17 @@ body.gym-chat-app {
   background: rgba(16, 185, 129, 0.1);
   border: 1px solid rgba(16, 185, 129, 0.25);
   color: #059669;
+  flex-shrink: 0;
+  white-space: nowrap;
+}
+
+@media (max-width: 991.98px) {
+  .chat-status-pill .status-text {
+    display: none !important;
+  }
+  .chat-status-pill {
+    padding: 0.35rem 0.45rem !important;
+  }
 }
 
 .status-pulse-dot {

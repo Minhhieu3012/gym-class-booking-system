@@ -7,12 +7,9 @@ import { classTypeService } from "../../services/admin-core.service";
 import type { GymClass, ClassQueryParams } from "../../models/booking";
 import type { ClassTypeResponse } from "../../models/admin";
 
-import {
-  renderNavbar,
-  initNavbar,
-} from "../../components/navbar";
-import { showToast } from "../../utils/toast";
-// Khai báo kiểu Bootstrap toàn cục
+import { renderNavbar, initNavbar } from "../../components/navbar";
+import { showToast, translateErrorMessage } from "../../utils/toast";
+// Bootstrap toàn cục`
 declare const bootstrap: {
   Toast: new (el: Element, options?: unknown) => { show(): void; hide(): void };
 };
@@ -29,7 +26,7 @@ function getTodayString(): string {
 }
 
 /**
- * Định dạng khoảng thời gian (VD: 08:00 - 09:00) và ngày (DD/MM/YYYY)
+ * Định dạng khoảng thời gian và ngày (DD/MM/YYYY)
  */
 function formatTimeRange(
   startStr?: string,
@@ -76,7 +73,8 @@ function escapeHtml(str: unknown): string {
 /**
  * Hiển thị Toast thông báo thành công hoặc lỗi
  */
-function showToastMessage(message: string, isSuccess = true): void {
+function showToastMessage(rawMessage: string, isSuccess = true): void {
+  const message = translateErrorMessage(rawMessage);
   const toastEl = document.querySelector<HTMLElement>("#booking-toast");
   const msgEl = document.querySelector<HTMLElement>("#toast-message");
   const iconEl = document.querySelector<HTMLElement>("#toast-icon");
@@ -124,7 +122,8 @@ function showToastMessage(message: string, isSuccess = true): void {
  * Tải danh mục loại lớp (ClassType) từ Phase 1 đổ vào dropdown filter
  */
 export async function loadClassTypes(): Promise<void> {
-  const selectEl = document.querySelector<HTMLSelectElement>("#filter-class-type");
+  const selectEl =
+    document.querySelector<HTMLSelectElement>("#filter-class-type");
   if (!selectEl) return;
 
   try {
@@ -155,9 +154,14 @@ export async function loadClasses(
   date?: string,
   classTypeId?: number,
 ): Promise<void> {
-  const container = document.querySelector<HTMLDivElement>("#class-list-container");
-  const countBadge = document.querySelector<HTMLSpanElement>("#class-count-badge");
-  const dateDisplay = document.querySelector<HTMLSpanElement>("#selected-date-display");
+  const container = document.querySelector<HTMLDivElement>(
+    "#class-list-container",
+  );
+  const countBadge =
+    document.querySelector<HTMLSpanElement>("#class-count-badge");
+  const dateDisplay = document.querySelector<HTMLSpanElement>(
+    "#selected-date-display",
+  );
   if (!container) return;
 
   // Hiển thị loading spinner
@@ -274,9 +278,13 @@ export async function loadClasses(
         }
 
         // Tính tỷ lệ sĩ số & thanh tiến trình
-        const capacityPercent = cls.maxCapacity > 0
-          ? Math.min(100, Math.round((cls.currentCount / cls.maxCapacity) * 100))
-          : 0;
+        const capacityPercent =
+          cls.maxCapacity > 0
+            ? Math.min(
+                100,
+                Math.round((cls.currentCount / cls.maxCapacity) * 100),
+              )
+            : 0;
 
         let progressClass = "progress-available";
         if (isFull) {
@@ -407,10 +415,13 @@ async function handleBookClassClick(btn: HTMLButtonElement): Promise<void> {
 
     // Lấy giá trị bộ lọc hiện tại để load lại danh sách, cập nhật ngay currentCount
     const dateInput = document.querySelector<HTMLInputElement>("#filter-date");
-    const typeSelect = document.querySelector<HTMLSelectElement>("#filter-class-type");
+    const typeSelect =
+      document.querySelector<HTMLSelectElement>("#filter-class-type");
 
     const currentDate = dateInput?.value || "";
-    const currentClassTypeId = typeSelect?.value ? parseInt(typeSelect.value, 10) : undefined;
+    const currentClassTypeId = typeSelect?.value
+      ? parseInt(typeSelect.value, 10)
+      : undefined;
 
     await loadClasses(currentDate, currentClassTypeId);
   } catch (error: unknown) {
@@ -432,13 +443,19 @@ async function handleBookClassClick(btn: HTMLButtonElement): Promise<void> {
  */
 function attachEvents(): void {
   const dateInput = document.querySelector<HTMLInputElement>("#filter-date");
-  const typeSelect = document.querySelector<HTMLSelectElement>("#filter-class-type");
-  const btnToday = document.querySelector<HTMLButtonElement>("#btn-today-classes");
-  const classListContainer = document.querySelector<HTMLDivElement>("#class-list-container");
+  const typeSelect =
+    document.querySelector<HTMLSelectElement>("#filter-class-type");
+  const btnToday =
+    document.querySelector<HTMLButtonElement>("#btn-today-classes");
+  const classListContainer = document.querySelector<HTMLDivElement>(
+    "#class-list-container",
+  );
 
   const triggerFilter = () => {
     const date = dateInput?.value || "";
-    const classTypeId = typeSelect?.value ? parseInt(typeSelect.value, 10) : undefined;
+    const classTypeId = typeSelect?.value
+      ? parseInt(typeSelect.value, 10)
+      : undefined;
     loadClasses(date, classTypeId);
   };
 
@@ -463,7 +480,9 @@ function attachEvents(): void {
   // 4. Bắt sự kiện click nút "Đặt ngay" (Event delegation)
   if (classListContainer) {
     classListContainer.addEventListener("click", (event: MouseEvent) => {
-      const target = (event.target as HTMLElement).closest<HTMLButtonElement>(".btn-book-class");
+      const target = (event.target as HTMLElement).closest<HTMLButtonElement>(
+        ".btn-book-class",
+      );
       if (target && !target.disabled) {
         event.preventDefault();
         handleBookClassClick(target);
@@ -488,8 +507,7 @@ export async function init(): Promise<void> {
   // Shared navbar
   initNavbar();
 
-  const dateInput =
-    document.querySelector<HTMLInputElement>("#filter-date");
+  const dateInput = document.querySelector<HTMLInputElement>("#filter-date");
 
   const today = getTodayString();
 
@@ -501,10 +519,7 @@ export async function init(): Promise<void> {
   attachEvents();
 
   // Tải đồng thời dropdown môn học và danh sách lớp hôm nay
-  await Promise.all([
-    loadClassTypes(),
-    loadClasses(today),
-  ]);
+  await Promise.all([loadClassTypes(), loadClasses(today)]);
 }
 
 // Re-export để thuận tiện

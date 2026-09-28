@@ -3,7 +3,7 @@ import "./time-slots.css";
 import { bookingService, BookingService } from "../../services/booking.service";
 import { getStoredUser } from "../../core/api";
 import type { TrainerTimeSlot } from "../../models/booking";
-import { showToast as showGlobalToast } from "../../utils/toast";
+import { showToast as showGlobalToast, translateErrorMessage } from "../../utils/toast";
 
 // Khai báo kiểu Bootstrap Toast
 declare const bootstrap: {
@@ -60,7 +60,8 @@ function escapeHtml(str: unknown): string {
 /**
  * Hiển thị Toast thông báo
  */
-function showToast(message: string, isSuccess = true): void {
+function showToast(rawMessage: string, isSuccess = true): void {
+  const message = translateErrorMessage(rawMessage);
   const toastEl = document.querySelector<HTMLElement>("#timeslot-toast");
   const msgEl = document.querySelector<HTMLElement>("#timeslot-toast-message");
   const iconEl = document.querySelector<HTMLElement>("#timeslot-toast-icon");
@@ -325,8 +326,9 @@ async function handleCreateTimeSlot(e: Event): Promise<void> {
   } catch (error: unknown) {
     console.error("Lỗi khi tạo khung giờ:", error);
     const err = error as { response?: { data?: { message?: string } } };
-    const errorMessage =
+    const rawMsg =
       err.response?.data?.message || "Không thể tạo khung giờ lúc này. Vui lòng kiểm tra lại!";
+    const errorMessage = translateErrorMessage(rawMsg);
     showToast(errorMessage, false);
     errorEl.textContent = errorMessage;
   } finally {

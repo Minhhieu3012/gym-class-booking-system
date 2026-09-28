@@ -4,7 +4,7 @@ import { bookingService } from "../../services/booking.service";
 import interactionService from "../../services/interaction.service";
 import type { ClassBooking, PTBooking } from "../../models/booking";
 import { renderNavbar, initNavbar } from "../../components/navbar";
-import { showToast as showGlobalToast } from "../../utils/toast";
+import { showToast as showGlobalToast, translateErrorMessage } from "../../utils/toast";
 
 // Khai báo kiểu Bootstrap toàn cục
 declare const bootstrap: {
@@ -120,7 +120,8 @@ function escapeHtml(str: unknown): string {
 /**
  * Hiển thị Toast thông báo
  */
-function showToast(message: string, isSuccess = true): void {
+function showToast(rawMessage: string, isSuccess = true): void {
+  const message = translateErrorMessage(rawMessage);
   const toastEl = document.querySelector<HTMLElement>("#my-bookings-toast");
   const msgEl = document.querySelector<HTMLElement>("#bookings-toast-message");
   const iconEl = document.querySelector<HTMLElement>("#bookings-toast-icon");

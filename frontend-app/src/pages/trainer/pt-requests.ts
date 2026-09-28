@@ -2,7 +2,7 @@ import template from "./pt-requests.html?raw";
 import "./pt-requests.css";
 import { bookingService } from "../../services/booking.service";
 import type { PTBooking } from "../../models/booking";
-import { showToast as showGlobalToast } from "../../utils/toast";
+import { showToast as showGlobalToast, translateErrorMessage } from "../../utils/toast";
 
 // Khai báo kiểu Bootstrap toàn cục
 declare const bootstrap: {
@@ -57,7 +57,8 @@ function escapeHtml(str: unknown): string {
 /**
  * Hiển thị Toast thông báo cho Trainer
  */
-function showToast(message: string, isSuccess = true): void {
+function showToast(rawMessage: string, isSuccess = true): void {
+  const message = translateErrorMessage(rawMessage);
   const toastEl = document.querySelector<HTMLElement>("#trainer-toast");
   const msgEl = document.querySelector<HTMLElement>("#trainer-toast-message");
   const iconEl = document.querySelector<HTMLElement>("#trainer-toast-icon");

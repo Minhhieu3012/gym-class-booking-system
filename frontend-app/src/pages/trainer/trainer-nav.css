@@ -352,14 +352,51 @@
 }
 
 /* ── RESPONSIVE SAFE PADDING FOR MOBILE BOTTOM NAV ── */
+@media (max-width: 1200px) {
+  .trainer-top-navbar .page-subtitle {
+    display: none !important;
+  }
+
+  .trainer-desktop-nav {
+    gap: 0.2rem !important;
+  }
+
+  .trainer-top-nav-link {
+    padding: 0.4rem 0.6rem !important;
+    font-size: 0.78rem !important;
+    gap: 0.3rem !important;
+  }
+}
+
+@media (max-width: 1100px) {
+  .btn-trainer-profile span,
+  .btn-trainer-logout span {
+    display: none !important;
+  }
+
+  .btn-trainer-profile,
+  .btn-trainer-logout {
+    padding: 0.45rem 0.65rem !important;
+  }
+}
+
 @media (max-width: 991.98px) {
   body {
-    padding-bottom: 76px !important;
+    padding-bottom: 78px !important;
   }
 
   .trainer-page-header {
     padding: 1.25rem 1.25rem;
     border-radius: 16px;
     margin-bottom: 1.5rem;
+  }
+
+  .trainer-bottom-nav-inner {
+    max-width: 100%;
+    padding: 0 0.25rem;
+  }
+
+  .trainer-bottom-nav-item span {
+    font-size: 0.65rem;
   }
 }
