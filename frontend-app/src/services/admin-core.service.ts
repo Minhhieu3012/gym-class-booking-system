@@ -136,7 +136,7 @@ export const roomService = {
   },
 
   async create(payload: CreateRoomRequest): Promise<RoomResponse> {
-    const { data } = await apiClient.post<RoomResponse>("/rooms", payload);
+    const { data } = await apiClient.post<RoomResponse>("/admin/rooms", payload);
     return data;
   },
 
@@ -160,49 +160,83 @@ export const roomService = {
   },
 };
 
+function normalizeClassType(item: any): ClassTypeResponse {
+  if (!item) return item;
+  const active = Boolean(item.active ?? item.isActive ?? false);
+  return {
+    ...item,
+    active,
+    isActive: active,
+  };
+}
+
+function normalizePackage(item: any): PackageResponse {
+  if (!item) return item;
+  const active = Boolean(item.active ?? item.isActive ?? false);
+  return {
+    ...item,
+    active,
+    isActive: active,
+  };
+}
+
 export const classTypeService = {
   async getAll(
     params?: ClassTypeQueryParams,
   ): Promise<PageResponse<ClassTypeResponse>> {
+    const queryParams: Record<string, any> = { ...params };
+    if (params && params.status) {
+      queryParams.active = params.status === "ACTIVE";
+      delete queryParams.status;
+    }
     const { data } = await apiClient.get<PageResponse<ClassTypeResponse>>(
-      "/class-types",
-      { params },
+      "/admin/class-types",
+      { params: queryParams },
     );
+    if (data && Array.isArray(data.content)) {
+      data.content = data.content.map(normalizeClassType);
+    }
     return data;
   },
 
   async getById(id: number): Promise<ClassTypeResponse> {
     const { data } = await apiClient.get<ClassTypeResponse>(
-      `/class-types/${id}`,
+      `/admin/class-types/${id}`,
     );
-    return data;
+    return normalizeClassType(data);
   },
 
   async create(payload: CreateClassTypeRequest): Promise<ClassTypeResponse> {
-    const body: CreateClassTypeRequest & { active?: boolean } = {
-      ...payload,
-      active: payload.isActive ?? true,
+    const active = payload.active ?? payload.isActive ?? true;
+    const body: Record<string, any> = {
+      name: payload.name,
+      description: payload.description,
+      active,
     };
     const { data } = await apiClient.post<ClassTypeResponse>(
       "/admin/class-types",
       body,
     );
-    return data;
+    return normalizeClassType(data);
   },
 
   async update(
     id: number,
     payload: UpdateClassTypeRequest,
   ): Promise<ClassTypeResponse> {
-    const body: UpdateClassTypeRequest & { active?: boolean } = { ...payload };
-    if (payload.isActive !== undefined) {
+    const body: Record<string, any> = {};
+    if (payload.name !== undefined) body.name = payload.name;
+    if (payload.description !== undefined) body.description = payload.description;
+    if (payload.active !== undefined) {
+      body.active = payload.active;
+    } else if (payload.isActive !== undefined) {
       body.active = payload.isActive;
     }
     const { data } = await apiClient.patch<ClassTypeResponse>(
       `/admin/class-types/${id}`,
       body,
     );
-    return data;
+    return normalizeClassType(data);
   },
 };
 
@@ -214,6 +248,9 @@ export const packageService = {
       "/admin/packages",
       { params },
     );
+    if (data && Array.isArray(data.content)) {
+      data.content = data.content.map(normalizePackage);
+    }
     return data;
   },
 
@@ -221,34 +258,37 @@ export const packageService = {
     const { data } = await apiClient.get<PackageResponse>(
       `/admin/packages/${id}`,
     );
-    return data;
+    return normalizePackage(data);
   },
 
   async create(payload: CreatePackageRequest): Promise<PackageResponse> {
-    const body: CreatePackageRequest & { active?: boolean } = {
+    const active = payload.active ?? payload.isActive ?? true;
+    const body = {
       ...payload,
-      active: payload.isActive ?? true,
+      active,
     };
     const { data } = await apiClient.post<PackageResponse>(
       "/admin/packages",
       body,
     );
-    return data;
+    return normalizePackage(data);
   },
 
   async update(
     id: number,
     payload: UpdatePackageRequest,
   ): Promise<PackageResponse> {
-    const body: UpdatePackageRequest & { active?: boolean } = { ...payload };
-    if (payload.isActive !== undefined) {
+    const body: Record<string, any> = { ...payload };
+    if (payload.active !== undefined) {
+      body.active = payload.active;
+    } else if (payload.isActive !== undefined) {
       body.active = payload.isActive;
     }
     const { data } = await apiClient.patch<PackageResponse>(
       `/admin/packages/${id}`,
       body,
     );
-    return data;
+    return normalizePackage(data);
   },
 
   async deactivate(id: number): Promise<PackageResponse> {

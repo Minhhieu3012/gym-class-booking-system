@@ -113,8 +113,8 @@ export async function init(): Promise<void> {
   }
 
   function setStats(items: ClassTypeResponse[]): void {
-    const active = items.filter((ct) => ct.isActive).length;
-    const inactive = items.filter((ct) => !ct.isActive).length;
+    const active = items.filter((ct) => Boolean(ct.isActive ?? ct.active)).length;
+    const inactive = items.filter((ct) => !Boolean(ct.isActive ?? ct.active)).length;
     if (statTotal) statTotal.textContent = String(items.length);
     if (statActive) statActive.textContent = String(active);
     if (statInactive) statInactive.textContent = String(inactive);
@@ -126,11 +126,12 @@ export async function init(): Promise<void> {
 
   function buildRow(ct: ClassTypeResponse): string {
     const idStr = `CT-${String(ct.id).padStart(3, "0")}`;
+    const isActive = Boolean(ct.isActive ?? ct.active);
     // Truncate description for table display
     const shortDesc =
-      ct.description.length > 80
+      ct.description && ct.description.length > 80
         ? escapeHtml(ct.description.slice(0, 80)) + "…"
-        : escapeHtml(ct.description);
+        : escapeHtml(ct.description || "");
 
     return `
       <tr data-ct-id="${ct.id}">
@@ -150,12 +151,12 @@ export async function init(): Promise<void> {
                 type="checkbox"
                 class="ct-status-toggle"
                 data-id="${ct.id}"
-                data-current="${ct.isActive}"
-                ${ct.isActive ? "checked" : ""}
+                data-current="${isActive}"
+                ${isActive ? "checked" : ""}
               />
               <span class="ct-toggle-slider"></span>
             </label>
-            ${buildStatusBadge(ct.isActive)}
+            ${buildStatusBadge(isActive)}
           </div>
         </td>
         <td class="pe-4 py-3 text-end">
@@ -225,11 +226,14 @@ export async function init(): Promise<void> {
           toggle.disabled = true;
 
           try {
-            await classTypeService.update(id, { isActive: newActive });
+            await classTypeService.update(id, { isActive: newActive, active: newActive });
 
             // Update in-memory state
             const ct = allClassTypes.find((c) => c.id === id);
-            if (ct) ct.isActive = newActive;
+            if (ct) {
+              ct.isActive = newActive;
+              ct.active = newActive;
+            }
 
             // Update data attribute
             toggle.dataset.current = String(newActive);
@@ -252,7 +256,8 @@ export async function init(): Promise<void> {
             );
           } catch (error: unknown) {
             // Revert
-            toggle.checked = !toggle.checked;
+            toggle.checked = wasActive;
+            toggle.dataset.current = String(wasActive);
             showAlert(authService.extractErrorMessage(error), "danger");
           } finally {
             toggle.disabled = false;
@@ -298,23 +303,23 @@ export async function init(): Promise<void> {
 
   function openAddModal(): void {
     if (!hiddenId || !nameInput || !descTextarea || !isActiveCheck) return;
-    if (modalLabel) modalLabel.textContent = "Add New Class Type";
+    if (modalLabel) modalLabel.textContent = "Thêm Thể Loại Lớp Mới";
     if (modalSubtitle)
       modalSubtitle.textContent =
-        "Configure modality parameters, target exertion levels, and equipment requirements.";
+        "Thiết lập thông tin cơ bản cho thể loại lớp học mới.";
     if (submitBtn)
       submitBtn.innerHTML = `
       <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
         <polyline points="20 6 9 17 4 12"/>
-      </svg> Save Class Type`;
+      </svg> Lưu Thể Loại`;
 
     hiddenId.value = "";
     nameInput.value = "";
     descTextarea.value = "";
     isActiveCheck.checked = true;
     clearFormErrors();
-    if (nameCounter) nameCounter.textContent = "0 / 50 chars";
-    if (descCounter) descCounter.textContent = "0 / 500 chars";
+    if (nameCounter) nameCounter.textContent = "0 / 50 ký tự";
+    if (descCounter) descCounter.textContent = "0 / 500 ký tự";
     syncStatusLabel(true);
 
     getModal()?.show();
@@ -322,36 +327,37 @@ export async function init(): Promise<void> {
 
   function openEditModal(ct: ClassTypeResponse): void {
     if (!hiddenId || !nameInput || !descTextarea || !isActiveCheck) return;
-    if (modalLabel) modalLabel.textContent = "Edit Class Type";
+    const isActive = Boolean(ct.isActive ?? ct.active);
+    if (modalLabel) modalLabel.textContent = "Chỉnh Sửa Thể Loại Lớp";
     if (modalSubtitle)
-      modalSubtitle.textContent = `Updating details for CT-${String(ct.id).padStart(3, "0")}.`;
+      modalSubtitle.textContent = `Đang cập nhật thông tin cho mã CT-${String(ct.id).padStart(3, "0")}.`;
     if (submitBtn)
       submitBtn.innerHTML = `
       <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
         <polyline points="20 6 9 17 4 12"/>
-      </svg> Update Class Type`;
+      </svg> Cập Nhật Thể Loại`;
 
     hiddenId.value = String(ct.id);
     nameInput.value = ct.name;
     descTextarea.value = ct.description;
-    isActiveCheck.checked = ct.isActive;
+    isActiveCheck.checked = isActive;
     clearFormErrors();
-    if (nameCounter) nameCounter.textContent = `${ct.name.length} / 50 chars`;
+    if (nameCounter) nameCounter.textContent = `${ct.name.length} / 50 ký tự`;
     if (descCounter)
-      descCounter.textContent = `${ct.description.length} / 500 chars`;
-    syncStatusLabel(ct.isActive);
+      descCounter.textContent = `${ct.description.length} / 500 ký tự`;
+    syncStatusLabel(isActive);
 
     getModal()?.show();
   }
 
     nameInput?.addEventListener("input", () => {
     if (nameCounter)
-      nameCounter.textContent = `${nameInput.value.length} / 50 chars`;
+      nameCounter.textContent = `${nameInput.value.length} / 50 ký tự`;
   });
 
   descTextarea?.addEventListener("input", () => {
     if (descCounter)
-      descCounter.textContent = `${descTextarea.value.length} / 500 chars`;
+      descCounter.textContent = `${descTextarea.value.length} / 500 ký tự`;
   });
 
     isActiveCheck?.addEventListener("change", () => {
@@ -386,33 +392,44 @@ export async function init(): Promise<void> {
     // Disable submit button
     if (submitBtn) {
       submitBtn.disabled = true;
-      submitBtn.textContent = editingId ? "Updating..." : "Saving...";
+      submitBtn.textContent = editingId ? "Đang cập nhật..." : "Đang lưu...";
     }
 
     try {
       if (editingId) {
-                const updated = await classTypeService.update(editingId, {
+        const updated = await classTypeService.update(editingId, {
           name,
           description,
           isActive,
+          active: isActive,
         });
         const idx = allClassTypes.findIndex((c) => c.id === editingId);
         if (idx !== -1) {
-          allClassTypes[idx] = { ...allClassTypes[idx], ...updated };
+          allClassTypes[idx] = {
+            ...allClassTypes[idx],
+            ...updated,
+            isActive,
+            active: isActive,
+          };
         }
         showAlert(
-          `Class type "${updated.name}" updated successfully.`,
+          `Thể loại "${updated.name}" đã được cập nhật thành công.`,
           "success",
         );
       } else {
-                const created = await classTypeService.create({
+        const created = await classTypeService.create({
           name,
           description,
           isActive,
+          active: isActive,
         });
-        allClassTypes.push(created);
+        allClassTypes.push({
+          ...created,
+          isActive,
+          active: isActive,
+        });
         showAlert(
-          `Class type "${created.name}" created successfully.`,
+          `Thể loại "${created.name}" đã được tạo thành công.`,
           "success",
         );
       }
@@ -422,9 +439,9 @@ export async function init(): Promise<void> {
       const filterVal = filterSelect?.value;
       const filtered =
         filterVal === "true"
-          ? allClassTypes.filter((c) => c.isActive)
+          ? allClassTypes.filter((c) => Boolean(c.isActive ?? c.active))
           : filterVal === "false"
-            ? allClassTypes.filter((c) => !c.isActive)
+            ? allClassTypes.filter((c) => !Boolean(c.isActive ?? c.active))
             : allClassTypes;
       renderTable(filtered);
 
@@ -442,7 +459,7 @@ export async function init(): Promise<void> {
         submitBtn.innerHTML = `
           <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
             <polyline points="20 6 9 17 4 12"/>
-          </svg> ${hiddenId.value ? "Update Class Type" : "Save Class Type"}`;
+          </svg> ${hiddenId.value ? "Cập Nhật Thể Loại" : "Lưu Thể Loại"}`;
       }
     }
   });
@@ -451,9 +468,9 @@ export async function init(): Promise<void> {
     const val = filterSelect.value;
     const filtered =
       val === "true"
-        ? allClassTypes.filter((c) => c.isActive)
+        ? allClassTypes.filter((c) => Boolean(c.isActive ?? c.active))
         : val === "false"
-          ? allClassTypes.filter((c) => !c.isActive)
+          ? allClassTypes.filter((c) => !Boolean(c.isActive ?? c.active))
           : allClassTypes;
     renderTable(filtered);
   });

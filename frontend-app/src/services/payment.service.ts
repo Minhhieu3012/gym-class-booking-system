@@ -95,7 +95,7 @@ export class PaymentService {
     status: TransactionStatus | string,
   ): Promise<TransactionResponse> {
     const { data } = await apiClient.patch<TransactionResponse>(
-      `/transactions/${id}/status`,
+      `/admin/transactions/${id}/status`,
       { status },
     );
     return data;
@@ -118,7 +118,7 @@ export class PaymentService {
     payload: AdjustMemberPackageRequest,
   ): Promise<MemberPackage> {
     const { data } = await apiClient.patch<MemberPackage>(
-      `/member-packages/${id}/adjust`,
+      `/admin/member-packages/${id}/adjust`,
       payload,
     );
     return data;

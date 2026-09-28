@@ -304,11 +304,11 @@ export async function init(): Promise<void> {
       !statusSelect
     )
       return;
-    if (modalLabel) modalLabel.textContent = "Add New Room";
+    if (modalLabel) modalLabel.textContent = "Thêm Phòng Tập Mới";
     if (modalSubtitle)
       modalSubtitle.textContent =
-        "Configure studio dimensions, booking quotas, and availability.";
-    if (submitBtn) submitBtn.textContent = " Save Room";
+        "Thiết lập thông tin, sức chứa và vị trí phòng tập mới.";
+    if (submitBtn) submitBtn.textContent = " Lưu Phòng Tập";
 
     // Reset form
     hiddenId.value = "";
@@ -331,14 +331,14 @@ export async function init(): Promise<void> {
       !statusSelect
     )
       return;
-    if (modalLabel) modalLabel.textContent = "Edit Room";
+    if (modalLabel) modalLabel.textContent = "Chỉnh Sửa Phòng Tập";
     if (modalSubtitle)
-      modalSubtitle.textContent = `Updating details for RM-${String(room.id).padStart(3, "0")}.`;
+      modalSubtitle.textContent = `Đang cập nhật thông tin cho phòng RM-${String(room.id).padStart(3, "0")}.`;
     if (submitBtn)
       submitBtn.innerHTML = `
       <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
         <polyline points="20 6 9 17 4 12"/>
-      </svg> Update Room`;
+      </svg> Cập Nhật Phòng Tập`;
 
     hiddenId.value = String(room.id);
     nameInput.value = room.name;
@@ -408,7 +408,7 @@ export async function init(): Promise<void> {
     // Disable submit
     if (submitBtn) {
       submitBtn.disabled = true;
-      submitBtn.textContent = editingId ? "Updating..." : "Saving...";
+      submitBtn.textContent = editingId ? "Đang cập nhật..." : "Đang lưu...";
     }
 
     try {
@@ -418,12 +418,20 @@ export async function init(): Promise<void> {
           location,
           capacity,
         });
+
+        // Status is managed by a separate endpoint — call it if the value changed
+        const originalRoom = allRooms.find((r) => r.id === editingId);
+        if (originalRoom && status !== originalRoom.status) {
+          await roomService.updateStatus(editingId, { status });
+          updated.status = status;
+        }
+
         // Reflect in local state
         const idx = allRooms.findIndex((r) => r.id === editingId);
         if (idx !== -1) {
           allRooms[idx] = { ...allRooms[idx], ...updated };
         }
-        showAlert(`Room "${updated.name}" updated successfully.`, "success");
+        showAlert(`Phòng "${updated.name}" đã được cập nhật thành công.`, "success");
       } else {
         const created = await roomService.create({
           name,
@@ -432,7 +440,7 @@ export async function init(): Promise<void> {
           status,
         });
         allRooms.push(created);
-        showAlert(`Room "${created.name}" created successfully.`, "success");
+        showAlert(`Phòng "${created.name}" đã được tạo thành công.`, "success");
       }
 
       // Re-render table & stats
@@ -458,7 +466,7 @@ export async function init(): Promise<void> {
         submitBtn.innerHTML = `
           <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
             <polyline points="20 6 9 17 4 12"/>
-          </svg> ${hiddenId.value ? "Update Room" : "Save Room"}`;
+          </svg> ${hiddenId.value ? "Cập Nhật Phòng Tập" : "Lưu Phòng Tập"}`;
       }
     }
   });

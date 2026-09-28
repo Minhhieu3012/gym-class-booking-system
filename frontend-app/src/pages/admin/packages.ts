@@ -266,7 +266,10 @@ export async function init(): Promise<void> {
 
             // Update in-memory state
             const pkg = allPackages.find((p) => p.id === id);
-            if (pkg) pkg.isActive = newActive;
+            if (pkg) {
+              pkg.isActive = newActive;
+              pkg.active = newActive;
+            }
 
             setStats(allPackages);
             renderTable(getFilteredPackages());
@@ -459,7 +462,9 @@ export async function init(): Promise<void> {
           isActive,
         });
         const idx = allPackages.findIndex((p) => p.id === editingId);
-        if (idx !== -1) allPackages[idx] = { ...allPackages[idx], ...updated };
+        if (idx !== -1) {
+          allPackages[idx] = { ...allPackages[idx], ...updated, isActive, active: isActive };
+        }
         showAlert(`Gói "${updated.name}" đã được cập nhật thành công.`, "success");
       } else {
         const created = await packageService.create({
@@ -470,7 +475,7 @@ export async function init(): Promise<void> {
           sessionCount,
           isActive,
         });
-        allPackages.push(created);
+        allPackages.push({ ...created, isActive, active: isActive });
         showAlert(`Gói "${created.name}" đã được tạo thành công.`, "success");
       }
 
