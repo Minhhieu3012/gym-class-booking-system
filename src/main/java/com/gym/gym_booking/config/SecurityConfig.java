@@ -1,5 +1,6 @@
 package com.gym.gym_booking.config;
 
+import jakarta.servlet.http.HttpServletResponse;
 import java.util.Arrays;
 
 import org.springframework.context.annotation.Bean;
@@ -40,6 +41,14 @@ public class SecurityConfig {
                 .cors(Customizer.withDefaults()) 
                 
                 .csrf(csrf -> csrf.disable())
+
+                .exceptionHandling(ex -> ex
+                        .authenticationEntryPoint((request, response, authException) -> {
+                            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+                            response.setContentType("application/json;charset=UTF-8");
+                            response.getWriter().write("{\"code\":\"UNAUTHORIZED\",\"message\":\"Phiên đăng nhập đã hết hạn hoặc không hợp lệ. Vui lòng đăng nhập lại.\"}");
+                        })
+                )
 
                 .sessionManagement(session ->
                         session.sessionCreationPolicy(

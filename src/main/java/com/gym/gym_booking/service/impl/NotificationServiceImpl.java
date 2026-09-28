@@ -37,13 +37,15 @@ public class NotificationServiceImpl implements NotificationService {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication == null || !authentication.isAuthenticated()
                 || "anonymousUser".equals(authentication.getName())) {
-            throw new RuntimeException("Unauthorized: User is not authenticated");
+            throw new org.springframework.web.server.ResponseStatusException(
+                    org.springframework.http.HttpStatus.UNAUTHORIZED, "User is not authenticated");
         }
 
         String principal = authentication.getName();
         return userRepository.findByPhoneOrEmail(principal, principal)
                 .or(() -> userRepository.findByEmail(principal))
-                .orElseThrow(() -> new RuntimeException("User not found: " + principal));
+                .orElseThrow(() -> new org.springframework.web.server.ResponseStatusException(
+                        org.springframework.http.HttpStatus.NOT_FOUND, "User not found: " + principal));
     }
 
     @Override

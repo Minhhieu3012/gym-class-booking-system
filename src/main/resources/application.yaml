@@ -21,4 +21,4 @@ spring:
         write-dates-as-timestamps: false
 jwt:
   secret: your-super-secret-key-that-is-at-least-32-characters-long
-  access-expiration: 3600000
+  access-expiration: 604800000 # 7 days

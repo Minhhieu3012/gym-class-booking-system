@@ -55,6 +55,30 @@ export const apiClient = axios.create({
 export const axiosInstance = apiClient;
 
 // ============================================================
+// Helper: Check JWT Expiration
+// ============================================================
+
+export function isTokenExpired(token: string): boolean {
+  try {
+    const parts = token.split(".");
+    if (parts.length < 2) return true;
+    const base64 = parts[1].replace(/-/g, "+").replace(/_/g, "/");
+    const jsonStr = decodeURIComponent(
+      atob(base64)
+        .split("")
+        .map((c) => "%" + ("00" + c.charCodeAt(0).toString(16)).slice(-2))
+        .join(""),
+    );
+    const payload = JSON.parse(jsonStr);
+    if (!payload.exp) return false;
+    // Buffer of 10 seconds before expiration
+    return Date.now() >= payload.exp * 1000 - 10000;
+  } catch {
+    return false;
+  }
+}
+
+// ============================================================
 // Request interceptor
 // ============================================================
 
@@ -72,6 +96,12 @@ apiClient.interceptors.request.use(
       );
 
       if (accessToken) {
+        if (isTokenExpired(accessToken)) {
+          clearAuthAndRedirect();
+          return Promise.reject(
+            new Error("Phiên đăng nhập đã hết hạn. Vui lòng đăng nhập lại."),
+          );
+        }
         config.headers.Authorization =
           `Bearer ${accessToken}`;
       }
@@ -115,7 +145,7 @@ apiClient.interceptors.response.use(
     );
 
     if (
-      status === 401 &&
+      (status === 401 || status === 403) &&
       !isPublicEndpoint
     ) {
       clearAuthAndRedirect();
