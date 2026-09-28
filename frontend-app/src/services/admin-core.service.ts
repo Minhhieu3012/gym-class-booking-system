@@ -78,7 +78,7 @@ export async function getAnalyticsOverview(): Promise<AnalyticsOverview> {
           ? new Date(c.endTime).getTime() < Date.now()
           : false;
         return (c.status || "").toUpperCase() === "COMPLETED" || isPast;
-      }).length || classes.length;
+      }).length;
 
     const bookings =
       bookingsRes.status === "fulfilled"
@@ -94,25 +94,25 @@ export async function getAnalyticsOverview(): Promise<AnalyticsOverview> {
     const attendanceRate =
       bookings.length > 0
         ? Math.round((attendedCount / bookings.length) * 100)
-        : 92;
+        : 0;
 
     return {
-      totalMembers: membersCount || 2,
-      totalTrainers: trainersCount || 4,
-      totalClassesConducted: classesConducted || 2,
-      totalMockRevenue: totalRevenue > 0 ? totalRevenue : 2000000,
+      totalMembers: membersCount,
+      totalTrainers: trainersCount,
+      totalClassesConducted: classesConducted,
+      totalMockRevenue: totalRevenue,
       attendanceRate: attendanceRate,
-      activeBookingsCount: activeBookings || 2,
+      activeBookingsCount: activeBookings,
     };
   } catch (err) {
     console.error("Lỗi khi tổng hợp dữ liệu thống kê từ database:", err);
     return {
-      totalMembers: 2,
-      totalTrainers: 4,
-      totalClassesConducted: 2,
-      totalMockRevenue: 2000000,
-      attendanceRate: 92,
-      activeBookingsCount: 2,
+      totalMembers: 0,
+      totalTrainers: 0,
+      totalClassesConducted: 0,
+      totalMockRevenue: 0,
+      attendanceRate: 0,
+      activeBookingsCount: 0,
     };
   }
 }

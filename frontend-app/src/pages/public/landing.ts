@@ -1,6 +1,7 @@
 import { isAuthenticated, hasRole } from "../../core/api";
 import { trainerService } from "../../services/trainer.service";
 import { reviewService } from "../../services/review.service";
+import { classTypeService } from "../../services/admin-core.service";
 import type { Trainer } from "../../models/trainer";
 import type { Review } from "../../models/review";
 import template from "./landing.html?raw";
@@ -13,6 +14,7 @@ export function render(): string {
 export function init(): void {
   setupNavbarNavigation();
   setupCtaContainer();
+  loadLandingClassTypes();
   loadLandingTrainers();
   loadLandingreview();
 }
@@ -64,6 +66,92 @@ function setupNavbarNavigation(): void {
 }
 
 /**
+ * Tải danh sách Bộ môn lớp nhóm từ Database và hiển thị lên giao diện
+ */
+async function loadLandingClassTypes(): Promise<void> {
+  const container = document.querySelector<HTMLDivElement>(
+    "#landing-programs-container",
+  );
+  if (!container) return;
+
+  try {
+    const res: any = await classTypeService.getAll({ size: 8 });
+    const classTypes = Array.isArray(res) ? res : (res?.content ?? []);
+
+    if (classTypes.length === 0) {
+      container.innerHTML = `
+        <div class="col-12 text-center py-4 text-neutral">
+          <p class="mb-0">Danh sách bộ môn đang được cập nhật. Vui lòng quay lại sau!</p>
+        </div>
+      `;
+      return;
+    }
+
+    const badges = [
+      {
+        badge: "bg-danger-subtle text-danger",
+        tag: "NĂNG LƯỢNG CAO",
+        icon: "bi-fire text-danger",
+      },
+      {
+        badge: "bg-success-subtle text-success",
+        tag: "SỨC MẠNH",
+        icon: "bi-trophy text-success",
+      },
+      {
+        badge: "bg-warning-subtle text-warning-emphasis",
+        tag: "ĐỐI KHÁNG",
+        icon: "bi-shield-shaded text-warning-emphasis",
+      },
+      {
+        badge: "bg-info-subtle text-info-emphasis",
+        tag: "DẺO DAI",
+        icon: "bi-heart-pulse text-info-emphasis",
+      },
+    ];
+
+    container.innerHTML = classTypes
+      .map((ct: any, idx: number) => {
+        const style = badges[idx % badges.length];
+        const desc = ct.description
+          ? escapeHtml(ct.description)
+          : "Lộ trình tập luyện chuyên sâu cùng huấn luyện viên đạt chuẩn.";
+
+        return `
+          <div class="col-12 col-md-6 col-lg-3">
+            <div class="card-theme h-100 p-4 d-flex flex-column justify-content-between shadow-theme-sm">
+              <div>
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                  <span class="badge ${style.badge} fw-bold px-2 py-1 fs-8">${style.tag}</span>
+                  <i class="bi ${style.icon} fs-5"></i>
+                </div>
+                <h3 class="fw-bold text-secondary-theme fs-5 mb-2">
+                  ${escapeHtml(ct.name)}
+                </h3>
+                <p class="text-neutral fs-7 mb-4">
+                  ${desc}
+                </p>
+              </div>
+              <div class="d-flex justify-content-between align-items-center pt-3 border-top border-theme">
+                <span class="text-neutral fs-8 fw-semibold">LỚP NHÓM</span>
+                <span class="badge bg-light text-secondary border border-theme">HOẠT ĐỘNG</span>
+              </div>
+            </div>
+          </div>
+        `;
+      })
+      .join("");
+  } catch (error) {
+    console.error("Lỗi khi tải danh sách bộ môn cho landing page:", error);
+    container.innerHTML = `
+      <div class="col-12 text-center py-4 text-neutral">
+        <p class="mb-0">Chưa thể tải danh sách bộ môn lúc này. Vui lòng thử lại sau.</p>
+      </div>
+    `;
+  }
+}
+
+/**
  * Tải danh sách Huấn luyện viên từ Database và hiển thị lên giao diện
  */
 async function loadLandingTrainers(): Promise<void> {
@@ -95,10 +183,7 @@ async function loadLandingTrainers(): Promise<void> {
     }
 
     const defaultAvatars = [
-      "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=400&auto=format&fit=crop&q=80",
-      "https://images.unsplash.com/photo-1567013127542-490d757e51fc?w=400&auto=format&fit=crop&q=80",
-      "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&auto=format&fit=crop&q=80",
-      "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=400&auto=format&fit=crop&q=80",
+      "/src/assets/img/avatar-user-default.jpg",
     ];
 
     container.innerHTML = trainers
@@ -215,11 +300,9 @@ async function loadLandingreview(): Promise<void> {
     // Lấy đúng tối đa 3 review 5 sao để hiển thị trên 1 hàng ngang
     const topThreeReviews = reviews.slice(0, 3);
 
-    // Mẫu avatar dự phòng theo ảnh tham chiếu
+    // Mẫu avatar dự phòng từ thư mục assets nội bộ
     const fallbackAvatars = [
-      "https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=400&auto=format&fit=crop&q=80",
-      "https://images.unsplash.com/photo-1517841905240-472988babdf9?w=400&auto=format&fit=crop&q=80",
-      "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=400&auto=format&fit=crop&q=80",
+      "/src/assets/img/avatar-user-default.jpg",
     ];
 
     container.innerHTML = topThreeReviews
@@ -235,34 +318,10 @@ async function loadLandingreview(): Promise<void> {
           ? escapeHtml(review.memberName)
           : "Hội viên GYM HUB";
 
-        // Nghề nghiệp / Vai trò màu xanh theo ảnh minh họa
-        let role = "Hội viên GYM HUB";
-        const email = (review.memberEmail || "").toLowerCase();
-        if (
-          email.includes("maria") ||
-          memberName.toLowerCase().includes("maria")
-        ) {
-          role = "Kỹ sư phần mềm";
-        } else if (
-          email.includes("lisa") ||
-          memberName.toLowerCase().includes("lisa")
-        ) {
-          role = "Thiết kế đồ họa";
-        } else if (
-          email.includes("john") ||
-          memberName.toLowerCase().includes("john")
-        ) {
-          role = "Chuyên viên Marketing";
-        } else if (review.targetName && review.targetName !== "--") {
-          role = escapeHtml(review.targetName);
-        } else {
-          const roles = [
-            "Hội viên VIP",
-            "Hội viên Platinum",
-            "Hội viên Yoga & Fitness",
-          ];
-          role = roles[index % roles.length];
-        }
+        const role =
+          review.targetName && review.targetName !== "--"
+            ? `Học viên ${escapeHtml(review.targetName)}`
+            : "Hội viên thân thiết";
 
         const comment = review.comment
           ? escapeHtml(review.comment)
