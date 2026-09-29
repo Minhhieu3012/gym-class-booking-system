@@ -1,4 +1,4 @@
-import { apiClient, axiosInstance } from "../core/api";
+import { apiClient, axiosInstance, getStoredUser } from "../core/api";
 import type {
   PageResponse,
   RoomQueryParams,
@@ -181,22 +181,53 @@ function normalizePackage(item: any): PackageResponse {
 }
 
 export const classTypeService = {
-  async getAll(
+  async getPublicClassTypes(
     params?: ClassTypeQueryParams,
   ): Promise<PageResponse<ClassTypeResponse>> {
-    const queryParams: Record<string, any> = { ...params };
-    if (params && params.status) {
-      queryParams.active = params.status === "ACTIVE";
-      delete queryParams.status;
-    }
     const { data } = await apiClient.get<PageResponse<ClassTypeResponse>>(
-      "/admin/class-types",
-      { params: queryParams },
+      "/class-types",
+      { params },
     );
     if (data && Array.isArray(data.content)) {
       data.content = data.content.map(normalizeClassType);
     }
     return data;
+  },
+
+  async getAll(
+    params?: ClassTypeQueryParams,
+  ): Promise<PageResponse<ClassTypeResponse>> {
+    const user = getStoredUser();
+    const isAdmin = user?.role === "ADMIN";
+    const endpoint = isAdmin ? "/admin/class-types" : "/class-types";
+
+    const queryParams: Record<string, any> = { ...params };
+    if (params && params.status) {
+      queryParams.active = params.status === "ACTIVE";
+      delete queryParams.status;
+    }
+    try {
+      const { data } = await apiClient.get<PageResponse<ClassTypeResponse>>(
+        endpoint,
+        { params: queryParams },
+      );
+      if (data && Array.isArray(data.content)) {
+        data.content = data.content.map(normalizeClassType);
+      }
+      return data;
+    } catch (err) {
+      if (endpoint === "/admin/class-types") {
+        const { data } = await apiClient.get<PageResponse<ClassTypeResponse>>(
+          "/class-types",
+          { params: queryParams },
+        );
+        if (data && Array.isArray(data.content)) {
+          data.content = data.content.map(normalizeClassType);
+        }
+        return data;
+      }
+      throw err;
+    }
   },
 
   async getById(id: number): Promise<ClassTypeResponse> {

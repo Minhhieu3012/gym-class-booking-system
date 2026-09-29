@@ -324,11 +324,12 @@ export async function loadMyClassBookings(): Promise<void> {
 
     container.innerHTML = bookings
       .map((b) => {
-        const title = b.gymClass?.title || `Lớp học #${b.gymClassId || b.id}`;
-        const classType = b.gymClass?.classTypeName || "Lớp nhóm";
-        const trainer = b.gymClass?.trainerName || "Huấn luyện viên Gym";
-        const room = b.gymClass?.roomName ? `· Phòng: ${b.gymClass.roomName}` : "";
-        const timeData = formatDateTime(b.gymClass?.startTime, b.gymClass?.endTime);
+        const title = b.gymClass?.title || b.gymClassTitle || `Lớp học #${b.gymClassId || b.id}`;
+        const classType = b.gymClass?.classTypeName || b.classTypeName || "Lớp nhóm";
+        const trainer = b.gymClass?.trainerName || b.trainerName || "Huấn luyện viên Gym";
+        const roomName = b.gymClass?.roomName || b.roomName;
+        const room = roomName ? `· Phòng: ${roomName}` : "";
+        const timeData = formatDateTime(b.gymClass?.startTime || b.startTime, b.gymClass?.endTime || b.endTime);
         const statusInfo = getStatusBadge(b.status);
 
         // CHỈ hiển thị nút Hủy lịch nếu status là CONFIRMED hoặc PENDING.
@@ -459,8 +460,8 @@ export async function loadMyPTBookings(): Promise<void> {
       .map((b) => {
         const trainer = b.trainerName || `HLV #${b.trainerId}`;
         const timeData = formatDateTime(
-          b.timeSlot?.startTime || b.trainerTimeSlot?.startTime,
-          b.timeSlot?.endTime || b.trainerTimeSlot?.endTime,
+          b.startTime || b.timeSlot?.startTime || b.trainerTimeSlot?.startTime,
+          b.endTime || b.timeSlot?.endTime || b.trainerTimeSlot?.endTime,
         );
         const statusInfo = getStatusBadge(b.status);
 

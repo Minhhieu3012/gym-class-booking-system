@@ -11,6 +11,7 @@ import "./navbar.css";
 export type NavbarActiveItem =
   | "profile"
   | "member-class-list"
+  | "member-schedule"
   | "member-pt-booking"
   | "member-packages"
   | "member-my-bookings"

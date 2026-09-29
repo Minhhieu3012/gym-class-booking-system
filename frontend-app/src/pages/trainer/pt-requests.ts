@@ -2,6 +2,7 @@ import template from "./pt-requests.html?raw";
 import "./pt-requests.css";
 import { bookingService } from "../../services/booking.service";
 import type { PTBooking } from "../../models/booking";
+import { getStoredUser } from "../../core/api";
 import { showToast as showGlobalToast, translateErrorMessage } from "../../utils/toast";
 
 // Khai báo kiểu Bootstrap toàn cục
@@ -153,18 +154,48 @@ export async function loadPTRequests(): Promise<void> {
       return;
     }
 
+    // Pre-fetch danh sách time slot của trainer để luôn hiển thị đúng khung giờ yêu cầu
+    const slotMap = new Map<number, { startTime: string; endTime: string }>();
+    try {
+      const user = getStoredUser();
+      if (user?.id) {
+        const slots = await bookingService.getTrainerTimeSlots(user.id);
+        slots.forEach((s) => {
+          if (s.id) {
+            slotMap.set(s.id, { startTime: s.startTime, endTime: s.endTime });
+          }
+        });
+      }
+    } catch (e) {
+      console.warn("Could not prefetch trainer time slots:", e);
+    }
+
     container.innerHTML = pendingRequests
       .map((req) => {
         const memberName =
           req.memberName ||
           (req as unknown as { member?: { fullName?: string } }).member
             ?.fullName ||
-          `Học viên #${req.memberId || req.id}`;
+          (req.memberId ? `Học viên #${req.memberId}` : `Học viên #${req.id}`);
 
-        const timeData = formatDateTime(
-          req.timeSlot?.startTime || req.trainerTimeSlot?.startTime,
-          req.timeSlot?.endTime || req.trainerTimeSlot?.endTime,
-        );
+        const slotFallback = req.trainerTimeSlotId
+          ? slotMap.get(req.trainerTimeSlotId)
+          : undefined;
+
+        const startTime =
+          (req as any).startTime ||
+          req.timeSlot?.startTime ||
+          req.trainerTimeSlot?.startTime ||
+          slotFallback?.startTime;
+
+        const endTime =
+          (req as any).endTime ||
+          req.timeSlot?.endTime ||
+          req.trainerTimeSlot?.endTime ||
+          slotFallback?.endTime;
+
+        const timeData = formatDateTime(startTime, endTime);
+        const memberCode = `MÃ HV: #HV-${String(req.memberId || req.id).padStart(4, "0")}`;
 
         return `
           <div class="trainer-request-card shadow-theme-sm" id="request-card-${req.id}">
@@ -178,7 +209,7 @@ export async function loadPTRequests(): Promise<void> {
                   <div>
                     <h3 class="member-name mb-0">${escapeHtml(memberName)}</h3>
                     <span class="badge bg-warning text-dark fs-8 fw-semibold">ĐANG CHỜ DUYỆT</span>
-                    <span class="text-neutral fs-8 ms-1">MÃ: #REQ-${String(req.id).padStart(4, "0")}</span>
+                    <span class="text-neutral fs-8 ms-1">${escapeHtml(memberCode)}</span>
                   </div>
                 </div>
 

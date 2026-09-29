@@ -33,13 +33,37 @@ export const STORAGE_KEYS = {
 // Public endpoints
 // ============================================================
 
-const PUBLIC_ENDPOINTS = [
+export const PUBLIC_ENDPOINTS = [
   "/auth/login",
   "/auth/register",
   "/auth/register-trainer",
   "/auth/forgot-password",
   "/auth/reset-password",
+  "/class-types",
+  "/packages",
+  "/trainers",
+  "/rooms",
+  "/reviews",
+  "/classes",
+  "/upload",
 ];
+
+export function isPublicEndpoint(url: string): boolean {
+  const cleanUrl = url.split("?")[0];
+  // Bất kỳ endpoint nào thuộc prefix admin, member, trainer (trừ /trainers công khai), chat đều là private
+  if (
+    cleanUrl.startsWith("/admin") ||
+    cleanUrl.startsWith("/member") ||
+    cleanUrl.startsWith("/chat") ||
+    (cleanUrl.startsWith("/trainer/") && !cleanUrl.startsWith("/trainers"))
+  ) {
+    return false;
+  }
+
+  return PUBLIC_ENDPOINTS.some((endpoint) => {
+    return cleanUrl === endpoint || cleanUrl.startsWith(endpoint + "/");
+  });
+}
 
 // ============================================================
 // Axios instance
@@ -85,25 +109,26 @@ export function isTokenExpired(token: string): boolean {
 apiClient.interceptors.request.use(
   (config: InternalAxiosRequestConfig) => {
     const url = config.url ?? "";
+    const isPublic = isPublicEndpoint(url);
 
-    const isPublic = PUBLIC_ENDPOINTS.some((endpoint) =>
-      url.includes(endpoint),
-    );
+    const accessToken = localStorage.getItem(STORAGE_KEYS.ACCESS_TOKEN);
 
-    if (!isPublic) {
-      const accessToken = localStorage.getItem(
-        STORAGE_KEYS.ACCESS_TOKEN,
-      );
+    if (accessToken) {
+      if (isTokenExpired(accessToken)) {
+        // Token đã hết hạn: xóa khỏi storage
+        localStorage.removeItem(STORAGE_KEYS.ACCESS_TOKEN);
+        localStorage.removeItem(STORAGE_KEYS.USER);
 
-      if (accessToken) {
-        if (isTokenExpired(accessToken)) {
+        // Chỉ điều hướng về /login nếu là endpoint bắt buộc xác thực
+        if (!isPublic) {
           clearAuthAndRedirect();
           return Promise.reject(
             new Error("Phiên đăng nhập đã hết hạn. Vui lòng đăng nhập lại."),
           );
         }
-        config.headers.Authorization =
-          `Bearer ${accessToken}`;
+      } else {
+        // Gắn header Authorization nếu token còn hạn
+        config.headers.Authorization = `Bearer ${accessToken}`;
       }
     }
 
@@ -118,15 +143,26 @@ apiClient.interceptors.request.use(
 // ============================================================
 
 export function clearAuthAndRedirect(): void {
-  localStorage.removeItem(
-    STORAGE_KEYS.ACCESS_TOKEN,
-  );
+  localStorage.removeItem(STORAGE_KEYS.ACCESS_TOKEN);
+  localStorage.removeItem(STORAGE_KEYS.USER);
 
-  localStorage.removeItem(
-    STORAGE_KEYS.USER,
-  );
+  if (typeof window !== "undefined") {
+    const pathname = window.location.pathname;
+    const isPublicPage =
+      pathname === "/" ||
+      pathname === "" ||
+      pathname === "/login" ||
+      pathname === "/register" ||
+      pathname === "/register-trainer" ||
+      pathname === "/forgot-password" ||
+      pathname === "/reset-password" ||
+      pathname.startsWith("/auth/");
 
-  window.location.href = "/login";
+    // Chỉ redirect nếu người dùng đang ở các trang yêu cầu đăng nhập
+    if (!isPublicPage) {
+      window.location.href = `/login?redirect=${encodeURIComponent(pathname)}`;
+    }
+  }
 }
 
 // ============================================================
@@ -140,14 +176,7 @@ apiClient.interceptors.response.use(
     const status = error.response?.status;
     const url = error.config?.url ?? "";
 
-    const isPublicEndpoint = PUBLIC_ENDPOINTS.some(
-      (endpoint) => url.includes(endpoint),
-    );
-
-    if (
-      (status === 401 || status === 403) &&
-      !isPublicEndpoint
-    ) {
+    if ((status === 401 || status === 403) && !isPublicEndpoint(url)) {
       clearAuthAndRedirect();
       return Promise.reject(error);
     }

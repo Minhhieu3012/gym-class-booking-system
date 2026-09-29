@@ -210,6 +210,13 @@ const routes: Route[] = [
     init: MemberSchedulePage.init,
   },
   {
+    path: "/member/schedule.html",
+    requiresAuth: true,
+    roles: ["MEMBER", "ADMIN"],
+    view: MemberSchedulePage.render,
+    init: MemberSchedulePage.init,
+  },
+  {
     path: "/member/chat",
     requiresAuth: true,
     roles: ["MEMBER", "ADMIN", "TRAINER"],

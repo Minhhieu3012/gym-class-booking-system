@@ -127,7 +127,7 @@ export async function loadClassTypes(): Promise<void> {
   if (!selectEl) return;
 
   try {
-    const page = await classTypeService.getAll({ size: 100 });
+    const page = await classTypeService.getPublicClassTypes({ size: 100 });
     const classTypes: ClassTypeResponse[] = Array.isArray(page)
       ? page
       : (page?.content ?? []);

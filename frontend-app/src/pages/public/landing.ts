@@ -75,7 +75,7 @@ async function loadLandingClassTypes(): Promise<void> {
   if (!container) return;
 
   try {
-    const res: any = await classTypeService.getAll({ size: 8 });
+    const res: any = await classTypeService.getPublicClassTypes({ size: 8 });
     const classTypes = Array.isArray(res) ? res : (res?.content ?? []);
 
     if (classTypes.length === 0) {

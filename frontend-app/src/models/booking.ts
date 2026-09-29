@@ -50,6 +50,12 @@ export interface ClassBooking {
   id: number;
   gymClassId?: number;
   gymClass?: GymClass;
+  gymClassTitle?: string;
+  classTypeName?: string;
+  trainerName?: string;
+  roomName?: string;
+  startTime?: string;
+  endTime?: string;
   memberId?: number;
   memberName?: string;
   memberPackageId?: number;
@@ -68,10 +74,15 @@ export interface PTBooking {
   trainerName?: string;
   memberId?: number;
   memberName?: string;
+  memberAvatarUrl?: string;
+  memberPhone?: string;
+  memberEmail?: string;
   timeSlotId?: number;
   trainerTimeSlotId?: number;
   trainerTimeSlot?: TrainerTimeSlot;
   timeSlot?: TrainerTimeSlot;
+  startTime?: string;
+  endTime?: string;
   memberPackageId?: number;
   sessionNote: string;
   healthNote?: string | null;

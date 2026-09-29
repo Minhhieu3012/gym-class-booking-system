@@ -687,7 +687,7 @@ public class PTBookingServiceImpl implements PTBookingService {
     private PTBookingResponseDTO mapToResponse(
             PTBooking booking
     ) {
-        return PTBookingResponseDTO.builder()
+        var builder = PTBookingResponseDTO.builder()
                 .id(booking.getId())
                 .sessionNote(booking.getSessionNote())
                 .healthNote(booking.getHealthNote())
@@ -697,19 +697,31 @@ public class PTBookingServiceImpl implements PTBookingService {
                         booking.getAttendanceStatus()
                 )
                 .bookedAt(booking.getBookedAt())
-                .cancelledAt(booking.getCancelledAt())
-                .memberId(
-                        booking.getMember().getId()
-                )
-                .trainerId(
-                        booking.getTrainer().getId()
-                )
-                .trainerTimeSlotId(
-                        booking.getTrainerTimeSlot().getId()
-                )
-                .memberPackageId(
-                        booking.getMemberPackage().getId()
-                )
-                .build();
+                .cancelledAt(booking.getCancelledAt());
+
+        if (booking.getMember() != null) {
+            builder.memberId(booking.getMember().getId())
+                    .memberName(booking.getMember().getFullName())
+                    .memberAvatarUrl(booking.getMember().getAvatarUrl())
+                    .memberPhone(booking.getMember().getPhone())
+                    .memberEmail(booking.getMember().getEmail());
+        }
+
+        if (booking.getTrainer() != null) {
+            builder.trainerId(booking.getTrainer().getId())
+                    .trainerName(booking.getTrainer().getFullName());
+        }
+
+        if (booking.getTrainerTimeSlot() != null) {
+            builder.trainerTimeSlotId(booking.getTrainerTimeSlot().getId())
+                    .startTime(booking.getTrainerTimeSlot().getStartTime())
+                    .endTime(booking.getTrainerTimeSlot().getEndTime());
+        }
+
+        if (booking.getMemberPackage() != null) {
+            builder.memberPackageId(booking.getMemberPackage().getId());
+        }
+
+        return builder.build();
     }
 }

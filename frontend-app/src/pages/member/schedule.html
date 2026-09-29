@@ -1,223 +1,97 @@
-<div class="schedule-page">
+<main class="schedule-page bg-surface-alt min-vh-100 pb-5">
+  <div class="container py-3 py-md-4 px-3 px-md-4">
+    <div class="schedule-container">
 
-    <!-- NAVBAR -->
-    <nav class="schedule-navbar bg-surface">
-
-        <div class="schedule-navbar-left">
-
+      <!-- HERO HEADER -->
+      <div class="bookings-hero card-theme p-4 p-md-5 mb-4 position-relative overflow-hidden">
+        <div class="row align-items-center">
+          <div class="col-12 col-md-8">
+            <span class="badge-theme badge-active px-3 py-1 mb-2 d-inline-block">LỊCH TRÌNH TẬP LUYỆN</span>
+            <h1 class="hero-title fw-bold text-secondary-theme mb-2">
+              Thời Khóa Biểu Tuần
+            </h1>
+            <p class="hero-desc text-neutral mb-0">
+              Theo dõi toàn bộ lịch học lớp nhóm và các buổi tập huấn luyện viên 1-1 trong tuần của bạn.
+            </p>
+          </div>
+          <div class="col-12 col-md-4 text-md-end mt-3 mt-md-0">
             <a
-                    href="/"
-                    data-link
-                    class="schedule-brand text-decoration-none"
+              href="/member/my-bookings.html"
+              data-link
+              class="btn btn-outline-danger btn-sm d-inline-flex align-items-center gap-1 shadow-sm px-3 py-2"
             >
-                <span class="schedule-brand-icon">⚡</span>
-
-                <div>
-                    <div class="schedule-brand-name text-neutral">
-                        GYM HUB
-                    </div>
-
-                    <div class="schedule-brand-subtitle text-tertiary">
-                        LỊCH CỦA TÔI
-                    </div>
-                </div>
+              <i class="bi bi-clock-history"></i>
+              <span>Quản lý lịch đặt</span>
             </a>
+          </div>
+        </div>
+      </div>
 
+      <!-- FILTER TOOLBAR -->
+      <section class="schedule-toolbar d-flex align-items-center justify-content-between flex-wrap gap-2 mb-4">
+        <div id="schedule-filters" class="schedule-filters d-flex gap-2 flex-wrap">
+          <button type="button" class="schedule-filter active" data-filter="ALL">
+            TẤT CẢ
+          </button>
+          <button type="button" class="schedule-filter" data-filter="CLASS">
+            <i class="bi bi-people me-1"></i> LỚP HỌC NHÓM
+          </button>
+          <button type="button" class="schedule-filter" data-filter="PT">
+            <i class="bi bi-person-badge me-1"></i> TẬP VỚI PT
+          </button>
         </div>
 
+        <button
+          type="button"
+          id="schedule-reload"
+          class="btn btn-outline-secondary btn-sm d-inline-flex align-items-center gap-1 px-3"
+          title="Tải lại dữ liệu"
+        >
+          <i class="bi bi-arrow-clockwise"></i>
+          <span>Tải lại</span>
+        </button>
+      </section>
 
-        <div class="schedule-navbar-actions">
-
-            <a
-                    href="/member/classes"
-                    data-link
-                    class="schedule-nav-link text-secondary-theme text-decoration-none"
-            >
-                LỚP HỌC
-            </a>
-
-            <a
-                    href="/member/pt-booking"
-                    data-link
-                    class="schedule-nav-link text-secondary-theme text-decoration-none"
-            >
-                HUẤN LUYỆN VIÊN
-            </a>
-
-            <a
-                    href="/profile"
-                    data-link
-                    class="schedule-avatar bg-surface-alt text-secondary-theme"
-                    id="schedule-avatar"
-            >
-                M
-            </a>
-
+      <!-- LOADING STATE -->
+      <div id="schedule-loading" class="schedule-state card-theme p-5 text-center">
+        <div class="spinner-border text-danger mb-3" role="status">
+          <span class="visually-hidden">Đang tải...</span>
         </div>
+        <p class="text-neutral mb-0">Đang tải thời khóa biểu của bạn...</p>
+      </div>
 
-    </nav>
+      <!-- ERROR STATE -->
+      <div id="schedule-error" class="schedule-state card-theme p-5 text-center d-none">
+        <div class="schedule-state-icon mb-3">!</div>
+        <h3 class="text-secondary-theme fw-bold mb-2">Không thể tải thời khóa biểu</h3>
+        <p class="text-neutral mb-3">Đã xảy ra lỗi trong quá trình tải lịch tập. Vui lòng thử lại.</p>
+        <button type="button" id="schedule-retry" class="btn btn-danger btn-sm px-4">
+          THỬ LẠI
+        </button>
+      </div>
 
-
-    <!-- MAIN -->
-    <main class="schedule-main">
-
-        <div class="schedule-container">
-
-            <!-- HEADER -->
-            <section class="schedule-header">
-
-                <div>
-                    <div class="schedule-eyebrow text-primary-theme">
-                        LỊCH TẬP CỦA BẠN
-                    </div>
-
-                    <h1 class="schedule-title text-primary-theme">
-                        Lịch Của Tôi
-                    </h1>
-
-                    <p class="schedule-description text-secondary-theme">
-                        Theo dõi các lớp học nhóm và các buổi tập với huấn luyện viên cá nhân của bạn.
-                    </p>
-                </div>
-
-            </section>
-
-
-            <!-- FILTER -->
-            <section class="schedule-toolbar">
-
-                <div
-                        id="schedule-filters"
-                        class="schedule-filters"
-                >
-
-                    <button
-                            type="button"
-                            class="schedule-filter active"
-                            data-filter="ALL"
-                    >
-                        TẤT CẢ
-                    </button>
-
-                    <button
-                            type="button"
-                            class="schedule-filter"
-                            data-filter="CLASS"
-                    >
-                        LỚP HỌC
-                    </button>
-
-                    <button
-                            type="button"
-                            class="schedule-filter"
-                            data-filter="PT"
-                    >
-                        TẬP VỚI PT
-                    </button>
-
-                </div>
-
-            </section>
-
-
-            <!-- LOADING -->
-            <div
-                    id="schedule-loading"
-                    class="schedule-state"
-            >
-                <div class="spinner-border text-primary-theme">
-                    <span class="visually-hidden">
-                        Đang tải...
-                    </span>
-                </div>
-
-                <p class="text-secondary-theme mb-0">
-                    Đang tải lịch tập của bạn...
-                </p>
-            </div>
-
-
-            <!-- ERROR -->
-            <div
-                    id="schedule-error"
-                    class="schedule-state d-none"
-            >
-                <div class="schedule-state-icon">
-                    !
-                </div>
-
-                <h3 class="text-primary-theme">
-                    Không thể tải lịch tập
-                </h3>
-
-                <p class="text-secondary-theme">
-                    Đã xảy ra lỗi trong quá trình tải lịch tập. Vui lòng thử lại.
-                </p>
-
-                <button
-                        type="button"
-                        id="schedule-retry"
-                        class="btn-brand"
-                >
-                    THỬ LẠI
-                </button>
-            </div>
-
-
-            <!-- EMPTY -->
-            <div
-                    id="schedule-empty"
-                    class="schedule-state d-none"
-            >
-                <div class="schedule-state-icon">
-                    ◷
-                </div>
-
-                <h3 class="text-primary-theme">
-                    Không có buổi tập nào
-                </h3>
-
-                <p class="text-secondary-theme">
-                    Bạn chưa có buổi tập nào trong danh mục này.
-                </p>
-
-                <div class="d-flex justify-content-center gap-2 flex-wrap">
-
-                    <a
-                            href="/member/classes"
-                            data-link
-                            class="btn-brand text-decoration-none"
-                    >
-                        KHÁM PHÁ LỚP HỌC
-                    </a>
-
-                    <a
-                            href="/member/pt-booking"
-                            data-link
-                            class="btn-brand-outline text-decoration-none"
-                    >
-                        ĐẶT LỊCH PT
-                    </a>
-
-                </div>
-            </div>
-
-
-            <!-- SCHEDULE LIST -->
-            <section
-                    id="schedule-content"
-                    class="d-none"
-            >
-
-                <div
-                        id="schedule-list"
-                        class="schedule-list"
-                ></div>
-
-            </section>
-
+      <!-- EMPTY STATE -->
+      <div id="schedule-empty" class="schedule-state card-theme p-5 text-center d-none">
+        <div class="schedule-state-icon mb-3">
+          <i class="bi bi-calendar-x" style="font-size: 1.8rem;"></i>
         </div>
+        <h3 class="text-secondary-theme fw-bold mb-2">Chưa có buổi tập nào</h3>
+        <p class="text-neutral mb-4">Bạn chưa có lịch học lớp nhóm hoặc buổi tập cá nhân nào.</p>
+        <div class="d-flex justify-content-center gap-2 flex-wrap">
+          <a href="/member/class-list.html" data-link class="btn btn-danger btn-sm px-3">
+            <i class="bi bi-calendar3 me-1"></i> KHÁM PHÁ LỚP HỌC
+          </a>
+          <a href="/member/pt-booking.html" data-link class="btn btn-outline-danger btn-sm px-3">
+            <i class="bi bi-person-badge me-1"></i> ĐẶT LỊCH PT
+          </a>
+        </div>
+      </div>
 
-    </main>
+      <!-- SCHEDULE LIST -->
+      <section id="schedule-content" class="d-none">
+        <div id="schedule-list" class="schedule-list"></div>
+      </section>
 
-</div>
+    </div>
+  </div>
+</main>
