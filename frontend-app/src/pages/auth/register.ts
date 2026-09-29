@@ -397,6 +397,12 @@ export function init(): void {
     }
   });
 
+  const termsLink = document.getElementById("register-terms-link");
+  termsLink?.addEventListener("click", (e) => {
+    e.preventDefault();
+    showToast("Tính năng sẽ được hoàn thiện trong thời gian sắp tới", "info");
+  });
+
   /* ============================================================
      Submit
   ============================================================ */

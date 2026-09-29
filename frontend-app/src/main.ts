@@ -26,6 +26,18 @@ document.body.addEventListener("click", (event: MouseEvent) => {
   }
 });
 
+// Global upcoming feature handler (Bắt tất cả các nút/link của tính năng chưa hoàn thiện trên web)
+document.body.addEventListener("click", (event: MouseEvent) => {
+  const upcomingTarget = (event.target as HTMLElement).closest<HTMLElement>(
+    "[data-upcoming], #btn-call-mock, #btn-video-mock, #btn-chat-info, #register-terms-link, .forgot-password-footer-link, a[href='#']:not([data-bs-toggle]):not([data-bs-target])",
+  );
+  if (upcomingTarget) {
+    event.preventDefault();
+    event.stopPropagation();
+    showToast("Tính năng sẽ được hoàn thiện trong thời gian sắp tới", "info");
+  }
+});
+
 // Global Logout Handler (Hỗ trợ nút đăng xuất trên cả Top Navbar và Mobile Bottom Navigation)
 document.body.addEventListener("click", async (event: MouseEvent) => {
   const logoutBtn = (event.target as HTMLElement).closest<HTMLElement>(

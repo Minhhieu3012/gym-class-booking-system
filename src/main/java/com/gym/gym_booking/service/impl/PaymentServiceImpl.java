@@ -1,5 +1,15 @@
 package com.gym.gym_booking.service.impl;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.UUID;
+
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.stereotype.Service;
+
 import com.gym.gym_booking.dto.transaction.TransactionCreateRequestDTO;
 import com.gym.gym_booking.dto.transaction.TransactionResponseDTO;
 import com.gym.gym_booking.entity.MemberPackage;
@@ -7,6 +17,7 @@ import com.gym.gym_booking.entity.Package;
 import com.gym.gym_booking.entity.Transaction;
 import com.gym.gym_booking.entity.User;
 import com.gym.gym_booking.enums.MemberPackageStatus;
+import com.gym.gym_booking.enums.PaymentMethod;
 import com.gym.gym_booking.enums.TransactionStatus;
 import com.gym.gym_booking.enums.UserRole;
 import com.gym.gym_booking.repository.MemberPackageRepository;
@@ -14,16 +25,8 @@ import com.gym.gym_booking.repository.PackageRepository;
 import com.gym.gym_booking.repository.TransactionRepository;
 import com.gym.gym_booking.repository.UserRepository;
 import com.gym.gym_booking.service.PaymentService;
-import jakarta.transaction.Transactional;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.util.UUID;
+import jakarta.transaction.Transactional;
 
 @Service
 public class PaymentServiceImpl implements PaymentService {
@@ -45,46 +48,6 @@ public class PaymentServiceImpl implements PaymentService {
         this.userRepository = userRepository;
     }
 
-//    @Override
-//    @Transactional
-//    public TransactionResponseDTO createTransaction(
-//            TransactionCreateRequestDTO request
-//    ) {
-//
-//        User member = getCurrentUser();
-//
-//        if (member.getRole() != UserRole.MEMBER) {
-//            throw new RuntimeException(
-//                    "Only MEMBER can purchase packages"
-//            );
-//        }
-//
-//        Package packageEntity = packageRepository
-//                .findByIdAndActive(request.getPackageId(), true)
-//                .orElseThrow(() ->
-//                        new RuntimeException(
-//                                "Package not found or inactive"
-//                        )
-//                );
-//
-//        Transaction transaction = new Transaction();
-//
-//        transaction.setAmount(packageEntity.getPrice());
-//        transaction.setStatus(TransactionStatus.PENDING);
-//        transaction.setTransactionCode(generateTransactionCode());
-//        transaction.setPaymentMethod(request.getPaymentMethod());
-//
-//        transaction.setMember(member);
-//        transaction.setPackageEntity(packageEntity);
-//
-//        // Chưa thanh toán nên chưa có MemberPackage
-//        transaction.setMemberPackage(null);
-//
-//        Transaction saved =
-//                transactionRepository.save(transaction);
-//
-//        return mapToResponse(saved);
-//    }
 @Override
 @Transactional
 public TransactionResponseDTO createTransaction(
@@ -111,18 +74,15 @@ public TransactionResponseDTO createTransaction(
 
     transaction.setAmount(packageEntity.getPrice());
     transaction.setTransactionCode(generateTransactionCode());
-    transaction.setPaymentMethod(request.getPaymentMethod());
+    transaction.setPaymentMethod(PaymentMethod.MOCK);
     transaction.setMember(member);
     transaction.setPackageEntity(packageEntity);
 
     /*
      * MOCK PAYMENT
-     *
-     * Với đồ án hiện tại, MOCK được xem là
-     * thanh toán thành công ngay lập tức.
      */
-    if (request.getPaymentMethod() != null
-            && request.getPaymentMethod().name().equals("MOCK")) {
+    boolean isMockPayment = true;
+    if (isMockPayment) {
 
         LocalDate startDate = LocalDate.now();
 
@@ -451,7 +411,7 @@ public TransactionResponseDTO createTransaction(
                         transaction.getTransactionCode()
                 )
                 .paymentMethod(
-                        transaction.getPaymentMethod()
+                        transaction.getPaymentMethod() != null ? transaction.getPaymentMethod() : PaymentMethod.MOCK
                 )
                 .createdAt(
                         transaction.getCreatedAt()

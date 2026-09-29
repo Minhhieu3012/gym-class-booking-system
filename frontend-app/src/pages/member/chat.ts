@@ -994,6 +994,20 @@ export async function init(): Promise<void> {
       lightbox.classList.add("d-none");
     });
   }
+
+  // Các tính năng trong lộ trình phát triển (Gọi thoại, Gọi video, Thông tin người dùng)
+  const upcomingMockBtns = [
+    document.getElementById("btn-call-mock"),
+    document.getElementById("btn-video-mock"),
+    document.getElementById("btn-chat-info"),
+  ];
+
+  upcomingMockBtns.forEach((btn) => {
+    btn?.addEventListener("click", (e) => {
+      e.preventDefault();
+      showToast("Tính năng sẽ được hoàn thiện trong thời gian sắp tới", "info");
+    });
+  });
 }
 
 // Tự động khởi chạy nếu truy cập file chat.html độc lập (không qua SPA router)

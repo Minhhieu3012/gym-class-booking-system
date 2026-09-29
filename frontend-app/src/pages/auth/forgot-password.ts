@@ -73,4 +73,13 @@ export function init(): void {
       `;
     }
   });
+
+  const helpLink = document.querySelector<HTMLAnchorElement>(
+    ".forgot-password-footer-link[href='#']",
+  );
+  helpLink?.addEventListener("click", (e) => {
+    e.preventDefault();
+    showToast("Tính năng sẽ được hoàn thiện trong thời gian sắp tới", "info");
+  });
 }
+

@@ -272,4 +272,12 @@ export function showToast(
   }
 }
 
+/**
+ * Hiển thị pop-up thông báo khi người dùng tương tác với tính năng đang phát triển / chưa hoàn thiện
+ */
+export function showUpcomingFeatureToast(): void {
+  showToast("Tính năng sẽ được hoàn thiện trong thời gian sắp tới", "info");
+}
+
 export default showToast;
+
