@@ -1,6 +1,4 @@
 import template from "./reset-password.html?raw";
-import { authService } from "../../services/auth.service";
-import { navigate } from "../../core/router";
 import { showToast } from "../../utils/toast";
 import "./reset-password.css";
 
@@ -33,14 +31,14 @@ export function init(): void {
     return;
   }
 
-  form.addEventListener("submit", async (e: Event) => {
+  form.addEventListener("submit", (e: Event) => {
     e.preventDefault();
 
     const token = tokenInput.value.trim();
     const newPassword = newPasswordInput.value.trim();
     const confirmPassword = confirmPasswordInput.value.trim();
 
-        if (!token || !newPassword || !confirmPassword) {
+    if (!token || !newPassword || !confirmPassword) {
       errorEl.textContent = "Vui lòng điền đầy đủ các trường.";
       return;
     }
@@ -50,32 +48,10 @@ export function init(): void {
       return;
     }
 
-    // Reset error & update button state
+    // Reset error
     errorEl.textContent = "";
-    submitBtn.disabled = true;
-    submitBtn.innerHTML = `
-      <span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true" style="width: 1rem; height: 1rem;"></span>
-      Đang xử lý...
-    `;
 
-    try {
-      await authService.resetPassword({ token, newPassword });
-
-      // Success
-      showToast(
-        "Đặt lại mật khẩu thành công. Vui lòng đăng nhập bằng mật khẩu mới.",
-        "success",
-      );
-      navigate("/login");
-    } catch (error: unknown) {
-      console.error("Lỗi đặt lại mật khẩu:", error);
-      const msg = authService.extractErrorMessage(error);
-      showToast(msg, "error");
-      errorEl.textContent = msg;
-    } finally {
-      // Restore button state
-      submitBtn.disabled = false;
-      submitBtn.textContent = "LƯU MẬT KHẨU MỚI";
-    }
+    // Hiển thị thông báo tính năng đang phát triển
+    showToast("Tính năng sẽ được hoàn thiện trong thời gian sắp tới", "info");
   });
 }

@@ -1,5 +1,4 @@
 import template from "./forgot-password.html?raw";
-import { authService } from "../../services/auth.service";
 import { showToast } from "../../utils/toast";
 import "./forgot-password.css";
 
@@ -20,7 +19,7 @@ export function init(): void {
     return;
   }
 
-  form.addEventListener("submit", async (e: Event) => {
+  form.addEventListener("submit", (e: Event) => {
     e.preventDefault();
 
     const email = emailInput.value.trim();
@@ -31,47 +30,14 @@ export function init(): void {
       return;
     }
 
-    // Reset messages and show loading state
+    // Reset error state
     errorEl.style.display = "none";
     errorEl.textContent = "";
     successEl.style.display = "none";
     successEl.textContent = "";
 
-    submitBtn.disabled = true;
-    submitBtn.innerHTML = `
-      <span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true" style="width: 1rem; height: 1rem;"></span>
-      ĐANG GỬI...
-    `;
-
-    try {
-      const response = await authService.forgotPassword({ email });
-
-      // Show success
-      const successMsg =
-        response.message ||
-        "Đã gửi hướng dẫn khôi phục mật khẩu. Vui lòng kiểm tra email của bạn.";
-      successEl.textContent = successMsg;
-      successEl.style.display = "block";
-      showToast(successMsg, "success");
-
-      // Optionally clear input
-      emailInput.value = "";
-    } catch (error: unknown) {
-      console.error("Lỗi gửi yêu cầu quên mật khẩu:", error);
-      const msg = authService.extractErrorMessage(error);
-      showToast(msg, "error");
-      errorEl.textContent = msg;
-      errorEl.style.display = "block";
-    } finally {
-      // Restore button state
-      submitBtn.disabled = false;
-      submitBtn.innerHTML = `
-        GỬI LIÊN KẾT ĐẶT LẠI MẬT KHẨU
-        <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
-          <line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/>
-        </svg>
-      `;
-    }
+    // Hiển thị thông báo tính năng đang phát triển
+    showToast("Tính năng sẽ được hoàn thiện trong thời gian sắp tới", "info");
   });
 
   const helpLink = document.querySelector<HTMLAnchorElement>(
