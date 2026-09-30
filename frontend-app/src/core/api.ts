@@ -1,14 +1,7 @@
 import axios from "axios";
-import type {
-  AxiosError,
-  InternalAxiosRequestConfig,
-} from "axios";
+import type { AxiosError, InternalAxiosRequestConfig } from "axios";
 
-import type {
-  AuthUser,
-  LoginResponse,
-  UserRole,
-} from "../models/auth";
+import type { AuthUser, LoginResponse, UserRole } from "../models/auth";
 
 // ============================================================
 // API Error
@@ -50,7 +43,6 @@ export const PUBLIC_ENDPOINTS = [
 
 export function isPublicEndpoint(url: string): boolean {
   const cleanUrl = url.split("?")[0];
-  // Bất kỳ endpoint nào thuộc prefix admin, member, trainer (trừ /trainers công khai), chat đều là private
   if (
     cleanUrl.startsWith("/admin") ||
     cleanUrl.startsWith("/member") ||
@@ -189,18 +181,10 @@ apiClient.interceptors.response.use(
 // Session
 // ============================================================
 
-export function setSession(
-  data: LoginResponse,
-): void {
-  localStorage.setItem(
-    STORAGE_KEYS.ACCESS_TOKEN,
-    data.accessToken,
-  );
+export function setSession(data: LoginResponse): void {
+  localStorage.setItem(STORAGE_KEYS.ACCESS_TOKEN, data.accessToken);
 
-  localStorage.setItem(
-    STORAGE_KEYS.USER,
-    JSON.stringify(data.user),
-  );
+  localStorage.setItem(STORAGE_KEYS.USER, JSON.stringify(data.user));
 }
 
 // ============================================================
@@ -208,9 +192,7 @@ export function setSession(
 // ============================================================
 
 export function getStoredUser(): AuthUser | null {
-  const raw = localStorage.getItem(
-    STORAGE_KEYS.USER,
-  );
+  const raw = localStorage.getItem(STORAGE_KEYS.USER);
 
   if (!raw) {
     return null;
@@ -228,24 +210,17 @@ export function getStoredUser(): AuthUser | null {
 // ============================================================
 
 export function isAuthenticated(): boolean {
-  return !!localStorage.getItem(
-    STORAGE_KEYS.ACCESS_TOKEN,
-  );
+  return !!localStorage.getItem(STORAGE_KEYS.ACCESS_TOKEN);
 }
 
 // ============================================================
 // Role
 // ============================================================
 
-export function hasRole(
-  ...roles: UserRole[]
-): boolean {
+export function hasRole(...roles: UserRole[]): boolean {
   const user = getStoredUser();
 
-  return (
-    !!user &&
-    roles.includes(user.role)
-  );
+  return !!user && roles.includes(user.role);
 }
 
 export default apiClient;

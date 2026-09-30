@@ -57,9 +57,6 @@ document.body.addEventListener("click", async (event: MouseEvent) => {
   }
 });
 
-// Initialize router
 initRouter();
 
-// Initialize notification popover (nếu header đã có sẵn trong DOM ban đầu)
 initNotification();
-

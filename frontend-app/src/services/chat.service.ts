@@ -26,7 +26,9 @@ export class ChatService {
    * @returns Danh sách hội thoại {@link ConversationItem}
    */
   public async getConversations(): Promise<ConversationItem[]> {
-    const { data } = await axiosInstance.get<ConversationItem[]>("/chat/conversations");
+    const { data } = await axiosInstance.get<ConversationItem[]>(
+      "/chat/conversations",
+    );
     return data;
   }
 
@@ -115,28 +117,37 @@ export class ChatService {
         if (!this.stompClient) return;
 
         // Lắng nghe tin nhắn mới gửi đến
-        this.stompClient.subscribe("/user/queue/messages", (message: IMessage) => {
-          try {
-            const data: ChatMessageDTO = JSON.parse(message.body);
-            if (this.onMessageCallback) {
-              this.onMessageCallback(data);
+        this.stompClient.subscribe(
+          "/user/queue/messages",
+          (message: IMessage) => {
+            try {
+              const data: ChatMessageDTO = JSON.parse(message.body);
+              if (this.onMessageCallback) {
+                this.onMessageCallback(data);
+              }
+            } catch (error) {
+              console.error(
+                "Failed to parse incoming chat message JSON:",
+                error,
+              );
             }
-          } catch (error) {
-            console.error("Failed to parse incoming chat message JSON:", error);
-          }
-        });
+          },
+        );
 
         // Lắng nghe các lỗi xảy ra từ chat server
-        this.stompClient.subscribe("/user/queue/errors", (message: IMessage) => {
-          try {
-            const errorData: ChatErrorDTO = JSON.parse(message.body);
-            if (this.onErrorCallback) {
-              this.onErrorCallback(errorData);
+        this.stompClient.subscribe(
+          "/user/queue/errors",
+          (message: IMessage) => {
+            try {
+              const errorData: ChatErrorDTO = JSON.parse(message.body);
+              if (this.onErrorCallback) {
+                this.onErrorCallback(errorData);
+              }
+            } catch (error) {
+              console.error("Failed to parse chat error JSON:", error);
             }
-          } catch (error) {
-            console.error("Failed to parse chat error JSON:", error);
-          }
-        });
+          },
+        );
 
         // Lắng nghe xác nhận gửi tin nhắn thành công
         this.stompClient.subscribe("/user/queue/ack", (message: IMessage) => {
@@ -153,7 +164,11 @@ export class ChatService {
         });
       },
       onStompError: (frame) => {
-        console.error("STOMP protocol error:", frame.headers["message"], frame.body);
+        console.error(
+          "STOMP protocol error:",
+          frame.headers["message"],
+          frame.body,
+        );
       },
     });
 
@@ -182,7 +197,10 @@ export class ChatService {
         body: JSON.stringify(payload),
       });
     } else {
-      console.warn("STOMP client is not connected. Unable to send message:", payload);
+      console.warn(
+        "STOMP client is not connected. Unable to send message:",
+        payload,
+      );
     }
   }
 

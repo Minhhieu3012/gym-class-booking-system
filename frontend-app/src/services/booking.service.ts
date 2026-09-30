@@ -19,13 +19,11 @@ import type {
 } from "../models/booking";
 
 export class BookingService {
-  // ==========================================
-  // LUỒNG CLASS (LỚP HỌC NHÓM)
-  // ==========================================
+  // =============
+  // LUỒNG CLASS
+  // ============
 
-  async getClasses(
-    params?: ClassQueryParams,
-  ): Promise<PageResponse<GymClass>> {
+  async getClasses(params?: ClassQueryParams): Promise<PageResponse<GymClass>> {
     const { data } = await apiClient.get<PageResponse<GymClass>>("/classes", {
       params,
     });
@@ -72,9 +70,9 @@ export class BookingService {
     return data;
   }
 
-  // ==========================================
-  // LUỒNG PT (HUẤN LUYỆN VIÊN CÁ NHÂN 1-1)
-  // ==========================================
+  // ==========
+  // LUỒNG PT
+  // ===========
 
   async getTrainerTimeSlots(
     trainerId: number,
@@ -127,10 +125,7 @@ export class BookingService {
   }
 
   async bookPT(payload: PTBookingRequest): Promise<PTBooking> {
-    const { data } = await apiClient.post<PTBooking>(
-      "/pt-bookings",
-      payload,
-    );
+    const { data } = await apiClient.post<PTBooking>("/pt-bookings", payload);
     return data;
   }
 
