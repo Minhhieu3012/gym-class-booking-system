@@ -466,12 +466,6 @@ function view404(): string {
     </section>`;
 }
 
-/**
- * Router Guard chuyên biệt cho các trang Admin:
- * Kiểm tra nếu window.location.pathname chứa '/admin/':
- * Lấy thông tin user từ localStorage. Nếu không có user hoặc user.role !== 'ADMIN',
- * lập tức chuyển hướng về /auth/login.html bằng window.location.href.
- */
 export function checkAdminRouteGuard(
   pathname: string = window.location.pathname,
 ): boolean {

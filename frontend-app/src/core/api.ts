@@ -111,7 +111,6 @@ apiClient.interceptors.request.use(
         localStorage.removeItem(STORAGE_KEYS.ACCESS_TOKEN);
         localStorage.removeItem(STORAGE_KEYS.USER);
 
-        // Chỉ điều hướng về /login nếu là endpoint bắt buộc xác thực
         if (!isPublic) {
           clearAuthAndRedirect();
           return Promise.reject(
@@ -119,7 +118,6 @@ apiClient.interceptors.request.use(
           );
         }
       } else {
-        // Gắn header Authorization nếu token còn hạn
         config.headers.Authorization = `Bearer ${accessToken}`;
       }
     }
@@ -150,7 +148,6 @@ export function clearAuthAndRedirect(): void {
       pathname === "/reset-password" ||
       pathname.startsWith("/auth/");
 
-    // Chỉ redirect nếu người dùng đang ở các trang yêu cầu đăng nhập
     if (!isPublicPage) {
       window.location.href = `/login?redirect=${encodeURIComponent(pathname)}`;
     }

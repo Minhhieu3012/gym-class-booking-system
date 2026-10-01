@@ -1,10 +1,7 @@
 import template from "./pt-booking.html?raw";
 import "./pt-booking.css";
 
-import {
-  bookingService,
-  BookingService,
-} from "../../services/booking.service";
+import { bookingService, BookingService } from "../../services/booking.service";
 
 import { trainerService } from "../../services/trainer.service";
 
@@ -13,10 +10,7 @@ import type { Trainer } from "../../models/trainer";
 
 import { navigate } from "../../core/router";
 
-import {
-  renderNavbar,
-  initNavbar,
-} from "../../components/navbar";
+import { renderNavbar, initNavbar } from "../../components/navbar";
 import { showToast, translateErrorMessage } from "../../utils/toast";
 
 // Khai báo kiểu Bootstrap toàn cục
@@ -35,7 +29,10 @@ let selectedTimeSlotText = "";
 /**
  * Định dạng thời gian hiển thị cho time slot
  */
-function formatSlotTime(startStr: string, endStr: string): { time: string; date: string } {
+function formatSlotTime(
+  startStr: string,
+  endStr: string,
+): { time: string; date: string } {
   try {
     const start = new Date(startStr);
     const end = new Date(endStr);
@@ -145,11 +142,13 @@ function updateStepIndicator(step: 1 | 2 | 3): void {
 }
 
 /**
- * STEP 1: Tải danh sách huấn luyện viên
+ * Tải danh sách huấn luyện viên
  * GET /trainers
  */
 export async function loadTrainers(): Promise<void> {
-  const container = document.querySelector<HTMLDivElement>("#trainer-list-container");
+  const container = document.querySelector<HTMLDivElement>(
+    "#trainer-list-container",
+  );
   if (!container) return;
 
   try {
@@ -170,8 +169,12 @@ export async function loadTrainers(): Promise<void> {
     container.innerHTML = trainers
       .map((t) => {
         const spec = t.specialization || "Thể hình & Thể lực";
-        const exp = t.experienceYears ? `${t.experienceYears} năm kinh nghiệm` : "HLV Chuyên nghiệp";
-        const bio = t.bio || "Tận tâm đồng hành, xây dựng lộ trình tập luyện khoa học và phù hợp với từng cá nhân.";
+        const exp = t.experienceYears
+          ? `${t.experienceYears} năm kinh nghiệm`
+          : "HLV Chuyên nghiệp";
+        const bio =
+          t.bio ||
+          "Tận tâm đồng hành, xây dựng lộ trình tập luyện khoa học và phù hợp với từng cá nhân.";
 
         return `
           <div class="col-12 col-md-6 col-lg-4 d-flex">
@@ -188,7 +191,7 @@ export async function loadTrainers(): Promise<void> {
 
               <div class="d-flex align-items-center gap-3 mb-2">
                 <div class="trainer-avatar-box">
-                  <img src="${escapeHtml(t.avatarUrl || '/src/assets/img/avatar-user-default.jpg')}" alt="${escapeHtml(t.fullName)}" class="img-fluid" />
+                  <img src="${escapeHtml(t.avatarUrl || "/src/assets/img/avatar-user-default.jpg")}" alt="${escapeHtml(t.fullName)}" class="img-fluid" />
                 </div>
                 <div>
                   <h3 class="trainer-name mb-1">${escapeHtml(t.fullName)}</h3>
@@ -235,17 +238,25 @@ export async function loadTrainers(): Promise<void> {
 }
 
 /**
- * STEP 2: Tải các khung giờ trống của huấn luyện viên
+ * Tải các khung giờ trống của huấn luyện viên
  * GET /trainers/{trainerId}/time-slots
  * LƯU Ý QUAN TRỌNG: Chỉ render time slot có status == 'AVAILABLE' và startTime trong tương lai
  */
 export async function loadTimeSlots(trainerId: number): Promise<void> {
-  const step2Section = document.querySelector<HTMLElement>("#timeslot-container");
+  const step2Section = document.querySelector<HTMLElement>(
+    "#timeslot-container",
+  );
   const loadingEl = document.querySelector<HTMLElement>("#timeslot-loading");
-  const wrapper = document.querySelector<HTMLElement>("#timeslot-buttons-wrapper");
-  const emptyMsg = document.querySelector<HTMLElement>("#timeslot-empty-message");
+  const wrapper = document.querySelector<HTMLElement>(
+    "#timeslot-buttons-wrapper",
+  );
+  const emptyMsg = document.querySelector<HTMLElement>(
+    "#timeslot-empty-message",
+  );
   const subtitle = document.querySelector<HTMLElement>("#timeslot-subtitle");
-  const step3Section = document.querySelector<HTMLElement>("#booking-form-container");
+  const step3Section = document.querySelector<HTMLElement>(
+    "#booking-form-container",
+  );
 
   if (!step2Section || !wrapper || !emptyMsg) return;
 
@@ -272,13 +283,13 @@ export async function loadTimeSlots(trainerId: number): Promise<void> {
     const slotsResponse = await bookingService.getTrainerTimeSlots(trainerId);
     const allSlots: TrainerTimeSlot[] = Array.isArray(slotsResponse)
       ? slotsResponse
-      : ((slotsResponse as unknown as { content?: TrainerTimeSlot[] })?.content ?? []);
+      : ((slotsResponse as unknown as { content?: TrainerTimeSlot[] })
+          ?.content ?? []);
 
     if (loadingEl) loadingEl.classList.add("d-none");
 
     const now = new Date();
 
-    // Lọc: Chỉ render các time slot có status == 'AVAILABLE' và startTime trong tương lai
     const availableFutureSlots = allSlots.filter((slot) => {
       const isAvailable = slot.status === "AVAILABLE";
       const isFuture = new Date(slot.startTime).getTime() > now.getTime();
@@ -286,7 +297,8 @@ export async function loadTimeSlots(trainerId: number): Promise<void> {
     });
 
     if (availableFutureSlots.length === 0) {
-      emptyMsg.textContent = "Không có dữ liệu (Huấn luyện viên hiện chưa có khung giờ trống nào trong thời gian tới. Vui lòng chọn một huấn luyện viên khác!)";
+      emptyMsg.textContent =
+        "Không có dữ liệu (Huấn luyện viên hiện chưa có khung giờ trống nào trong thời gian tới. Vui lòng chọn một huấn luyện viên khác!)";
       emptyMsg.classList.remove("d-none");
       return;
     }
@@ -312,18 +324,25 @@ export async function loadTimeSlots(trainerId: number): Promise<void> {
   } catch (error) {
     console.error("Lỗi khi tải khung giờ tập của HLV:", error);
     if (loadingEl) loadingEl.classList.add("d-none");
-    emptyMsg.textContent = "Không thể tải khung giờ trống lúc này. Vui lòng thử lại sau.";
+    emptyMsg.textContent =
+      "Không thể tải khung giờ trống lúc này. Vui lòng thử lại sau.";
     emptyMsg.classList.remove("d-none");
   }
 }
 
 /**
- * STEP 3: Mở form thông tin bổ sung và xác nhận
+ * Mở form thông tin bổ sung và xác nhận
  */
 function activateStep3(): void {
-  const step3Section = document.querySelector<HTMLElement>("#booking-form-container");
-  const summaryTrainer = document.querySelector<HTMLElement>("#summary-trainer-name");
-  const summaryTime = document.querySelector<HTMLElement>("#summary-timeslot-time");
+  const step3Section = document.querySelector<HTMLElement>(
+    "#booking-form-container",
+  );
+  const summaryTrainer = document.querySelector<HTMLElement>(
+    "#summary-trainer-name",
+  );
+  const summaryTime = document.querySelector<HTMLElement>(
+    "#summary-timeslot-time",
+  );
 
   if (!step3Section) return;
 
@@ -342,19 +361,27 @@ function activateStep3(): void {
  */
 async function handleSubmitPTBooking(): Promise<void> {
   const submitBtn = document.querySelector<HTMLButtonElement>("#btn-submit-pt");
-  const sessionNoteInput = document.querySelector<HTMLTextAreaElement>("#session-note");
-  const healthNoteInput = document.querySelector<HTMLTextAreaElement>("#health-note");
+  const sessionNoteInput =
+    document.querySelector<HTMLTextAreaElement>("#session-note");
+  const healthNoteInput =
+    document.querySelector<HTMLTextAreaElement>("#health-note");
 
   if (!submitBtn) return;
 
   // Validate cơ bản
   if (!selectedTrainerId) {
-    showToastMessage("Vui lòng chọn Huấn luyện viên ở Bước 1 trước khi gửi yêu cầu!", false);
+    showToastMessage(
+      "Vui lòng chọn Huấn luyện viên ở Bước 1 trước khi gửi yêu cầu!",
+      false,
+    );
     return;
   }
 
   if (!selectedTimeSlotId) {
-    showToastMessage("Vui lòng chọn Khung giờ tập ở Bước 2 trước khi gửi yêu cầu!", false);
+    showToastMessage(
+      "Vui lòng chọn Khung giờ tập ở Bước 2 trước khi gửi yêu cầu!",
+      false,
+    );
     return;
   }
 
@@ -412,14 +439,19 @@ async function handleSubmitPTBooking(): Promise<void> {
  */
 function attachEvents(): void {
   // 1. Sự kiện chọn Trainer ở Step 1
-  const trainerContainer = document.querySelector<HTMLDivElement>("#trainer-list-container");
+  const trainerContainer = document.querySelector<HTMLDivElement>(
+    "#trainer-list-container",
+  );
   if (trainerContainer) {
     trainerContainer.addEventListener("click", (event: MouseEvent) => {
-      const target = (event.target as HTMLElement).closest<HTMLElement>(".trainer-card");
+      const target = (event.target as HTMLElement).closest<HTMLElement>(
+        ".trainer-card",
+      );
       if (!target) return;
 
       const trainerIdRaw = target.getAttribute("data-trainer-id");
-      const trainerName = target.getAttribute("data-trainer-name") || "Huấn luyện viên";
+      const trainerName =
+        target.getAttribute("data-trainer-name") || "Huấn luyện viên";
 
       if (!trainerIdRaw) return;
 
@@ -445,11 +477,15 @@ function attachEvents(): void {
     });
   }
 
-  // 2. Sự kiện chọn Time Slot ở Step 2
-  const timeslotWrapper = document.querySelector<HTMLElement>("#timeslot-buttons-wrapper");
+  // Sự kiện chọn Time Slot ở Step 2
+  const timeslotWrapper = document.querySelector<HTMLElement>(
+    "#timeslot-buttons-wrapper",
+  );
   if (timeslotWrapper) {
     timeslotWrapper.addEventListener("click", (event: MouseEvent) => {
-      const target = (event.target as HTMLElement).closest<HTMLButtonElement>(".timeslot-btn");
+      const target = (event.target as HTMLElement).closest<HTMLButtonElement>(
+        ".timeslot-btn",
+      );
       if (!target) return;
 
       const slotIdRaw = target.getAttribute("data-slot-id");

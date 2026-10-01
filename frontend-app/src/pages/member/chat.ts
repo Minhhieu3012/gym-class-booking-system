@@ -110,12 +110,17 @@ function scrollToBottom(): void {
 
 function playNotificationSound(): void {
   try {
-    const audioCtx = new (window.AudioContext || (window as any).webkitAudioContext)();
+    const audioCtx = new (
+      window.AudioContext || (window as any).webkitAudioContext
+    )();
     const osc = audioCtx.createOscillator();
     const gain = audioCtx.createGain();
     osc.type = "sine";
     osc.frequency.setValueAtTime(587.33, audioCtx.currentTime); // D5
-    osc.frequency.exponentialRampToValueAtTime(880, audioCtx.currentTime + 0.12); // A5
+    osc.frequency.exponentialRampToValueAtTime(
+      880,
+      audioCtx.currentTime + 0.12,
+    ); // A5
     gain.gain.setValueAtTime(0.08, audioCtx.currentTime);
     gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.15);
     osc.connect(gain);
@@ -148,7 +153,7 @@ function renderConversations(list: ConversationItem[]): void {
     filtered = filtered.filter(
       (c) =>
         c.fullName.toLowerCase().includes(q) ||
-        (c.lastMessage && c.lastMessage.toLowerCase().includes(q))
+        (c.lastMessage && c.lastMessage.toLowerCase().includes(q)),
     );
   }
 
@@ -194,10 +199,10 @@ function renderConversations(list: ConversationItem[]): void {
       <div class="conversation-info flex-grow-1 overflow-hidden">
         <div class="d-flex justify-content-between align-items-center mb-1">
           <h2 class="h6 fw-semibold mb-0 text-truncate text-secondary-theme">${escapeHtml(
-            conv.fullName
+            conv.fullName,
           )}</h2>
           <span class="message-time small text-muted">${escapeHtml(
-            timeFormatted
+            timeFormatted,
           )}</span>
         </div>
         <div class="d-flex justify-content-between align-items-center">
@@ -256,7 +261,7 @@ function renderMessage(msg: ChatMessageDTO): void {
           alt="Ảnh đính kèm"
           class="chat-bubble-image rounded"
           onclick="window.__openChatLightbox && window.__openChatLightbox('${escapeHtml(
-            msg.imageUrl
+            msg.imageUrl,
           )}')"
         />
       </div>
@@ -300,7 +305,8 @@ function renderTypingIndicator(name: string): HTMLElement | null {
 
   const indicator = document.createElement("div");
   indicator.id = "chat-typing-indicator";
-  indicator.className = "chat-bubble-wrapper bubble-incoming d-flex align-items-center gap-2";
+  indicator.className =
+    "chat-bubble-wrapper bubble-incoming d-flex align-items-center gap-2";
   indicator.innerHTML = `
     <img
       src="${escapeHtml(activePartner?.avatarUrl || DEFAULT_AVATAR)}"
@@ -355,7 +361,7 @@ export async function selectConversation(userId: number): Promise<void> {
 
   // Cập nhật Header Chat Box
   const avatarEl = document.getElementById(
-    "chat-header-avatar"
+    "chat-header-avatar",
   ) as HTMLImageElement | null;
   const nameEl = document.getElementById("chat-header-name");
   const statusEl = document.getElementById("chat-header-status");
@@ -409,7 +415,7 @@ export async function selectConversation(userId: number): Promise<void> {
   } else {
     // Sắp xếp tăng dần theo thời gian
     messages.sort(
-      (a, b) => new Date(a.sentAt).getTime() - new Date(b.sentAt).getTime()
+      (a, b) => new Date(a.sentAt).getTime() - new Date(b.sentAt).getTime(),
     );
 
     messages.forEach((msg) => renderMessage(msg));
@@ -442,26 +448,32 @@ async function handleSendMessage(customContent?: string): Promise<void> {
   }
 
   const chatInput = document.getElementById(
-    "chat-input"
+    "chat-input",
   ) as HTMLInputElement | null;
   const fileInput = document.getElementById(
-    "file-input"
+    "file-input",
   ) as HTMLInputElement | null;
   const btnSend = document.getElementById(
-    "btn-send"
+    "btn-send",
   ) as HTMLButtonElement | null;
   const previewContainer = document.getElementById("image-preview-container");
   const previewImg = document.getElementById(
-    "preview-img"
+    "preview-img",
   ) as HTMLImageElement | null;
 
-  const content = (customContent !== undefined ? customContent : chatInput?.value || "").trim();
+  const content = (
+    customContent !== undefined ? customContent : chatInput?.value || ""
+  ).trim();
   const file = fileInput?.files?.[0] || null;
 
-  // Kiểm tra ảnh thực tế đính kèm: chỉ nhận nếu previewContainer đang hiển thị và có data URL thật
-  const isPreviewVisible = !!(previewContainer && !previewContainer.classList.contains("d-none"));
+  const isPreviewVisible = !!(
+    previewContainer && !previewContainer.classList.contains("d-none")
+  );
   const rawPreviewSrc = previewImg?.getAttribute("src") || "";
-  const hasValidAttachedImage = isPreviewVisible && previewImg?.dataset.attached === "true" && rawPreviewSrc.startsWith("data:image/");
+  const hasValidAttachedImage =
+    isPreviewVisible &&
+    previewImg?.dataset.attached === "true" &&
+    rawPreviewSrc.startsWith("data:image/");
 
   if (!content && !file && !hasValidAttachedImage) {
     return;
@@ -483,7 +495,10 @@ async function handleSendMessage(customContent?: string): Promise<void> {
         const uploadRes = await UploadService.uploadFile(file);
         finalImageUrl = uploadRes.imageUrl;
       } catch (uploadErr) {
-        console.warn("Upload ảnh thất bại, fallback sang base64 data URL:", uploadErr);
+        console.warn(
+          "Upload ảnh thất bại, fallback sang base64 data URL:",
+          uploadErr,
+        );
         finalImageUrl = hasValidAttachedImage ? rawPreviewSrc : null;
       }
     } else if (hasValidAttachedImage) {
@@ -517,7 +532,8 @@ async function handleSendMessage(customContent?: string): Promise<void> {
 
     // 3. Cập nhật preview danh sách hội thoại bên trái
     if (activePartner) {
-      activePartner.lastMessage = content || (finalImageUrl ? "[Hình ảnh]" : "");
+      activePartner.lastMessage =
+        content || (finalImageUrl ? "[Hình ảnh]" : "");
       activePartner.lastMessageAt = newMsg.sentAt;
 
       // Đưa đối tác này lên đầu danh sách
@@ -538,7 +554,7 @@ async function handleSendMessage(customContent?: string): Promise<void> {
       delete previewImg.dataset.attached;
     }
 
-    // 5. Thử gửi qua STOMP WebSocket nếu đã kết nối
+    // Thử gửi qua STOMP WebSocket nếu đã kết nối
     if (chatService.isConnected()) {
       chatService.sendMessage({
         receiverId: activeReceiverId,
@@ -546,7 +562,6 @@ async function handleSendMessage(customContent?: string): Promise<void> {
         imageUrl: finalImageUrl,
       });
     } else {
-      // 6. Mô phỏng phản hồi tự động nếu WebSocket offline (Offline Interactive Demo)
       simulatePartnerReply(content, activeReceiverId);
     }
 
@@ -580,16 +595,38 @@ function simulatePartnerReply(userContent: string, partnerId: number): void {
     removeTypingIndicator();
 
     const lower = userContent.toLowerCase();
-    let replyText = "Tuyệt vời! Tôi đã ghi nhận phản hồi của bạn. Chúng ta sẽ áp dụng vào buổi tập sắp tới nhé! 💪";
+    let replyText =
+      "Tuyệt vời! Tôi đã ghi nhận phản hồi của bạn. Chúng ta sẽ áp dụng vào buổi tập sắp tới nhé! 💪";
 
-    if (lower.includes("deadlift") || lower.includes("squat") || lower.includes("tập")) {
-      replyText = "Form Deadlift & Squat rất quan trọng! Bạn nhớ gồng chặt cơ core, siết cơ mông và giữ thẳng trục cột sống nhé. Hôm nay mình sẽ chỉnh kỹ từng rep cho bạn! 🔥";
-    } else if (lower.includes("dinh dưỡng") || lower.includes("ăn") || lower.includes("thực đơn")) {
-      replyText = "Hôm nay sau buổi tập, bạn nên nạp ngay 1 muỗng Whey hoặc 150g ức gà + 1 củ khoai lang để cơ bắp phục hồi tối đa nhé 🥗";
-    } else if (lower.includes("giờ") || lower.includes("lịch") || lower.includes("17:00") || lower.includes("hẹn")) {
-      replyText = "Đã chốt lịch hẹn nhé! Tôi sẽ chuẩn bị sẵn phòng tập và dụng cụ đón bạn lúc giờ đã hẹn. Nhớ mang theo bình nước và khăn tập nhé! ⏱️";
-    } else if (lower.includes("form") || lower.includes("ảnh") || lower.includes("xem")) {
-      replyText = "Góc đặt chân và độ mở gối của bạn như thế là khá chuẩn rồi đấy! Chỉ cần hạ tạ chậm lại 2 giây nữa là hoàn hảo! 👏";
+    if (
+      lower.includes("deadlift") ||
+      lower.includes("squat") ||
+      lower.includes("tập")
+    ) {
+      replyText =
+        "Form Deadlift & Squat rất quan trọng! Bạn nhớ gồng chặt cơ core, siết cơ mông và giữ thẳng trục cột sống nhé. Hôm nay mình sẽ chỉnh kỹ từng rep cho bạn! 🔥";
+    } else if (
+      lower.includes("dinh dưỡng") ||
+      lower.includes("ăn") ||
+      lower.includes("thực đơn")
+    ) {
+      replyText =
+        "Hôm nay sau buổi tập, bạn nên nạp ngay 1 muỗng Whey hoặc 150g ức gà + 1 củ khoai lang để cơ bắp phục hồi tối đa nhé 🥗";
+    } else if (
+      lower.includes("giờ") ||
+      lower.includes("lịch") ||
+      lower.includes("17:00") ||
+      lower.includes("hẹn")
+    ) {
+      replyText =
+        "Đã chốt lịch hẹn nhé! Tôi sẽ chuẩn bị sẵn phòng tập và dụng cụ đón bạn lúc giờ đã hẹn. Nhớ mang theo bình nước và khăn tập nhé! ⏱️";
+    } else if (
+      lower.includes("form") ||
+      lower.includes("ảnh") ||
+      lower.includes("xem")
+    ) {
+      replyText =
+        "Góc đặt chân và độ mở gối của bạn như thế là khá chuẩn rồi đấy! Chỉ cần hạ tạ chậm lại 2 giây nữa là hoàn hảo! 👏";
     }
 
     const replyMsg: ChatMessageDTO = {
@@ -639,7 +676,6 @@ function onMessageReceived(msg: ChatMessageDTO): void {
     messageHistoryMap[partnerId] = [];
   }
 
-  // 1. Nếu đây là tin nhắn do chính mình gửi được STOMP WebSocket server echo về
   if (msg.senderId === currentUserId) {
     // Tìm tin nhắn lạc quan (optimistic) vừa render trên giao diện
     const optimisticMsg = messageHistoryMap[partnerId].find(
@@ -647,7 +683,9 @@ function onMessageReceived(msg: ChatMessageDTO): void {
         m.senderId === currentUserId &&
         m.content === msg.content &&
         (m.imageUrl || null) === (msg.imageUrl || null) &&
-        Math.abs(new Date(m.sentAt).getTime() - new Date(msg.sentAt).getTime()) < 15000
+        Math.abs(
+          new Date(m.sentAt).getTime() - new Date(msg.sentAt).getTime(),
+        ) < 15000,
     );
 
     if (optimisticMsg) {
@@ -670,7 +708,7 @@ function onMessageReceived(msg: ChatMessageDTO): void {
     return;
   }
 
-  // 2. Nếu là tin nhắn từ đối tác gửi tới
+  // Nếu là tin nhắn từ đối tác gửi tới
   if (messageHistoryMap[partnerId].some((m) => m.id === msg.id)) {
     return;
   }
@@ -693,7 +731,8 @@ function onMessageReceived(msg: ChatMessageDTO): void {
   // Cập nhật danh sách hội thoại
   const existingConv = conversations.find((c) => c.userId === partnerId);
   if (existingConv) {
-    existingConv.lastMessage = msg.content || (msg.imageUrl ? "[Hình ảnh]" : "");
+    existingConv.lastMessage =
+      msg.content || (msg.imageUrl ? "[Hình ảnh]" : "");
     existingConv.lastMessageAt = msg.sentAt;
     if (msg.senderId !== currentUserId && activeReceiverId !== msg.senderId) {
       existingConv.unreadCount = (existingConv.unreadCount || 0) + 1;
@@ -723,10 +762,10 @@ export async function init(): Promise<void> {
 
   // Cập nhật điều hướng & tiêu đề theo vai trò (Member vs Trainer)
   const homeLink = document.getElementById(
-    "chat-nav-home-link"
+    "chat-nav-home-link",
   ) as HTMLAnchorElement | null;
   const backBtn = document.getElementById(
-    "chat-sidebar-back-btn"
+    "chat-sidebar-back-btn",
   ) as HTMLAnchorElement | null;
   const portalTag = document.getElementById("chat-portal-tag");
   const trainerNav = document.getElementById("chat-trainer-nav");
@@ -770,17 +809,13 @@ export async function init(): Promise<void> {
     roleLabel.textContent = isMember
       ? "Hội Viên Gym Hub"
       : isTrainer
-      ? "HLV Trưởng Hub"
-      : "Gym Hub Realtime";
+        ? "HLV Trưởng Hub"
+        : "Gym Hub Realtime";
   }
 
   // Cố gắng kết nối STOMP WebSocket
   try {
-    chatService.setCallbacks(
-      onMessageReceived,
-      onErrorReceived,
-      onAckReceived
-    );
+    chatService.setCallbacks(onMessageReceived, onErrorReceived, onAckReceived);
     chatService.connect();
   } catch (err) {
     // WebSocket chưa sẵn sàng, kích hoạt fallback mode
@@ -798,8 +833,6 @@ export async function init(): Promise<void> {
   // Render danh sách hội thoại
   renderConversations(conversations);
 
-  // Trên Desktop/Tablet (>= 768px): Tự động chọn cuộc hội thoại đầu tiên nếu có
-  // Trên Mobile (< 768px): Giữ danh sách liên hệ chiếm toàn màn hình, chỉ mở chat khi người dùng chọn liên hệ
   if (conversations.length > 0) {
     if (typeof window !== "undefined" && window.innerWidth >= 768) {
       await selectConversation(conversations[0].userId);
@@ -819,7 +852,9 @@ export async function init(): Promise<void> {
   }
 
   // Thiết lập sự kiện Form gửi tin nhắn (dùng onsubmit duy nhất để tránh gửi lặp 2 lần)
-  const chatForm = document.getElementById("chat-form") as HTMLFormElement | null;
+  const chatForm = document.getElementById(
+    "chat-form",
+  ) as HTMLFormElement | null;
   if (chatForm) {
     chatForm.onsubmit = (e) => {
       e.preventDefault();
@@ -844,11 +879,11 @@ export async function init(): Promise<void> {
   // Sự kiện đính kèm file ảnh
   const btnAttach = document.getElementById("btn-attach");
   const fileInput = document.getElementById(
-    "file-input"
+    "file-input",
   ) as HTMLInputElement | null;
   const previewContainer = document.getElementById("image-preview-container");
   const previewImg = document.getElementById(
-    "preview-img"
+    "preview-img",
   ) as HTMLImageElement | null;
   const btnRemovePreview = document.getElementById("btn-remove-preview");
 
@@ -904,7 +939,7 @@ export async function init(): Promise<void> {
 
   // Sự kiện tìm kiếm hội thoại
   const searchInput = document.getElementById(
-    "search-input"
+    "search-input",
   ) as HTMLInputElement | null;
   const btnClearSearch = document.getElementById("btn-clear-search");
 
@@ -945,7 +980,7 @@ export async function init(): Promise<void> {
   const btnEmoji = document.getElementById("btn-emoji");
   const emojiPopover = document.getElementById("emoji-picker-popover");
   const chatInputEl = document.getElementById(
-    "chat-input"
+    "chat-input",
   ) as HTMLInputElement | null;
 
   if (btnEmoji && emojiPopover) {
@@ -975,7 +1010,7 @@ export async function init(): Promise<void> {
   // Lightbox phóng to ảnh
   const lightbox = document.getElementById("image-lightbox");
   const lightboxImg = document.getElementById(
-    "lightbox-img"
+    "lightbox-img",
   ) as HTMLImageElement | null;
   const btnCloseLightbox = document.getElementById("btn-close-lightbox");
 
@@ -990,9 +1025,11 @@ export async function init(): Promise<void> {
     btnCloseLightbox.addEventListener("click", () => {
       lightbox.classList.add("d-none");
     });
-    lightbox.querySelector(".lightbox-overlay")?.addEventListener("click", () => {
-      lightbox.classList.add("d-none");
-    });
+    lightbox
+      .querySelector(".lightbox-overlay")
+      ?.addEventListener("click", () => {
+        lightbox.classList.add("d-none");
+      });
   }
 
   // Các tính năng trong lộ trình phát triển (Gọi thoại, Gọi video, Thông tin người dùng)
